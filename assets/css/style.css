@@ -1,17 +1,4 @@
 
-body{
-    background: url(../image/mothersdaydinner.jpg) 80% 0 fixed;
-    background-size: 1380px 768px;
-}
-
-.coming_soon_content{
-    margin:25px auto;
-    width:100%;
-    min-height:200px;
-}
-
-.in_content{
-    color:white;
-    margin:200px auto;
-    z-index:100;
+.btn, .button{
+	transition:all 0.5s;
 }
