@@ -315,7 +315,7 @@
 
 
     <!-- Content section -->		
-    <section class="main">
+    <section class="main" style="padding:0px;">
                 
         @yield('content')
                 
