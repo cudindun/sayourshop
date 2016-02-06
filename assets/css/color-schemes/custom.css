@@ -145,3 +145,7 @@ input, select {
   border-radius: 12px;
   background-clip: padding-box;
 }
+
+.standard{
+    margin-top:14px;
+}

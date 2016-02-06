@@ -10,7 +10,7 @@
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
-<title>Home</title>
+<title>SayourShop</title>
 
 
 {!! Html::style('assets/lib/bootstrap/css/bootstrap.css') !!}

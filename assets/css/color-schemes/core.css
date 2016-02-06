@@ -2011,7 +2011,7 @@ textarea {
   height: 16px;
   margin-left: -8px;
   margin-top: -2px;
-  background: url('../../img/ui-slider-handle.png') no-repeat;
+  background: url('../../image/ui-slider-handle.png') no-repeat;
   z-index: 20;
 }
 .category .sidebar .price-filter .ui-slider .ui-slider-handle:focus {
