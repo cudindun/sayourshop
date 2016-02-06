@@ -56,7 +56,7 @@
     <section class="home">
                                     
 <!-- Slider -->
-<section class="flexslider">
+<section class="flexslider" style="margin:10px;">
     <ul class="slides">
         <li>
             {!! Html::image('assets/image/slides/1.jpg') !!}
@@ -125,13 +125,13 @@
     </ul>
 </section>
 <!-- End class="flexslider" -->                    <!-- Promos -->
-<section class="promos">
+<section class="promos" style="margin:0;">
     <div class="container">
         <div class="row">
             <?php // ================ TOP PRODUCT SLIDER ==================  ?>
             <div class="col-lg-6">
                 <div class="free-shipping" id="parallax-top-product">
-                    <div class="box" style="min-height:350px">
+                    <div class="box" style="min-height:350px;margin-bottom:10px;">
                         <div class="hgroup title">
                             <h3>Top Product</h3>
                         </div>
@@ -149,9 +149,9 @@
                 </div>
             </div>
             <?php // ================ PRODUCT MO READY 2 ==================  ?>
-            <div class="col-lg-3">
+            <div class="col-lg-3" >
                 <div class="world-shipping">
-                    <div class="box border-top">
+                    <div class="box border-top" style="margin-bottom:10px;">
                         {!! Html::image('assets/image/world-shipping.png', '') !!}
                         <div class="hgroup title">
                             <h3>We're now global!</h3>
@@ -162,9 +162,9 @@
                 </div>
             </div>
             <?php // ================ READY STOCK ==================  ?>
-            <div class="col-lg-3">
+            <div class="col-lg-3" >
                 <div class="low-price">
-                    <div class="box border-top">
+                    <div class="box border-top" style="margin-bottom:10px;">
                         {!! Html::image('assets/image/low-price.png', '') !!}
                         <div class="hgroup title">
                             <h3>Ready Stock!</h3>
@@ -179,11 +179,11 @@
 </section>
 
 <?php // ============================ New Product ================================== ?>
-<section class="new-product" style="margin-bottom:25px">
+<section class="new-product">
     <div class="container">
         <div class="row">
             <div class="col-lg-12">
-                <div class="box border-top">
+                <div class="box border-top" style="margin-bottom:10px;">
                     {!! Html::image('assets/image/low-price.png', '') !!}
                     <div class="hgroup title">
                         <h3>Product Ready Stock Terbaru</h3>
@@ -197,11 +197,11 @@
 </section>
 
 <?php // ============================ Promo ================================== ?>
-<section class="new-product" style="margin-bottom:25px">
+<section class="new-product"  >
     <div class="container">
         <div class="row">
-            <div class="col-lg-12">
-                <div class="box border-top">
+            <div class="col-lg-12" >
+                <div class="box border-top" style="margin-bottom:10px;">
                     <div class="hgroup title">
                         <h3>Promo</h3>
                         <h5>Product Ready Stock Terbaru</h5>
@@ -218,7 +218,7 @@
     <div class="container">
         <div class="row">
             <?php // ============================ PRE ORDER ================================== ?>
-            <div class="col-lg-3">
+            <div class="col-lg-3" >
                 <div class="box border-top">
                     <div class="hgroup title">
                         <h3>PRE ORDER</h3>
@@ -228,10 +228,10 @@
                 </div>
             </div>
             <?php // ============================ TOP PRODUK SLIDER ================================== ?>
-            <div class="col-lg-9">
-                <div class="col-lg-12">
-                    <div class="box border-top">
-                        <div class="hgroup title">
+            <div class="col-lg-9" >
+                <div class="col-lg-12"  style="padding:0px;">
+                    <div class="box border-top" style="margin-bottom:10px;" >
+                        <div class="hgroup title" >
                             <h3>TOP PRODUK SLIDER</h3>
                             <h5>Product Ready Stock Terbaru</h5>
                         </div>
@@ -239,8 +239,8 @@
                     </div>
                 </div>
                 <?php // ============================ PRODUK / PROMO PO 1 ================================== ?>
-                <div class="col-lg-4">
-                    <div class="box border-top">
+                <div class="col-lg-4"  style="padding:0px;">
+                    <div class="box border-top" style="margin-bottom:10px;">
                         <div class="hgroup title">
                             <h3>PRODUK / PROMO PO 1</h3>
                             <h5>Product Ready Stock Terbaru</h5>
@@ -250,7 +250,7 @@
                 </div>
                 <?php // ============================ PRODUK PO TERBARU ================================== ?>
                 <div class="col-lg-8">
-                    <div class="box border-top">
+                    <div class="box border-top" style="margin-bottom:10px;">
                         <div class="hgroup title">
                             <h3>PRODUK PO TERBARU</h3>
                             <h5>Product Ready Stock Terbaru</h5>
