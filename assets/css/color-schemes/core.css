@@ -2166,7 +2166,7 @@ textarea {
 }
 .product-list a .image {
   position: relative;
-  background: #ffffff url('../../img/preloader.gif') no-repeat center center;
+  background: #ffffff url('../../image/preloader.gif') no-repeat center center;
 }
 .product-list a .image img {
   display: block;

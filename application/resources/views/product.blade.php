@@ -59,7 +59,7 @@
 
         <?php // =================== Slider READY STOCK ==================== ?>
         	<div class="col-lg-12">
-        		<div class="box" style="min-height:350px">
+        		<div class="box" style="min-height:350px;margin-top:15px">
         			<p><h2>SLIDER READY STOCK</h2></p>
         			<div class="col-lg-12" id="port">
                         <ul class="thumbs_index index parallax-layer">
@@ -475,90 +475,96 @@
 			<?php // ============================ Product List ================================= ?>
 				<div class="col-lg-12">
 					<div class="product-list isotope">
-					    <div class="standard col-lg-4" data-price="58">
-					        <a href="product.html" title="Lisette Dress">
-					            <div class="image">
-					            	{!! Html::image('assets/image/thumbnails/db_file_img_48_640xauto.jpg','', array('class' => 'primary')) !!}
-					            	{!! Html::image('assets/image/thumbnails/db_file_img_49_640xauto.jpg','', array('class' => 'secondary')) !!}
-					            </div>
+					    <div class="col-lg-4 col-md-6 col-sm-6" data-price="58">
+					    	<div class="standard">
+						        <a href="product.html" title="Lisette Dress">
+						            <div class="image">
+						            	{!! Html::image('assets/image/thumbnails/db_file_img_48_640xauto.jpg','', array('class' => 'primary')) !!}
+						            	{!! Html::image('assets/image/thumbnails/db_file_img_49_640xauto.jpg','', array('class' => 'secondary')) !!}
+						            </div>
 
-					            <div class="title">
-					                <div class="prices">
-					                    <span class="price">£58.00</span>
-					                </div>
-					                <h3>Lisette Dress</h3>
-					            </div>
-
-					        </a>
+						            <div class="title">
+						                <div class="prices">
+						                    <span class="price">£58.00</span>
+						                </div>
+						                <h3>Lisette Dress</h3>
+						            </div>
+						        </a>
+					    	</div>
 					    </div>
 
-					    <div class="standard col-lg-4" data-price="58">
-					        <a href="product.html" title="Lisette Dress">
-					            <div class="image">
-					            	{!! Html::image('assets/image/thumbnails/db_file_img_48_640xauto.jpg','', array('class' => 'primary')) !!}
-					            	{!! Html::image('assets/image/thumbnails/db_file_img_49_640xauto.jpg','', array('class' => 'secondary')) !!}
-					            </div>
+					    <div class="col-lg-4 col-md-6 col-sm-6" data-price="58">
+					    	<div class="standard">
+						        <a href="product.html" title="Lisette Dress">
+						            <div class="image">
+						            	{!! Html::image('assets/image/thumbnails/db_file_img_48_640xauto.jpg','', array('class' => 'primary')) !!}
+						            	{!! Html::image('assets/image/thumbnails/db_file_img_49_640xauto.jpg','', array('class' => 'secondary')) !!}
+						            </div>
 
-					            <div class="title">
-					                <div class="prices">
-					                    <span class="price">£58.00</span>
-					                </div>
-					                <h3>Lisette Dress</h3>
-					            </div>
-
-					        </a>
+						            <div class="title">
+						                <div class="prices">
+						                    <span class="price">£58.00</span>
+						                </div>
+						                <h3>Lisette Dress</h3>
+						            </div>
+						        </a>
+					    	</div>
 					    </div>
 
-					    <div class="standard col-lg-4" data-price="58">
-					        <a href="product.html" title="Lisette Dress">
-					            <div class="image">
-					            	{!! Html::image('assets/image/thumbnails/db_file_img_48_640xauto.jpg','', array('class' => 'primary')) !!}
-					            	{!! Html::image('assets/image/thumbnails/db_file_img_49_640xauto.jpg','', array('class' => 'secondary')) !!}
-					            </div>
+					    <div class="col-lg-4 col-md-6 col-sm-6" data-price="58">
+					    	<div class="standard">
+						        <a href="product.html" title="Lisette Dress">
+						            <div class="image">
+						            	{!! Html::image('assets/image/thumbnails/db_file_img_48_640xauto.jpg','', array('class' => 'primary')) !!}
+						            	{!! Html::image('assets/image/thumbnails/db_file_img_49_640xauto.jpg','', array('class' => 'secondary')) !!}
+						            </div>
 
-					            <div class="title">
-					                <div class="prices">
-					                    <span class="price">£58.00</span>
-					                </div>
-					                <h3>Lisette Dress</h3>
-					            </div>
-
-					        </a>
+						            <div class="title">
+						                <div class="prices">
+						                    <span class="price">£58.00</span>
+						                </div>
+						                <h3>Lisette Dress</h3>
+						            </div>
+						        </a>
+					    	</div>
 					    </div>
 
-					    <div class="standard col-lg-4" data-price="58">
-					        <a href="product.html" title="Lisette Dress">
-					            <div class="image">
-					            	{!! Html::image('assets/image/thumbnails/db_file_img_48_640xauto.jpg','', array('class' => 'primary')) !!}
-					            	{!! Html::image('assets/image/thumbnails/db_file_img_49_640xauto.jpg','', array('class' => 'secondary')) !!}
-					            </div>
+					    <div class="col-lg-4 col-md-6 col-sm-6" data-price="58">
+					    	<div class="standard">
+						        <a href="product.html" title="Lisette Dress">
+						            <div class="image">
+						            	{!! Html::image('assets/image/thumbnails/db_file_img_48_640xauto.jpg','', array('class' => 'primary')) !!}
+						            	{!! Html::image('assets/image/thumbnails/db_file_img_49_640xauto.jpg','', array('class' => 'secondary')) !!}
+						            </div>
 
-					            <div class="title">
-					                <div class="prices">
-					                    <span class="price">£58.00</span>
-					                </div>
-					                <h3>Lisette Dress</h3>
-					            </div>
-
-					        </a>
+						            <div class="title">
+						                <div class="prices">
+						                    <span class="price">£58.00</span>
+						                </div>
+						                <h3>Lisette Dress</h3>
+						            </div>
+						        </a>
+					    	</div>
 					    </div>
 
-					    <div class="standard col-lg-4" data-price="58">
-					        <a href="product.html" title="Lisette Dress">
-					            <div class="image">
-					            	{!! Html::image('assets/image/thumbnails/db_file_img_48_640xauto.jpg','', array('class' => 'primary')) !!}
-					            	{!! Html::image('assets/image/thumbnails/db_file_img_49_640xauto.jpg','', array('class' => 'secondary')) !!}
-					            </div>
+					    <div class="col-lg-4 col-md-6 col-sm-6" data-price="58">
+					    	<div class="standard">
+						        <a href="product.html" title="Lisette Dress">
+						            <div class="image">
+						            	{!! Html::image('assets/image/thumbnails/db_file_img_48_640xauto.jpg','', array('class' => 'primary')) !!}
+						            	{!! Html::image('assets/image/thumbnails/db_file_img_49_640xauto.jpg','', array('class' => 'secondary')) !!}
+						            </div>
 
-					            <div class="title">
-					                <div class="prices">
-					                    <span class="price">£58.00</span>
-					                </div>
-					                <h3>Lisette Dress</h3>
-					            </div>
-
-					        </a>
+						            <div class="title">
+						                <div class="prices">
+						                    <span class="price">£58.00</span>
+						                </div>
+						                <h3>Lisette Dress</h3>
+						            </div>
+						        </a>
+					    	</div>
 					    </div>
+
 					</div>
 					<!-- End class="product-list isotope" -->
 				</div>   
@@ -567,7 +573,7 @@
                                 
                 <!-- PAging -->
 
-                <nav class="text-center">
+                <nav class="text-center" style="margin-top:20px">
 				  <ul class="pagination">
 				    <li>
 				      <a href="#" aria-label="Previous">

@@ -149,3 +149,60 @@ input, select {
 .standard{
     margin-top:14px;
 }
+
+.product-list .standard {
+  list-style: none;
+  width: 100%;
+  float: left;
+  margin-left: 30px;
+  margin-bottom: 30px;
+}
+@media (min-width: 980px) and (max-width: 1199px) {
+  .product-list .standard {
+    width: 100%;
+  }
+}
+@media (min-width: 768px) and (max-width: 979px) {
+  .product-list .standard {
+    width: 100%;
+    margin-left: 20px;
+    margin-bottom: 20px;
+  }
+}
+@media (max-width: 767px) {
+  .product-list .standard {
+    width: 100%;
+    margin-left: 20px;
+    margin-bottom: 20px;
+  }
+}
+@media (max-width: 480px) {
+  .product-list .standard {
+    width: 100%;
+    margin-left: 0;
+    margin-bottom: 20px;
+  }
+}
+.product-list .standard.featured {
+  width: 570px;
+}
+@media (min-width: 980px) and (max-width: 1199px) {
+  .product-list .standard.featured {
+    width: 456px;
+  }
+}
+@media (min-width: 768px) and (max-width: 979px) {
+  .product-list .standard.featured {
+    width: 352px;
+  }
+}
+@media (max-width: 767px) {
+  .product-list .standard.featured {
+    width: 440px;
+  }
+}
+@media (max-width: 480px) {
+  .product-list .standard.featured {
+    width: 300px;
+  }
+}
