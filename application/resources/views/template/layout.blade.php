@@ -38,7 +38,9 @@
 
 <link href="http://fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic|Shadows+Into+Light" rel="stylesheet" type="text/css" />
 
-<script src="http://maps.googleapis.com/maps/api/js?sensor=false" type="text/javascript"></script>
+<?php // <script src="http://maps.googleapis.com/maps/api/js?sensor=false" type="text/javascript"></script> ?>
+
+
 {!! Html::script('assets/js/jquery-2.1.1.min.js') !!}
 {!! Html::script('assets/js/jquery-ui-1.10.2.custom.js') !!}
 {!! Html::script('assets/js/jquery.easing-1.3.min.js') !!}
@@ -164,7 +166,7 @@
                 <div class="col-lg-3 col-md-5 col-sm-5 col-xs-12">
                     <div class="user-interact">
                         <a href="#"><i class="fa fa-shopping-cart"></i><span>3</span></a>
-                        <a href="#" style="min-width:150px"><i class="fa fa-user"></i>Login / Register </a>
+                        <a href="#loginModal" data-toggle="modal" style="min-width:150px"><i class="fa fa-user"></i>Login / Register </a>
                     </div>  
                 </div>
             
@@ -172,10 +174,44 @@
         </div>
         <div class="clear"></div>
     </div>
-    <!-- End class="bottom" -->
-    
+    <!-- End class="bottom" -->    
 </div>
-<!-- End class="header" -->            
+<!-- End class="header" --> 
+
+    <?php // ======================== Login Modal ========================= ?>
+    <div class="modal fade" id="loginModal" tabindex="-1" role="dialog" aria-labelledby="loginLabel">
+      <div class="modal-dialog" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+            <h4 class="modal-title" id="loginLabel">Login</h4>
+          </div>
+          <div class="modal-body">
+            <form class="form-horizontal">
+              <div class="form-group">
+                <label class="col-sm-2 control-label">Email</label>
+                <div class="col-sm-8">
+                  <input type="text" class="form-control" id="email_input" placeholder="Example@email.com">
+                </div>
+              </div>
+              <div class="form-group">
+                <label for="inputPassword" class="col-sm-2 control-label">Password</label>
+                <div class="col-sm-8">
+                  <input type="password" class="form-control" id="pass_input" placeholder="Password">
+                </div>
+              </div>
+            </form>
+            <a href="#">Haven't account yet?</a> / <a href="#">I Forgot my password</a> / <a href="#">Resend Email Confirmation</a>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-small btn-alizarin" data-dismiss="modal">Cancel</button>
+            <button type="button" class="btn btn-small btn-belizehole">Login</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+
 <!-- Navigation -->
 <nav class="navigation">
     <div class="container">
@@ -579,26 +615,7 @@
     </div>
 </div>
 <!-- End class="options-panel" -->
-            
-<!-- Newsletter modal window -->
-<div id="newsletter_subscribe" class="modal hide fade" tabindex="-1">
-    <div class="modal-header">
-        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
-        <div class="hgroup title">
-            <h3>You are now subscribed to our newsletter</h3>
-            <h5>All the latest deals and offers will be making their way to your inbox shortly!</h5>
-        </div>
-    </div>
-
-    <div class="modal-footer">	
-        <div class="pull-left">
-            <button data-dismiss="modal" aria-hidden="true" class="btn btn-small">
-                Close &nbsp; <i class="icon-ok"></i>
-            </button>
-        </div>
-    </div>
-</div>
-<!-- End id="newsletter_subscribe" -->          
+                    
         </div>
 <!-- I'm watching you -->
 <script type="text/javascript">

@@ -150,6 +150,18 @@ input, select {
     margin-top:14px;
 }
 
+#loginModal a{
+    text-decoration: none;
+    cursor:auto;
+}
+
+.rating-item{
+    min-height:10px;
+}
+.rating-item:after{
+    margin-bottom: 1px solid #333;
+}
+
 .product-list .standard {
   list-style: none;
   width: 100%;

@@ -18,6 +18,10 @@ Route::get('product', function () {
     return view('product');
 });
 
+Route::get('product/view', function () {
+    return view('product.view');
+});
+
 Route::get('cart', function () {
     return view('cart');
 });

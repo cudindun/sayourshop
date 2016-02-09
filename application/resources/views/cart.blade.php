@@ -18,7 +18,7 @@
                             <h5>You currently have <strong>3</strong> item(s) in your cart</h5>
                         </div>
                         <div class="box-content">
-                            <div class="cart-items">
+                            <div class="cart-items table-responsive">
                                 <table class="styled-table">
                                     <thead>
                                         <tr>
@@ -176,7 +176,7 @@
                                 </div>
                             </div>
                             <div class="clear"></div>
-                            <div class="box-footer">
+                            <div class="box-footer text-right">
                                 <a class="btn btn-small" href="#" onclick="$('#shipping').modal('show');return false;">Estimate shipping cost</a>
                             </div>
                         </form>
@@ -280,11 +280,15 @@
 <!-- End Cart container -->
 
     <section class="pagination-product" style="margin-top:40px;margin-bottom:15px">
-        <div class="box">
-            PAGINATION PRODUCT SEJENIS<br/>
-            &nbsp;<br/>
-            &nbsp;<br/>
-            &nbsp;<br/>
+        <div class="container">
+            <div class="row">
+                <div class="box">
+                    PAGINATION PRODUCT SEJENIS<br/>
+                    &nbsp;<br/>
+                    &nbsp;<br/>
+                    &nbsp;<br/>
+                </div>
+            </div>
         </div>
     </section>
 @stop
