@@ -458,7 +458,7 @@ ul {
 .btn[disabled],
 .btn.disabled {
   color: #ffffff;
-  background-color: #f0f0f0;
+  /* background-color: #f0f0f0; ========= mkae Comment ========== */
   cursor: no-drop;
   -webkit-opacity: 1;
   -moz-opacity: 1;

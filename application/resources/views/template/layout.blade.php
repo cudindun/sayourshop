@@ -201,7 +201,7 @@
                 </div>
               </div>
             </form>
-            <a href="#">Haven't account yet?</a> / <a href="#">I Forgot my password</a> / <a href="#">Resend Email Confirmation</a>
+            <a href="<?=url()?>/register">Haven't account yet?</a> / <a href="<?=url()?>/forgot">I Forgot my password</a> / <a href="#">Resend Email Confirmation</a>
           </div>
           <div class="modal-footer">
             <button type="button" class="btn btn-small btn-alizarin" data-dismiss="modal">Cancel</button>

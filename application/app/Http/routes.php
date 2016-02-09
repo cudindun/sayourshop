@@ -25,3 +25,15 @@ Route::get('product/view', function () {
 Route::get('cart', function () {
     return view('cart');
 });
+
+Route::get('login', function () {
+    return view('user.login');
+});
+
+Route::get('register', function () {
+    return view('user.register');
+});
+
+Route::get('forgot', function () {
+    return view('user.forgot_pass');
+});
