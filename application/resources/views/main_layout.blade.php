@@ -83,7 +83,7 @@
                 <div class="col-lg-3 col-md-5 col-sm-5 col-xs-12">
                     <div class="user-interact">
                         <a href="#"><i class="fa fa-shopping-cart"></i><span>3</span></a>
-                        <a href="#" style="min-width:150px"><i class="fa fa-user"></i>Login / Register </a>
+                        <a href="#loginModal" data-toggle="modal" style="min-width:150px"><i class="fa fa-user"></i>Login / Register </a>
                     </div>  
                 </div>
             
@@ -91,11 +91,19 @@
         </div>
         <div class="clear"></div>
     </div>
+<<<<<<< HEAD:application/resources/views/main_layout.blade.php
     <!-- End class="bottom" -->
 </div>
 <!-- End class="header" --> 
 
 <?php // ======================== Login Modal ========================= ?>
+=======
+    <!-- End class="bottom" -->    
+</div>
+<!-- End class="header" --> 
+
+    <?php // ======================== Login Modal ========================= ?>
+>>>>>>> b1f1c2703b0107cc53ccaa5946a64fdf0d095187:application/resources/views/template/layout.blade.php
     <div class="modal fade" id="loginModal" tabindex="-1" role="dialog" aria-labelledby="loginLabel">
       <div class="modal-dialog" role="document">
         <div class="modal-content">

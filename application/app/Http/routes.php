@@ -18,3 +18,23 @@ Route::get('/', 'HomeController@index');
 Route::get('product', function () {
     return view('product');
 });
+
+Route::get('product/view', function () {
+    return view('product.view');
+});
+
+Route::get('cart', function () {
+    return view('cart');
+});
+
+Route::get('login', function () {
+    return view('user.login');
+});
+
+Route::get('register', function () {
+    return view('user.register');
+});
+
+Route::get('forgot', function () {
+    return view('user.forgot_pass');
+});
