@@ -1,9 +1,4 @@
-@extends('template/layout')
-
-
 <?php //Css for this page  ?>
-@section('css')
-    {!! Html::style('assets/lib/jparallax/css/jquery.parallax.css') !!}
     <style>
         .thumb{display:inline-block;vertical-align:baseline;overflow:hidden;padding-top:64px;height:0;width:64px;-webkit-background-size:cover;-moz-background-size:cover;-o-background-size:cover;background-size:cover;background-position:0 0;background-repeat:no-repeat;text-decoration:none;color:inherit}
 
@@ -40,17 +35,6 @@
         .index{list-style:none;margin:0;padding:0}
         
     </style>
-@stop
-
-
-<?php //Js for this page  ?>
-@section('js')
-    {!! Html::script('assets/lib/jparallax/js/jquery.parallax.js') !!}
-@stop
-
-
-@section('content')
-
 <!-- Category content -->
 <section class="category">
 
@@ -87,7 +71,7 @@
                         <div class="box border-top">
 
                             <div class="hgroup title">
-                                <h3> <a href="category.html" title="Womens">Womens</a></h3>
+                                <h3> <a href="#" title="Ready Stock">Ready Stock</a></h3>
                             </div>
 
                             <ul class="category-list secondary">
@@ -591,18 +575,13 @@
 				      </a>
 				    </li>
 				  </ul>
-				</nav>
-                                
+				</nav>     
                 <!-- End "Load More" Button -->
             </div>
         </div>
     </div>
-
 </section>
 <!-- End class="category" -->
-
-@stop
-
 
 <?php //Java script for this page  ?>
 @section('script')

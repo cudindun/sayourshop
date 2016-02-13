@@ -1,8 +1,3 @@
-@extends('template/layout')
-
-@section('content')
-
-
 <!-- Cart container -->
 <section class="cart" style="margin-top:20px">
     <div class="container">
@@ -291,4 +286,3 @@
             </div>
         </div>
     </section>
-@stop

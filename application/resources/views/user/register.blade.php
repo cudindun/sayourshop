@@ -1,7 +1,3 @@
-@extends('template/layout')
-
-@section('content')
-
 	<section class="register">
 		<div class="container">
 			<div class="row">
@@ -100,7 +96,6 @@
 			</div>
 		</div>
 	</section>
-@stop
 
 @section('script')
 	<script>

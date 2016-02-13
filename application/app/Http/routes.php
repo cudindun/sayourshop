@@ -10,31 +10,20 @@
 | and give it the controller to call when that URI is requested.
 |
 */
+//ADE
 Route::get('/', 'HomeController@index');
-// Route::get('/', function () {
-//     return view('home');
-// });
+Route::get('produk','ProductController@product');
+//END ADE
 
-Route::get('product', function () {
-    return view('product');
-});
-
+//UDIN
 Route::get('product/view', function () {
-    return view('product.view');
+    return view('product.product_detail');
 });
+Route::get('keranjang','OrderController@cart_form');
+Route::get('login','UserController@login_form');
+Route::get('daftar','UserController@register_form');
+Route::get('lupa_pass','UserController@forgot_pass_form');
+//END UDIN
 
-Route::get('cart', function () {
-    return view('cart');
-});
 
-Route::get('login', function () {
-    return view('user.login');
-});
 
-Route::get('register', function () {
-    return view('user.register');
-});
-
-Route::get('forgot', function () {
-    return view('user.forgot_pass');
-});

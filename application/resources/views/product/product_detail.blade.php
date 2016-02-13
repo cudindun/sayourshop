@@ -1,8 +1,3 @@
-@extends('template/layout')
-
-@section('content')
-
-
 <!-- Product content -->
 <section class="product" style="margin-top:20px">
     <!-- Product info -->
@@ -522,9 +517,6 @@
             </div>
         </div>
     </section>
-
-
-@stop
 
 
 @section('script')

@@ -1,7 +1,3 @@
-@extends('template/layout')
-
-@section('content')
-
 	<section class="forgot">
 		<div class="container">
 			<div class="row">
@@ -21,4 +17,3 @@
 			</div>
 		</div>
 	</section>
-@stop

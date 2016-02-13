@@ -82,8 +82,8 @@
                 </div>
                 <div class="col-lg-3 col-md-5 col-sm-5 col-xs-12">
                     <div class="user-interact">
-                        <a href="#"><i class="fa fa-shopping-cart"></i><span>3</span></a>
-                        <a href="#loginModal" data-toggle="modal" style="min-width:150px"><i class="fa fa-user"></i>Login / Register </a>
+                        <a href="{{url('keranjang')}}"><i class="fa fa-shopping-cart"></i><span>3</span></a>
+                        <a href="{{url('login')}}" style="min-width:150px"><i class="fa fa-user"></i>Login | Register</a>
                     </div>  
                 </div>
             
@@ -91,51 +91,10 @@
         </div>
         <div class="clear"></div>
     </div>
-<<<<<<< HEAD:application/resources/views/main_layout.blade.php
+
     <!-- End class="bottom" -->
 </div>
 <!-- End class="header" --> 
-
-<?php // ======================== Login Modal ========================= ?>
-=======
-    <!-- End class="bottom" -->    
-</div>
-<!-- End class="header" --> 
-
-    <?php // ======================== Login Modal ========================= ?>
->>>>>>> b1f1c2703b0107cc53ccaa5946a64fdf0d095187:application/resources/views/template/layout.blade.php
-    <div class="modal fade" id="loginModal" tabindex="-1" role="dialog" aria-labelledby="loginLabel">
-      <div class="modal-dialog" role="document">
-        <div class="modal-content">
-          <div class="modal-header">
-            <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-            <h4 class="modal-title" id="loginLabel">Login</h4>
-          </div>
-          <div class="modal-body">
-            <form class="form-horizontal">
-              <div class="form-group">
-                <label class="col-sm-2 control-label">Email</label>
-                <div class="col-sm-8">
-                  <input type="text" class="form-control" id="email_input" placeholder="Example@email.com">
-                </div>
-              </div>
-              <div class="form-group">
-                <label for="inputPassword" class="col-sm-2 control-label">Password</label>
-                <div class="col-sm-8">
-                  <input type="password" class="form-control" id="pass_input" placeholder="Password">
-                </div>
-              </div>
-            </form>
-            <a href="<?=url()?>/register">Haven't account yet?</a> / <a href="<?=url()?>/forgot">I Forgot my password</a> / <a href="#">Resend Email Confirmation</a>
-          </div>
-          <div class="modal-footer">
-            <button type="button" class="btn btn-small btn-alizarin" data-dismiss="modal">Cancel</button>
-            <button type="button" class="btn btn-small btn-belizehole">Login</button>
-          </div>
-        </div>
-      </div>
-    </div>
-
 
 <!-- Navigation -->
 <nav class="navigation">
@@ -146,7 +105,10 @@
                     <!-- Main menu (desktop) -->
                     <ul class="main-menu">
                         <li>
-                            <a href="/" title="Home" class="title">Home</a>
+                            <a href="{{ url('/') }}" title="Home" class="title">Home</a>
+                        </li>
+                         <li>
+                            <a href="{{ url('produk') }}" title="About us" class="title">Produk</a>
                         </li>
                         <li>
                             <a href="category.html" title="Mens" class="title">Mens</a>
