@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>@yield('title')</title>
+    	<meta name="csrf-token" content="{{ csrf_token() }}" />
+        <!-- CSS ASSETS -->
+        @foreach($data['css_assets'] as $key => $asset)
+            {!! HTML::style($asset) !!}
+        @endforeach
+        @if(!empty($data['js_assets_head']))
+            @foreach($data['js_assets_head'] as $key => $asset)
+                {!! HTML::script($asset) !!}
+            @endforeach
+        @endif
+    </head>
+    <body>
+        <div class="overlay_loading"></div>
+        @yield('content')
+        <!-- JS ASSETS -->
+        @foreach($data['js_assets'] as $key => $asset)
+            {!! HTML::script($asset) !!}
+        @endforeach
+        @include('components/app_js')
+        @yield('script')
+    </body>
+</html>

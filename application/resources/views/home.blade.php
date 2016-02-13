@@ -1,9 +1,4 @@
-@extends('template/layout')
-
-
 <?php //Css for this page  ?>
-@section('css')
-    {!! Html::style('assets/lib/jparallax/css/jquery.parallax.css') !!}
     <style>
         .thumb{display:inline-block;vertical-align:baseline;overflow:hidden;padding-top:64px;height:0;width:64px;-webkit-background-size:cover;-moz-background-size:cover;-o-background-size:cover;background-size:cover;background-position:0 0;background-repeat:no-repeat;text-decoration:none;color:inherit}
 
@@ -40,20 +35,11 @@
         .index{list-style:none;margin:0;padding:0}
         
     </style>
-@stop
-
-
-<?php //Js for this page  ?>
-@section('js')
-    {!! Html::script('assets/lib/jparallax/js/jquery.parallax.js') !!}
-@stop
-
 
 <?php //Page Content  ?>
-@section('content')
 
     <!-- Home content -->
-    <section class="home">
+    
                                     
 <!-- Slider -->
 <section class="flexslider" style="margin:10px;">
@@ -137,12 +123,12 @@
                         </div>
                         <div class="col-lg-12" id="port">
                             <ul class="thumbs_index index parallax-layer">
-                                <li><a class="img_thumb thumb" href="#" style="background: url('http://webdev.stephband.info/jparallax/images/parallax_thumbnails/1.jpg');">item</a></li>
-                                <li><a class="img_thumb thumb" href="#" style="background: url('http://webdev.stephband.info/jparallax/images/parallax_thumbnails/2.jpg');">item</a></li>
-                                <li><a class="img_thumb thumb" href="#" style="background: url('http://webdev.stephband.info/jparallax/images/parallax_thumbnails/3.jpg');">item</a></li>
-                                <li><a class="img_thumb thumb" href="#" style="background: url('http://webdev.stephband.info/jparallax/images/parallax_thumbnails/4.jpg');">item</a></li>
-                                <li><a class="img_thumb thumb" href="#" style="background: url('http://webdev.stephband.info/jparallax/images/parallax_thumbnails/5.jpg');">item</a></li>
-                                <li><a class="img_thumb thumb" href="#" style="background: url('http://webdev.stephband.info/jparallax/images/parallax_thumbnails/6.jpg');">item</a></li>
+                                <li><a class="img_thumb thumb" href="#" style="background: url('assets/image/top_products/1.jpg');">item</a></li>
+                                <li><a class="img_thumb thumb" href="#" style="background: url('assets/image/top_products/2.jpg');">item</a></li>
+                                <li><a class="img_thumb thumb" href="#" style="background: url('assets/image/top_products/3.jpg');">item</a></li>
+                                <li><a class="img_thumb thumb" href="#" style="background: url('assets/image/top_products/4.jpg');">item</a></li>
+                                <li><a class="img_thumb thumb" href="#" style="background: url('assets/image/top_products/5.jpg');">item</a></li>
+                                <li><a class="img_thumb thumb" href="#" style="background: url('assets/image/top_products/6.jpg');">item</a></li>
                             </ul>
                         </div>
                     </div>
@@ -262,12 +248,8 @@
         </div>
     </div>
 
-</section>                    
-                    
-    </section>
+</section> 
     <!-- End class="home" -->
-
-@stop
 
 
 <?php //Java script for this page  ?>

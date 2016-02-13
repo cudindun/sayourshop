@@ -78,6 +78,7 @@ $(document).ready(function() {
 			radio.prop('checked', true);
 		});
 	})();
+	/* ================== THIS FUNCTIONS JUST BEEN COMMENT ==========================
 	(function() {
 		var map = $('.map');
 		map.gmap3({
@@ -97,6 +98,7 @@ $(document).ready(function() {
 			}
 		});
 	})();
+	*/
 	(function() {
 		var slider = $('#slider');
 		slider.slider({

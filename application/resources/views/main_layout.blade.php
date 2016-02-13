@@ -1,90 +1,13 @@
-<!DOCTYPE html>
-<html dir="ltr" lang="en" class="no-js">
+@extends('components.layout')
+@section('title', $data['title'])
+@section('content')
 
-    <head>
-        <meta charset="UTF-8" />
-
-<meta name="description" content="" />
-<meta name="keywords" content="" />
-<meta name="author" content="La Boutique HTML v1.0" />
-
-<meta name="viewport" content="width=device-width, initial-scale=1.0" />
-
-<title>SayourShop</title>
-
-
-{!! Html::style('assets/lib/bootstrap/css/bootstrap.css') !!}
-{!! Html::style('assets/css/style.css') !!}
-{!! Html::style('assets/font/font-awesome/css/font-awesome.min.css') !!}
-{!! Html::style('assets/css/flexslider.css') !!}
-@yield('css')
-
-<!-- Comment following two lines to use LESS -->
-{!! Html::style('assets/css/color-schemes/core.css') !!}
-{!! Html::style('assets/css/color-schemes/turquoise.css') !!}
-
-<?php /*
-    <link rel="stylesheet" type="text/css" href="css/color-schemes/turquoise.css" id="color_scheme" />
-    */
-?>
-
-<!-- Uncomment following three lines to use LESS -->
-<!--<link rel="stylesheet/less" type="text/css" href="css/less/core.less">
-<link rel="stylesheet/less" type="text/css" href="css/less/turquoise.less" id="color_scheme" >
-<script src="js/less.js" type="text/javascript"></script>-->
-
-
-<link rel="icon" href="assets/image/favicon.ico" type="image/x-icon"/>
-
-<link href="http://fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic|Shadows+Into+Light" rel="stylesheet" type="text/css" />
-
-<script src="http://maps.googleapis.com/maps/api/js?sensor=false" type="text/javascript"></script>
-{!! Html::script('assets/js/jquery-2.1.1.min.js') !!}
-{!! Html::script('assets/js/jquery-ui-1.10.2.custom.js') !!}
-{!! Html::script('assets/js/jquery.easing-1.3.min.js') !!}
-{!! Html::script('assets/lib/bootstrap/js/bootstrap.min.js') !!}
-{!! Html::script('assets/js/jquery.isotope.min.js') !!}
-{!! Html::script('assets/js/jquery.flexslider.js') !!}
-{!! Html::script('assets/js/jquery.elevatezoom.js') !!}
-{!! Html::script('assets/js/jquery.sharrre-1.3.4.js') !!}
-{!! Html::script('assets/js/jquery.gmap3.js') !!}
-{!! Html::script('assets/js/imagesloaded.js') !!}
-{!! Html::script('assets/js/la_boutique.js') !!}
-@yield('js')
-
-<!--preview only-->
-{!! Html::script('assets/js/jquery.cookie.js') !!}
-    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" /></head>
-    <body>
-
-        <div class="wrapper">
-
-            <!-- Header -->
 <div class="header">
-    <?php /* ======================= Top Bar ============================
-    <div class="top">
-        <div class="container">
-            <div class="row">
-                <div class="col-lg-6">
-                    <?php // NULL ?>
-                </div>
-                <div class="col-lg-6 hidden-xs">
-                    <ul class="inline pull-right">
-                        <li>
-                            <a href="login-register.html" title="Login / Register">Login / Register</a>									
-                        </li>
-                    </ul>
-                </div>
-            </div>
-        </div>
-    </div>
-    */ ?>
-
     <!-- Logo & Search bar -->
     <div class="bottom">
         <div class="container">
             <div class="row">
-                <div class="col-lg-4 col-lg-offset-0 col-md-4 col-md-offset-4 col-sm-6 col-sm-offset-3 col-xs-12">							
+                <div class="col-lg-4 col-lg-offset-0 col-md-4 col-md-offset-4 col-sm-6 col-sm-offset-3 col-xs-12">                          
                     <div class="logo">
                         <a href="/" title="&larr; Back home">
                             {!! Html::image('assets/image/logo.png') !!}
@@ -105,7 +28,7 @@
                                     </form>
 
                                     <!-- Autocomplete results -->
-                                    <div id="autocomplete-results" style="display: none;">	
+                                    <div id="autocomplete-results" style="display: none;">  
                                         <ul>
                                             <li>
                                                 <a title="Lisette Dress" href="product.html">
@@ -151,16 +74,12 @@
                                     </div>
                                     <!-- End id="autocomplete-results" -->
                                     
-                                    
-                                    
                                 </div>
                             </div>
                             <!-- End class="search"-->
-                            
                         </div> 
                     </div>
                 </div>
-
                 <div class="col-lg-3 col-md-5 col-sm-5 col-xs-12">
                     <div class="user-interact">
                         <a href="#"><i class="fa fa-shopping-cart"></i><span>3</span></a>
@@ -173,9 +92,43 @@
         <div class="clear"></div>
     </div>
     <!-- End class="bottom" -->
-    
 </div>
-<!-- End class="header" -->            
+<!-- End class="header" --> 
+
+<?php // ======================== Login Modal ========================= ?>
+    <div class="modal fade" id="loginModal" tabindex="-1" role="dialog" aria-labelledby="loginLabel">
+      <div class="modal-dialog" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+            <h4 class="modal-title" id="loginLabel">Login</h4>
+          </div>
+          <div class="modal-body">
+            <form class="form-horizontal">
+              <div class="form-group">
+                <label class="col-sm-2 control-label">Email</label>
+                <div class="col-sm-8">
+                  <input type="text" class="form-control" id="email_input" placeholder="Example@email.com">
+                </div>
+              </div>
+              <div class="form-group">
+                <label for="inputPassword" class="col-sm-2 control-label">Password</label>
+                <div class="col-sm-8">
+                  <input type="password" class="form-control" id="pass_input" placeholder="Password">
+                </div>
+              </div>
+            </form>
+            <a href="<?=url()?>/register">Haven't account yet?</a> / <a href="<?=url()?>/forgot">I Forgot my password</a> / <a href="#">Resend Email Confirmation</a>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-small btn-alizarin" data-dismiss="modal">Cancel</button>
+            <button type="button" class="btn btn-small btn-belizehole">Login</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+
 <!-- Navigation -->
 <nav class="navigation">
     <div class="container">
@@ -267,7 +220,7 @@
                         </li>
                         <li>
                             <a href="contact-us.html" title="Contact us" class="title">Contact us</a>
-                        </li>					
+                        </li>                   
                     </ul>
                     <!-- End class="main-menu" -->
                 </div>
@@ -301,7 +254,7 @@
                         <option value="about-us.html" />About us
                         <option value="store-locator.html" />Store locator
                         <option value="blog.html" />Blog
-                        <option value="contact-us.html" />Contact us					
+                        <option value="contact-us.html" />Contact us                    
                     </select>
                 </div>
             </div>
@@ -313,15 +266,7 @@
 </nav>
 <!-- End class="navigation" -->
 
-
-    <!-- Content section -->		
-    <section class="main" style="padding:0px;">
-                
-        @yield('content')
-                
-    </section>
-    <!-- End class="main" -->
-
+{!! $content !!}
 
 <!-- Twitter bar -->
 <div class="twitter-bar">
@@ -342,7 +287,7 @@
 <!-- Footer -->
 <div class="footer">
     <div class="container">
-        <div class="row">	
+        <div class="row">   
                         
             <div class="col-lg-2">
                 <!-- Support -->
@@ -373,7 +318,7 @@
                         </li>
                         <li>
                             <a href="contact-us.html" title="Contact us" class="title">Contact us</a>
-                        </li>											
+                        </li>                                           
                     </ul>
                 </div>
                 <!-- End class="support" -->
@@ -384,9 +329,9 @@
                 <div class="account">
                     <h6>My account</h6>
 
-                    <ul class="links">								
+                    <ul class="links">                              
                         <li>
-                            <a href="login-register.html" title="Login / Register">Login / Register</a>									
+                            <a href="login-register.html" title="Login / Register">Login / Register</a>                                 
                         </li>
                     </ul>
                 </div>
@@ -441,7 +386,7 @@
                 </ul>
             </div>
 
-            <div class="col-lg-4">				
+            <div class="col-lg-4">              
 
                 <!-- Newsletter subscription -->
                 <div class="newsletter">
@@ -471,51 +416,51 @@
                     <ul class="social-icons">
 
                         <li>
-                            <a class="twitter" href="#" title="Twitter">Twitter</a>								
+                            <a class="twitter" href="#" title="Twitter">Twitter</a>                             
                         </li>
 
                         <li>
-                            <a class="facebook" href="#" title="Facebook">Facebook</a>								
+                            <a class="facebook" href="#" title="Facebook">Facebook</a>                              
                         </li>
 
                         <li>
-                            <a class="pinterest" href="#" title="Pinterest">Pinterest</a>								
+                            <a class="pinterest" href="#" title="Pinterest">Pinterest</a>                               
                         </li>
 
                         <li>
-                            <a class="youtube" href="#" title="YouTube">YouTube</a>								
+                            <a class="youtube" href="#" title="YouTube">YouTube</a>                             
                         </li>
 
                         <li>
-                            <a class="vimeo" href="#" title="Vimeo">Vimeo</a>								
+                            <a class="vimeo" href="#" title="Vimeo">Vimeo</a>                               
                         </li>
 
                         <li>
-                            <a class="flickr" href="#" title="Flickr">Flickr</a>								
+                            <a class="flickr" href="#" title="Flickr">Flickr</a>                                
                         </li>
 
                         <li>
-                            <a class="googleplus" href="#" title="Google+">Google+</a>								
+                            <a class="googleplus" href="#" title="Google+">Google+</a>                              
                         </li>
 
                         <li>
-                            <a class="dribbble" href="#" title="Dribbble">Dribbble</a>								
+                            <a class="dribbble" href="#" title="Dribbble">Dribbble</a>                              
                         </li>
 
                         <li>
-                            <a class="tumblr" href="#" title="Tumblr">Tumblr</a>								
+                            <a class="tumblr" href="#" title="Tumblr">Tumblr</a>                                
                         </li>
 
                         <li>
-                            <a class="digg" href="#" title="Digg">Digg</a>								
+                            <a class="digg" href="#" title="Digg">Digg</a>                              
                         </li>
 
                         <li>
-                            <a class="linkedin" href="#" title="LinkedIn">LinkedIn</a>								
+                            <a class="linkedin" href="#" title="LinkedIn">LinkedIn</a>                              
                         </li>
 
                         <li>
-                            <a class="instagram" href="#" title="Instagram">Instagram</a>								
+                            <a class="instagram" href="#" title="Instagram">Instagram</a>                               
                         </li>
 
                     </ul>
@@ -527,7 +472,7 @@
     </div>
 </div>
 <!-- End id="footer" -->
-            <!-- Credits bar -->
+<!-- Credits bar -->
 <div class="credits">
     <div class="container">
         <div class="row">
@@ -579,43 +524,6 @@
     </div>
 </div>
 <!-- End class="options-panel" -->
-            
-<!-- Newsletter modal window -->
-<div id="newsletter_subscribe" class="modal hide fade" tabindex="-1">
-    <div class="modal-header">
-        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
-        <div class="hgroup title">
-            <h3>You are now subscribed to our newsletter</h3>
-            <h5>All the latest deals and offers will be making their way to your inbox shortly!</h5>
+                    
         </div>
-    </div>
-
-    <div class="modal-footer">	
-        <div class="pull-left">
-            <button data-dismiss="modal" aria-hidden="true" class="btn btn-small">
-                Close &nbsp; <i class="icon-ok"></i>
-            </button>
-        </div>
-    </div>
-</div>
-<!-- End id="newsletter_subscribe" -->          
-        </div>
-<!-- I'm watching you -->
-<script type="text/javascript">
-var sc_project=9238432; 
-var sc_invisible=1; 
-var sc_security="e08559e3"; 
-var sc_https=1; 
-var sc_remove_link=1; 
-var scJsHost = (("https:" == document.location.protocol) ?
-"https://secure." : "http://www.");
-document.write("<sc"+"ript type='text/javascript' src='" +
-scJsHost+
-"statcounter.com/counter/counter.js'></"+"script>");
-</script>
-
-@yield('script')
-
-<!-- Okay I'll stop watching you -->
-    </body>
-</html>
+@stop

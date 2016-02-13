@@ -2,3 +2,30 @@
 .btn, .button{
 	transition:all 0.5s;
 }
+
+.r-border{
+	border-right:1px solid #ccc;
+}
+
+.t-border{
+	border-top:1px solid #ccc;
+}
+
+.b-border{
+	border-bottom:1px solid #ccc;
+}
+
+.l-border{
+	border-left:1px solid #ccc;
+}
+
+.login, .register, .forgot{
+	margin-top:20px;
+	min-height: 330px;
+	padding:16px;
+}
+
+.login a, .register a, .forgot a{
+	text-decoration: none;
+	font-size: 14px;
+}
