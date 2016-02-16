@@ -16,9 +16,7 @@ Route::get('produk','ProductController@product');
 //END ADE
 
 //UDIN
-Route::get('product/view', function () {
-    return view('product.product_detail');
-});
+Route::get('produk/view','ProductController@detail');
 Route::get('keranjang','OrderController@cart_form');
 Route::get('login','UserController@login_form');
 Route::get('daftar','UserController@register_form');
