@@ -21,6 +21,7 @@ Route::get('keranjang','OrderController@cart_form');
 Route::get('login','UserController@login_form');
 Route::get('daftar','UserController@register_form');
 Route::get('lupa_pass','UserController@forgot_pass_form');
+Route::get('user/{id}','UserController@profile');
 //END UDIN
 
 

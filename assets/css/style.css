@@ -19,13 +19,35 @@
 	border-left:1px solid #ccc;
 }
 
-.login, .register, .forgot{
+.login, .register, .forgot, .user-dashboard{
 	margin-top:20px;
 	min-height: 330px;
 	padding:16px;
 }
 
-.login a, .register a, .forgot a{
+.login a, .register a, .forgot a, .user-dashboard a{
 	text-decoration: none;
 	font-size: 14px;
+}
+
+.user-dashboard .user-image{
+	width:70%;
+	border-radius: 50%;
+	margin:0 auto;
+	top:0;
+}
+
+.user-dashboard .user-name{
+	margin-top: 16px;
+	font-size: 18px;
+	font-style: bold;
+}
+
+.user-dashboard .user-email{
+	font-style: italic;
+	color:#6e6e6e;
+}
+
+.user-dashboard p:last-child{
+	margin: 24px auto;
 }
