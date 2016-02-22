@@ -7,7 +7,7 @@ use Illuminate\Http\Request;
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
 use App\Http\Libraries\Assets;
-use DB;
+use DB, Sentinel;
 
 class UserController extends Controller
 {
@@ -36,6 +36,16 @@ class UserController extends Controller
 		$this->data['title']		= 'Login';
 	    return view('main_layout')->with('data', $this->data)
 								  ->nest('content', 'user/forgot_pass', array('data' => $this->data));
+	}
+
+	public function daftar()
+	{
+		Sentinel::register([
+    	'email'    => 'sendal@example.com',
+    	'password' => 'foobar',
+		]);
+
+	    return redirect('login');
 	}
 	
 }
