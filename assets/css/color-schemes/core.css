@@ -458,7 +458,7 @@ ul {
 .btn[disabled],
 .btn.disabled {
   color: #ffffff;
-  /* background-color: #f0f0f0; ========= mkae Comment ========== */
+  background-color: #f0f0f0;
   cursor: no-drop;
   -webkit-opacity: 1;
   -moz-opacity: 1;
@@ -1030,6 +1030,66 @@ textarea {
   margin-bottom: 20px;
 }
 /*---
+| MODAL
+---*/
+.modal {
+  border: none;
+  -webkit-box-shadow: 0 1px 2px rgba(71, 73, 72, 0.5);
+  -moz-box-shadow: 0 1px 2px rgba(71, 73, 72, 0.5);
+  box-shadow: 0 1px 2px rgba(71, 73, 72, 0.5);
+  /*color: @arguments;*/
+
+  -webkit-border-radius: 2px;
+  -webkit-background-clip: padding-box;
+  -moz-border-radius: 2px;
+  -moz-background-clip: padding;
+  border-radius: 2px;
+  background-clip: padding-box;
+}
+.modal .modal-header {
+  padding: 20px;
+}
+.modal .modal-header .hgroup.title {
+  padding-bottom: 0;
+  margin-bottom: 0;
+  border-bottom: none;
+}
+.modal .modal-header button {
+  margin: 0;
+}
+.modal .modal-body {
+  padding: 20px;
+}
+.modal .modal-footer {
+  padding: 20px;
+  border-top: 1px solid #f0f0f0;
+  background-color: #f9f9f9;
+  text-align: left;
+  -webkit-border-radius: 0;
+  -webkit-background-clip: padding-box;
+  -moz-border-radius: 0;
+  -moz-background-clip: padding;
+  border-radius: 0;
+  background-clip: padding-box;
+  -webkit-box-shadow: none;
+  -moz-box-shadow: none;
+  box-shadow: none;
+  /*color: @arguments;*/
+
+}
+.modal .modal-head + modal-footer {
+  border-top: none;
+}
+.modal-backdrop {
+  background-color: #474948;
+}
+.modal-backdrop,
+.modal-backdrop.fade.in {
+  -webkit-opacity: 0.5;
+  -moz-opacity: 0.5;
+  opacity: 0.5;
+}
+/*---
 | TABLES
 ---*/
 .styled-table {
@@ -1099,7 +1159,7 @@ textarea {
 ---*/
 .ajax_loading_indicator {
   position: fixed;
-  background: url('../../image/loader.gif') center center no-repeat rgba(71, 73, 72, 0.5);
+  background: url('../../img/loader.gif') center center no-repeat rgba(71, 73, 72, 0.5);
   width: 100%;
   height: 100%;
 }
@@ -1151,7 +1211,6 @@ textarea {
   -webkit-box-shadow: 0 1px 2px rgba(71, 73, 72, 0.19999999999999996);
   -moz-box-shadow: 0 1px 2px rgba(71, 73, 72, 0.19999999999999996);
   box-shadow: 0 1px 2px rgba(71, 73, 72, 0.19999999999999996);
-  min-height: 80px;
   /*color: @arguments;*/
 
   /*zoom: 1;*/
@@ -1171,19 +1230,6 @@ textarea {
     position: relative;
     margin-bottom: -30px;
   }
-  .header .bottom{
-    min-height: 230px;
-  }
-}
-@media (max-width: 480px){
-  .header .bottom{
-    min-height: 230px;
-  }
-}
-@media (max-width: 480px){
-  .header .bottom{
-    min-height: 230px;
-  }
 }
 .header .logo {
   padding: 10px 0;
@@ -1192,7 +1238,6 @@ textarea {
   display: inline-block;
   height: 60px;
   text-decoration: none;
-  margin:0 auto;
 }
 .header .logo img {
   max-height: 100%;
@@ -1338,7 +1383,7 @@ textarea {
   float: right;
   height: 40px;
   width: 40px;
-  background: url('../../image/cart.png') no-repeat left center;
+  background: url('../../img/cart.png') no-repeat left center;
   position: relative;
 }
 .mini-cart a > span {
@@ -1758,7 +1803,7 @@ textarea {
   width: 24px;
   height: 24px;
   text-indent: -9999px;
-  background-image: url('../../image/social.png');
+  background-image: url('../../img/social.png');
   background-repeat: no-repeat;
   text-decoration: none;
   -webkit-opacity: 0.7;
@@ -1951,7 +1996,7 @@ textarea {
   height: 16px;
   margin-left: -8px;
   margin-top: -2px;
-  background: url('../../image/ui-slider-handle.png') no-repeat;
+  background: url('../../img/ui-slider-handle.png') no-repeat;
   z-index: 20;
 }
 .category .sidebar .price-filter .ui-slider .ui-slider-handle:focus {
@@ -2106,7 +2151,7 @@ textarea {
 }
 .product-list a .image {
   position: relative;
-  background: #ffffff url('../../image/preloader.gif') no-repeat center center;
+  background: #ffffff url('../../img/preloader.gif') no-repeat center center;
 }
 .product-list a .image img {
   display: block;
@@ -3683,7 +3728,7 @@ html[xmlns] .slides {
 }
 .widget.Categories ul ul a,
 .widget.Menu ul ul a {
-  /* padding-left: 40px; --------- Commented ------------- */
+  padding-left: 40px;
 }
 /*---
 | ADVERTS
