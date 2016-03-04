@@ -1,4 +1,8 @@
 
+.clear{
+	clear:both;
+}
+
 .btn, .button{
 	transition:all 0.5s;
 }
