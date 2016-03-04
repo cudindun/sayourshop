@@ -42,7 +42,7 @@
     
                                     
 <!-- Slider -->
-<section class="flexslider" style="margin:10px;">
+<div class="flexslider" style="margin:10px;">
     <ul class="slides">
         <li>
             {!! Html::image('assets/image/slides/1.jpg') !!}
@@ -109,7 +109,7 @@
             </div>
         </li>
     </ul>
-</section>
+</div>
 <!-- End class="flexslider" -->                    <!-- Promos -->
 <section class="promos" style="margin:0;">
     <div class="container">

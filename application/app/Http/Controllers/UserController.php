@@ -7,14 +7,16 @@ use Illuminate\Http\Request;
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
 use App\Http\Libraries\Assets;
-use DB, Sentinel;
+use App\Http\Models\User;
+use App\Http\Models\Activations;
+use DB, Sentinel, Validator, Activation;
 
 class UserController extends Controller
 {
     public function login_form()
 	{
-		$this->data['css_assets'] 	= Assets::load('css', ['lib-bootstrap', 'style', 'font-awesome', 'font-awesome-min','color-schemes-core', 'color-schemes-turquoise', 'bootstrap-responsive']);
-		$this->data['js_assets'] 	= Assets::load('js', ['jquery', 'jquery-ui', 'jquery-easing', 'bootstrap-min-lib', 'jquery-isotope', 'jquery-flexslider', 'jquery.elevatezoom', 'jquery-sharrre', 'jquery-gmap3', 'imagesloaded', 'la_boutique', 'jquery-cookie', 'jquery-parallax-lib']);
+		$this->data['css_assets'] 	= Assets::load('css', ['lib-bootstrap', 'style','color-schemes-core', 'color-schemes-turquoise', 'bootstrap-responsive','font-family']);
+		$this->data['js_assets'] 	= Assets::load('js', ['jquery']);
 		$this->data['title']		= 'SayourShop | Login';
 	    return view('main_layout')->with('data', $this->data)
 								  ->nest('content', 'user/login', array('data' => $this->data));
@@ -40,13 +42,14 @@ class UserController extends Controller
 
 	public function daftar()
 	{
-		Sentinel::register([
+		$user = Sentinel::register([
     	'email'    => 'sendal@example.com',
-    	'password' => 'foobar',
+    	'password' => '123456',
 		]);
-
-	    return redirect('login');
+		Activation::create($user);
+	    return redirect('login_form');
 	}
+
 	public function profile($id)
 	{
 		$this->data['css_assets'] 	= Assets::load('css', ['lib-bootstrap', 'style', 'font-awesome', 'font-awesome-min', 'flexslider', 'color-schemes-core', 'color-schemes-turquoise', 'jquery-parallax', 'bootstrap', 'bootstrap-responsive']);
@@ -55,5 +58,38 @@ class UserController extends Controller
 	    return view('main_layout')->with('data', $this->data)
 								  ->nest('content', 'user/dashboard', array('data' => $this->data, 'id' => $id));
 	}
-	
+
+	public function login(Request $request)
+	{
+		$rules = array(
+			'email' => 'required|email',
+			'password' => 'required' 
+			);
+		$validator 	= Validator::make($request->all(), $rules);
+		if (!$validator->fails()) {	//cek input form
+			$credentials = array(
+			        'email'    		=> $request->email,
+		  	   		'password' 		=> $request->password
+			    );
+			$user = Sentinel::findByCredentials($credentials); //return data" user
+			if ($user == "") { //cek akun
+				echo "email/password salah";
+			}else{
+				$tes = Sentinel::validateCredentials($user, $credentials); //return boolean 1/0
+				if ($tes == "") { //cek password
+					echo "email/password salah";
+				}else{
+					$active = Activation::completed($user);
+					if ($active == "") { //cek aktivasi
+						echo "akun belum aktif";
+					}else{
+						echo "akun aktif";
+					}	
+				}	
+			}
+		}else{
+			echo "ada form kosong";
+		}
+	}
+
 }

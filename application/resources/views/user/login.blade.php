@@ -1,5 +1,3 @@
-<link href="http://fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic|Shadows+Into+Light" rel="stylesheet" type="text/css" />
-
 <section class="login">
 		<div class="container">
 			<div class="row">
@@ -9,14 +7,14 @@
 
 						<div class="col-lg-6">
 						<p>Login User</p>
-							<form>
+							<form role="POST" action="{{url('login')}}">
 					            <div class="box-content">
 					                <div class="row-fluid">
 					                    <div class="span6">
 					                        <div class="control-group">
 					                            <label class="control-label" for="login_email">Email</label>
 					                            <div class="controls">
-					                                <input class="span12" id="login_email" type="text" name="email" value="" />
+					                                <input class="span12" id="email" type="text" name="email" value="" />
 					                            </div>
 					                        </div>
 					                    </div>
@@ -24,7 +22,7 @@
 					                        <div class="control-group">					
 					                            <label class="control-label" for="login_password">Password</label>
 					                            <div class="controls">
-					                                <input class="span12" id="login_password" type="password" name="password" />
+					                                <input class="span12" id="password" type="password" name="password" />
 					                            </div>
 					                        </div>
 					                    </div>
@@ -32,10 +30,10 @@
 					            </div>
 
 					            <div class="buttons">
-					            	<p class="pull-right"><a href="{{url('daftar')}}">Haven't account yet?</a></p>
+					            	<p class="pull-right"><a href="{{url('daftar')}}">Daftar Akun</a></p>
 					                <div class="pull-left">
 					                    <button type="submit" class=" btn btn-small btn-primary ">Login</button>
-					                    <button type="submit" class=" btn btn-small btn-belizehole ">I Forgot my password</button>
+					                    <button type="submit" class=" btn btn-small btn-belizehole ">Lupa Password</button>
 					                    
 					                </div>
 					            </div>
@@ -59,3 +57,4 @@
 			</div>
 		</div>
 	</section>
+	

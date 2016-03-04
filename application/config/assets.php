@@ -11,6 +11,7 @@ return [
 		'color-schemes-turquoise'	=> 'assets/css/color-schemes/turquoise.css',
 		'font-awesome'				=> 'assets/font/font-awesome/css/font-awesome.css',
 		'font-awesome-min'			=> 'assets/font/font-awesome/css/font-awesome.min.css',
+		'font-family'				=> 'assets/css/font_family.css',
 
 		//LIB CSS
 		'lib-bootstrap'				=> 'assets/lib/bootstrap/css/bootstrap.css',
