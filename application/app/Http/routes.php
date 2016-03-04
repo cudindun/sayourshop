@@ -15,6 +15,7 @@ Route::get('/', 'HomeController@index');
 Route::get('produk','ProductController@product');
 Route::get('login_form','UserController@login_form');
 Route::get('login','UserController@login');
+Route::get('logout','UserController@logout');
 // Route::get('cekangka','UserController@cekAngka');
 //END ADE
 

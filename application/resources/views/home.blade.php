@@ -117,11 +117,11 @@
             <?php // ================ TOP PRODUCT SLIDER ==================  ?>
             <div class="col-lg-6">
                 <div class="free-shipping" id="parallax-top-product">
-                    <div class="box" style="min-height:350px;margin-bottom:10px;">
-                        <div class="hgroup title">
+                    <div class="box" style="min-height:270px;margin-bottom:10px;">
+                        <div class="hgroup title" style="margin-bottom: 0px;">
                             <h3>Top Product</h3>
                         </div>
-                        <div class="col-lg-12" id="port">
+                        <div class="col-lg-12" id="port" style="margin-top: 0px;margin-bottom: 0px;">
                             <ul class="thumbs_index index parallax-layer">
                                 <li><a class="img_thumb thumb" href="#" style="background: url('assets/image/top_products/1.jpg');">item</a></li>
                                 <li><a class="img_thumb thumb" href="#" style="background: url('assets/image/top_products/2.jpg');">item</a></li>
@@ -137,27 +137,13 @@
             <?php // ================ PRODUCT MO READY 2 ==================  ?>
             <div class="col-lg-3" >
                 <div class="world-shipping">
-                    <div class="box border-top" style="margin-bottom:10px;">
-                        {!! Html::image('assets/image/world-shipping.png', '') !!}
-                        <div class="hgroup title">
-                            <h3>We're now global!</h3>
-                            <h5>This is a snappy sub-title</h5>
-                        </div>
-                        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Neque beatae tempore porro officiis!</p>
-                    </div>
+                {!! Html::image('assets/image/adverts/advert-1.jpg','', array('style' => 'max-width:100%')) !!}
                 </div>
             </div>
             <?php // ================ READY STOCK ==================  ?>
             <div class="col-lg-3" >
-                <div class="low-price">
-                    <div class="box border-top" style="margin-bottom:10px;">
-                        {!! Html::image('assets/image/low-price.png', '') !!}
-                        <div class="hgroup title">
-                            <h3>Ready Stock!</h3>
-                            <h5>This is a snappy sub-title</h5>
-                        </div>
-                        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Neque beatae tempore porro officiis!</p>
-                    </div>
+                <div class="world-shipping">
+                    {!! Html::image('assets/image/adverts/advert-2.jpg','', array('style' => 'max-width:100%')) !!}
                 </div>
             </div>
         </div>
@@ -169,13 +155,127 @@
     <div class="container">
         <div class="row">
             <div class="col-lg-12">
-                <div class="box border-top" style="margin-bottom:10px;">
-                    {!! Html::image('assets/image/low-price.png', '') !!}
-                    <div class="hgroup title">
-                        <h3>Product Ready Stock Terbaru</h3>
-                        <h5>Product Ready Stock Terbaru</h5>
-                    </div>
-                    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Neque beatae tempore porro officiis!</p>
+                <div class="box border-top" style="margin-bottom:10px;min-height: 190px;">
+                            <h4 class="widget-title widget-title ">Produk Terbaru</h3>
+                            <div class="product-list-small">
+                                <li style="float: left;">            
+                                    <div class="image" style="width: 110px;">
+                                        <a href="product.html" title="Lolita" style="border: 0px;" >
+                                            <image src="assets/image/thumbnails/db_file_img_269_160xauto.jpg" style="width:110px; max-width: 500px;height: 110px;">
+                                        </a>
+                                    </div>
+                                    <div class="desc">
+                                        <h6>
+                                            <a href="product.html" title="Lolita">Lolita</a>
+                                        </h6>
+
+                                        <div class="price">
+                                            £88.00                                      
+                                        </div>
+
+                                        <div class="rating rating-4">
+                                            <i class="fa fa-heart"></i>
+                                            <i class="fa fa-heart"></i>
+                                            <i class="fa fa-heart"></i>
+                                            <i class="fa fa-heart"></i>
+                                            <i class="fa fa-heart"></i>
+                                        </div>
+                                    </div>
+                                </li>
+                                <li style="float: left;">            
+                                    <div class="image" style="width: 110px;">
+                                        <a href="product.html" title="Lolita" style="border: 0px;" >
+                                            <image src="assets/image/thumbnails/db_file_img_269_160xauto.jpg" style="width:110px; max-width: 500px;height: 110px;">
+                                        </a>
+                                    </div>
+                                    <div class="desc">
+                                        <h6>
+                                            <a href="product.html" title="Lolita">Lolita</a>
+                                        </h6>
+
+                                        <div class="price">
+                                            £88.00                                      
+                                        </div>
+
+                                        <div class="rating rating-4">
+                                            <i class="fa fa-heart"></i>
+                                            <i class="fa fa-heart"></i>
+                                            <i class="fa fa-heart"></i>
+                                            <i class="fa fa-heart"></i>
+                                        </div>
+                                    </div>
+                                </li>
+                                <li style="float: left;">            
+                                    <div class="image" style="width: 110px;">
+                                        <a href="product.html" title="Lolita" style="border: 0px;" >
+                                            <image src="assets/image/thumbnails/db_file_img_269_160xauto.jpg" style="width:110px; max-width: 500px;height: 110px;">
+                                        </a>
+                                    </div>
+                                    <div class="desc">
+                                        <h6>
+                                            <a href="product.html" title="Lolita">Lolita</a>
+                                        </h6>
+
+                                        <div class="price">
+                                            £88.00                                      
+                                        </div>
+
+                                        <div class="rating rating-4">
+                                            <i class="fa fa-heart"></i>
+                                            <i class="fa fa-heart"></i>
+                                            <i class="fa fa-heart"></i>
+                                            <i class="fa fa-heart"></i>
+                                        </div>
+                                    </div>
+                                </li>
+                                <li style="float: left;">            
+                                    <div class="image" style="width: 110px;">
+                                        <a href="product.html" title="Lolita" style="border: 0px;" >
+                                            <image src="assets/image/thumbnails/db_file_img_269_160xauto.jpg" style="width:110px; max-width: 500px;height: 110px;">
+                                        </a>
+                                    </div>
+                                    <div class="desc">
+                                        <h6>
+                                            <a href="product.html" title="Lolita">Lolita</a>
+                                        </h6>
+
+                                        <div class="price">
+                                            £88.00                                      
+                                        </div>
+
+                                        <div class="rating rating-4">
+                                            <i class="fa fa-heart"></i>
+                                            <i class="fa fa-heart"></i>
+                                            <i class="fa fa-heart"></i>
+                                            <i class="fa fa-heart"></i>
+                                        </div>
+                                    </div>
+                                </li>
+                                <li style="float: left;">            
+                                    <div class="image" style="width: 110px;">
+                                        <a href="product.html" title="Lolita" style="border: 0px;" >
+                                            <image src="assets/image/thumbnails/db_file_img_269_160xauto.jpg" style="width:110px; max-width: 500px;height: 110px;">
+                                        </a>
+                                    </div>
+                                    <div class="desc">
+                                        <h6>
+                                            <a href="product.html" title="Lolita">Lolita</a>
+                                        </h6>
+
+                                        <div class="price">
+                                            £88.00                                      
+                                        </div>
+
+                                        <div class="rating rating-4">
+                                            <i class="fa fa-heart"></i>
+                                            <i class="fa fa-heart"></i>
+                                            <i class="fa fa-heart"></i>
+                                            <i class="fa fa-heart"></i>
+                                        </div>
+                                    </div>
+                                </li>
+                            </div>
+               
                 </div>
             </div>
         </div>
@@ -186,14 +286,8 @@
 <section class="new-product"  >
     <div class="container">
         <div class="row">
-            <div class="col-lg-12" >
-                <div class="box border-top" style="margin-bottom:10px;">
-                    <div class="hgroup title">
-                        <h3>Promo</h3>
-                        <h5>Product Ready Stock Terbaru</h5>
-                    </div>
-                    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Neque beatae tempore porro officiis!</p>
-                </div>
+            <div class="col-lg-12" style="margin-bottom: 10px;" >
+                    {!! Html::image('assets/image/adverts/570x171-080950banner1.jpg','', array('style' => 'width:1170px;height:300px;')) !!}
             </div>
         </div>
     </div>
@@ -205,13 +299,7 @@
         <div class="row">
             <?php // ============================ PRE ORDER ================================== ?>
             <div class="col-lg-3" >
-                <div class="box border-top">
-                    <div class="hgroup title">
-                        <h3>PRE ORDER</h3>
-                        <h5>Product Ready Stock Terbaru</h5>
-                    </div>
-                    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Neque beatae tempore porro officiis!</p>
-                </div>
+                {!! Html::image('assets/image/adverts/advert-2.jpg','', array('style' => 'max-width:100%;')) !!}
             </div>
             <?php // ============================ TOP PRODUK SLIDER ================================== ?>
             <div class="col-lg-9" >
@@ -226,13 +314,7 @@
                 </div>
                 <?php // ============================ PRODUK / PROMO PO 1 ================================== ?>
                 <div class="col-lg-4"  style="padding:0px;">
-                    <div class="box border-top" style="margin-bottom:10px;">
-                        <div class="hgroup title">
-                            <h3>PRODUK / PROMO PO 1</h3>
-                            <h5>Product Ready Stock Terbaru</h5>
-                        </div>
-                        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Neque beatae tempore porro officiis!</p>
-                    </div>
+                    {!! Html::image('assets/image/adverts/advert-1.jpg','', array('style' => 'min-width:300px;height:160px;margin-bottom:10px;')) !!}
                 </div>
                 <?php // ============================ PRODUK PO TERBARU ================================== ?>
                 <div class="col-lg-8">

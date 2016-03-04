@@ -33,7 +33,13 @@
                 <div class="col-lg-3 col-md-5 col-sm-5 col-xs-12" align="center">
                     <h1>
                         <a href="{{url('keranjang')}}"><i class="fa fa-shopping-cart"></i><span> 3</span></a>
+                        @if(Sentinel::check())
+                        <a href="{{url('dashboard')}}" style="min-width:150px"><i class="fa fa-user"></i> {{Sentinel::getUser()->email}}</a>
+                        <a href="{{url('logout')}}" style="min-width:150px"><i class="glyphicon glyphicon-log-out"></i> Log Out</a>
+                        @else
                         <a href="{{url('login_form')}}" style="min-width:150px"><i class="fa fa-user"></i> Login | Register</a>
+                        @endif
+                        
                     </h1>
                 </div>
             
@@ -60,7 +66,7 @@
                             <a href="{{ url('produk') }}" title="About us" class="title">Produk</a>
                         </li>
                         <li>
-                            <a href="category.html" title="Mens" class="title">Mens</a>
+                            <a href="category.html" title="Mens" class="title">Ready Stock</a>
                             <ul style="width:170px">
                                 <li>
                                     <a href="category.html" title="Accesories" class="title">Accesories</a>
@@ -83,7 +89,7 @@
                             </ul>
                         </li>
                         <li>
-                            <a href="category.html" title="Womens" class="title">Womens</a>
+                            <a href="category.html" title="Womens" class="title">Pre-Order</a>
                             <ul style="width:170px">
                                 <li>
                                     <a href="category.html" title="Accessories" class="title">Accessories</a>

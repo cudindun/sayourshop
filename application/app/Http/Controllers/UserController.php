@@ -15,7 +15,7 @@ class UserController extends Controller
 {
     public function login_form()
 	{
-		$this->data['css_assets'] 	= Assets::load('css', ['lib-bootstrap', 'style','color-schemes-core', 'color-schemes-turquoise', 'bootstrap-responsive','font-family']);
+		$this->data['css_assets'] 	= Assets::load('css', ['lib-bootstrap', 'style', 'color-schemes-core', 'font-awesome', 'font-awesome-min', 'color-schemes-turquoise', 'bootstrap-responsive','font-family']);
 		$this->data['js_assets'] 	= Assets::load('js', ['jquery']);
 		$this->data['title']		= 'SayourShop | Login';
 	    return view('main_layout')->with('data', $this->data)
@@ -83,13 +83,20 @@ class UserController extends Controller
 					if ($active == "") { //cek aktivasi
 						echo "akun belum aktif";
 					}else{
-						echo "akun aktif";
+						Sentinel::login($user);
+						return redirect('login_form');
 					}	
 				}	
 			}
 		}else{
 			echo "ada form kosong";
 		}
+	}
+
+	public function logout(Request $request)
+	{
+		Sentinel::logout();
+		return redirect('login_form');
 	}
 
 }
