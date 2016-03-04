@@ -29,7 +29,7 @@
 				              <div class="col-lg-8">
 				              	<hr/>
 				              </div>
-				              <div class="clear"></div>
+				              <div class="clear" style="clear:both"></div>
 
 				              <div class="form-group">
 				                <label class="col-sm-2 control-label">Full Name</label>
