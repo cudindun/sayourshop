@@ -34,7 +34,7 @@
                     <h1>
                         <a href="{{url('keranjang')}}"><i class="fa fa-shopping-cart"></i><span> 3</span></a>
                         @if(Sentinel::check())
-                        <a href="{{url('dashboard')}}" style="min-width:150px"><i class="fa fa-user"></i> {{Sentinel::getUser()->email}}</a>
+                        <a href="{{url('dashboard/'.Sentinel::getUser()->id) }}" style="min-width:150px"><i class="fa fa-user"></i> {{Sentinel::getUser()->first_name." ".Sentinel::getUser()->last_name}}</a>
                         <a href="{{url('logout')}}" style="min-width:150px"><i class="glyphicon glyphicon-log-out"></i> Log Out</a>
                         @else
                         <a href="{{url('login_form')}}" style="min-width:150px"><i class="fa fa-user"></i> Login | Register</a>
@@ -67,8 +67,8 @@
                         </li>
                         <li>
                             <a href="category.html" title="Mens" class="title">Ready Stock</a>
-                            <ul style="width:170px">
-                                <li>
+                            <ul>
+                                <li class="text-left">
                                     <a href="category.html" title="Accesories" class="title">Accesories</a>
                                 </li>
                                 <li>
@@ -112,40 +112,11 @@
                             </ul>
                         </li>
                         <li>
-                            <a href="#" title="Features" class="title">Features</a>
-                            <ul style="width:170px">
-                                <li>
-                                    <a href="typography.html" title="Typography" class="title">Typography</a>
-                                </li>
-                                <li>
-                                    <a href="retina-ready-icons.html" title="Retina-ready icons" class="title">Retina-ready icons</a>
-                                </li>
-                                <li>
-                                    <a href="buttons.html" title="Buttons" class="title">Buttons</a>
-                                </li>
-                                <li>
-                                    <a href="elements.html" title="Elements" class="title">Elements</a>
-                                </li>
-                                <li>
-                                    <a href="grids.html" title="Grids" class="title">Grids</a>
-                                </li>
-                                <li>
-                                    <a href="404.html" title="404" class="title">404</a>
-                                </li>
-                            </ul>
+                            <a href="#">Cek Order</a>
                         </li>
                         <li>
-                            <a href="about-us.html" title="About us" class="title">About us</a>
+                            <a href="#">Konfirmasi Pembayaran</a>
                         </li>
-                        <li>
-                            <a href="store-locator.html" title="Store locator" class="title">Store locator</a>
-                        </li>
-                        <li>
-                            <a href="blog.html" title="Blog" class="title">Blog</a>
-                        </li>
-                        <li>
-                            <a href="contact-us.html" title="Contact us" class="title">Contact us</a>
-                        </li>                   
                     </ul>
                     <!-- End class="main-menu" -->
                 </div>
@@ -155,35 +126,12 @@
                     <select class="form-control">
                         <option value="" selected="selected" />Go to&hellip;
                         <option value="/" />Home
-                        <option value="category.html" />Mens
-                        <option value="category.html" />Accesories
-                        <option value="category.html" />Jackets
-                        <option value="category.html" />Jumpers
-                        <option value="category.html" />Shirts
-                        <option value="category.html" />Shoes
-                        <option value="category.html" />T-Shirts
-                        <option value="category.html" />Womens
-                        <option value="category.html" />Accessories
-                        <option value="category.html" />Bags
-                        <option value="category.html" />Dresses
-                        <option value="category.html" />Shoes
-                        <option value="category.html" />Tops
-                        <option value="category.html" />Trousers
-                        <option value="#" />Features
-                        <option value="typography.html" />Typography
-                        <option value="retina-ready-icons.html" />Retina-ready icons
-                        <option value="buttons.html" />Buttons
-                        <option value="elements.html" />Elements
-                        <option value="grids.html" />Grids
-                        <option value="404.html" />404
-                        <option value="about-us.html" />About us
-                        <option value="store-locator.html" />Store locator
-                        <option value="blog.html" />Blog
-                        <option value="contact-us.html" />Contact us                    
+                        <option value="category.html" />Produk
+                        <option value="category.html" />Ready Stock
+                        <option value="category.html" />Pre-Order                 
                     </select>
                 </div>
             </div>
-
             <div class="col-lg-3 visible-desktop">
             </div>
         </div>

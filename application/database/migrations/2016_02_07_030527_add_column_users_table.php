@@ -14,7 +14,6 @@ class AddColumnUsersTable extends Migration
     {
         Schema::table('users', function ($table) {
             $table->string('phone',20);
-            $table->string('address', 255);
             $table->string('status',100);
         });
             
