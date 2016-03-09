@@ -2,9 +2,17 @@
 		<div class="container">
 			<div class="row">
 				<div class="col-lg-12">
-
+					@if(session('success'))
+					<div class="alert alert-success">
+  						{{session('success')}}
+					</div>
+					@endif
+					@if(session('error'))
+					<div class="alert alert-danger">
+  						{{session('error')}}
+					</div>
+					@endif
 					<div class="box" style="min-height:280px">
-
 						<div class="col-lg-6">
 						<p>Login User</p>
 							<form role="POST" action="{{url('login')}}">
@@ -33,7 +41,7 @@
 					            	<p class="pull-right"><a href="{{url('daftar')}}">Daftar Akun</a></p>
 					                <div class="pull-left">
 					                    <button type="submit" class=" btn btn-small btn-primary ">Login</button>
-					                    <button type="submit" class=" btn btn-small btn-belizehole ">Lupa Password</button>
+					                    <a href="{{url('lupa_pass')}}"><button type="button" class=" btn btn-small btn-belizehole ">Lupa Password</button></a>
 					                    
 					                </div>
 					            </div>

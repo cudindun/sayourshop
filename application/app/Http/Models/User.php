@@ -16,7 +16,6 @@ class User extends Model {
             ['old_name' => 'email', 'new_name' => 'a.email'],
 			['old_name' => 'first_name', 'new_name' => 'a.first_name'],
 			['old_name' => 'last_name', 'new_name' => 'a.last_name'],
-			['old_name' => 'address', 'new_name' => 'a.address'],
 			['old_name' => 'phone', 'new_name' => 'a.phone'],
             ['old_name' => 'status', 'new_name' => 'a.status']
 		];

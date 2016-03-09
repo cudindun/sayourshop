@@ -450,11 +450,15 @@
 			<div class="col-lg-9">
 			<?php // ============================ Banner 1 ================================= ?>
 				<div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
-					<div class="box text-center" style="min-height:250px"><h2>BANNER 1</h2></div>
+					<div class="box text-center" style="min-height:250px">
+                        <h2>BANNER 1</h2>
+                    </div>
 				</div>
 			<?php // ============================ Banner 2 ================================= ?>
 				<div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
-					<div class="box text-center" style="min-height:250px"><h2>BANNER 2</h2></div>
+					<div class="box text-center" style="min-height:250px">
+                        <h2>BANNER 2</h2>
+                    </div>
 				</div> 
 			<?php // ============================ Product List ================================= ?>
 				<div class="col-lg-12">

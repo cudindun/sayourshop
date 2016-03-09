@@ -1,78 +1,72 @@
 	<section class="register">
 		<div class="container">
 			<div class="row">
-				<div class="col-lg-12">
+				@if(session('success'))
+				<div class="alert alert-success">
+  					{{session('success')}}
+				</div>
+				@endif
+				@if(session('error'))
+				<div class="alert alert-danger">
+  					{{session('error')}}
+				</div>
+				@endif
+				<div class="col-lg-12" align="center">
+				
 					<div class="box" style="min-height:280px">
 						<div class="col-lg-12">
-							<p> Please insert following information for register</p>
-							<form class="form-horizontal">
+
+							<h4> Form Pendaftaran</h4>
+							<form class="form-horizontal" role="GET" action="{{ url('register') }}">
 				              <div class="form-group">
-				                <label class="col-sm-2 control-label">Email</label>
+				                <label class="col-sm-3 control-label">Email<font color="red">*</font></label>
 				                <div class="col-sm-6">
-				                  <input type="text" class="form-control" id="email_input" placeholder="Example@email.com">
+				                  <input type="email" class="form-control" id="email_input" name="email_input" placeholder="Example@email.com">
 				                </div>
 				              </div>
 				              <div class="form-group">
-				                <label for="inputPassword" class="col-sm-2 control-label">Password</label>
+				                <label for="inputPassword" class="col-sm-3 control-label">Password<font color="red">*</font></label>
 				                <div class="col-sm-6">
-				                  <input type="password" class="form-control" id="pass_input" placeholder="Password">
+				                  <input type="password" class="form-control" id="pass_input" name="pass_input" placeholder="Password">
 				                </div>
 				              </div>
 				              <div class="form-group">
-				                <label for="inputPassword" class="col-sm-2 control-label">Re-Password</label>
+				                <label for="inputPassword" class="col-sm-3 control-label">Ulangi Password<font color="red">*</font></label>
 				                <div class="col-sm-6">
-				                  <input type="password" class="form-control" id="re_pass_input" placeholder="Password">
+				                  <input type="password" class="form-control" id="re_pass_input" name="re_pass_input" placeholder="Password">
 				                </div>
 				              </div>
 
 				              <?php // ========================== Line Sparator ============================ ?>
-				              <div class="col-lg-8">
+				              <div class="col-lg-12">
 				              	<hr/>
 				              </div>
 				              <div class="clear" style="clear:both"></div>
 
 				              <div class="form-group">
-				                <label class="col-sm-2 control-label">Full Name</label>
+				                <label class="col-sm-3 control-label">Nama Depan<font color="red">*</font></label>
 				                <div class="col-sm-6">
-				                  <input type="text" class="form-control" id="full_name_input" placeholder="Johny van Hawk">
+				                  <input type="text" class="form-control" id="first_name_input" name="first_name_input" placeholder="Johny van Hawk">
 				                </div>
 				              </div>
 
 				              <div class="form-group">
-				                <label class="col-sm-2 control-label">Province</label>
+				                <label class="col-sm-3 control-label">Nama Belakang<font color="red">*</font></label>
 				                <div class="col-sm-6">
-				                  <input type="text" class="form-control" id="province_input" placeholder="Guenos Anguela">
+				                  <input type="text" class="form-control" id="last_name_input" name="last_name_input" placeholder="Johny van Hawk">
 				                </div>
 				              </div>
 
 				              <div class="form-group">
-				                <label class="col-sm-2 control-label">City</label>
+				                <label class="col-sm-3 control-label">No.Telepon<font color="red">*</font></label>
 				                <div class="col-sm-6">
-				                  <input type="text" class="form-control" id="city_input" placeholder="New York">
-				                </div>
-
-				              </div><div class="form-group">
-				                <label class="col-sm-2 control-label">District</label>
-				                <div class="col-sm-6">
-				                  <input type="text" class="form-control" id="district_input" placeholder="Cimahpar">
+				                  <input type="text" class="form-control" id="phone_input" name="phone_input" placeholder="0812345789">
 				                </div>
 				              </div>
+				              <div class="col-sm-3"></div>
+				              <p class="help-block text-left col-sm-6" style="color:red;font-size: 11px;"><i>*) wajib diisi</i></p>
 
-				              <div class="form-group">
-				                <label class="col-sm-2 control-label">Address</label>
-				                <div class="col-sm-6">
-				                  <textarea rows="5" class="form-control" id="address_input" ></textarea>
-				                </div>
-				              </div>
-
-				              <div class="form-group">
-				                <label class="col-sm-2 control-label">Phone</label>
-				                <div class="col-sm-6">
-				                  <input type="text" class="form-control" id="phone_input" placeholder="2245222980">
-				                </div>
-				              </div>
-
-				              <div class="col-lg-8 col-lg-offset-1">
+				              <div class="col-lg-12">
 					              <div class="checkbox">
 								    <label>
 								      <input type="checkbox" id="accept"> Saya setuju dengan <a href="#" style="color:blue">syarat dan ketentuan</a> yang berlaku dan berjanji tidak akan melanggar
@@ -83,8 +77,8 @@
 							  <br/><br/>
 
 				              <div class="form-group">
-				              	<div class="col-lg-8">
-				              	<p class="text-right"><a href="<?=url()?>/login">Already have account?</a> / <a href="<?=url()?>/forgot">I Forgot my password</a> / <a href="#">Resend Email Confirmation</a></p>
+				              	<div class="col-lg-12">
+				              	<p class="text-right">
 				              		<button type="submit" class="btn btn-small btn-belizehole pull-right" id="register_btn" disabled>Register</button>
 				              	</div>
 				              </div>

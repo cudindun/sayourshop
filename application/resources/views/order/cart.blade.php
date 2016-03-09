@@ -127,58 +127,6 @@
                 </div>
             <!-- End Cart -->
 
-                <div class="col-lg-4">
-                    <div class="box">
-                        <h3>FOTO FOTO LAIN</h3>
-                    </div>
-                </div>
-
-            <!-- Shipping estimator -->
-                <div class="col-lg-8">
-                    <div class="box">
-                        <form enctype="multipart/form-data" action="#" method="post" onsubmit="return false;" />
-                            <div class="box-header">
-                                <h3>Shipping estimator</h3>
-                                <h5>Get an estimated shipping cost for your order</h5>
-                            </div>
-
-                            <div class="box-content">
-                                <div class="row-fluid">
-                                    <div class="col-lg-4">
-                                        <label for="country">Country</label>
-                                        <select class="col-lg-12 form-control" id="country" name="country">
-                                            <option value="3" />Australia
-                                            <option value="2" />Canada
-                                            <option value="17" selected="selected" />United Kingdom
-                                            <option value="1" />United States
-                                        </select>
-                                    </div>
-
-                                    <div class="col-lg-4">
-                                        <label for="state">State</label>
-                                        <div id="shipping_states">
-                                            <select class="col-lg-12 form-control" id="state" name="state">
-                                                                
-                                            </select>				
-                                        </div>
-                                    </div>
-
-                                    <div class="col-lg-4">
-                                        <label>ZIP</label>
-                                        <input class="col-lg-12 zip form-control" type="text" name="zip" value="" />
-                                    </div>
-
-                                </div>
-                            </div>
-                            <div class="clear"></div>
-                            <div class="box-footer text-right">
-                                <a class="btn btn-small" href="#" onclick="$('#shipping').modal('show');return false;">Estimate shipping cost</a>
-                            </div>
-                        </form>
-                    </div>
-                </div>                            
-            <!-- End Shipping estimator -->
-
                 <!-- Shipping modal -->
                     <div id="shipping" class="modal hide fade" tabindex="-1">
                         <div class="modal-header">

@@ -256,7 +256,13 @@
 
                     <ul class="links">                              
                         <li>
-                            <a href="login-register.html" title="Login / Register">Login / Register</a>                                 
+                            @if(Sentinel::check())
+                        <a href="{{url('dashboard')}}" style="min-width:150px"><i class="fa fa-user"></i> {{Sentinel::getUser()->email}}</a>
+                        <br>
+                        <a href="{{url('logout')}}" style="min-width:150px"><i class="glyphicon glyphicon-log-out"></i> Log Out</a>
+                        @else
+                        <a href="{{url('login_form')}}" style="min-width:150px"><i class="fa fa-user"></i> Login | Register</a>
+                        @endif                               
                         </li>
                     </ul>
                 </div>

@@ -9,10 +9,10 @@
 								{!! Html::image('assets/image/user-image.png', 'image', array('class' => 'user-image')) !!}
 							</div>
 							<div class="text-center">
-								<p class="user-name">Full Name</p>
-								<p class="user-email"> Email@nanti_panjang.kok </p>
+								<p class="user-name">{{$data['user']->first_name." ".$data['user']->last_name }}</p>
+								<p class="user-email"> {{$data['user']->email}} </p>
 								<p>
-									<button class="btn btn-primary">Change</button>
+									<button class="btn btn-primary">Upload</button>
 								</p>
 							</div>
 						</div>
@@ -28,8 +28,44 @@
 
 	    					<div class="tab-content" style="background:white;color:black">
 								<div role="tabpanel" class="tab-pane fade in active" id="profile">
-									hai
+								<form>
+					              <div class="form-group">
+					                <label class="col-sm-2 control-label" style="margin: 10px;">Nama Depan</label>
+					                <div class="col-sm-8" style="padding: 5px;">
+					                  <input type="text" class="form-control" id="first_name_input" name="first_name_input" value="{{$data['user']->first_name}}">
+					                </div>
+					              </div>
+
+					              <div class="form-group">
+					                <label class="col-sm-2 control-label" style="margin: 10px;">Nama Belakang</label>
+					                <div class="col-sm-8" style="padding: 5px;">
+					                  <input type="text" class="form-control" id="last_name_input" name="last_name_input" value="{{$data['user']->last_name}}">
+					                </div>
+					              </div>
+
+					              <div class="form-group">
+					                <label class="col-sm-2 control-label" style="margin: 10px;">No.Telepon</label>
+					                <div class="col-sm-8" style="padding: 5px;">
+					                  <input type="text" class="form-control" id="phone_input" name="phone_input" value="{{$data['user']->phone}}">
+					                </div>
+					              </div>
+
+					              <div class="form-group">
+					                <label class="col-sm-2 control-label" style="margin: 10px;">&nbsp;</label>
+					                <div class="col-sm-8" style="padding: 5px;">
+						                <button class="btn btn-small btn-primary">
+						              		Simpan
+						              	</button>
+						              	<button class="btn btn-small btn-peterriver">
+						              		Ubah Password
+						              	</button>
+					                </div>
+					              </div>
+
+					            </form>
+
 								</div>
+
 								<div role="tabpanel" class="tab-pane fade" id="order">
 									juga
 								</div>
