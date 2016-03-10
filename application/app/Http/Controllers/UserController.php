@@ -40,6 +40,39 @@ class UserController extends Controller
 								  ->nest('content', 'user/forgot_pass', array('data' => $this->data));
 	}
 
+	public function change_pass_form()
+	{
+		$this->data['css_assets'] 	= Assets::load('css', ['lib-bootstrap', 'style', 'color-schemes-core', 'font-awesome', 'font-awesome-min', 'color-schemes-turquoise', 'bootstrap-responsive','font-family']);
+		$this->data['js_assets'] 	= Assets::load('js', ['jquery', 'jquery-ui', 'jquery-easing', 'bootstrap-min-lib', 'jquery-isotope', 'jquery-flexslider', 'jquery.elevatezoom', 'jquery-sharrre', 'jquery-gmap3', 'imagesloaded', 'la_boutique', 'jquery-cookie', 'jquery-parallax-lib']);
+		$this->data['title']		= 'SayourShop | Ubah Password';
+	    return view('main_layout')->with('data', $this->data)
+								  ->nest('content', 'user/change_pass', array('data' => $this->data));
+	}
+
+	public function change_pass(Request $request){
+		$rules = array(
+			'password' => 'required',
+			'new_pass' => 'required',
+			're_new_pass' => 'required' 
+			);
+		$validator = Validator::make($request->all(), $rules);
+		if (!$validator->fails()) {
+			$user = Sentinel::getUser();
+			if (password_verify($request->password ,$user->password)) {
+				if ($request->new_pass == $request->re_new_pass) {
+					$user = Sentinel::update($user, ['password' => $request->new_pass]);
+					return redirect('form_ubah_pass')->with('success', 'Password berhasil diubah');
+				}else{
+					return redirect('form_ubah_pass')->with('error','Password tidak cocok');	
+				}
+			}else{
+				return redirect('form_ubah_pass')->with('error','Password lama tidak cocok');
+			}
+		}else{
+			return redirect('form_ubah_pass')->with('error', 'Terdapat form kosong');
+		}
+	}
+
 	public function register(Request $request)
 	{
 		$rules = array(
@@ -84,7 +117,7 @@ class UserController extends Controller
 		}
 	}
 
-	public function dashboard($id)
+	public function dashboard()
 	{
 		$this->data['css_assets'] 	= Assets::load('css', ['lib-bootstrap', 'style', 'color-schemes-core', 'font-awesome', 'font-awesome-min', 'color-schemes-turquoise', 'bootstrap-responsive','font-family']);
 
@@ -128,6 +161,26 @@ class UserController extends Controller
 			return redirect('login_form')->with('error','Silahkan isi form yang tersedia');
 		}
 	}
+
+	public function update(Request $request){
+		$rules = array(
+			'first_name_input' => 'required',
+			'last_name_input' => 'required',
+			'phone_input' => 'required'
+			);
+		$validator 	= Validator::make($request->all(), $rules);
+		if (!$validator->fails()) {
+			$user = Sentinel::getUser();
+			$user->first_name = $request->first_name_input;
+			$user->last_name = $request->last_name_input;
+			$user->phone = $request->phone_input;
+			$user->save();
+			return redirect('dashboard')->with('success','profil berhasil diperbaharui');
+		}else
+			return redirect('dashboard')->with('error','maaf ada form yang kosong');
+
+	}
+
 
 	public function logout(Request $request)
 	{

@@ -18,7 +18,10 @@ Route::get('login','UserController@login');
 Route::get('logout','UserController@logout');
 Route::get('daftar','UserController@register_form');
 Route::get('register','UserController@register');
-Route::get('dashboard/{id}','UserCOntroller@dashboard');
+Route::get('dashboard','UserCOntroller@dashboard');
+Route::get('update','UserController@update');
+Route::get('form_ubah_pass','UserController@change_pass_form');
+Route::get('ubah_pass','UserController@change_pass');
 //END ADE
 
 //UDIN

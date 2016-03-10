@@ -34,7 +34,7 @@
                     <h1>
                         <a href="{{url('keranjang')}}"><i class="fa fa-shopping-cart"></i><span> 3</span></a>
                         @if(Sentinel::check())
-                        <a href="{{url('dashboard/'.Sentinel::getUser()->id) }}" style="min-width:150px"><i class="fa fa-user"></i> {{Sentinel::getUser()->first_name." ".Sentinel::getUser()->last_name}}</a>
+                        <a href="{{url('dashboard') }}" style="min-width:150px"><i class="fa fa-user"></i> {{Sentinel::getUser()->first_name." ".Sentinel::getUser()->last_name}}</a>
                         <a href="{{url('logout')}}" style="min-width:150px"><i class="glyphicon glyphicon-log-out"></i> Log Out</a>
                         @else
                         <a href="{{url('login_form')}}" style="min-width:150px"><i class="fa fa-user"></i> Login | Register</a>

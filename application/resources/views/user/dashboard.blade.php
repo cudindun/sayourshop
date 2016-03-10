@@ -27,38 +27,49 @@
 	    					</ul>
 
 	    					<div class="tab-content" style="background:white;color:black">
+	    						@if(session('success'))
+								<div class="alert alert-success">
+			  						{{session('success')}}
+								</div>
+								@endif
+								@if(session('error'))
+								<div class="alert alert-danger">
+			  						{{session('error')}}
+								</div>
+								@endif
 								<div role="tabpanel" class="tab-pane fade in active" id="profile">
-								<form>
+								<form action="{{url('update')}}">
 					              <div class="form-group">
 					                <label class="col-sm-2 control-label" style="margin: 10px;">Nama Depan</label>
 					                <div class="col-sm-8" style="padding: 5px;">
-					                  <input type="text" class="form-control" id="first_name_input" name="first_name_input" value="{{$data['user']->first_name}}">
+					                  <input type="text" class="form-control" id="first_name_input" name="first_name_input" value="{{$data['user']->first_name}}" required>
 					                </div>
 					              </div>
 
 					              <div class="form-group">
 					                <label class="col-sm-2 control-label" style="margin: 10px;">Nama Belakang</label>
 					                <div class="col-sm-8" style="padding: 5px;">
-					                  <input type="text" class="form-control" id="last_name_input" name="last_name_input" value="{{$data['user']->last_name}}">
+					                  <input type="text" class="form-control" id="last_name_input" name="last_name_input" value="{{$data['user']->last_name}}" required>
 					                </div>
 					              </div>
 
 					              <div class="form-group">
 					                <label class="col-sm-2 control-label" style="margin: 10px;">No.Telepon</label>
 					                <div class="col-sm-8" style="padding: 5px;">
-					                  <input type="text" class="form-control" id="phone_input" name="phone_input" value="{{$data['user']->phone}}">
+					                  <input type="text" class="form-control" id="phone_input" name="phone_input" value="{{$data['user']->phone}}" required>
 					                </div>
 					              </div>
 
 					              <div class="form-group">
 					                <label class="col-sm-2 control-label" style="margin: 10px;">&nbsp;</label>
 					                <div class="col-sm-8" style="padding: 5px;">
-						                <button class="btn btn-small btn-primary">
-						              		Simpan
-						              	</button>
-						              	<button class="btn btn-small btn-peterriver">
-						              		Ubah Password
-						              	</button>
+					                
+					                	<button type="submit" class="btn btn-small btn-primary" >Submit</button>
+						            	<a href="{{ url('form_ubah_pass')}}"> 
+							              	<button type="button" class="btn btn-small btn-peterriver">
+							              		Ubah Password
+							              	</button>
+						              	</a>
 					                </div>
 					              </div>
 
