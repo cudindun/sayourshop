@@ -34,7 +34,7 @@
                     <h1>
                         <a href="{{url('keranjang')}}"><i class="fa fa-shopping-cart"></i><span> 3</span></a>
                         @if(Sentinel::check())
-                        <a href="{{url('dashboard') }}" style="min-width:150px"><i class="fa fa-user"></i> {{Sentinel::getUser()->first_name." ".Sentinel::getUser()->last_name}}</a>
+                        <a href="{{url('dashboard') }}" style="min-width:150px"><i class="fa fa-user"></i> {{ucwords(Sentinel::getUser()->first_name." ".Sentinel::getUser()->last_name)}}</a>
                         <a href="{{url('logout')}}" style="min-width:150px"><i class="glyphicon glyphicon-log-out"></i> Log Out</a>
                         @else
                         <a href="{{url('login_form')}}" style="min-width:150px"><i class="fa fa-user"></i> Login | Register</a>
@@ -58,7 +58,7 @@
             <div class="col-lg-9 col-md-12">
                 <div class="hidden-xs">
                     <!-- Main menu (desktop) -->
-                    <ul class="main-menu">
+                    <div class="main-menu">
                         <li>
                             <a href="{{ url('/') }}" title="Home" class="title">Home</a>
                         </li>
@@ -66,8 +66,8 @@
                             <a href="{{ url('produk') }}" title="About us" class="title">Produk</a>
                         </li>
                         <li>
-                            <a href="category.html" title="Mens" class="title">Ready Stock</a>
-                            <ul>
+                            <a href="{{ url('produk') }}" title="Mens" class="title">Ready Stock</a>
+                            <ul class="dropdown-menu">
                                 <li class="text-left">
                                     <a href="category.html" title="Accesories" class="title">Accesories</a>
                                 </li>
@@ -89,8 +89,8 @@
                             </ul>
                         </li>
                         <li>
-                            <a href="category.html" title="Womens" class="title">Pre-Order</a>
-                            <ul style="width:170px">
+                            <a href="{{ url('produk') }}" title="Womens" class="title">Pre-Order</a>
+                            <ul class="dropdown-menu">
                                 <li>
                                     <a href="category.html" title="Accessories" class="title">Accessories</a>
                                 </li>
@@ -112,12 +112,12 @@
                             </ul>
                         </li>
                         <li>
-                            <a href="#">Cek Order</a>
+                            <a href="{{url('cek_order_form')}}">Cek Order</a>
                         </li>
                         <li>
                             <a href="#">Konfirmasi Pembayaran</a>
                         </li>
-                    </ul>
+                    </div>
                     <!-- End class="main-menu" -->
                 </div>
                 
@@ -167,7 +167,7 @@
                 <div class="support">
                     <h6>Support</h6>
 
-                    <ul class="links">
+                    <div class="links">
                         <li>
                             <a href="about-us.html" title="About us" class="title">About us</a>
                         </li>
@@ -192,7 +192,7 @@
                         <li>
                             <a href="contact-us.html" title="Contact us" class="title">Contact us</a>
                         </li>                                           
-                    </ul>
+                    </div>
                 </div>
                 <!-- End class="support" -->
 
@@ -202,7 +202,7 @@
                 <div class="account">
                     <h6>My account</h6>
 
-                    <ul class="links">                              
+                    <div class="links">                              
                         <li>
                             @if(Sentinel::check())
                         <a href="{{url('dashboard')}}" style="min-width:150px"><i class="fa fa-user"></i> {{Sentinel::getUser()->email}}</a>
@@ -212,7 +212,7 @@
                         <a href="{{url('login_form')}}" style="min-width:150px"><i class="fa fa-user"></i> Login | Register</a>
                         @endif                               
                         </li>
-                    </ul>
+                    </div>
                 </div>
                 <!-- End class="account"-->
                 
@@ -224,14 +224,14 @@
                 <div class="categories">
                     <h6>Categories</h6>
 
-                    <ul class="links">
+                    <div class="links">
                         <li>
                             <a href="category.html" title="Mens">Mens</a>
                         </li>
                         <li>
                             <a href="category.html" title="Womens">Womens</a>
                         </li>
-                    </ul>
+                    </div>
                 </div>
                 <!-- End class="categories" -->
 
@@ -249,7 +249,7 @@
             <div class="col-lg-4">
                 <h6>From the blog</h6>
 
-                <ul class="list-chevron links">
+                <div class="list-chevron links">
                     <li>
                         <a href="blog-post.html">Article with video</a>
                         <small>05/01/2013</small>
@@ -262,7 +262,7 @@
                         <a href="blog-post.html">Article with style!</a>
                         <small>08/31/2013</small>
                     </li>
-                </ul>
+                </div>
             </div>
 
             <div class="col-lg-4">              
@@ -292,7 +292,7 @@
                 <div class="social">
                     <h6>Socialize with us</h6>
 
-                    <ul class="social-icons">
+                    <div class="social-icons">
 
                         <li>
                             <a class="twitter" href="#" title="Twitter">Twitter</a>                             
@@ -342,7 +342,7 @@
                             <a class="instagram" href="#" title="Instagram">Instagram</a>                               
                         </li>
 
-                    </ul>
+                    </div>
                 </div>
                 <!-- End class="social" -->
 
@@ -357,9 +357,6 @@
         <div class="row">
             <div class="col-lg-8">
                 <p>&copy; <?= date('Y')?> <a href="http://themeforest.net/item/la-boutique-responsive-ecommerce-template/5573130?ref=Tfingi" title="La Boutique">La Boutique</a> &middot; <a href="#" title="Terms &amp; Conditions">Terms &amp; Conditions</a> &middot; <a href="#" title="Privacy policy">Privacy policy</a> &middot; All Rights Reserved. </p>
-            </div>
-            <div class="span4 text-right hidden-sm hidden-xs">
-                <p><a href="http://themeforest.net/item/la-boutique-responsive-ecommerce-template/5573130?ref=Tfingi" title="Responsive eCommerce template">Responsive eCommerce template by Tfingi</a></p>
             </div>
         </div>
     </div>
@@ -396,10 +393,6 @@
             </div>
         </div>
 
-    </div>
-
-    <div class="options-panel-toggle">
-        <a href="#" title=""><i class="fa fa-gear"></i></a>
     </div>
 </div>
 <!-- End class="options-panel" -->

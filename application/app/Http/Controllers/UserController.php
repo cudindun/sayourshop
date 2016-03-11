@@ -9,7 +9,7 @@ use App\Http\Controllers\Controller;
 use App\Http\Libraries\Assets;
 use App\Http\Models\User;
 use App\Http\Models\Activations;
-use DB, Sentinel, Validator, Activation;
+use DB, Sentinel, Validator, Activation, Storage, Input;
 
 class UserController extends Controller
 {
@@ -126,6 +126,22 @@ class UserController extends Controller
 		$this->data['user']			= Sentinel::getUser();
 	    return view('main_layout')->with('data', $this->data)
 								  ->nest('content', 'user/dashboard', array('data' => $this->data));
+	}
+
+	public function upload_image(Request $request)
+	{
+		// if( $request->hasFile()) {
+	        $file = $request->profile_image;
+	        // $image = Input::file('image');
+	        $this->extension = $request->profile_image->getClientOriginalExtension();
+            // $filename  = time() . '.' . $image->getClientOriginalExtension();
+
+            // $path = public_path('profilepics/' . $filename);
+
+	        echo $image;
+	        // echo $request;
+	        // Now you have your file in a variable that you can do things with
+	    // }
 	}
 
 	public function login(Request $request)

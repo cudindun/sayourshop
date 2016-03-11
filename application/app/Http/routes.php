@@ -22,6 +22,8 @@ Route::get('dashboard','UserCOntroller@dashboard');
 Route::get('update','UserController@update');
 Route::get('form_ubah_pass','UserController@change_pass_form');
 Route::get('ubah_pass','UserController@change_pass');
+Route::get('cek_order_form','OrderController@check_order_form');
+Route::get('tes_upload','UserController@upload_image');
 //END ADE
 
 //UDIN

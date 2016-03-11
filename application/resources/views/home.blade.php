@@ -113,8 +113,8 @@
             <?php // ================ TOP PRODUCT SLIDER ==================  ?>
             <div class="col-lg-6">
                 <div class="free-shipping" id="parallax-top-product">
-                    <div class="box" style="min-height:270px;margin-bottom:10px;">
-                        <div class="hgroup title" style="margin-bottom: 0px;">
+                    <div class="col-lg-12" style="min-height:270px;margin-bottom:10px;">
+                        <div class="hgroup title" style="margin-bottom: 0px;background: none;">
                             <h3>Top Product</h3>
                         </div>
                         <div class="col-lg-12" id="port" style="margin-top: 0px;margin-bottom: 0px;">
@@ -283,7 +283,7 @@
     <div class="container">
         <div class="row">
             <div class="col-lg-12" style="margin-bottom: 10px;" >
-                    {!! Html::image('assets/image/adverts/570x171-080950banner1.jpg','', array('style' => 'width:1170px;height:300px;')) !!}
+                    {!! Html::image('assets/image/adverts/570x171-080950banner1.jpg','', array('style' => 'width:1155px;height:300px;')) !!}
             </div>
         </div>
     </div>

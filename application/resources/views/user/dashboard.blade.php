@@ -9,10 +9,13 @@
 								{!! Html::image('assets/image/user-image.png', 'image', array('class' => 'user-image')) !!}
 							</div>
 							<div class="text-center">
-								<p class="user-name">{{$data['user']->first_name." ".$data['user']->last_name }}</p>
+								<p class="user-name">{{ucwords($data['user']->first_name." ".$data['user']->last_name) }}</p>
 								<p class="user-email"> {{$data['user']->email}} </p>
 								<p>
-									<button class="btn btn-primary">Upload</button>
+								<form action="{{ url('tes_upload') }}">
+									<input type="file" id="profile_image" name="profile_image">
+									<button type="submit"> Submit</button>
+								</form>
 								</p>
 							</div>
 						</div>
@@ -21,8 +24,8 @@
 					<div class="col-lg-9">
 						<div class="box" style="min-height:250px">
 							<ul class="nav nav-tabs" role="tablist">
-	    						<li role="presentation" class="active"><a href="#profile" aria-controls="profile" role="tab" data-toggle="tab">Profile</a></li>
-	    						<li role="presentation"><a href="#order" aria-controls="order" role="tab" data-toggle="tab">Order List</a></li>
+	    						<li role="presentation" class="active"><a href="#profile" aria-controls="profile" role="tab" data-toggle="tab">Profil</a></li>
+	    						<li role="presentation"><a href="#order" aria-controls="order" role="tab" data-toggle="tab">Daftar Pesanan</a></li>
 	    						<li role="presentation"><a href="#wish" aria-controls="order" role="tab" data-toggle="tab">Wish List</a></li>
 	    					</ul>
 
@@ -60,6 +63,8 @@
 					                </div>
 					              </div>
 
+
+
 					              <div class="form-group">
 					                <label class="col-sm-2 control-label" style="margin: 10px;">&nbsp;</label>
 					                <div class="col-sm-8" style="padding: 5px;">
@@ -74,11 +79,60 @@
 					              </div>
 
 					            </form>
-
+					            	<div class="col-sm-11">
+						            	<div class="panel panel-success" style="margin: 20px 35px 0 10px;padding: 0px; ">
+							            	<div class="panel-heading" style="margin: 0px;"><b>Rekening Bank</b></div>
+							            	<div class="panel-body">
+							            		<button class="btn btn-mini btn-primary">Tambah</button>
+							            		<br><br>
+							            		<table class="table table-responsive">
+							            			<thead>
+								            			<tr>
+								            				<th>Bank</th>
+								            				<th>No.Rekening</th>
+								            				<th>Atas Nama</th>
+								            				<th>Opsi</th>
+								            			</tr>
+							            			</thead>
+							            			<tbody>
+							            				<tr>
+							            					<td>&nbsp;</td>
+							            					<td>&nbsp;</td>
+							            					<td>&nbsp;</td>
+							            					<td><button class="btn btn-mini btn-alizarin">hapus</button></td>
+							            				</tr>
+							            			</tbody>
+							            		</table>
+							            	</div>
+							            	<div class="panel-footer"></div>
+							            </div>
+							        </div>
 								</div>
 
+
 								<div role="tabpanel" class="tab-pane fade" id="order">
-									juga
+									<table class="table table-responsive">
+										<thead>
+											<tr>
+												<th>Invoice</th>
+												<th>Tanggal Pemesanan</th>
+							                    <th>Total Harga</th>
+							                    <th>Status</th>
+							                    <th>No. Resi</th>
+							                    <th>Opsi</th>
+											</tr>
+										</thead>
+							            <tbody>
+							            <tr>
+							            	<td>&nbsp;</td>
+							            	<td>&nbsp;</td>
+							            	<td>&nbsp;</td>
+							            	<td>&nbsp;</td>
+							            	<td>&nbsp;</td>
+							            	<td><button class="btn btn-mini btn-primary">Detail</button></td>
+							            </tr>
+							            </tbody>
+									</table>
 								</div>
 								<div role="tabpanel" class="tab-pane fade" id="wish">
 									yeah
