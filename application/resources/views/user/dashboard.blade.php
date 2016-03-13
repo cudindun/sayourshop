@@ -5,17 +5,38 @@
 					<?php // ================== User sub description ================== ?>
 					<div class="col-lg-3">
 						<div class="box" style="min-height:250px">
-							<div class="text-center">
-								{!! Html::image('assets/image/user-image.png', 'image', array('class' => 'user-image')) !!}
-							</div>
+						@if(session('completed'))
+						<div class="alert alert-success">
+			  				{{session('completed')}}
+						</div>
+						@endif
+						@if(session('failed'))
+						<div class="alert alert-danger">
+			  				{{session('failed')}}
+						</div>
+						@endif
+							@if($data['user']->image == "")
+								<div class="text-center">
+									<img src="assets/image/user-image.png" class="user-image">
+								</div>
+							@else
+								<div class="text-center">
+									<img src="photo_profile/{{$data['user']->image}}" class="user-image">
+								</div>
+							@endif
+							
 							<div class="text-center">
 								<p class="user-name">{{ucwords($data['user']->first_name." ".$data['user']->last_name) }}</p>
 								<p class="user-email"> {{$data['user']->email}} </p>
 								<p>
-								<form action="{{ url('tes_upload') }}">
-									<input type="file" id="profile_image" name="profile_image">
-									<button type="submit"> Submit</button>
-								</form>
+						        	{!! Form::open(array('url'=>'upload_photopic','method'=>'POST', 'files'=>true)) !!}
+						        		<div class="control-group">
+						        			<div class="controls">
+						        				{!! Form::file('image') !!}
+												{!! Form::submit('Submit', array('class'=>'send-btn')) !!}
+						        			</div>
+						        		</div>		
+						      		{!! Form::close() !!}
 								</p>
 							</div>
 						</div>
@@ -62,9 +83,6 @@
 					                  <input type="text" class="form-control" id="phone_input" name="phone_input" value="{{$data['user']->phone}}" required>
 					                </div>
 					              </div>
-
-
-
 					              <div class="form-group">
 					                <label class="col-sm-2 control-label" style="margin: 10px;">&nbsp;</label>
 					                <div class="col-sm-8" style="padding: 5px;">
@@ -83,8 +101,18 @@
 						            	<div class="panel panel-success" style="margin: 20px 35px 0 10px;padding: 0px; ">
 							            	<div class="panel-heading" style="margin: 0px;"><b>Rekening Bank</b></div>
 							            	<div class="panel-body">
-							            		<button class="btn btn-mini btn-primary">Tambah</button>
+							            		<button type="button" class="btn btn-mini btn-primary" data-toggle="modal" data-target="#myModal">Tambah</button>
 							            		<br><br>
+							            		@if(session('add'))
+												<div class="alert alert-success">
+							  						{{session('add')}}
+												</div>
+												@endif
+												@if(session('fail'))
+												<div class="alert alert-danger">
+							  						{{session('fail')}}
+												</div>
+												@endif
 							            		<table class="table table-responsive">
 							            			<thead>
 								            			<tr>
@@ -96,9 +124,9 @@
 							            			</thead>
 							            			<tbody>
 							            				<tr>
-							            					<td>&nbsp;</td>
-							            					<td>&nbsp;</td>
-							            					<td>&nbsp;</td>
+							            					<td>tes bank statis</td>
+							            					<td>tes rekening statis</td>
+							            					<td>atas nama statis</td>
 							            					<td><button class="btn btn-mini btn-alizarin">hapus</button></td>
 							            				</tr>
 							            			</tbody>
@@ -107,6 +135,43 @@
 							            	<div class="panel-footer"></div>
 							            </div>
 							        </div>
+							        <!-- Modal -->
+									<div id="myModal" class="modal fade" role="dialog">
+									  <div class="modal-dialog">
+
+									    <!-- Modal content-->
+									    <form action="{{url('tambah_rek')}}" method="GET">
+										    <div class="modal-content">
+										      	<div class="modal-header">
+											        <button type="button" class="close" data-dismiss="modal">&times;</button>
+											        <h4 class="modal-title">Modal Header</h4>
+										      	</div>
+										      	<div class="modal-body">
+											      	<div class="form-group">
+										                <label class="control-label">Bank</label>
+										                <input type="text" class="form-control" id="bank" name="bank" required>
+									              	</div>
+
+									              	<div class="form-group">
+										                <label class="control-label">Nomor Rekening</label>
+										                <input type="text" class="form-control" id="bank_account" name="bank_account" required>
+									              	</div>
+
+									              	<div class="form-group">
+										                <label class="control-label">Atas Nama</label>
+										                <input type="text" class="form-control" id="account_name" name="account_name" required>
+									              	</div>
+										      	</div>
+										      	<div class="modal-footer">
+										      		<button type="submit" class="btn btn-primary">Tambah</button>
+										        	<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+										      	</div>
+										    </div>
+									    </form>
+
+									  </div>
+									</div>
+
 								</div>
 
 

@@ -10,8 +10,8 @@
             <div class="row">
                 <div class="col-lg-4 col-lg-offset-0 col-md-4 col-md-offset-4 col-sm-6 col-sm-offset-3 col-xs-12">                          
                     <div class="logo">
-                        <a href="/" title="&larr; Back home">
-                            {!! Html::image('assets/image/logo.png') !!}
+                        <a href="{{url ('/') }}" title="&larr; Back home">
+                        <img src="assets/image/logo.png" style="max-width: 100%;">
                         </a>
                     </div>
                 </div>
@@ -361,41 +361,7 @@
         </div>
     </div>
 </div>
-<!-- End class="credits" -->            <!-- Options panel -->
-<div class="options-panel">
-    <div class="options-panel-content">
-
-        <div class="row-fluid">
-            <div class="col-lg-12">
-                <div class="control-group">
-                    <label for="option_color_scheme" class="control-label">Color scheme</label>
-                    <div class="controls">
-                        <select name="option_color_scheme" id="option_color_scheme" class="span12">
-                            <option value="css/color-schemes/turquoise.css" />Turquoise
-                            <option value="css/color-schemes/greensea.css" />Green sea
-                            <option value="css/color-schemes/emerland.css" />Emerland
-                            <option value="css/color-schemes/nephritis.css" />Nephritis
-                            <option value="css/color-schemes/peterriver.css" />Peter river
-                            <option value="css/color-schemes/belizehole.css" />Belizehole
-                            <option value="css/color-schemes/amethyst.css" />Amethyst
-                            <option value="css/color-schemes/wisteria.css" />Wisteria
-                            <option value="css/color-schemes/wetasphalt.css" />Wet asphalt
-                            <option value="css/color-schemes/midnightblue.css" />Midnight blue
-                            <option value="css/color-schemes/sunflower.css" />Sunflower
-                            <option value="css/color-schemes/orange.css" />Orange
-                            <option value="css/color-schemes/carrot.css" />Carrot
-                            <option value="css/color-schemes/pumpkin.css" />Pumpkin
-                            <option value="css/color-schemes/alizarin.css" />Alizarin
-                            <option value="css/color-schemes/pomegranate.css" />Pomegranate
-                        </select>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-    </div>
-</div>
-<!-- End class="options-panel" -->
+<!-- End class="credits" --> 
                     
         </div>
 @stop

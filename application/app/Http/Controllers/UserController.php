@@ -8,8 +8,9 @@ use App\Http\Requests;
 use App\Http\Controllers\Controller;
 use App\Http\Libraries\Assets;
 use App\Http\Models\User;
+use App\Http\Models\UserMeta;
 use App\Http\Models\Activations;
-use DB, Sentinel, Validator, Activation, Storage, Input;
+use DB, Sentinel, Validator, Activation, Storage, Input, Session, Redirect, File;
 
 class UserController extends Controller
 {
@@ -124,24 +125,37 @@ class UserController extends Controller
 		$this->data['js_assets'] 	= Assets::load('js', ['jquery', 'jquery-ui', 'jquery-easing', 'bootstrap-min-lib', 'jquery-isotope', 'jquery-flexslider', 'jquery.elevatezoom', 'jquery-sharrre', 'jquery-gmap3', 'imagesloaded', 'la_boutique', 'jquery-cookie', 'jquery-parallax-lib']);
 		$this->data['title']		= 'SayourShop | My Profile';
 		$this->data['user']			= Sentinel::getUser();
+		$this->data['rekening']		= UserMeta::where('user_id', $this->data['user']->id)->first();
 	    return view('main_layout')->with('data', $this->data)
 								  ->nest('content', 'user/dashboard', array('data' => $this->data));
 	}
 
-	public function upload_image(Request $request)
-	{
-		// if( $request->hasFile()) {
-	        $file = $request->profile_image;
-	        // $image = Input::file('image');
-	        $this->extension = $request->profile_image->getClientOriginalExtension();
-            // $filename  = time() . '.' . $image->getClientOriginalExtension();
-
-            // $path = public_path('profilepics/' . $filename);
-
-	        echo $image;
-	        // echo $request;
-	        // Now you have your file in a variable that you can do things with
-	    // }
+	public function upload(Request $request) {
+	  // getting all of the post data
+		$id = Sentinel::getUser();
+	  	$file = array('image' => Input::file('image'));
+	  	$rules = array('image' => 'required',); //mimes:jpeg,bmp,png and for max size max:10000
+	  	$validator = Validator::make($file, $rules);
+		if ($validator->fails()) {
+	    	return redirect('dashboard')->with('failed','Upload Gagal');
+	  	}
+	  	else {
+		    if (Input::file('image')->isValid()) {
+		    	File::delete('photo_profile/'.$id->image);//hapus foto lama
+				$destinationPath = 'photo_profile'; // upload path
+		        $extension = Input::file('image')->getClientOriginalExtension(); // getting image extension
+				$fileName = $id->id.'.'.$extension; // renameing image
+				//insert DB
+				$id->image = $fileName;
+				$id->save(); 
+		    	//end insert
+		    	Input::file('image')->move($destinationPath, $fileName); // uploading file to given path
+			    return redirect('dashboard')->with('completed','Upload berhasil');
+			}
+			else {
+		    	return redirect('dashboard')->with('failed','Upload Gagal');
+		    }
+		}
 	}
 
 	public function login(Request $request)
@@ -178,7 +192,8 @@ class UserController extends Controller
 		}
 	}
 
-	public function update(Request $request){
+	public function update(Request $request)
+	{
 		$rules = array(
 			'first_name_input' => 'required',
 			'last_name_input' => 'required',
@@ -204,4 +219,38 @@ class UserController extends Controller
 		return redirect('login_form')->with('success','Anda telah logout');
 	}
 
+	public function add_bank_acc(Request $request)
+	{
+		$rules = array(
+			'bank' => 'required',
+			'bank_account' => 'required',
+			'account_name' => 'required'
+			);
+		$validator 	= Validator::make($request->all(), $rules);
+		if (!$validator->fails()) {
+			$rekening = [
+				'bank' => $request->bank,
+				'nomor_rekening' => $request->bank_account,
+				'atas_nama' => $request->account_name
+				];
+
+			if ($user_meta = UserMeta::where('user_id', Sentinel::getUser()->id)->where('meta_key','bank_account')->first()) {
+				$unserialize = unserialize($user_meta->meta_value);
+				$account = array($unserialize);// membuat indeks array
+				$sum_array = array_push($account, $rekening);
+				$serialize = serialize($account);
+				$total = UserMeta::where('user_id', $user_meta->user_id)->where('meta_key','bank_account')->update(['meta_value' => $serialize]);
+				return redirect('dashboard')->with('add','Nomor rekening berhasil ditambahkan');
+			}else{
+				$usermeta = new UserMeta;
+				$usermeta->user_id = Sentinel::getUser()->id;
+				$usermeta->meta_key = "bank_account";
+				$usermeta->meta_value = $rekening;
+				$usermeta->save();
+				return redirect('dashboard')->with('add','Nomor rekening berhasil ditambahkan');
+			}
+		}else{
+			return redirect('dashboard')->with('fail','Nomor rekening gagal ditambahkan');
+		}
+	}
 }

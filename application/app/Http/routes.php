@@ -24,6 +24,8 @@ Route::get('form_ubah_pass','UserController@change_pass_form');
 Route::get('ubah_pass','UserController@change_pass');
 Route::get('cek_order_form','OrderController@check_order_form');
 Route::get('tes_upload','UserController@upload_image');
+Route::post('upload_photopic', 'UserController@upload');
+Route::get('tambah_rek','UserController@add_bank_acc');
 //END ADE
 
 //UDIN
