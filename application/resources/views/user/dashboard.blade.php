@@ -87,7 +87,7 @@
 					                <label class="col-sm-2 control-label" style="margin: 10px;">&nbsp;</label>
 					                <div class="col-sm-8" style="padding: 5px;">
 					                
-					                	<button type="submit" class="btn btn-small btn-primary" >Submit</button>
+					                	<button type="submit" class="btn btn-small btn-primary" >Simpan</button>
 						            	<a href="{{ url('form_ubah_pass')}}"> 
 							              	<button type="button" class="btn btn-small btn-peterriver">
 							              		Ubah Password
@@ -123,12 +123,26 @@
 								            			</tr>
 							            			</thead>
 							            			<tbody>
+							            			<?php
+							            			
+							            			if ($data['rekening']) {
+							            				$query = unserialize($data['rekening']->meta_value);
+							            				$total_rek =count($query);
+							            				for ($i=0; $i < $total_rek ; $i++) { 
+							            			?>
+
+
 							            				<tr>
-							            					<td>tes bank statis</td>
-							            					<td>tes rekening statis</td>
-							            					<td>atas nama statis</td>
-							            					<td><button class="btn btn-mini btn-alizarin">hapus</button></td>
+							            					<td>{{$query[$i]['bank']}}</td>
+							            					<td>{{$query[$i]['nomor_rekening']}}</td>
+							            					<td>{{$query[$i]['atas_nama']}}</td>
+							            					<td><a href='{{url('hapus_rek/'.$i)}}' ><button class="btn btn-mini btn-alizarin" id="no_rek_{{$i}} " name="no_rek_{{$i}} ">hapus</button></a></td>
 							            				</tr>
+
+							            			<?php
+							            				}
+							            			}
+							            			?>
 							            			</tbody>
 							            		</table>
 							            	</div>

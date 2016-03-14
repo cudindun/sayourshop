@@ -26,6 +26,7 @@ Route::get('cek_order_form','OrderController@check_order_form');
 Route::get('tes_upload','UserController@upload_image');
 Route::post('upload_photopic', 'UserController@upload');
 Route::get('tambah_rek','UserController@add_bank_acc');
+Route::get('hapus_rek/{no_rek}','UserController@delete_bank_acc');
 //END ADE
 
 //UDIN
