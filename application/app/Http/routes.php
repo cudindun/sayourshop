@@ -30,6 +30,7 @@ Route::get('tambah_rek','UserController@add_bank_acc');
 
 //UDIN
 Route::get('produk/view','ProductController@detail');
+Route::get('produk/insert','ProductController@insert');
 Route::get('keranjang','OrderController@cart_form');
 Route::get('lupa_pass','UserController@forgot_pass_form');
 //END UDIN
