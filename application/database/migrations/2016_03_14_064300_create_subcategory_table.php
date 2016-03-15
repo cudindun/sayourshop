@@ -3,7 +3,7 @@
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateUserMetaTable extends Migration
+class CreateSubcategoryTable extends Migration
 {
     /**
      * Run the migrations.
@@ -12,11 +12,13 @@ class CreateUserMetaTable extends Migration
      */
     public function up()
     {
-        Schema::create('users_meta', function (Blueprint $table) {
+        Schema::create('subcategory', function (Blueprint $table) {
             $table->increments('id');
-            $table->integer('user_id')->unsigned();
-            $table->text('meta_key');
-            $table->string('meta_value');
+            $table->integer('category_id');
+            $table->string('subname');
+            $table->string('slug');
+            $table->text('properties');
+            $table->integer('total_product');
             $table->timestamps();
         });
     }

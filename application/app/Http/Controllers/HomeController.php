@@ -7,10 +7,17 @@ use Illuminate\Http\Request;
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
 use App\Http\Libraries\Assets;
+use App\Http\Models\Category;
 use DB;
 
 class HomeController extends Controller
 {
+	public function __construct(Request $request)
+	{
+		$this->data['category'] 		= Category::get();
+		$this->data['request'] 			= $request;
+		//$this->data['main-cart-content'] = dd($this->get_cart());
+	}
 
     public function index()
 	{

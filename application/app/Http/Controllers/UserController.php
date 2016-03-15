@@ -12,7 +12,7 @@ use App\Http\Models\UserMeta;
 use App\Http\Models\Activations;
 use DB, Sentinel, Validator, Activation, Storage, Input, Session, Redirect, File;
 
-class UserController extends Controller
+class UserController extends HomeController
 {
     public function login_form()
 	{

@@ -39,7 +39,6 @@
                         @else
                         <a href="{{url('login_form')}}" style="min-width:150px"><i class="fa fa-user"></i> Login | Register</a>
                         @endif
-                        
                     </h1>
                 </div>
             
@@ -55,62 +54,38 @@
 <nav class="navigation">
     <div class="container">
         <div class="row">
-            <div class="col-lg-9 col-md-12">
+            <div class="col-md-12">
                 <div class="hidden-xs">
                     <!-- Main menu (desktop) -->
                     <div class="main-menu">
                         <li>
                             <a href="{{ url('/') }}" title="Home" class="title">Home</a>
                         </li>
-                         <li>
-                            <a href="{{ url('produk') }}" title="About us" class="title">Produk</a>
-                        </li>
-                        <li>
-                            <a href="{{ url('produk') }}" title="Mens" class="title">Ready Stock</a>
-                            <ul class="dropdown-menu">
-                                <li class="text-left">
-                                    <a href="category.html" title="Accesories" class="title">Accesories</a>
-                                </li>
-                                <li>
-                                    <a href="category.html" title="Jackets" class="title">Jackets</a>
-                                </li>
-                                <li>
-                                    <a href="category.html" title="Jumpers" class="title">Jumpers</a>
-                                </li>
-                                <li>
-                                    <a href="category.html" title="Shirts" class="title">Shirts</a>
-                                </li>
-                                <li>
-                                    <a href="category.html" title="Shoes" class="title">Shoes</a>
-                                </li>
-                                <li>
-                                    <a href="category.html" title="T-Shirts" class="title">T-Shirts</a>
-                                </li>
-                            </ul>
-                        </li>
-                        <li>
-                            <a href="{{ url('produk') }}" title="Womens" class="title">Pre-Order</a>
-                            <ul class="dropdown-menu">
-                                <li>
-                                    <a href="category.html" title="Accessories" class="title">Accessories</a>
-                                </li>
-                                <li>
-                                    <a href="category.html" title="Bags" class="title">Bags</a>
-                                </li>
-                                <li>
-                                    <a href="category.html" title="Dresses" class="title">Dresses</a>
-                                </li>
-                                <li>
-                                    <a href="category.html" title="Shoes" class="title">Shoes</a>
-                                </li>
-                                <li>
-                                    <a href="category.html" title="Tops" class="title">Tops</a>
-                                </li>
-                                <li>
-                                    <a href="category.html" title="Trousers" class="title">Trousers</a>
-                                </li>
-                            </ul>
-                        </li>
+                        <?php
+                        $total_app = count($data['category']);
+
+                        for ($i=0; $i < $total_app ; $i++) { 
+                        ?>
+                            <li>
+                                <a href="">
+                                    {{$data['category'][$i]->name}}
+                                </a>
+                                @if($data['category'][$i]->subcategories == "1")
+                                <?php $tes=$data['category'][$i]->subcategory?>
+                                    <ul class="dropdown-menu">
+                                        @foreach($tes as $key)
+                                        <li>
+                                            <a href="category.html" title="Shoes">
+                                                   {{$key->subname}}           
+                                            </a>
+                                        </li>
+                                        @endforeach
+                                    </ul>
+                                @endif
+                            </li>
+                        <?php
+                        }
+                        ?>
                         <li>
                             <a href="{{url('cek_order_form')}}">Cek Order</a>
                         </li>
