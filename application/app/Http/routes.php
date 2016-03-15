@@ -36,5 +36,5 @@ Route::get('keranjang','OrderController@cart_form');
 Route::get('lupa_pass','UserController@forgot_pass_form');
 //END UDIN
 
-
-
+//ADMIN
+Route::get('master','AdminController@home');
