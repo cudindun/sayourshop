@@ -24,6 +24,16 @@ return [
 
 		//END LIB
 
+		//ADMIN CSS
+		'admin_css'					=> 'assets/admin/css/AdminLTE.min.css',
+		'skins'						=> 'assets/admin/css/skins/_all-skins.css',
+		'admin_bootstrap'			=> 'assets/admin/lib/bootstrap/css/bootstrap.min.css',
+
+		//ADMIN PLUGIN CSS
+		'icheck'					=> 'assets/admin/plugins/iCheck/flat/blue.css',
+		'morris_chart'				=> 'assets/admin/plugins/morris/morris.css',
+		'jvectormap'				=> 'assets/admin/plugins/jvectormap/jquery-jvectormap-1.2.2.css',
+
 
 
 		// // PRODUCT DESIGNER
@@ -61,6 +71,19 @@ return [
 		'parallax-lib'			=> 'assets/lib/jparallax/js/jquery.parallax_1.0.js',
 		//END LIB
 
+		//ADMIN JS
+		'admin_js'				=> 'assets/admin/js/app.js',
+		'dashboard'				=> 'assets/admin/js/pages/dashboard.js',
+		'admin_bootstrap-js'	=> 'assets/admin/lib/bootstrap/js/bootstrap.min.js',
+
+		//ADMIN PLUGIN JS
+		'slimscroll'			=> 'assets/admin/plugins/slimScroll/jquery.slimscroll.min.js',
+		'fastclick'				=> 'assets/admin/plugins/fastclick/fastclick.min.js',
+		'morris_chart_js'		=> 'assets/admin/plugins/morris/morris.min.js',
+		'sparkline'				=> 'assets/admin/plugins/sparkline/jquery.sparkline.min.js',
+		'jvectormap_js'			=> 'assets/admin/plugins/jvectormap/jquery-jvectormap-1.2.2.min.js',
+		'jvectormap_world_js'	=> 'assets/admin/plugins/jvectormap/jquery-jvectormap-world-mill-en.js',
+		'knob'					=> 'assets/admin/plugins/knob/jquery.knob.js',
 
 		// // PRODUCT DESIGNER
 		// 'pd-jquery.min'			=> 'assets/js/product-designer/jquery.min.js',
