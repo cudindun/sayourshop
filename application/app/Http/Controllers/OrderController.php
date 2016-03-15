@@ -9,7 +9,7 @@ use App\Http\Controllers\Controller;
 use App\Http\Libraries\Assets;
 use DB;
 
-class OrderController extends Controller
+class OrderController extends HomeController
 {
     public function cart_form()
 	{

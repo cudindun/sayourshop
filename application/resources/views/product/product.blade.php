@@ -63,44 +63,62 @@
                             <div class="box border-top">
                                 <div class="hgroup title">
                                     <h3>
-                                        <a href="category.html" title="Womens">Womens</a>
+                                        <a href="category.html" title="Ready Stock">Pria</a>
                                     </h3>
                                 </div>
                                 <div class="category-list secondary">
                                     <li>
                                         <a href="category.html" title="Shoes">
                                             <span class="count">3</span>
-                                            Shoes               
+                                            T-Shirt               
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a href="category.html" title="Shoes">
+                                            <span class="count">3</span>
+                                            Polo Shirt               
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a href="category.html" title="Shoes">
+                                            <span class="count">3</span>
+                                            Jersey              
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a href="category.html" title="Shoes">
+                                            <span class="count">3</span>
+                                            Batik              
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a href="category.html" title="Shoes">
+                                            <span class="count">3</span>
+                                            Kemeja             
                                         </a>
                                     </li>
                                     <li class="current">
                                         <a href="category.html" title="Dresses">
                                             <span class="count">11</span>
-                                            Dresses             
+                                            Jaket           
+                                        </a>
+                                    </li>
+                                    <li class="current">
+                                        <a href="category.html" title="Dresses">
+                                            <span class="count">11</span>
+                                            Hoodie           
                                         </a>
                                     </li>
                                     <li>
                                         <a href="category.html" title="Bags">
                                             <span class="count">2</span>
-                                            Bags                
+                                            Celana               
                                         </a>
                                     </li>
                                     <li>
                                         <a href="category.html" title="Trousers">
                                             <span class="count">7</span>
-                                            Trousers                
-                                        </a>
-                                    </li>
-                                    <li>
-                                        <a href="category.html" title="Tops">
-                                            <span class="count">8</span>
-                                            Tops                
-                                        </a>
-                                    </li>
-                                    <li>
-                                        <a href="category.html" title="Accessories">
-                                            <span class="count">4</span>
-                                            Accessories             
+                                            Sepatu                
                                         </a>
                                     </li>
                                 </div>

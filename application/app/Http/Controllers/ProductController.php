@@ -9,7 +9,7 @@ use App\Http\Controllers\Controller;
 use App\Http\Libraries\Assets;
 use DB;
 
-class ProductController extends Controller
+class ProductController extends HomeController
 {
     public function product()
 	{
