@@ -12,7 +12,7 @@
 */
 //ADE
 Route::get('/', 'HomeController@index');
-Route::get('produk','ProductController@product');
+Route::get('{slug}','ProductController@product');
 Route::get('login_form','UserController@login_form');
 Route::get('login','UserController@login');
 Route::get('logout','UserController@logout');
@@ -38,7 +38,3 @@ Route::get('lupa_pass','UserController@forgot_pass_form');
 
 //ADMIN
 Route::get('master','AdminController@home');
-<<<<<<< HEAD
-=======
-
->>>>>>> fa7f4d2ce8564d4e99dcfe27fde17988ad453452

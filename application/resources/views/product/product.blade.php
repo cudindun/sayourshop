@@ -63,65 +63,22 @@
                             <div class="box border-top">
                                 <div class="hgroup title">
                                     <h3>
-                                        <a href="category.html" title="Ready Stock">Pria</a>
+                                        <a href="{{$data['slugcategory']->slug}}" title="Ready Stock">{{ucwords($data['slugcategory']->name)}}</a>
                                     </h3>
                                 </div>
-                                <div class="category-list secondary">
-                                    <li>
-                                        <a href="category.html" title="Shoes">
-                                            <span class="count">3</span>
-                                            T-Shirt               
-                                        </a>
-                                    </li>
-                                    <li>
-                                        <a href="category.html" title="Shoes">
-                                            <span class="count">3</span>
-                                            Polo Shirt               
-                                        </a>
-                                    </li>
-                                    <li>
-                                        <a href="category.html" title="Shoes">
-                                            <span class="count">3</span>
-                                            Jersey              
-                                        </a>
-                                    </li>
-                                    <li>
-                                        <a href="category.html" title="Shoes">
-                                            <span class="count">3</span>
-                                            Batik              
-                                        </a>
-                                    </li>
-                                    <li>
-                                        <a href="category.html" title="Shoes">
-                                            <span class="count">3</span>
-                                            Kemeja             
-                                        </a>
-                                    </li>
-                                    <li class="current">
-                                        <a href="category.html" title="Dresses">
-                                            <span class="count">11</span>
-                                            Jaket           
-                                        </a>
-                                    </li>
-                                    <li class="current">
-                                        <a href="category.html" title="Dresses">
-                                            <span class="count">11</span>
-                                            Hoodie           
-                                        </a>
-                                    </li>
-                                    <li>
-                                        <a href="category.html" title="Bags">
-                                            <span class="count">2</span>
-                                            Celana               
-                                        </a>
-                                    </li>
-                                    <li>
-                                        <a href="category.html" title="Trousers">
-                                            <span class="count">7</span>
-                                            Sepatu                
-                                        </a>
-                                    </li>
-                                </div>
+                                @if($data['slugcategory']->subcategories == "1")
+                                    <?php $sub=$data['slugcategory']->subcategory; ?>
+                                    <div class="category-list secondary">
+                                    @foreach($sub as $subcategory)
+                                        <li>
+                                            <a href="{{$data['slugcategory']->slug}}/{{$subcategory->slug}}" title="Shoes">
+                                                <span class="count">{{ $subcategory->total_product }} </span>
+                                                {{ ucwords($subcategory->subname) }}               
+                                            </a>
+                                        </li>
+                                    @endforeach
+                                    </div>
+                                @endif
                             </div>
                         </div>
                         <!-- Price filter -->
