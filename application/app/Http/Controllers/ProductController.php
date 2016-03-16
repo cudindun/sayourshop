@@ -49,30 +49,29 @@ class ProductController extends HomeController
 								  ->nest('content', 'product/tes_produk', array('data' => $this->data));
 	}
 
-	public function save_photo(Request $request) {
-	  // getting all of the post data
-	  	$file = array('image' => Input::file('image'));
+	// public function save_photo(Request $request) {
+	//   // getting all of the post data
+	//   	$file = array('image' => Input::file('image'));
 	  	
-	  	$rules = array('image' => 'required',); //mimes:jpeg,bmp,png and for max size max:10000
-	  	$validator = Validator::make($file, $rules);
-		if ($validator->fails()) {
-	    	// return redirect('dashboard')->with('failed','Upload Gagal');
-	    	echo "gagal tampilan";
-	  	}
-	  	else {
-		     if (Input::file('image')->isValid()) {
-				$destinationPath = 'photo_profile'; // upload path
+	//   	$rules = array('image' => 'required',); //mimes:jpeg,bmp,png and for max size max:10000
+	//   	$validator = Validator::make($file, $rules);
+	// 	if ($validator->fails()) {
+	//     	echo "gagal tampilan";
+	//   	}
+	//   	else {
+	// 	     if (Input::file('image')->isValid()) {
+	// 			$destinationPath = storage_path(); // upload path
 
-		        $extension = Input::file('image')->getClientOriginalExtension(); // getting image extension
-				$fileName = 'foto_baru'.'.'.$extension; // renameing image
-		    	Input::file('image')->move(storage_path(), $fileName); // uploading file to given path
-		    	// Storage::put($destinationPath.'/'.$fileName , $fileName);
-			    echo "berhasil";
-			}
-			else {
-		    	echo "gagal";
-		    }
-		}
-	}
+	// 	        $extension = Input::file('image')->getClientOriginalExtension(); // getting image extension
+	// 			$fileName = 'foto_baru2'.'.'.$extension; // renameing image
+	// 	    	// Input::file('image')->move($destinationPath, $fileName); // uploading file to given path
+	// 	    	Storage::put($destinationPath, Input::file('image'));
+	// 		    echo "berhasil";
+	// 		}
+	// 		else {
+	// 	    	echo "gagal";
+	// 	    }
+	// 	}
+	// }
 	
 }

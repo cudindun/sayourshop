@@ -11,7 +11,7 @@
                 <div class="col-lg-4 col-lg-offset-0 col-md-4 col-md-offset-4 col-sm-6 col-sm-offset-3 col-xs-12">                          
                     <div class="logo">
                         <a href="{{url ('/') }}" title="&larr; Back home">
-                        <img src="assets/image/logo.png" style="max-width: 100%;">
+                            <img src="{{asset('assets/image/logo.png')}}" style="max-width: 100%;">
                         </a>
                     </div>
                 </div>
@@ -67,7 +67,7 @@
                         for ($i=0; $i < $total_app ; $i++) { 
                         ?>
                             <li>
-                                <a href="produk/{{$data['category'][$i]->slug}}">
+                                <a href="{{ url('produk/'.$data['category'][$i]->slug) }}">
                                     {{$data['category'][$i]->name}}
                                 </a>
                                 @if($data['category'][$i]->subcategories == "1")
@@ -75,7 +75,7 @@
                                     <ul class="dropdown-menu">
                                         @foreach($tes as $key)
                                         <li>
-                                            <a href="produk/{{$category}}/{{$key->slug}}" title="Shoes">
+                                            <a href="{{ url('produk/'.$category.'/'.$key->slug)}}" title="Shoes">
                                                    {{ucwords($key->subname)}}           
                                             </a>
                                         </li>
