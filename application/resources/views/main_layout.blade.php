@@ -67,15 +67,15 @@
                         for ($i=0; $i < $total_app ; $i++) { 
                         ?>
                             <li>
-                                <a href="">
+                                <a href="{{$data['category'][$i]->slug}}">
                                     {{$data['category'][$i]->name}}
                                 </a>
                                 @if($data['category'][$i]->subcategories == "1")
-                                <?php $tes=$data['category'][$i]->subcategory?>
+                                <?php $tes=$data['category'][$i]->subcategory; $category=$data['category'][$i]->slug;?>
                                     <ul class="dropdown-menu">
                                         @foreach($tes as $key)
                                         <li>
-                                            <a href="category.html" title="Shoes">
+                                            <a href="{{$category}}/{{$key->slug}}" title="Shoes">
                                                    {{$key->subname}}           
                                             </a>
                                         </li>

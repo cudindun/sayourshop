@@ -12,7 +12,7 @@
 */
 //ADE
 Route::get('/', 'HomeController@index');
-Route::get('produk','ProductController@product');
+Route::get('{slug}','ProductController@product');
 Route::get('login_form','UserController@login_form');
 Route::get('login','UserController@login');
 Route::get('logout','UserController@logout');
