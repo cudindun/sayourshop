@@ -20,7 +20,7 @@
 				              <div class="form-group">
 				                <label class="col-sm-3 control-label">Nama Produk<font color="red">*</font></label>
 				                <div class="col-sm-6">
-				                  <input type="email" class="form-control" id="email_input" name="email_input" placeholder="Example@email.com">
+				                  <input type="email" class="form-control" id="prodname" name="prodname" placeholder="Baju Bekas">
 				                </div>
 				              </div>
 				              <div class="form-group">
@@ -48,7 +48,7 @@
 				              </div>
 				              <div class="form-group">
 							    <label class="col-sm-3 control-label" for="imageInputFile">Image</label>
-							    <input type="file" id="imageFile">
+							    {!! Form::file('image') !!}
 							  </div>
 
 							  <br/><br/>
