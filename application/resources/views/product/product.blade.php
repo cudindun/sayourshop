@@ -63,7 +63,7 @@
                             <div class="box border-top">
                                 <div class="hgroup title">
                                     <h3>
-                                        <a href="{{$data['slugcategory']->slug}}" title="Ready Stock">{{ucwords($data['slugcategory']->name)}}</a>
+                                        <a href="produk/{{$data['slugcategory']->slug}}" title="Ready Stock">{{ucwords($data['slugcategory']->name)}}</a>
                                     </h3>
                                 </div>
                                 @if($data['slugcategory']->subcategories == "1")
@@ -71,7 +71,7 @@
                                     <div class="category-list secondary">
                                     @foreach($sub as $subcategory)
                                         <li>
-                                            <a href="{{$data['slugcategory']->slug}}/{{$subcategory->slug}}" title="Shoes">
+                                            <a href="produk/{{$data['slugcategory']->slug}}/{{$subcategory->slug}}" title="Shoes">
                                                 <span class="count">{{ $subcategory->total_product }} </span>
                                                 {{ ucwords($subcategory->subname) }}               
                                             </a>

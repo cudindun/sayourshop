@@ -67,7 +67,7 @@
                         for ($i=0; $i < $total_app ; $i++) { 
                         ?>
                             <li>
-                                <a href="{{$data['category'][$i]->slug}}">
+                                <a href="produk/{{$data['category'][$i]->slug}}">
                                     {{$data['category'][$i]->name}}
                                 </a>
                                 @if($data['category'][$i]->subcategories == "1")
@@ -75,8 +75,8 @@
                                     <ul class="dropdown-menu">
                                         @foreach($tes as $key)
                                         <li>
-                                            <a href="{{$category}}/{{$key->slug}}" title="Shoes">
-                                                   {{$key->subname}}           
+                                            <a href="produk/{{$category}}/{{$key->slug}}" title="Shoes">
+                                                   {{ucwords($key->subname)}}           
                                             </a>
                                         </li>
                                         @endforeach

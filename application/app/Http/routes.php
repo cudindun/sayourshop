@@ -12,7 +12,7 @@
 */
 //ADE
 Route::get('/', 'HomeController@index');
-Route::get('{slug}','ProductController@product');
+Route::get('produk/{slug}','ProductController@product');
 Route::get('login_form','UserController@login_form');
 Route::get('login','UserController@login');
 Route::get('logout','UserController@logout');
@@ -27,6 +27,8 @@ Route::get('tes_upload','UserController@upload_image');
 Route::post('upload_photopic', 'UserController@upload');
 Route::get('tambah_rek','UserController@add_bank_acc');
 Route::get('hapus_rek/{no_rek}','UserController@delete_bank_acc');
+Route::post('save_photo','ProductController@save_photo');
+Route::get('tes_produk','ProductController@tes_produk');
 //END ADE
 
 //UDIN
