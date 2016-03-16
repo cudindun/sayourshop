@@ -38,7 +38,3 @@ Route::get('lupa_pass','UserController@forgot_pass_form');
 
 //ADMIN
 Route::get('master','AdminController@home');
-<<<<<<< HEAD
-=======
-
->>>>>>> fa7f4d2ce8564d4e99dcfe27fde17988ad453452
