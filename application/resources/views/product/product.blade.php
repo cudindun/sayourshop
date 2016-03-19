@@ -63,7 +63,7 @@
                             <div class="box border-top">
                                 <div class="hgroup title">
                                     <h3>
-                                        <a href="produk/{{$data['slugcategory']->slug}}" title="Ready Stock">{{ucwords($data['slugcategory']->name)}}</a>
+                                        <a href="{{$data['slugcategory']->slug}}" title="Ready Stock">{{ucwords($data['slugcategory']->name)}}</a>
                                     </h3>
                                 </div>
                                 @if($data['slugcategory']->subcategories == "1")
@@ -71,7 +71,7 @@
                                     <div class="category-list secondary">
                                     @foreach($sub as $subcategory)
                                         <li>
-                                            <a href="produk/{{$data['slugcategory']->slug}}/{{$subcategory->slug}}" title="Shoes">
+                                            <a href="{{ url('produk/'.$data['slugcategory']->slug.'/'.$subcategory->slug) }}" title="Shoes">
                                                 <span class="count">{{ $subcategory->total_product }} </span>
                                                 {{ ucwords($subcategory->subname) }}               
                                             </a>
@@ -99,7 +99,7 @@
                         </div>
                         <!-- End class="price-filter" -->
                         <!-- Latest reviews -->
-                        <div class="widget LatestProductReviews">
+                        <!-- <div class="widget LatestProductReviews">
                             <h3 class="widget-title widget-title ">Latest product reviews</h3>
                             <div class="ratings-small">
                                 <li>
@@ -151,11 +151,11 @@
                                     </div>
                                 </li>                                            
                             </div>
-                        </div>
+                        </div> -->
                         <!-- end class="widget LatestProductReviews" -->
                                     
                         <!-- Latest Products -->
-                        <div class="widget LatestProducts">
+                       <!--  <div class="widget LatestProducts">
                             <h3 class="widget-title widget-title ">What's new</h3>
                             <div class="product-list-small">
                                 <li>            
@@ -219,10 +219,10 @@
                                     </div>
                                 </li>                                            
                             </div>
-                        </div>
+                        </div> -->
                         <!-- End class="widget LatestProducts" -->
                         <!-- Adverts -->
-                        <div class="widget Partial">
+                        <!-- <div class="widget Partial">
                             <h3 class="widget-title widget-title ">New for Summer 2014</h3>
                             <div class="adverts">
                                 <li>
@@ -236,10 +236,10 @@
                                     </a>
                                 </li>
                             </div>
-                        </div>
+                        </div> -->
                         <!-- End class="widget Partial" -->
                         <!-- Products on Sale -->
-                        <div class="widget Productsonsale">
+                        <!-- <div class="widget Productsonsale">
                             <h3 class="widget-title widget-title ">Special offers</h3>
                             <div class="product-list-small">
                                 <li>            
@@ -307,10 +307,10 @@
                                     </div>
                                 </li>
                             </div>
-                        </div>
+                        </div> -->
                         <!-- End  class="widget Productsonsale" -->
                         <!-- TopSellingProducts -->
-                        <div class="widget TopSellingProducts">
+                        <!-- <div class="widget TopSellingProducts">
                             <h3 class="widget-title widget-title ">Top selling products</h3>
                             <div class="product-list-small">
                                 <li>            
@@ -379,7 +379,7 @@
                                     </div>
                                 </li>
                             </div>
-                        </div>
+                        </div> -->
                         <!-- End  class="widget TopSellingProducts" -->          
                         <!-- This month only! widget -->
                         <div class="widget Text">
@@ -413,57 +413,28 @@
                 <div class="span9">
                     <!-- Products list -->
                     <div class="product-list isotope">
+                    @foreach($data['product'] as $product)
                         <li class="standard" data-price="58">
-                            <a href="product.html" title="Lisette Dress">
+                            <a href="{{url('produk/'.$product->category->slug.'/'.$product->subcategory->slug.'/'.$product->slug)}}" title="Lisette Dress">
                                 <div class="image img-responsive">
-                                    {!! Html::image('assets/image/thumbnails/db_file_img_48_640xauto.jpg','', array('class' => 'primary')) !!}
+                                    <img src="{{url('application/storage/photo_product/'.$product->image)}}">
                                 </div>
                                 <div class="title">
                                     <div class="prices">
-                                        <span class="price">£58.00</span>
+                                        <span class="price">Rp. {{ number_format($product->price, 0, ",", ".") }}</span>
                                     </div>
-                                       <h3>Lisette Dress</h3>
-                                </div>
-                            </a>
-                        </li>
-                        <li class="standard" data-price="58">
-                            <a href="product.html" title="El Silencio">
-                                <div class="image">
-                                    {!! Html::image('assets/image/thumbnails/db_file_img_48_640xauto.jpg','', array('class' => 'primary')) !!}
-                                    {!! Html::image('assets/image/thumbnails/db_file_img_49_640xauto.jpg','', array('class' => 'secondary')) !!}
-                                    <span class="badge badge-sale">SALE</span>
-                                </div>
-                                <div class="title">
-                                    <div class="prices">
-                                        <del class="base">£58.00</del> 
-                                        <span class="price">£57.99</span> 
-                                    </div>
-                                       <h3>El Silencio</h3>
-                                </div>
-
-                            </a>
-                        </li>
-                        <li class="standard" data-price="58">
-                            <a href="product.html" title="Malta Dress">
-                                <div class="image">
-                                    {!! Html::image('assets/image/thumbnails/db_file_img_48_640xauto.jpg','', array('class' => 'primary')) !!}
-                                    {!! Html::image('assets/image/thumbnails/db_file_img_49_640xauto.jpg','', array('class' => 'secondary')) !!}
-                                </div>
-                                <div class="title">
-                                    <div class="prices">
-                                        <span class="price">£88.00</span>
-                                    </div>
-                                    <h3>Malta Dress</h3>
-                                    <div class="rating rating-5">
-                                        <i class=" clfa fa-heart"></i>
-                                        <i class=" clfa fa-heart"></i>
-                                        <i class=" clfa fa-heart"></i>
-                                        <i class=" clfa fa-heart"></i>
-                                        <i class=" clfa fa-heart"></i>
+                                    <h3>{{ucwords($product->name)}}</h3>
+                                    <div class="rating rating-4.5">
+                                    <i class="fa fa-heart"></i>
+                                    <i class="fa fa-heart"></i>
+                                    <i class="fa fa-heart"></i>
+                                    <i class="fa fa-heart"></i>
+                                    <i class="fa fa-heart"></i>
                                     </div>
                                 </div>
                             </a>
                         </li>
+                    @endforeach
                         <li class="standard" data-price="38">
                             <a href="product.html" title="El Paso Tank">
                                 <div class="image">

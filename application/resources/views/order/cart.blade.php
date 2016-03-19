@@ -2,31 +2,36 @@
 <section class="cart" style="margin-top:20px">
     <div class="container">
         <div class="row">
+            @if(session('success'))
+                <div class="alert alert-success">
+                    {{session('success')}}
+                </div>
+            @endif
             <div class="col-lg-9">
                              
             <!-- Cart -->
                 <div class="box">
-                    <form enctype="multipart/form-data" action="checkout-start.html" method="post" />
+                    <form enctype="multipart/form-data" action="{{url('update_order')}}" method="get" />
                                        
                         <div class="box-header">
-                            <h3>Shopping cart</h3>
-                            <h5>You currently have <strong>3</strong> item(s) in your cart</h5>
+                            <h3>Keranjang Belanja</h3>
+                            <h5>Anda memiliki <strong>{{ Cart::count() }}</strong> barang di keranjang</h5>
                         </div>
                         <div class="box-content">
                             <div class="cart-items table-responsive">
                                 <table class="styled-table">
                                     <thead>
                                         <tr>
-                                            <th class="col_product text-left">Product</th>
+                                            <th class="col_product text-left">Produk</th>
+                                            <th class="col_properties text-left">Atribut</th>
                                             <th class="col_remove text-right">&nbsp;</th>
-                                            <th class="col_qty text-right">Qty</th>
-                                            <th class="col_single text-right">Single</th>
-                                            <th class="col_discount text-right">Discount</th>
+                                            <th class="col_qty text-right">Jumlah</th>
+                                            <th class="col_single text-right">Harga</th>
                                             <th class="col_total text-right">Total</th>
                                         </tr>
                                     </thead>
-
-                                    <tbody>									
+                                    <tbody>
+                                    @foreach($data['cart'] as $product)									
                                         <tr>
                                             <td class="col_product text-left">
                                                 <div class="image visible-desktop">
@@ -35,72 +40,36 @@
                                                     </a>
                                                 </div>
                                                 <h5>
-                                                    <a href="product.html">Helen Romper</a>
+                                                    <a href="product.html">{{$product->name}}</a>
                                                 </h5>
+                                            </td>
 
+                                            <td class="col_properties text-left">
+                                                <a href="#">
+                                                    {{$product->options}}
+                                                </a>
                                             </td>
 
                                             <td class="col_remove text-right">
-                                                <a href="#">
+                                                <a href="{{ url('delete_order/'.$product->rowid) }}">
                                                     <i class="fa fa-trash icon-large"></i>
+                                                    <input type="hidden" name="row_id" value="{{$product->rowid}}" />
                                                 </a>
                                             </td>
 
                                             <td class="col_qty text-right">
-                                                <input type="text" name="item_quantity[]" value="2" />
+                                                <input type="text" name="quantity_{{$product->rowid}}" value="{{$product->qty}}" />
                                             </td>
 
                                             <td class="col_single text-right">
-                                                <span class="single-price">£43.99</span>
-                                            </td>
-
-                                            <td class="col_discount text-right">
-                                                <span class="discount">£0.00</span>
+                                                <span class="single-price">Rp. {{ number_format($product->price, 0, ",", ".") }}</span>
                                             </td>
 
                                             <td class="col_total text-right">
-                                                <span class="total-price">£87.98</span>
+                                                <span class="total-price">Rp. {{ number_format($product->subtotal, 0, ",", ".") }}</span>
                                             </td>
                                         </tr>
-                                        <tr>
-                                            <td class="col_product text-left">
-                                                <div class="image visible-desktop">
-                                                    <a href="product.html">
-                                                        {!! Html::image('assets/image/thumbnails/db_file_img_17_60xauto.jpg', 'Apa Romper') !!}
-                                                    </a>
-                                                </div>
-                                                <h5>
-                                                    <a href="product.html">1300 in Grey</a>
-                                                </h5>
-
-                                                <ul class="options">
-                                                    <li>Size: UK 9</li>
-                                                    <li>Color: Gray</li>
-                                                </ul>
-                                            </td>
-
-                                            <td class="col_remove text-right">
-                                                <a href="#">
-                                                    <i class="fa fa-trash icon-large"></i>
-                                                </a>
-                                            </td>
-
-                                            <td class="col_qty text-right">
-                                                <input type="text" name="item_quantity[]" value="1" />
-                                            </td>
-
-                                            <td class="col_single text-right">
-                                                <span class="single-price">£160.00</span>
-                                            </td>
-
-                                            <td class="col_discount text-right">
-                                                <span class="discount">£0.00</span>
-                                            </td>
-
-                                            <td class="col_total text-right">
-                                                <span class="total-price">£160.00</span>
-                                            </td>
-                                        </tr>
+                                    @endforeach
                                     </tbody>
                                 </table>
                             </div>
@@ -108,74 +77,28 @@
 
                         <div class="box-footer">
                             <div class="pull-left">
-                                <a href="/" class="btn btn-small">
-                                    <i class="fa fa-chevron-left"></i> &nbsp; Continue shopping
+                                <a href="{{url('/')}}" class="btn btn-small">
+                                    <i class="fa fa-chevron-left"></i> &nbsp; Lanjut Belanja
                                 </a>			
                             </div>
 
                             <div class="pull-right">
-                                <button type="submit" class="btn btn-small mm20">
-                                    <i class="fa fa-undo"></i> &nbsp; Update cart
+                            
+                                <button class="btn btn-small mm20" type="submit">
+                                    <i class="fa fa-undo"></i> &nbsp; Perbaharui Keranjang
                                 </button>
-
-                                <button type="submit" name="checkout" value="1" class="btn btn-primary btn-small mm20">
-                                    Proceed to checkout &nbsp; <i class="fa fa-chevron-right"></i>
+                            
+                            <a href="{{url('checkout_order')}}">
+                                <button type="button" name="checkout" class="btn btn-primary btn-small mm20">
+                                    Checkout &nbsp; <i class="fa fa-chevron-right"></i>
                                 </button>
+                            </a>
                             </div>
                         </div>
                     </form>			
                 </div>
-            <!-- End Cart -->
-
-                <!-- Shipping modal -->
-                    <div id="shipping" class="modal hide fade" tabindex="-1">
-                        <div class="modal-header">
-                            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
-                            <div class="hgroup title">
-                                <h3>Shipping estimator</h3>
-                                <h5>Get an estimated shipping cost for your order</h5>
-                            </div>
-                            </div>
-
-                            <div class="modal-body">
-                                <div id="shipping_options">
-                                    <table class="table table-striped table-bordered">                                         
-                                        <tr>
-                                            <th>Name</th>
-                                            <th>Description</th>
-                                            <th>Price</th>
-                                        </tr>
-                                        <tr>
-                                        <td>Free shipping</td>
-                                            <td>Delivered to your letterbox within 7-14 working days</td>
-                                            <td>£0.00</td>
-                                        </tr>
-                                        <tr>
-                                            <td>Standard</td>
-                                            <td>Delivered to your letterbox within 5 working days</td>
-                                            <td>£4.95</td>
-                                        </tr>
-                                        <tr>
-                                            <td>Speedy</td>
-                                            <td>Delivered to your letterbox within 3 working days</td>
-                                            <td>£8.95</td>
-                                        </tr>                                                
-                                    </table>
-                                            
-                                </div>
-                            </div>
-
-                            <div class="modal-footer">
-                                <div class="pull-right">
-                                    <a href="checkout.html" class="btn btn-primary btn-small">
-                                        Proceed to checkout &nbsp; <i class="fa fa-chevron-right"></i>
-                                    </a>
-                                </div>
-                            </div>
-                        </div>		
-                    <!-- End Shipping modal -->
-                                
-                    </div>
+                <!-- End Cart -->
+            </div>
 
                     <div class="col-lg-3">
                                 
@@ -183,13 +106,13 @@
                         <div class="cart-details">
                             <div class="box">
                                 <div class="hgroup title">
-                                    <h3>Order totals</h3>
-                                    <h5>Shipping costs and taxes will be evaluated during checkout</h5>
+                                    <h3>Total Pemesanan</h3>
+                                    <h5>Biaya untuk ongkos kirim dihitung setelah checkout</h5>
                                 </div>
 
                                 <ul class="price-list">
-                                    <li>Subtotal: <strong>£247.98</strong></li>
-                                    <li class="important">Total: <strong>£247.98</strong></li>
+                                    <li>Subtotal: <strong>Rp. {{ number_format(Cart::total(), 0, ",", ".") }}</strong></li>
+                                    <li class="important">Total: <strong>Rp. {{ number_format(Cart::total(), 0, ",", ".") }}</strong></li>
                                 </ul>
                             </div>
                         </div>

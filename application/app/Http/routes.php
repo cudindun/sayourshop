@@ -13,6 +13,8 @@
 //ADE
 Route::get('/', 'HomeController@index');
 Route::get('produk/{slug}','ProductController@product');
+Route::get('produk/{slug}/{subcategory}','ProductController@subproduct');
+Route::get('produk/{slug}/{subcategory}/{product}','ProductController@detail');
 Route::get('login_form','UserController@login_form');
 Route::get('login','UserController@login');
 Route::get('logout','UserController@logout');
@@ -23,16 +25,17 @@ Route::get('update','UserController@update');
 Route::get('form_ubah_pass','UserController@change_pass_form');
 Route::get('ubah_pass','UserController@change_pass');
 Route::get('cek_order_form','OrderController@check_order_form');
-Route::get('tes_upload','UserController@upload_image');
 Route::post('upload_photopic', 'UserController@upload');
 Route::get('tambah_rek','UserController@add_bank_acc');
 Route::get('hapus_rek/{no_rek}','UserController@delete_bank_acc');
 Route::post('save_photo','ProductController@save_photo');
-Route::get('tes_produk','ProductController@tes_produk');
+Route::post('order','OrderController@order');
+Route::get('delete_order/{row_id}','OrderController@delete_order');
+Route::get('update_order','OrderController@update_order');
+Route::get('checkout_order','OrderController@checkout_order');
 //END ADE
 
 //UDIN
-Route::get('produk/view','ProductController@detail');
 Route::get('produk/insert','ProductController@insert');
 Route::get('keranjang','OrderController@cart_form');
 Route::get('lupa_pass','UserController@forgot_pass_form');

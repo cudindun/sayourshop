@@ -32,7 +32,7 @@
                 </div>
                 <div class="col-lg-3 col-md-5 col-sm-5 col-xs-12" align="center">
                     <h1>
-                        <a href="{{url('keranjang')}}"><i class="fa fa-shopping-cart"></i><span> 3</span></a>
+                        <a href="{{url('keranjang')}}"><i class="fa fa-shopping-cart"></i> <span>{{Cart::count()}}</span></a>
                         @if(Sentinel::check())
                         <a href="{{url('dashboard') }}" style="min-width:150px"><i class="fa fa-user"></i> {{ucwords(Sentinel::getUser()->first_name." ".Sentinel::getUser()->last_name)}}</a>
                         <a href="{{url('logout')}}" style="min-width:150px"><i class="glyphicon glyphicon-log-out"></i> Log Out</a>

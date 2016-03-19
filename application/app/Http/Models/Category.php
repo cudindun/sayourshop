@@ -35,4 +35,9 @@ class Category extends Model {
     {
         return $this->hasMany('App\Http\Models\Subcategory');        
     }
+
+    public function product()
+    {
+        return $this->hasMany('App\Http\Models\Product');        
+    }
 }

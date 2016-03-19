@@ -8,7 +8,7 @@ use App\Http\Requests;
 use App\Http\Controllers\Controller;
 use App\Http\Libraries\Assets;
 use App\Http\Models\Category;
-use DB;
+use DB, Cart;
 
 class HomeController extends Controller
 {
@@ -16,6 +16,7 @@ class HomeController extends Controller
 	{
 		$this->data['category'] 		= Category::get();
 		$this->data['request'] 			= $request;
+		$this->data['cart'] 			= Cart::count();
 		//$this->data['main-cart-content'] = dd($this->get_cart());
 	}
 
