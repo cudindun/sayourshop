@@ -36,10 +36,11 @@ Route::get('checkout_order','OrderController@checkout_order');
 //END ADE
 
 //UDIN
-Route::get('produk/insert','ProductController@insert');
+Route::get('master/produk/create','ProductController@insert');
 Route::get('keranjang','OrderController@cart_form');
 Route::get('lupa_pass','UserController@forgot_pass_form');
 //END UDIN
 
 //ADMIN
 Route::get('master','AdminController@home');
+Route::get('master/user/list','AdminController@home');

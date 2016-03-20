@@ -10,14 +10,13 @@
     
     <?php // ============ CSS ============ ?>
 
-    <!-- Font Awesome -->
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css">
-
     <!-- Ionicons -->
     <link rel="stylesheet" href="https://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css">
 
     <?php foreach($data['css_assets'] as $key => $assets ){ echo '<link rel="stylesheet" href="'.$assets.'">
     '; } ?>
+
+    @yield('style')
 
     <?php // ============ END CSS ======== ?>
 
@@ -307,19 +306,19 @@
             <li class="header">MENU NAVIGATION</li>
             <li class="active treeview">
               <a href="#">
-                <i class="fa fa-dashboard"></i> <span>Home</span>
+                <i class="fa fa-home"></i> <span>Home</span>
               </a>
             </li>
             <li class="treeview">
               <a href="#">
-                <i class="fa fa-files-o"></i>
+                <i class="fa fa-shopping-cart"></i>
                 <span>List Order</span>
                 <span class="label label-warning pull-right">4 New</span>
               </a>
             </li>
             <li class="treeview">
               <a href="#">
-                <i class="fa fa-pie-chart"></i>
+                <i class="fa fa-users"></i>
                 <span>User</span>
                 <i class="fa fa-angle-left pull-right"></i>
               </a>
@@ -330,7 +329,7 @@
             </li>
             <li class="treeview">
               <a href="#">
-                <i class="fa fa-pie-chart"></i>
+                <i class="fa fa-folder"></i>
                 <span>Category</span>
                 <i class="fa fa-angle-left pull-right"></i>
               </a>
@@ -341,7 +340,7 @@
             </li>
             <li class="treeview">
               <a href="#">
-                <i class="fa fa-pie-chart"></i>
+                <i class="fa fa-file"></i>
                 <span>SubCategory</span>
                 <i class="fa fa-angle-left pull-right"></i>
               </a>
@@ -352,7 +351,7 @@
             </li>
             <li class="treeview">
               <a href="#">
-                <i class="fa fa-pie-chart"></i>
+                <i class="fa fa-shopping-basket"></i>
                 <span>Product</span>
                 <i class="fa fa-angle-left pull-right"></i>
               </a>
@@ -573,6 +572,8 @@
     <script>
       $.widget.bridge('uibutton', $.ui.button);
     </script>
+
+    @yield('script')
 
     <?php /*
     <!-- Morris.js charts -->
