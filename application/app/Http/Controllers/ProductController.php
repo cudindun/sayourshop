@@ -49,10 +49,11 @@ class ProductController extends HomeController
 
 	public function insert()
 	{
-		$this->data['css_assets'] 	= Assets::load('css', ['lib-bootstrap', 'style', 'font-awesome', 'font-awesome-min', 'flexslider', 'color-schemes-core', 'color-schemes-turquoise', 'jquery-parallax', 'bootstrap-responsive','font-family']);
-		$this->data['js_assets'] 	= Assets::load('js', ['jquery', 'jquery-ui', 'jquery-easing', 'bootstrap-min-lib', 'jquery-isotope', 'jquery-flexslider', 'jquery.elevatezoom', 'jquery-sharrre', 'jquery-gmap3', 'imagesloaded', 'la_boutique', 'jquery-cookie', 'jquery-parallax-lib']);
-		$this->data['title']		= 'Produk';
-	    return view('main_layout')->with('data', $this->data)
+		// Use Admin Template
+		$this->data['css_assets'] 	= Assets::load('css', ['admin_bootstrap', 'admin_css', 'font-awesome', 'skins']);
+		$this->data['js_assets'] 	= Assets::load('js', ['jquery', 'admin_js', 'dashboard', 'admin_bootstrap-js', 'slimscroll', 'fastclick']);
+		$this->data['title']		= 'Produk | Create';
+	    return view('admin_layout')->with('data', $this->data)
 								  ->nest('content', 'product/product_insert', array('data' => $this->data));
 	}
 

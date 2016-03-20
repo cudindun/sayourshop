@@ -8,6 +8,8 @@ use App\Http\Requests;
 use App\Http\Controllers\Controller;
 use App\Http\Libraries\Assets;
 use App\Http\Models\User;
+use App\Http\Models\Category;
+use App\Http\Models\Subcategory;
 use DB;
 
 class AdminController extends Controller
@@ -22,6 +24,24 @@ class AdminController extends Controller
 		$this->data['userCount']	= User::all()->count();
 	    return view('admin_layout')->with('data', $this->data)
 								  ->nest('content', 'admin/home', array('data' => $this->data));
+	}
+
+	public function create_category()
+	{
+		$this->data['css_assets'] 	= Assets::load('css', ['admin_bootstrap', 'admin_css', 'font-awesome', 'skins']);
+		$this->data['js_assets'] 	= Assets::load('js', ['jquery', 'admin_js', 'dashboard', 'admin_bootstrap-js', 'slimscroll', 'fastclick']);
+		$this->data['title']		= 'Category | Create';
+	    return view('admin_layout')->with('data', $this->data)
+								  ->nest('content', 'category/create', array('data' => $this->data));
+	}
+
+	public function create_subcategory()
+	{
+		$this->data['css_assets'] 	= Assets::load('css', ['admin_bootstrap', 'admin_css', 'font-awesome', 'skins']);
+		$this->data['js_assets'] 	= Assets::load('js', ['jquery', 'admin_js', 'dashboard', 'admin_bootstrap-js', 'slimscroll', 'fastclick']);
+		$this->data['title']		= 'Subcategory | Create';
+	    return view('admin_layout')->with('data', $this->data)
+								  ->nest('content', 'subcategory/create', array('data' => $this->data));
 	}
 	
 }

@@ -44,3 +44,5 @@ Route::get('lupa_pass','UserController@forgot_pass_form');
 //ADMIN
 Route::get('master','AdminController@home');
 Route::get('master/user/list','AdminController@home');
+Route::get('master/category/create','AdminController@create_category');
+Route::get('master/subcategory/create','AdminController@create_subcategory');

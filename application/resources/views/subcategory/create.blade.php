@@ -1,11 +1,11 @@
 	<section class="content-header">
         <h1>
-            Product
+            Subcategory
             <small>Create</small>
         </h1>
         <ol class="breadcrumb">
             <li><a href="#"><i class="fa fa-home"></i> Home</a></li>
-            <li><a href="#"><i class="fa fa-shopping-bag"></i> Product</a></li>
+            <li><a href="#"><i class="fa fa-file"></i> Subcategory</a></li>
             <li><a href="#"></i> Create</a></li>
         </ol>
     </section>
@@ -27,8 +27,8 @@
 					<div class="col-lg-12">
 						<form class="form-horizontal" role="GET" action="" style="margin-top:25px">
 			              	<div class="form-group">
-			                	<label class="col-sm-3 control-label">Nama Produk<font color="red">*</font></label>				                <div class="col-sm-6">
-				            	<input type="text" class="form-control" id="prodname" name="prodname" placeholder="Baju Bekas">
+			                	<label class="col-sm-3 control-label">Nama Sub Category<font color="red">*</font></label>				                <div class="col-sm-6">
+				            	<input type="text" class="form-control" id="subcategory_name" name="subcategory_name" placeholder="Baju Bekas">
 				           		</div>
 				          	</div>
 
@@ -44,24 +44,19 @@
 				            </div>
 				            
 				            <div class="form-group">
-				                <label for="inputPrice" class="col-sm-3 control-label">Harga<font color="red">*</font></label>
+				                <label for="inputPrice" class="col-sm-3 control-label">Nama Slug<font color="red">*</font></label>
 				                <div class="col-sm-6">
-				                  <input type="text" class="form-control" id="price_input" name="price_input" placeholder="$200">
+				                  <input type="text" class="form-control" id="slug_name" name="slug_name" placeholder="slugma teaa">
 				                </div>
 				            </div>
 				            
 				            <div class="form-group">
-				                <label for="inputDesc" class="col-sm-3 control-label">Deskripsi<font color="red">*</font></label>
+				                <label for="inputDesc" class="col-sm-3 control-label">Properties<font color="red">*</font></label>
 				                <div class="col-sm-6">
 				                  <textarea rows=5 class="form-control" id="desc_input" name="desc_input">
 				                  </textarea>
 				                </div>
 				            </div>
-				            
-				            <div class="form-group">
-							    <label class="col-sm-3 control-label" for="imageInputFile">Image</label>
-							    {!! Form::file('image') !!}
-							</div>
 
 							  <br/><br/>
 
