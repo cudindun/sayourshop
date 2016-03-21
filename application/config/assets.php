@@ -33,6 +33,8 @@ return [
 		'icheck'					=> 'assets/admin/plugins/iCheck/flat/blue.css',
 		'morris_chart'				=> 'assets/admin/plugins/morris/morris.css',
 		'jvectormap'				=> 'assets/admin/plugins/jvectormap/jquery-jvectormap-1.2.2.css',
+		'dataTables_css'			=> 'assets/admin/plugins/datatables/dataTables.bootstrap.css',
+
 
 		//ADMIN CSS
 		'admin_css'					=> 'assets/admin/css/AdminLTE.min.css',
@@ -94,6 +96,7 @@ return [
 		'jvectormap_js'			=> 'assets/admin/plugins/jvectormap/jquery-jvectormap-1.2.2.min.js',
 		'jvectormap_world_js'	=> 'assets/admin/plugins/jvectormap/jquery-jvectormap-world-mill-en.js',
 		'knob'					=> 'assets/admin/plugins/knob/jquery.knob.js',
+		'dataTables_js'			=> 'assets/admin/plugins/datatables/jquery.dataTables.min.js',
 
 		//ADMIN JS
 		'admin_js'				=> 'assets/admin/js/app.js',
