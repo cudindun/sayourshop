@@ -14,7 +14,8 @@
 Route::get('/', 'HomeController@index');
 Route::get('produk/{slug}','ProductController@product');
 Route::get('produk/{slug}/{subcategory}','ProductController@subproduct');
-Route::get('produk/{slug}/{subcategory}/{product}','ProductController@detail');
+Route::get('produk/{slug}/{subcategory}/{id}','ProductController@detail');
+Route::get('detail/{id}','ProductController@detail_cart');
 Route::get('login_form','UserController@login_form');
 Route::get('login','UserController@login');
 Route::get('logout','UserController@logout');

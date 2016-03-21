@@ -415,7 +415,7 @@
                     <div class="product-list isotope">
                     @foreach($data['product'] as $product)
                         <li class="standard" data-price="58">
-                            <a href="{{url('produk/'.$product->category->slug.'/'.$product->subcategory->slug.'/'.$product->slug)}}" title="Lisette Dress">
+                            <a href="{{url('produk/'.$product->category->slug.'/'.$product->subcategory->slug.'/'.$product->id)}}" title="Lisette Dress">
                                 <div class="image img-responsive">
                                     <img src="{{url('application/storage/photo_product/'.$product->image)}}">
                                 </div>

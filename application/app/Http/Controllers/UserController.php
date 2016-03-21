@@ -257,9 +257,7 @@ class UserController extends HomeController
 		$user_meta = UserMeta::where('user_id', Sentinel::getUser()->id)->where('meta_key','bank_account')->first();
 		$a = unserialize($user_meta->meta_value);
 		unset($a[$no_rek]);
-
 		$reindex = array_values($a);
-
 		$serialize = serialize($reindex);
 		$update = UserMeta::where('user_id', $user_meta->user_id)->where('meta_key','bank_account')->update(['meta_value' => $serialize]);
 		return redirect('dashboard')->with('add','Nomor rekening berhasil dihapus');

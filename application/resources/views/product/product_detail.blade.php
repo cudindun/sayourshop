@@ -109,19 +109,33 @@
                                                         <div class="control-group">
                                                             <label for="product_options" class="control-label">Jumlah</label>
                                                             <div class="controls">
-                                                                <input type="number" id="quantity" name="quantity" min="1" value="1"></input>
+                                                                <input type="number" id="quantity" name="quantity" min="1" value="1" class="span12"></input>
                                                             </div>
                                                         </div>
 
-                                                        <div class="control-group">
-                                                            <label for="product_options" class="control-label">Leather</label>
-                                                            <div class="controls">
-                                                                <select id="product_options" name="product_options[]" class="span12">
-                                                                    <option value="Brown" />Brown
-                                                                    <option value="Black" selected="selected" />Black
-                                                                </select>
-                                                            </div>
-                                                        </div>
+                                                        @if($data['product']->properties)
+                                                        <?php  $properties = unserialize($data['product']->properties);?>
+                                                            @foreach($properties as $key => $value)
+
+                                                                <div class="control-group">
+                                                                    <label for="product_options" class="control-label">{{$key}}</label>
+                                                                    <div class="controls">
+                                                                        <select id="{{$key}}" name="{{$key}}" class="span12">
+                                                                            @foreach($value as $a)
+                                                                            <option name="{{$key}}" value="{{$a}}" />{{$a}}
+                                                                            @endforeach
+                                                                        </select>
+                                                                    </div>
+                                                                </div>
+
+                                                                <?php 
+                                                                // echo "<pre>";
+                                                                // echo "{$key} = {$value}\n";
+                                                                // echo "<pre>"; 
+                                                                ?>
+                                                            @endforeach
+                                                            
+                                                        @endif
                                                     </div>
                                                 </div>
                                             </div>
@@ -129,6 +143,11 @@
                                                 <button class="btn btn-primary btn-large" type="submit">
                                                     <i class="icon-plus"></i> &nbsp; Add to cart
                                                 </button>
+                                                <a href="{{url('tes_properti')}}">
+                                                    <button class="btn btn-primary btn-large" type="button">
+                                                        <i class="icon-plus"></i> &nbsp; Properti
+                                                    </button>
+                                                </a>
                                             </div>
                                         </form>                     
                                     </div>
