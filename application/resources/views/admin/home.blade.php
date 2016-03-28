@@ -4,7 +4,7 @@
             <small>it all starts here</small>
           </h1>
           <ol class="breadcrumb">
-            <li><a href="#"><i class="fa fa-home"></i> Home</a></li>
+            <li><a href="{{url('/master')}}"><i class="fa fa-home"></i> Home</a></li>
           </ol>
         </section>
 

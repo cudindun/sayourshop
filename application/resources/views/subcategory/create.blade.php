@@ -4,9 +4,9 @@
             <small>Create</small>
         </h1>
         <ol class="breadcrumb">
-            <li><a href="#"><i class="fa fa-home"></i> Home</a></li>
-            <li><a href="#"><i class="fa fa-file"></i> Subcategory</a></li>
-            <li><a href="#"></i> Create</a></li>
+            <li><a href="{{url('/master')}}"><i class="fa fa-home"></i> Home</a></li>
+            <li><a href="{{url('/master/subcategory')}}"><i class="fa fa-file"></i> Subcategory</a></li>
+            <li><a href="{{url('/master/subcategory/create')}}"></i> Create</a></li>
         </ol>
     </section>
 

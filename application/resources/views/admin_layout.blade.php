@@ -33,7 +33,7 @@
 
       <header class="main-header">
         <!-- Logo -->
-        <a href="index2.html" class="logo">
+        <a href="{{ url('/master') }}" class="logo">
           <!-- mini logo for sidebar mini 50x50 pixels -->
           <span class="logo-mini"><b>S</b>LTE</span>
           <!-- logo for regular state and mobile devices -->
@@ -305,60 +305,60 @@
 
           <ul class="sidebar-menu">
             <li class="header">MENU NAVIGATION</li>
-            <li class="active treeview">
-              <a href="#">
+            <li class="<?php if(Request::segment(1) == 'master' and Request::segment(2) == NULL){echo 'active';} ?> treeview">
+              <a href="{{ url('/master') }}">
                 <i class="fa fa-home"></i> <span>Home</span>
               </a>
             </li>
-            <li class="treeview">
-              <a href="#">
+            <li class="{{ Request::segment(2) === 'order' ? 'active' : null }} treeview">
+              <a href="{{ url('/master') }}">
                 <i class="fa fa-shopping-cart"></i>
                 <span>List Order</span>
                 <span class="label label-warning pull-right">4 New</span>
               </a>
             </li>
-            <li class="treeview">
+            <li class="{{ Request::segment(2) === 'user' ? 'active' : null }} treeview">
               <a href="#">
                 <i class="fa fa-users"></i>
                 <span>User</span>
                 <i class="fa fa-angle-left pull-right"></i>
               </a>
               <ul class="treeview-menu">
-                <li><a href="pages/charts/chartjs.html"><i class="fa fa-circle-o text-yellow"></i> List </a></li>
-                <li><a href="pages/charts/morris.html"><i class="fa fa-circle-o text-aqua"></i> Create </a></li>
+                <li><a href="{{ url('/master/user/list') }}"><i class="fa fa-circle-o text-yellow"></i> List </a></li>
+                <li><a href="{{ url('/master/user/create') }}"><i class="fa fa-circle-o text-aqua"></i> Create </a></li>
               </ul>
             </li>
-            <li class="treeview">
+            <li class="{{ Request::segment(2) === 'category' ? 'active' : null }} treeview">
               <a href="#">
                 <i class="fa fa-folder"></i>
                 <span>Category</span>
                 <i class="fa fa-angle-left pull-right"></i>
               </a>
               <ul class="treeview-menu">
-                <li><a href="pages/charts/chartjs.html"><i class="fa fa-circle-o text-yellow"></i> List </a></li>
-                <li><a href="pages/charts/morris.html"><i class="fa fa-circle-o text-aqua"></i> Create </a></li>
+                <li><a href="{{ url('/master/category/list') }}"><i class="fa fa-circle-o text-yellow"></i> List </a></li>
+                <li><a href="{{ url('/master/category/create') }}"><i class="fa fa-circle-o text-aqua"></i> Create </a></li>
               </ul>
             </li>
-            <li class="treeview">
+            <li class="{{ Request::segment(2) === 'subcategory' ? 'active' : null }} treeview">
               <a href="#">
                 <i class="fa fa-file"></i>
                 <span>SubCategory</span>
                 <i class="fa fa-angle-left pull-right"></i>
               </a>
               <ul class="treeview-menu">
-                <li><a href="pages/charts/chartjs.html"><i class="fa fa-circle-o text-yellow"></i> List </a></li>
-                <li><a href="pages/charts/morris.html"><i class="fa fa-circle-o text-aqua"></i> Create </a></li>
+                <li><a href="{{ url('/master/subcategory/list') }}"><i class="fa fa-circle-o text-yellow"></i> List </a></li>
+                <li><a href="{{ url('/master/subcategory/create') }}"><i class="fa fa-circle-o text-aqua"></i> Create </a></li>
               </ul>
             </li>
-            <li class="treeview">
+            <li class="{{ Request::segment(2) === 'produk' ? 'active' : null }} treeview">
               <a href="#">
                 <i class="fa fa-shopping-basket"></i>
                 <span>Product</span>
                 <i class="fa fa-angle-left pull-right"></i>
               </a>
               <ul class="treeview-menu">
-                <li><a href="pages/charts/chartjs.html"><i class="fa fa-circle-o text-yellow"></i> List </a></li>
-                <li><a href="pages/charts/morris.html"><i class="fa fa-circle-o text-aqua"></i> Create </a></li>
+                <li><a href="{{ url('/master/produk/list') }}"><i class="fa fa-circle-o text-yellow"></i> List </a></li>
+                <li><a href="{{ url('/master/produk/create') }}"><i class="fa fa-circle-o text-aqua"></i> Create </a></li>
               </ul>
             </li>
           </ul>

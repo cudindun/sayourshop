@@ -97,6 +97,7 @@ return [
 		'jvectormap_world_js'	=> 'assets/admin/plugins/jvectormap/jquery-jvectormap-world-mill-en.js',
 		'knob'					=> 'assets/admin/plugins/knob/jquery.knob.js',
 		'dataTables_js'			=> 'assets/admin/plugins/datatables/jquery.dataTables.min.js',
+		'dataTables_bootsjs'	=> 'assets/admin/plugins/datatables/dataTables.bootstrap.min.js',
 
 		//ADMIN JS
 		'admin_js'				=> 'assets/admin/js/app.js',
