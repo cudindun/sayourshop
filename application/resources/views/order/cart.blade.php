@@ -7,6 +7,11 @@
                     {{session('success')}}
                 </div>
             @endif
+            @if(session('fail'))
+                <div class="alert alert-danger">
+                    {{session('fail')}}
+                </div>
+            @endif
             <div class="span9">
                 <div class="box" style="padding-top: 0px;">
                     <!-- Checkout content -->
@@ -113,8 +118,7 @@
                                                     </td>
                                                     @if(Cart::count())
                                                         <td>
-                                                            <input type="hidden" id="no_address" name="no_address" value="{{$address}}" ></input>
-                                                            <button class="btn btn-mini btn-greensea address"  type="submit">Checkout</button></a>
+                                                            <button class="btn btn-mini btn-greensea address" id="no_address" name="no_address" value="{{$address}}"  type="submit">Checkout</button></a>
                                                         </td>
                                                     @endif
                                                 </tr>

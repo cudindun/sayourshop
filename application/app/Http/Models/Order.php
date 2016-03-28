@@ -23,7 +23,6 @@ class Order extends Model {
             ['old_name' => 'discount_code', 'new_name' => 'a.discount_code'],
             ['old_name' => 'total_discount', 'new_name' => 'a.total_discount'],
             ['old_name' => 'shipping_price', 'new_name' => 'a.shipping_price'],
-
 		];
 
 		$param = [
@@ -42,5 +41,10 @@ class Order extends Model {
 	public function order_detail()
     {
         return $this->hasMany('App\Http\Models\OrderDetail');
+    }
+
+    public function user()
+    {
+        return $this->belongsTo('App\Http\Models\User');
     }
 }

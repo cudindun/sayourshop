@@ -3,6 +3,11 @@
         <!-- Product info -->
         <section class="product-info">
             <div class="container" style="padding-left: 0px;padding-right: 0px;">
+            @if(session('success'))
+                <div class="alert alert-success">
+                    {{session('success')}}
+                </div>
+            @endif
                 <div class="row">
                     <div class="span4">
                         <div class="product-images">

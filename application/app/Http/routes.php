@@ -39,6 +39,7 @@ Route::get('hapus_alamat/{no_alamat}','UserController@delete_address');
 Route::get('checkout','OrderController@checkout');
 Route::get('order_validate/[no_invoice]','OrderController@order_validate');
 Route::get('discount','OrderController@discount');
+Route::get('order_review/{id}','OrderController@order_review');
 // Route::get('ajax_addCity','OrderController@add_city');
 // Route::get('coba_ajax','OrderController@coba_ajax');
 //END ADE

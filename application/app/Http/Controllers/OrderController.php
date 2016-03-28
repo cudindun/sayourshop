@@ -29,11 +29,18 @@ class OrderController extends HomeController
 								  ->nest('content', 'order/cart', array('data' => $this->data));
 	}
 
-	// public function weight($id){
-		
-	// 	$query = 
-	// 	return $query->weight;
-	// }
+	public function order_review($id)
+	{
+		$this->data['css_assets'] 	= Assets::load('css', ['lib-bootstrap', 'style', 'font-awesome', 'font-awesome-min', 'color-schemes-core', 'color-schemes-turquoise', 'bootstrap-responsive','font-family']);
+		$this->data['js_assets'] 	= Assets::load('js', ['jquery-ui', 'bootstrap-min-lib', 'jquery-isotope', 'jquery-flexslider', 'jquery.elevatezoom', 'jquery-sharrre', 'imagesloaded', 'la_boutique', 'jquery-cookie',]);
+		$this->data['address']		= UserMeta::where('user_id', Sentinel::getUser()->id)->where('meta_key','address')->first();
+		$this->data['order']		= Order::where('id', $id)->first();
+		$this->data['orderdetail']  = OrderDetail::where('order_id', $this->data['order']->id)->get();
+		$this->data['title']		= 'Checkout';
+		Cart::destroy();
+	    return view('main_layout')->with('data', $this->data)
+								  ->nest('content', 'order/order_review', array('data' => $this->data));
+	}
 
 	public function check_order_form(){
 		$this->data['css_assets'] 	= Assets::load('css', ['lib-bootstrap', 'style', 'font-awesome', 'font-awesome-min', 'flexslider', 'color-schemes-core', 'color-schemes-turquoise', 'jquery-parallax', 'bootstrap-responsive','font-family']);
@@ -93,16 +100,50 @@ class OrderController extends HomeController
 		$order = new Order;
 		$order->user_id = $user->id;
 		$order->order_status = 'Menunggu Konfirmasi Admin';
-		$order->order_name = $user->first_name.' '.$user->last_name;
-		$order->order_phone = $user->phone;
 		if (is_numeric($request->no_address)) {
 			$meta = UserMeta::where('user_id', $user->id)->where('meta_key','address')->first();
 			$unserialize = unserialize($meta->meta_value);
 			$address = $unserialize[$request->no_address];
 			$courier = 'courier_'.$request->no_address;
+			$order->order_name = $address['nama'];
+			$order->order_phone = $address['telepon'];
 			$order->order_address = $address['alamat'];
+			$order->province = $address['provinsi'];
 			$order->courier = $request->$courier;
-			echo "return menggunakan array alamat";
+			
+			if ($request->coupon_code) {
+				$order->discount_code = $request->coupon_code;
+				$order->total_discount = $request->discount;
+				$order->total_price = Cart::total()-$request->discount;
+			}else{
+				$order->total_price = Cart::total();	
+			}
+			$order->save();
+
+			$insert_id = $order->id;
+			$order = Order::find($insert_id);
+			$sum = 0;
+			foreach (Cart::content() as $key) {
+				$product = Product::where('id', $key->id)->first();
+				$result = $product->weight*$key->qty;
+				$sum += $result;
+				$rowid = 'properties_'.$key->rowid;
+				$orderdetail = new OrderDetail;
+				$orderdetail->order_id = $insert_id;
+				$orderdetail->properties = $request->$rowid;
+				$orderdetail->product_id = $key->id;
+				$orderdetail->quantity = $key->qty;
+				$orderdetail->total_price = $key->price*$key->qty;
+				$orderdetail->total_weight = $result;
+				$orderdetail->save();
+			}
+			$order->total_weight = $sum;
+			$order->no_invoice = date('Ymd').$user->id.$insert_id;
+			$order->save();
+			return redirect('order_review/'.$insert_id);
+			// echo "<pre>";
+			// print_r($request->no_address);
+			// echo "<pre>";
 		}else{
 			$rules = array(
 			'name' => 'required',
@@ -112,6 +153,11 @@ class OrderController extends HomeController
 			);
 			$validator 	= Validator::make($request->all(), $rules);
 			if (!$validator->fails()) {
+				$order->order_address = $request->address;
+				$order->courier = $request->courier;
+				$order->order_name = $request->name;
+				$order->order_phone = $request->phone;
+				$order->province = $request->province;
 				$alamat = [
 					'nama' => $request->name,
 					'telepon' => $request->phone,
@@ -123,53 +169,48 @@ class OrderController extends HomeController
 					$sum_array = array_push($unserialize, $alamat);
 					$serialize = serialize($unserialize);
 					$total = UserMeta::where('user_id', $user_meta->user_id)->where('meta_key','address')->update(['meta_value' => $serialize]);
-					$order->order_address = $request->address;
-					$order->courier = $request->courier;
-					echo "menambah array alamat";
 				}else{
 					$usermeta = new UserMeta;
 					$usermeta->user_id = Sentinel::getUser()->id;
 					$usermeta->meta_key = "address";
 					$usermeta->meta_value = serialize(array($alamat));
 					$usermeta->save();
-					$order->order_address = $request->address;
-					$order->courier = $request->courier;
-					echo "return membuat array alamat";
 				}
+
+				if ($request->coupon_code) {
+					$order->discount_code = $request->coupon_code;
+					$order->total_discount = $request->discount;
+					$order->total_price = Cart::total()-$request->discount;
+				}else{
+					$order->total_price = Cart::total();	
+				}
+				$order->save();
+
+				$insert_id = $order->id;
+				$order = Order::find($insert_id);
+				$sum = 0;
+				foreach (Cart::content() as $key) {
+					$product = Product::where('id', $key->id)->first();
+					$result = $product->weight*$key->qty;
+					$sum += $result;
+					$rowid = 'properties_'.$key->rowid;
+					$orderdetail = new OrderDetail;
+					$orderdetail->order_id = $insert_id;
+					$orderdetail->properties = $request->$rowid;
+					$orderdetail->product_id = $key->id;
+					$orderdetail->quantity = $key->qty;
+					$orderdetail->total_price = $key->price*$key->qty;
+					$orderdetail->total_weight = $result;
+					$orderdetail->save();
+				}
+				$order->total_weight = $sum;
+				$order->no_invoice = date('Ymd').$user->id.$insert_id;
+				$order->save();
+				return redirect('order_review/'.$insert_id);
 			}else{
-				echo "return keranjang alamat gagal";
+				return redirect('keranjang')->with('fail', 'Silahkan isi alamat baru sesuai form yang disediakan');
 			}
 		}
-
-		if ($request->coupon_code) {
-			$order->discount_code = $request->coupon_code;
-			$order->total_discount = $request->discount;
-			$order->total_price = Cart::total()-$request->discount;
-		}else{
-			$order->total_price = Cart::total();	
-		}
-		$order->save();
-
-		$insert_id = $order->id;
-		$order = Order::find($insert_id);
-		$sum = 0;
-		foreach (Cart::content() as $key) {
-			$product = Product::where('id', $key->id)->first();
-			$result = $product->weight*$key->qty;
-			$sum += $result;
-			$rowid = 'properties_'.$key->rowid;
-			$orderdetail = new OrderDetail;
-			$orderdetail->order_id = $insert_id;
-			$orderdetail->properties = $request->$rowid;
-			$orderdetail->product_id = $key->id;
-			$orderdetail->quantity = $key->qty;
-			$orderdetail->total_price = $key->price*$key->qty;
-			$orderdetail->total_weight = $result;
-			$orderdetail->save();
-		}
-		$order->total_weight = $sum;
-		$order->no_invoice = date('Ymd').$user->id.$insert_id;
-		$order->save();
 	}
 
 	public function discount(Request $request)

@@ -33,8 +33,8 @@ class User extends Model {
         });
 	}
 
-	public function activation()
+    public function order()
     {
-        return $this->hasOne('App\Http\Models\Shop');
+        return $this->hasMany('App\Http\Models\Order');
     }
 }

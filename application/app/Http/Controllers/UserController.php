@@ -10,6 +10,7 @@ use App\Http\Libraries\Assets;
 use App\Http\Models\User;
 use App\Http\Models\UserMeta;
 use App\Http\Models\Activations;
+use App\Http\Models\Order;
 use DB, Sentinel, Validator, Activation, Storage, Input, Session, Redirect, File;
 
 class UserController extends HomeController
@@ -127,9 +128,7 @@ class UserController extends HomeController
 		$this->data['user']			= Sentinel::getUser();
 		$this->data['rekening']		= UserMeta::where('user_id', $this->data['user']->id)->where('meta_key','bank_account')->first();
 		$this->data['address']		= UserMeta::where('user_id', $this->data['user']->id)->where('meta_key','address')->first();
-	    // echo "<pre>";
-	    // print_r($this->data['address']);
-	    // echo "<pre>";
+		$this->data['order']		= Order::where('user_id', $this->data['user']->id)->get();
 	    return view('main_layout')->with('data', $this->data)
 								  ->nest('content', 'user/dashboard', array('data' => $this->data));
 	}

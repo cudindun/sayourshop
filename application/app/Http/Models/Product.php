@@ -45,4 +45,9 @@ class Product extends Model {
     {
         return $this->belongsTo('App\Http\Models\Subcategory');        
     }
+
+    public function order_detail()
+    {
+        return $this->hasMany('App\Http\Models\OrderDetail');
+    }
 }

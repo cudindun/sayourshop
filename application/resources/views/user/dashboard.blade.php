@@ -33,7 +33,6 @@
 									<img src="photo_profile/{{$data['user']->image}}" class="user-image">
 								</div>
 							@endif
-							
 							<div class="text-center">
 								<p class="user-name">{{ucwords($data['user']->first_name." ".$data['user']->last_name) }}</p>
 								<p class="user-email"> {{$data['user']->email}} </p>
@@ -263,16 +262,51 @@
 											</tr>
 										</thead>
 							            <tbody>
+							            @foreach($data['order'] as $value)
 							            <tr>
-							            	<td>&nbsp;</td>
-							            	<td>&nbsp;</td>
-							            	<td>&nbsp;</td>
-							            	<td>&nbsp;</td>
-							            	<td>&nbsp;</td>
-							            	<td><button class="btn btn-mini btn-primary">Detail</button></td>
+							            	<td>{{$value->no_invoice}}</td>
+							            	<td>{{$value->created_at}}</td>
+							            	<td>Rp. {{ number_format($value->total_price, 0, ",", ".") }}</td>
+							            	<td>{{$value->order_status}}</td>
+							            	<td>{{$value->no_resi}}</td>
+							            	<td><button type="button" class="btn btn-mini btn-primary" data-toggle="modal" data-target="#modaldetail">Detail</button></td>
 							            </tr>
+							            @endforeach
 							            </tbody>
 									</table>
+
+									<!-- Modal -->
+									<div id="modaldetail" class="modal fade" role="dialog">
+									  <div class="modal-dialog">
+									    <!-- Modal content-->
+										    <div class="modal-content">
+										      	<div class="modal-header">
+											        <button type="button" class="close" data-dismiss="modal">&times;</button>
+											        <h4 class="modal-title">Modal Header</h4>
+										      	</div>
+										      	<div class="modal-body">
+											      	<div class="form-group">
+										                <label class="control-label">Bank</label>
+										                <input type="text" class="form-control" id="bank" name="bank" required>
+									              	</div>
+
+									              	<div class="form-group">
+										                <label class="control-label">Nomor Rekening</label>
+										                <input type="text" class="form-control" id="bank_account" name="bank_account" required>
+									              	</div>
+
+									              	<div class="form-group">
+										                <label class="control-label">Atas Nama</label>
+										                <input type="text" class="form-control" id="account_name" name="account_name" required>
+									              	</div>
+										      	</div>
+										      	<div class="modal-footer">
+										      		<button type="submit" class="btn btn-primary">Tambah</button>
+										        	<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+										      	</div>
+										    </div>
+									  </div>
+									</div>
 								</div>
 								<div role="tabpanel" class="tab-pane fade" id="wish">
 									yeah

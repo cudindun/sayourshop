@@ -17,7 +17,6 @@ class OrderDetail extends Model {
             ['old_name' => 'quantity', 'new_name' => 'a.quantity'],
 			['old_name' => 'total_price', 'new_name' => 'a.total_price'],
 			['old_name' => 'total_weight', 'new_name' => 'a.total_weight'],
-
 		];
 
 		$param = [
@@ -35,6 +34,11 @@ class OrderDetail extends Model {
 
 	public function order()
     {
-        return $this->hasOne('App\Http\Models\Order');
+        return $this->belongsTo('App\Http\Models\Order');
+    }
+
+    public function product()
+    {
+        return $this->belongsTo('App\Http\Models\Product');
     }
 }
