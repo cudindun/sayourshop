@@ -98,6 +98,13 @@
                                                     <div class="categories">
                                                         <span><i class="icon-tags"></i><a href="#" title="Dresses">{{$data['product']->sold}}</a></span>
                                                     </div>
+                                                    <div class="sku">
+                                                        <i class="icon-pencil"></i>
+                                                        <span rel="tooltip" title="SKU is 0092">Berat</span>
+                                                    </div>
+                                                    <div class="categories">
+                                                        <span id="weight" name="weight"><i class="icon-tags"></i><a href="#" title="Dresses">{{$data['product']->weight}} g</a></span>
+                                                    </div>
                                                 </div>
                                             </div>
                                             <div class="short-description">

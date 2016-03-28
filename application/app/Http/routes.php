@@ -34,6 +34,13 @@ Route::post('order','OrderController@order');
 Route::get('delete_order/{row_id}','OrderController@delete_order');
 Route::get('update_order','OrderController@update_order');
 Route::get('checkout_order','OrderController@checkout_order');
+Route::get('tambah_alamat','UserController@add_address');
+Route::get('hapus_alamat/{no_alamat}','UserController@delete_address');
+Route::get('checkout','OrderController@checkout');
+Route::get('order_validate/[no_invoice]','OrderController@order_validate');
+Route::get('discount','OrderController@discount');
+// Route::get('ajax_addCity','OrderController@add_city');
+// Route::get('coba_ajax','OrderController@coba_ajax');
 //END ADE
 
 //UDIN

@@ -20,7 +20,7 @@ class CreateOrderTable extends Migration
             $table->integer('total_price');
             $table->string('order_address');
             $table->string('order_phone');
-            $table->string('order_email');
+            $table->string('order_name');
             $table->integer('total_weight');
             $table->string('discount_code');
             $table->integer('total_discount');

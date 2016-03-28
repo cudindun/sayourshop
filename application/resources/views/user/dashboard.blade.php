@@ -1,9 +1,18 @@
 <section class="user-dashboard">
-		<div class="container">
+		<div class="container" style="padding: 0px;">
 			<div class="row">
-				<div class="col-lg-12">
+				@if(session('add'))
+					<div class="alert alert-success">
+						{{session('add')}}
+					</div>
+				@endif
+				@if(session('fail'))
+					<div class="alert alert-danger">
+				{{session('fail')}}
+					</div>
+				@endif
 					<?php // ================== User sub description ================== ?>
-					<div class="col-lg-3">
+					<div class="span3">
 						<div class="box" style="min-height:250px">
 						@if(session('completed'))
 						<div class="alert alert-success">
@@ -42,8 +51,8 @@
 						</div>
 					</div>
 					<?php // ================== User Information ================== ?>
-					<div class="col-lg-9">
-						<div class="box" style="min-height:250px">
+					<div class="span9">
+					
 							<ul class="nav nav-tabs" role="tablist">
 	    						<li role="presentation" class="active"><a href="#profile" aria-controls="profile" role="tab" data-toggle="tab">Profil</a></li>
 	    						<li role="presentation"><a href="#order" aria-controls="order" role="tab" data-toggle="tab">Daftar Pesanan</a></li>
@@ -63,56 +72,70 @@
 								@endif
 								<div role="tabpanel" class="tab-pane fade in active" id="profile">
 								<form action="{{url('update')}}">
-					              <div class="form-group">
 					                <label class="col-sm-2 control-label" style="margin: 10px;">Nama Depan</label>
 					                <div class="col-sm-8" style="padding: 5px;">
 					                  <input type="text" class="form-control" id="first_name_input" name="first_name_input" value="{{$data['user']->first_name}}" required>
 					                </div>
-					              </div>
-
-					              <div class="form-group">
 					                <label class="col-sm-2 control-label" style="margin: 10px;">Nama Belakang</label>
 					                <div class="col-sm-8" style="padding: 5px;">
 					                  <input type="text" class="form-control" id="last_name_input" name="last_name_input" value="{{$data['user']->last_name}}" required>
 					                </div>
-					              </div>
-
-					              <div class="form-group">
 					                <label class="col-sm-2 control-label" style="margin: 10px;">No.Telepon</label>
 					                <div class="col-sm-8" style="padding: 5px;">
 					                  <input type="text" class="form-control" id="phone_input" name="phone_input" value="{{$data['user']->phone}}" required>
 					                </div>
-					              </div>
-					              <div class="form-group">
 					                <label class="col-sm-2 control-label" style="margin: 10px;">&nbsp;</label>
 					                <div class="col-sm-8" style="padding: 5px;">
-					                
 					                	<button type="submit" class="btn btn-small btn-primary" >Simpan</button>
 						            	<a href="{{ url('form_ubah_pass')}}"> 
 							              	<button type="button" class="btn btn-small btn-peterriver">
 							              		Ubah Password
 							              	</button>
 						              	</a>
-					                </div>
-					              </div>
-
+					              	</div>
 					            </form>
-					            	<div class="col-sm-11">
+					            	<div class="col-sm-11" style=" margin-bottom: 20px;">
+						            	<div class="panel panel-success" style="margin: 20px 35px 0 10px;padding: 0px; ">
+							            	<div class="panel-heading" style="margin: 0px;"><b>Alamat</b></div>
+							            	<div class="panel-body">
+							            		<button type="button" class="btn btn-mini btn-primary" data-toggle="modal" data-target="#add_address">Tambah</button>
+							            		<br><br>
+							            		<table class="table table-responsive">
+							            			<thead>
+								            			<tr>
+								            				<th>Nama</th>
+								            				<th>No Telepon</th>
+								            				<th>Provinsi</th>
+								            				<th>Alamat</th>
+								            				<th>Opsi</th>
+								            			</tr>
+							            			</thead>
+							            			<tbody>
+							            		
+							            			@if ($data['address']) 
+							            				<?php $query = unserialize($data['address']->meta_value); ?>
+								            			@foreach($query as $address => $value)
+								            				<tr>
+								            					@foreach($value as $key)
+								            						<td>{{$key}}</td>
+								            					@endforeach
+								            					<td><a href='{{url('hapus_alamat/'.$address)}}' ><button class="btn btn-mini btn-alizarin" id="alamat_{{$address}}" name="alamat_{{$address}}">hapus</button></a></td>
+								            				</tr>
+								            			@endforeach
+							            			@endif
+							            			</tbody>
+							            		</table>
+							            	</div>
+							            	<div class="panel-footer"></div>
+							            </div>
+							        </div>
+
+					            	<div class="col-sm-11" style=" margin-bottom: 20px;">
 						            	<div class="panel panel-success" style="margin: 20px 35px 0 10px;padding: 0px; ">
 							            	<div class="panel-heading" style="margin: 0px;"><b>Rekening Bank</b></div>
 							            	<div class="panel-body">
 							            		<button type="button" class="btn btn-mini btn-primary" data-toggle="modal" data-target="#myModal">Tambah</button>
 							            		<br><br>
-							            		@if(session('add'))
-												<div class="alert alert-success">
-							  						{{session('add')}}
-												</div>
-												@endif
-												@if(session('fail'))
-												<div class="alert alert-danger">
-							  						{{session('fail')}}
-												</div>
-												@endif
 							            		<table class="table table-responsive">
 							            			<thead>
 								            			<tr>
@@ -124,7 +147,6 @@
 							            			</thead>
 							            			<tbody>
 							            			<?php
-							            			
 							            			if ($data['rekening']) {
 							            				$query = unserialize($data['rekening']->meta_value);
 							            				$total_rek =count($query);
@@ -150,9 +172,48 @@
 							            </div>
 							        </div>
 							        <!-- Modal -->
+									<div id="add_address" class="modal fade" role="dialog">
+									  <div class="modal-dialog">
+									    <!-- Modal content-->
+									    <form action="{{url('tambah_alamat')}}" method="GET">
+										    <div class="modal-content">
+										      	<div class="modal-header">
+											        <button type="button" class="close" data-dismiss="modal">&times;</button>
+											        <h4 class="modal-title">Alamat</h4>
+										      	</div>
+										      	<div class="modal-body">
+											      	<div class="form-group">
+										                <label class="control-label">Nama</label>
+										                <input type="text" class="form-control" id="name" name="name" required>
+									              	</div>
+									              	<div class="form-group">
+										                <label class="control-label">No Telepon</label>
+										                <input type="text" class="form-control" id="phone" name="phone" required>
+									              	</div>
+
+									              	<div class="form-group">
+										                <label class="control-label">Provinsi</label>
+										                <input type="text" class="form-control" id="province" name="province" required>
+									              	</div>
+
+									              	<div class="form-group">
+										                <label class="control-label">Detail Alamat</label>
+										                <input type="text" class="form-control" id="address" name="address" required>
+									              	</div>
+										      	</div>
+										      	<div class="modal-footer">
+										      		<button type="submit" class="btn btn-primary">Tambah</button>
+										        	<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+										      	</div>
+										    </div>
+									    </form>
+
+									  </div>
+									</div>
+
+							        <!-- Modal -->
 									<div id="myModal" class="modal fade" role="dialog">
 									  <div class="modal-dialog">
-
 									    <!-- Modal content-->
 									    <form action="{{url('tambah_rek')}}" method="GET">
 										    <div class="modal-content">
@@ -218,9 +279,9 @@
 								</div>
 								<div class="clear"></div>
 							</div>
-						</div>
+					
 					</div>
-				</div>
+				
 			</div>
 		</div>
 	</section>

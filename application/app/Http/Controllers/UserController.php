@@ -125,7 +125,11 @@ class UserController extends HomeController
 		$this->data['js_assets'] 	= Assets::load('js', ['jquery', 'jquery-ui', 'jquery-easing', 'bootstrap-min-lib', 'jquery-isotope', 'jquery-flexslider', 'jquery.elevatezoom', 'jquery-sharrre', 'jquery-gmap3', 'imagesloaded', 'la_boutique', 'jquery-cookie', 'jquery-parallax-lib']);
 		$this->data['title']		= 'SayourShop | My Profile';
 		$this->data['user']			= Sentinel::getUser();
-		$this->data['rekening']		= UserMeta::where('user_id', $this->data['user']->id)->where('meta_key','bank_account') ->first();
+		$this->data['rekening']		= UserMeta::where('user_id', $this->data['user']->id)->where('meta_key','bank_account')->first();
+		$this->data['address']		= UserMeta::where('user_id', $this->data['user']->id)->where('meta_key','address')->first();
+	    // echo "<pre>";
+	    // print_r($this->data['address']);
+	    // echo "<pre>";
 	    return view('main_layout')->with('data', $this->data)
 								  ->nest('content', 'user/dashboard', array('data' => $this->data));
 	}
@@ -261,5 +265,51 @@ class UserController extends HomeController
 		$serialize = serialize($reindex);
 		$update = UserMeta::where('user_id', $user_meta->user_id)->where('meta_key','bank_account')->update(['meta_value' => $serialize]);
 		return redirect('dashboard')->with('add','Nomor rekening berhasil dihapus');
+	}
+
+	public function add_address(Request $request)
+	{
+		$rules = array(
+			'name' => 'required',
+			'province' => 'required',
+			'address' => 'required',
+			'phone' => 'required'
+			);
+		$validator 	= Validator::make($request->all(), $rules);
+		if (!$validator->fails()) {
+			$alamat = [
+				'nama' => $request->name,
+				'telepon' => $request->phone,
+				'provinsi' => $request->province,
+				'alamat' => $request->address
+				];
+
+			if ($user_meta = UserMeta::where('user_id', Sentinel::getUser()->id)->where('meta_key','address')->first()) {
+				$unserialize = unserialize($user_meta->meta_value);
+				$sum_array = array_push($unserialize, $alamat);
+				$serialize = serialize($unserialize);
+				$total = UserMeta::where('user_id', $user_meta->user_id)->where('meta_key','address')->update(['meta_value' => $serialize]);
+				return redirect('dashboard')->with('add','Alamat berhasil ditambahkan');
+			}else{
+				$usermeta = new UserMeta;
+				$usermeta->user_id = Sentinel::getUser()->id;
+				$usermeta->meta_key = "address";
+				$usermeta->meta_value = serialize(array($alamat));
+				$usermeta->save();
+				return redirect('dashboard')->with('add','Alamat berhasil ditambahkan');
+			}
+		}else{
+			return redirect('dashboard')->with('fail','Alamat gagal ditambahkan');
+		}
+	}
+
+	public function delete_address($no_alamat){
+		$user_meta = UserMeta::where('user_id', Sentinel::getUser()->id)->where('meta_key','address')->first();
+		$a = unserialize($user_meta->meta_value);
+		unset($a[$no_alamat]);
+		$reindex = array_values($a);
+		$serialize = serialize($reindex);
+		$update = UserMeta::where('user_id', $user_meta->user_id)->where('meta_key','address')->update(['meta_value' => $serialize]);
+		return redirect('dashboard')->with('add','Alamat berhasil dihapus');
 	}
 }
