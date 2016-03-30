@@ -250,7 +250,7 @@
 
 
 								<div role="tabpanel" class="tab-pane fade" id="order">
-									<table class="table table-responsive">
+									<table class="table table-responsive" id="order">
 										<thead>
 											<tr>
 												<th>Invoice</th>
@@ -264,49 +264,18 @@
 							            <tbody>
 							            @foreach($data['order'] as $value)
 							            <tr>
-							            	<td>{{$value->no_invoice}}</td>
-							            	<td>{{$value->created_at}}</td>
+							            	<td id="inv_{{$value->id}}" name="inv_{{$value->id}}">{{$value->no_invoice}}</td>
+							            	<td>{{ date_format(date_create($value->created_at), "d M Y")}}</td>
 							            	<td>Rp. {{ number_format($value->total_price, 0, ",", ".") }}</td>
 							            	<td>{{$value->order_status}}</td>
 							            	<td>{{$value->no_resi}}</td>
-							            	<td><button type="button" class="btn btn-mini btn-primary" data-toggle="modal" data-target="#modaldetail">Detail</button></td>
+							            	<td><button type="button" id="detail_{{$value->id}}" name="detail_{{$value->id}}" class="btn btn-mini btn-primary detail">Detail</button></td>
 							            </tr>
 							            @endforeach
 							            </tbody>
 									</table>
-
 									<!-- Modal -->
-									<div id="modaldetail" class="modal fade" role="dialog">
-									  <div class="modal-dialog">
-									    <!-- Modal content-->
-										    <div class="modal-content">
-										      	<div class="modal-header">
-											        <button type="button" class="close" data-dismiss="modal">&times;</button>
-											        <h4 class="modal-title">Modal Header</h4>
-										      	</div>
-										      	<div class="modal-body">
-											      	<div class="form-group">
-										                <label class="control-label">Bank</label>
-										                <input type="text" class="form-control" id="bank" name="bank" required>
-									              	</div>
-
-									              	<div class="form-group">
-										                <label class="control-label">Nomor Rekening</label>
-										                <input type="text" class="form-control" id="bank_account" name="bank_account" required>
-									              	</div>
-
-									              	<div class="form-group">
-										                <label class="control-label">Atas Nama</label>
-										                <input type="text" class="form-control" id="account_name" name="account_name" required>
-									              	</div>
-										      	</div>
-										      	<div class="modal-footer">
-										      		<button type="submit" class="btn btn-primary">Tambah</button>
-										        	<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-										      	</div>
-										    </div>
-									  </div>
-									</div>
+									<div id="modaldetail"></div>
 								</div>
 								<div role="tabpanel" class="tab-pane fade" id="wish">
 									yeah
@@ -318,4 +287,21 @@
 				
 			</div>
 		</div>
-	</section>
+</section>
+<script src="http://ajax.googleapis.com/ajax/libs/jquery/2.0.0/jquery.min.js"></script>
+<script type="text/javascript">
+	$(document).ready(function()
+	{
+		$('.detail').click(function(){
+			var id = this.id.substr(7);
+			$.ajax({
+				url: "{!! url('order_detail') !!}",
+				data: {orderid: id},
+                method:'GET',
+			}).done(function(data){
+				$('#modaldetail').html(data);
+			});
+			// $("label").html("Hello world");
+		});
+	});
+</script>

@@ -11,6 +11,7 @@ use App\Http\Models\User;
 use App\Http\Models\UserMeta;
 use App\Http\Models\Activations;
 use App\Http\Models\Order;
+use App\Http\Models\OrderDetail;
 use DB, Sentinel, Validator, Activation, Storage, Input, Session, Redirect, File;
 
 class UserController extends HomeController
@@ -310,5 +311,10 @@ class UserController extends HomeController
 		$serialize = serialize($reindex);
 		$update = UserMeta::where('user_id', $user_meta->user_id)->where('meta_key','address')->update(['meta_value' => $serialize]);
 		return redirect('dashboard')->with('add','Alamat berhasil dihapus');
+	}
+
+	public function modal_detail(Request $request){
+		$data['detail']	= OrderDetail::where('order_id', $request->orderid)->get();
+		return view('order.modal_detail')->with('data', $data);
 	}
 }

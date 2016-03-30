@@ -41,7 +41,7 @@ Route::get('order_validate/[no_invoice]','OrderController@order_validate');
 Route::get('discount','OrderController@discount');
 Route::get('order_review/{id}','OrderController@order_review');
 // Route::get('ajax_addCity','OrderController@add_city');
-// Route::get('coba_ajax','OrderController@coba_ajax');
+Route::get('order_detail','UserController@modal_detail');
 //END ADE
 
 //UDIN
