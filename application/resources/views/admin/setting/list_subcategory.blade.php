@@ -16,11 +16,30 @@
           <!-- Default box -->
           <div class="box box-warning">
             <div class="box-header with-border">
-
+              @if(session('success'))
+                <div class="alert alert-success">
+                    {{session('success')}}
+                </div>
+              @endif
+              @if(session('failed'))
+                  <div class="alert alert-danger">
+                      {{session('failed')}}
+                  </div>
+              @endif
+              <form action="{{url('master/setting/subcategory/create')}}" role="GET">
+                <select name="category" id="category">
+                  @foreach($data['category'] as $category)
+                    <option value="{{$category->id}}">{{$category->name}}
+                  @endforeach
+                </select>
+                <input type="text" id="subcategory" name="subcategory"></input>
+                <button type="submit" class="btn btn-xs btn-primary">Tambah</button>
+              </form>
             </div>
             <div class="box-body">
             	<?php // ======================== Data Table ================================ ?>
               	  <table id="subcategorylist_table" class="table table-bordered table-hover">
+
                     <thead>
                       <tr>
                         <th>No</th>

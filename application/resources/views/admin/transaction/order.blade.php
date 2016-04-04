@@ -1,12 +1,12 @@
 		<section class="content-header">
           <h1>
-            Category
+            Order
             <small>List</small>
           </h1>
           <ol class="breadcrumb">
             <li><a href="{{url('/master')}}"><i class="fa fa-home"></i> Home</a></li>
-            <li><a href="#"><i class="fa fa-folder"></i> Category</a></li>
-            <li><a href="{{url('/master/category/list')}}"></i> List</a></li>
+            <li><a href="#"><i class="fa fa-file"></i> SubCategory</a></li>
+            <li><a href="{{url('/master/subcategory/list')}}"></i> List</a></li>
           </ol>
         </section>
 
@@ -20,26 +20,21 @@
             </div>
             <div class="box-body">
             	<?php // ======================== Data Table ================================ ?>
-              	  <table id="category_table" class="table table-bordered table-hover">
+              	  <table id="order_table" class="table table-bordered table-hover">
                     <thead>
                       <tr>
-                        <th>No</th>
-                        <th>Nama Kategori</th>
-                        <th>Total Product</th>
-                        <th>Slug</th>
-                        <th>Total Subkategori</th>
+                        <th>No Resi</th>
+                        <th>No Invoice</th>
+                        <th>Penerima</th>
+                        <th>Alamat</th>
+                        <th>Kecamatan</th>
+                        <th>Kota/Kabupaten</th>
+                        <th>Total Belanja</th>
+                        <th>Berat</th>
+                        <th>Status</th>
                       </tr>
                     </thead>
                     <tbody>
-                      <?php $i=1; foreach($data['category'] as $category): ?> 
-                      <tr>
-                        <td><?= $i ?></td>
-                        <td><?= $category->name ?></td>
-                        <td><?= $category->total_product ?></td>
-                        <td><?= $category->slug ?></td>
-                        <td><?= $category->subcategories ?></td>
-                      </tr>
-                      <?php $i++; endforeach; ?>
                     </tbody>
                   </table>
                   <?php // ======================== END Data Table ================================ ?>
@@ -51,7 +46,7 @@
 @section('script')
 	<script>
       $(function () {
-        $("#category_table").DataTable();
+        $("#order_table").DataTable();
       });
     </script>
 @stop

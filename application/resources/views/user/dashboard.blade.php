@@ -104,7 +104,6 @@
 								            			<tr>
 								            				<th>Nama</th>
 								            				<th>No Telepon</th>
-								            				<th>Provinsi</th>
 								            				<th>Alamat</th>
 								            				<th>Opsi</th>
 								            			</tr>
@@ -115,8 +114,10 @@
 							            				<?php $query = unserialize($data['address']->meta_value); ?>
 								            			@foreach($query as $address => $value)
 								            				<tr>
-								            					@foreach($value as $key)
-								            						<td>{{$key}}</td>
+								            					@foreach($value as $ind => $key)
+								            						@if($ind != 'provinsi' and $ind != 'kota' and $ind != 'kecamatan')
+								            							<td>{{$key}}</td>
+								            						@endif
 								            					@endforeach
 								            					<td><a href='{{url('hapus_alamat/'.$address)}}' ><button class="btn btn-mini btn-alizarin" id="alamat_{{$address}}" name="alamat_{{$address}}">hapus</button></a></td>
 								            				</tr>
@@ -192,8 +193,26 @@
 
 									              	<div class="form-group">
 										                <label class="control-label">Provinsi</label>
-										                <input type="text" class="form-control" id="province" name="province" required>
+										                <select name="province" id="province" class="form-control" >
+		                                                    <option value="">-- Silahkan Pilih --</option>
+		                                                    @foreach($data['province'] as $province)
+		                                                        <option value="{{$province->id}}">{{$province->name}}
+		                                                    @endforeach
+		                                                </select>
 									              	</div>
+
+									              	<div class="form-group">
+			                                            <label class="control-label">Kota/Kabupaten</label>
+			                                         
+			                                                <select name="city" id="city" class="form-control"></select>
+			                                         
+			                                        </div>
+			                                        <div class="form-group">
+			                                            <label class="control-label">Kecamatan</label>
+			                                          
+			                                                <select name="district" id="district" class="form-control" ></select>
+			                                       
+			                                        </div>
 
 									              	<div class="form-group">
 										                <label class="control-label">Detail Alamat</label>
@@ -288,7 +307,6 @@
 			</div>
 		</div>
 </section>
-<script src="http://ajax.googleapis.com/ajax/libs/jquery/2.0.0/jquery.min.js"></script>
 <script type="text/javascript">
 	$(document).ready(function()
 	{
@@ -301,7 +319,30 @@
 			}).done(function(data){
 				$('#modaldetail').html(data);
 			});
-			// $("label").html("Hello world");
 		});
+
+		$('#province').change(function()
+        {
+            var id = $('#province').val();
+            $.ajax({
+                url: "{!! url('konten_kota') !!}",
+                data: {id: id},
+                method:'GET',
+            }).done(function(data){
+                $('#city').html(data);
+            });
+        });
+
+        $('#city').change(function()
+        {
+            var id = $('#city').val();
+            $.ajax({
+                url: "{!! url('konten_kecamatan') !!}",
+                data: {id: id},
+                method:'GET',
+            }).done(function(data){
+                $('#district').html(data);
+            });
+        });
 	});
 </script>

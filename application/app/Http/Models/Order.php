@@ -47,4 +47,19 @@ class Order extends Model {
     {
         return $this->belongsTo('App\Http\Models\User');
     }
+
+    public function district()
+    {
+        return $this->belongsTo('App\Http\Models\District');
+    }
+
+    public function city()
+    {
+        return $this->belongsTo('App\Http\Models\City');
+    }
+
+    public function province()
+    {
+        return $this->belongsTo('App\Http\Models\Province');
+    }
 }

@@ -3,17 +3,18 @@
 use App\Http\Libraries\Lionade;
 use DB, Illuminate\Database\Eloquent\Model;
 
-class Province extends Model {
+class Option extends Model {
 
-    protected $table = 'province';
+    protected $table = 'option';
     
     public function getJson($input)
 	{
-		$table 	= 'province as a';
+		$table 	= 'option as a';
 		$select = 'a.*';
 		
 		$replace_field 	= [
-            ['old_name' => 'name', 'new_name' => 'a.name']
+            ['old_name' => 'meta_key', 'new_name' => 'a.meta_key'],
+			['old_name' => 'meta_value', 'new_name' => 'a.meta_value']
 		];
 
 		$param = [
@@ -28,15 +29,4 @@ class Province extends Model {
             return $data;
         });
 	}
-
-    public function City()
-    {
-        return $this->hasMany('App\Http\Models\City');        
-    }
-
-    public function order()
-    {
-        return $this->hasMany('App\Http\Models\Order');        
-    }
-
 }

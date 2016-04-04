@@ -15,11 +15,11 @@
     </head>
     <body>
         <div class="overlay_loading"></div>
-        @yield('content')
         <!-- JS ASSETS -->
         @foreach($data['js_assets'] as $key => $asset)
             {!! HTML::script($asset) !!}
         @endforeach
+        @yield('content')
         @include('components/app_js')
         @yield('script')
     </body>

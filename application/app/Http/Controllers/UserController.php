@@ -11,6 +11,9 @@ use App\Http\Models\User;
 use App\Http\Models\UserMeta;
 use App\Http\Models\Activations;
 use App\Http\Models\Order;
+use App\Http\Models\Province;
+use App\Http\Models\District;
+use App\Http\Models\City;
 use App\Http\Models\OrderDetail;
 use DB, Sentinel, Validator, Activation, Storage, Input, Session, Redirect, File;
 
@@ -123,9 +126,9 @@ class UserController extends HomeController
 	public function dashboard()
 	{
 		$this->data['css_assets'] 	= Assets::load('css', ['lib-bootstrap', 'style', 'color-schemes-core', 'font-awesome', 'font-awesome-min', 'color-schemes-turquoise', 'bootstrap-responsive','font-family']);
-
-		$this->data['js_assets'] 	= Assets::load('js', ['jquery', 'jquery-ui', 'jquery-easing', 'bootstrap-min-lib', 'jquery-isotope', 'jquery-flexslider', 'jquery.elevatezoom', 'jquery-sharrre', 'jquery-gmap3', 'imagesloaded', 'la_boutique', 'jquery-cookie', 'jquery-parallax-lib']);
+		$this->data['js_assets'] 	= Assets::load('js', ['jquery', 'jquery-ui', 'jquery-easing', 'bootstrap-min-lib', 'jquery-isotope', 'jquery-flexslider', 'jquery.elevatezoom', 'jquery-sharrre', 'jquery-gmap3', 'imagesloaded', 'la_boutique', 'jquery-cookie']);
 		$this->data['title']		= 'SayourShop | My Profile';
+		$this->data['province']		= Province::get();
 		$this->data['user']			= Sentinel::getUser();
 		$this->data['rekening']		= UserMeta::where('user_id', $this->data['user']->id)->where('meta_key','bank_account')->first();
 		$this->data['address']		= UserMeta::where('user_id', $this->data['user']->id)->where('meta_key','address')->first();
@@ -272,6 +275,8 @@ class UserController extends HomeController
 		$rules = array(
 			'name' => 'required',
 			'province' => 'required',
+			'city' => 'required',
+			'district' => 'required',
 			'address' => 'required',
 			'phone' => 'required'
 			);
@@ -281,6 +286,8 @@ class UserController extends HomeController
 				'nama' => $request->name,
 				'telepon' => $request->phone,
 				'provinsi' => $request->province,
+				'kota' => $request->city,
+				'kecamatan' => $request->district,
 				'alamat' => $request->address
 				];
 
@@ -316,5 +323,20 @@ class UserController extends HomeController
 	public function modal_detail(Request $request){
 		$data['detail']	= OrderDetail::where('order_id', $request->orderid)->get();
 		return view('order.modal_detail')->with('data', $data);
+	}
+
+	public function address_content(Request $request){
+		$usermeta = UserMeta::where('user_id', Sentinel::getUser()->id)->where('meta_key','address')->first();
+		$address = unserialize($usermeta->meta_value);
+		$this->data['address'] = $address[$request->id];
+		$this->data['province'] = Province::where('id', $this->data['address']['provinsi'])->first();
+		$this->data['district'] = District::where('id', $this->data['address']['kecamatan'])->first();
+		$this->data['city'] = City::where('id', $this->data['address']['kota'])->first();
+
+		$costs = app('App\Http\Controllers\OrderController')->get_cost($this->data['address']['kota']);
+		$cost = json_decode($costs);
+		$this->data['cost_data'] = serialize($cost->rajaongkir->results[0]->costs);
+
+		return view('address_content')->with('data', $this->data);
 	}
 }

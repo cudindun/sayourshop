@@ -25,43 +25,5 @@ class AdminController extends Controller
 	    return view('admin_layout')->with('data', $this->data)
 								  ->nest('content', 'admin/home', array('data' => $this->data));
 	}
-
-	public function create_category()
-	{
-		$this->data['css_assets'] 	= Assets::load('css', ['admin_bootstrap', 'admin_css', 'font-awesome', 'skins']);
-		$this->data['js_assets'] 	= Assets::load('js', ['jquery', 'admin_js', 'dashboard', 'admin_bootstrap-js', 'slimscroll', 'fastclick']);
-		$this->data['title']		= 'Category | Create';
-	    return view('admin_layout')->with('data', $this->data)
-								  ->nest('content', 'category/create', array('data' => $this->data));
-	}
-
-	public function list_category()
-	{
-		$this->data['css_assets'] 	= Assets::load('css', ['admin_bootstrap', 'admin_css', 'font-awesome', 'skins', 'dataTables_css']);
-		$this->data['js_assets'] 	= Assets::load('js', ['jquery', 'admin_js', 'admin_bootstrap-js', 'slimscroll', 'fastclick', 'dataTables_js', 'dataTables_bootsjs']);
-		$this->data['title']		= 'Category | List';
-		$this->data['category']		= Category::all();
-	    return view('admin_layout')->with('data', $this->data)
-								  ->nest('content', 'category/list', array('data' => $this->data));
-	}
-
-	public function create_subcategory()
-	{
-		$this->data['css_assets'] 	= Assets::load('css', ['admin_bootstrap', 'admin_css', 'font-awesome', 'skins']);
-		$this->data['js_assets'] 	= Assets::load('js', ['jquery', 'admin_js', 'dashboard', 'admin_bootstrap-js', 'slimscroll', 'fastclick']);
-		$this->data['title']		= 'Subcategory | Create';
-	    return view('admin_layout')->with('data', $this->data)
-								  ->nest('content', 'subcategory/create', array('data' => $this->data));
-	}
-
-	public function list_subcategory()
-	{
-		$this->data['css_assets'] 	= Assets::load('css', ['admin_bootstrap', 'admin_css', 'font-awesome', 'skins', 'dataTables_css']);
-		$this->data['js_assets'] 	= Assets::load('js', ['jquery', 'admin_js', 'admin_bootstrap-js', 'slimscroll', 'fastclick', 'dataTables_js', 'dataTables_bootsjs']);
-		$this->data['title']		= 'Category | List';
-		$this->data['subcategory']		= Subcategory::all();
-	    return view('admin_layout')->with('data', $this->data)
-								  ->nest('content', 'subcategory/list', array('data' => $this->data));
-	}
 	
 }

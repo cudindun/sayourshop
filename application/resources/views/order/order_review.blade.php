@@ -15,12 +15,39 @@
             <div class="span2"></div>
             <div class="span8">
                 <div class="box" style="padding-top: 0px;">
+                     <!-- Checkout content -->
+                    <div id="checkout-content">
+                        <div class="box-header" style="background-color: #1abc9c;padding: 10px;">
+                            <h3 style="color: white;">Nomor Invoice Anda : <u>{{$data['order']->no_invoice}}</u></h3>
+                        </div>
+                        <div class="box-content">
+                            <table class="table table-responsive">
+                                <tr>
+                                    <th>Nama</th>
+                                    <td><span>{{$data['order']->order_name}}</span></td>
+                                </tr>
+                                <tr>
+                                    <th>No Telepon</th>
+                                    <td><span>{{$data['order']->order_phone}}</span></td>
+                                </tr>
+                                <tr>
+                                    <th>Alamat</th>
+                                    <td><span>{{$data['order']->order_address}}, Kecamatan {{$data['order']->district->name}}, {{$data['order']->city->nama}},  {{$data['order']->province->name}}</span></td>
+                                </tr>
+                                <tr>
+                                    <th>Kurir</th>
+                                    <td><span>{{$data['order']->courier}}</span></td>
+                                </tr>
+                            </table>
+                        </div>   
+                    </div>  
+                    <!-- End id="checkout-content" -->
                     <!-- Checkout content -->
                     <div id="tab-content">
                         <div class="tab-pane active" id="cart" role="presentation">
                             <form enctype="multipart/form-data" action="{{ url('update_order') }}" method="get" />
                                 <div class="box-header" style="background-color: #1abc9c;padding: 10px;">
-                                    <h3 style="color: white;">Nomor Invoice Anda : <u>{{$data['order']->no_invoice}}</u></h3>
+                                    <h3 style="color: white">Produk</h3>
                                     <h5 style="color: white">Gunakan nomor ini untuk mengecek pesanan Anda</h5>
                                 </div>
                                 <div class="box-content">
@@ -93,55 +120,13 @@
                         </div>                       
                     </div>  
                     <!-- End id="checkout-content" -->
-                    <!-- Checkout content -->
-                    <div id="checkout-content">
-                        <form action="{{url('checkout')}}">
-                            <div class="box-header" style="background-color: #1abc9c;padding: 10px;">
-                                <h3 style="color: white">Alamat</h3>
-                                <h5 style="color: white">Alamat tujuan pengiriman</h5>
-                            </div>
-                            <div class="box-content">
-                                <table class="table table-responsive">
-                                    <thead>
-                                        <tr>
-                                            <th>Nama</th>
-                                            <th>No Telepon</th>
-                                            <th>Provinsi</th>
-                                            <th>Alamat</th>
-                                            <th>Kurir</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                       <tr>
-                                           <td class="col_product">
-                                                <span>{{$data['order']->order_name}}</span>
-                                            </td>
-                                            <td class="col_product">
-                                                <span>{{$data['order']->order_phone}}</span>
-                                            </td>
-                                            <td class="col_product">
-                                                <span>{{$data['order']->province}}</span>
-                                            </td>
-                                            <td class="col_product">
-                                                <span>{{$data['order']->order_address}}</span>
-                                            </td>
-                                            <td class="col_product">
-                                                <span>{{$data['order']->courier}}</span>
-                                            </td>
-                                       </tr>
-                                    </tbody>
-                                </table>
-                            </div>
-                        </form>      
-                    </div>  
-                    <!-- End id="checkout-content" -->
+                   
                 </div>
             </div>
         </div>
     </div>  
 </section>
 <!-- End class="checkout" -->
-<script src="http://ajax.googleapis.com/ajax/libs/jquery/2.0.0/jquery.min.js"></script>
 <script type="text/javascript">
     $(document).ready(function()
     {

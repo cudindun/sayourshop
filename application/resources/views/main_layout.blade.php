@@ -90,7 +90,7 @@
                             <a href="{{url('cek_order_form')}}">Cek Order</a>
                         </li>
                         <li>
-                            <a href="#">Konfirmasi Pembayaran</a>
+                            <a href="{{url('konfirmasi_pembayaran')}}">Konfirmasi Pembayaran</a>
                         </li>
                     </div>
                     <!-- End class="main-menu" -->

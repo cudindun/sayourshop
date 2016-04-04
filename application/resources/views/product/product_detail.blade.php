@@ -18,18 +18,8 @@
                                 <div class="thumbs" id="gallery" align="center">
                                     <ul class="thumbs-list">
                                         <li>
-                                            <a class="active" href="#" data-image="{{ asset('assets/image/thumbnails/db_file_img_228_160xauto.jpg')}}" title="Chaser Overalls" data-zoom-image="{{ asset('assets/image/thumbnails/db_file_img_228_160xauto.jpg')}}">
+                                            <a class="active" href="#" data-image="{{asset('assets/image/thumbnails/db_file_img_228_480xauto.jpg')}}" title="Chaser Overalls" data-zoom-image="{{asset('assets/image/thumbnails/db_file_img_228_480xauto.jpg')}}">
                                                 <img style="max-width: 100%;" src="{{ asset('assets/image/thumbnails/db_file_img_228_160xauto.jpg')}}" alt="Chaser Overalls" />
-                                            </a>
-                                        </li>
-                                        <li>
-                                            <a href="#" data-image="{{ asset('assets/image/thumbnails/db_file_img_229_160xauto.jpg')}}" title="Chaser Overalls" data-zoom-image="{{ asset('assets/image/thumbnails/db_file_img_229_160xauto.jpg')}}">
-                                                <img style="max-width: 100%;" src="{{ asset('assets/image/thumbnails/db_file_img_229_160xauto.jpg')}}" alt="Chaser Overalls" />
-                                            </a>
-                                        </li>
-                                        <li>
-                                            <a href="#" data-image="{{ asset('assets/image/thumbnails/db_file_img_227_160xauto.jpg')}}" title="Chaser Overalls" data-zoom-image="{{ asset('assets/image/thumbnails/db_file_img_227_160xauto.jpg')}}">
-                                                <img style="max-width: 100%;" src="{{ asset('assets/image/thumbnails/db_file_img_227_160xauto.jpg')}}" alt="Chaser Overalls" />
                                             </a>
                                         </li>
                                     </ul>
@@ -139,12 +129,6 @@
                                                                         </select>
                                                                     </div>
                                                                 </div>
-
-                                                                <?php 
-                                                                // echo "<pre>";
-                                                                // echo "{$key} = {$value}\n";
-                                                                // echo "<pre>"; 
-                                                                ?>
                                                             @endforeach
                                                             
                                                         @endif
@@ -155,11 +139,6 @@
                                                 <button class="btn btn-primary btn-large" type="submit">
                                                     <i class="icon-plus"></i> &nbsp; Add to cart
                                                 </button>
-                                                <a href="{{url('tes_properti')}}">
-                                                    <button class="btn btn-primary btn-large" type="button">
-                                                        <i class="icon-plus"></i> &nbsp; Properti
-                                                    </button>
-                                                </a>
                                             </div>
                                         </form>                     
                                     </div>

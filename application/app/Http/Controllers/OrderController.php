@@ -10,6 +10,7 @@ use App\Http\Libraries\Assets;
 use App\Http\Models\Product;
 use App\Http\Models\Province;
 use App\Http\Models\City;
+use App\Http\Models\District;
 use App\Http\Models\UserMeta;
 use App\Http\Models\Order;
 use App\Http\Models\OrderDetail;
@@ -20,7 +21,7 @@ class OrderController extends HomeController
     public function cart_form()
 	{
 		$this->data['css_assets'] 	= Assets::load('css', ['lib-bootstrap', 'style', 'font-awesome', 'font-awesome-min', 'color-schemes-core', 'color-schemes-turquoise', 'bootstrap-responsive','font-family']);
-		$this->data['js_assets'] 	= Assets::load('js', ['jquery-ui', 'bootstrap-min-lib', 'jquery-isotope', 'jquery-flexslider', 'jquery.elevatezoom', 'jquery-sharrre', 'imagesloaded', 'la_boutique', 'jquery-cookie',]);
+		$this->data['js_assets'] 	= Assets::load('js', ['jquery','jquery-min','jquery-ui', 'bootstrap-min-lib', 'jquery-isotope', 'jquery-flexslider', 'jquery.elevatezoom', 'jquery-sharrre', 'imagesloaded', 'la_boutique', 'jquery-cookie']);
 		$this->data['address']		= UserMeta::where('user_id', Sentinel::getUser()->id)->where('meta_key','address')->first();
 		$this->data['provinces']	= Province::get();
 		$this->data['cart']			= Cart::content();
@@ -32,7 +33,7 @@ class OrderController extends HomeController
 	public function order_review($id)
 	{
 		$this->data['css_assets'] 	= Assets::load('css', ['lib-bootstrap', 'style', 'font-awesome', 'font-awesome-min', 'color-schemes-core', 'color-schemes-turquoise', 'bootstrap-responsive','font-family']);
-		$this->data['js_assets'] 	= Assets::load('js', ['jquery-ui', 'bootstrap-min-lib', 'jquery-isotope', 'jquery-flexslider', 'jquery.elevatezoom', 'jquery-sharrre', 'imagesloaded', 'la_boutique', 'jquery-cookie',]);
+		$this->data['js_assets'] 	= Assets::load('js', ['jquery','jquery-min','jquery-ui', 'bootstrap-min-lib', 'jquery-isotope', 'jquery-flexslider', 'jquery.elevatezoom', 'jquery-sharrre', 'imagesloaded', 'la_boutique', 'jquery-cookie',]);
 		$this->data['address']		= UserMeta::where('user_id', Sentinel::getUser()->id)->where('meta_key','address')->first();
 		$this->data['order']		= Order::where('id', $id)->first();
 		$this->data['orderdetail']  = OrderDetail::where('order_id', $this->data['order']->id)->get();
@@ -141,13 +142,12 @@ class OrderController extends HomeController
 			$order->no_invoice = date('Ymd').$user->id.$insert_id;
 			$order->save();
 			return redirect('order_review/'.$insert_id);
-			// echo "<pre>";
-			// print_r($request->no_address);
-			// echo "<pre>";
 		}else{
 			$rules = array(
 			'name' => 'required',
 			'province' => 'required',
+			'city' => 'required',
+			'district' => 'required',
 			'address' => 'required',
 			'phone' => 'required'
 			);
@@ -157,11 +157,15 @@ class OrderController extends HomeController
 				$order->courier = $request->courier;
 				$order->order_name = $request->name;
 				$order->order_phone = $request->phone;
-				$order->province = $request->province;
+				$order->province_id = $request->province;
+				$order->city_id = $request->city;
+				$order->district_id = $request->district;
 				$alamat = [
 					'nama' => $request->name,
 					'telepon' => $request->phone,
 					'provinsi' => $request->province,
+					'kota' => $request->city,
+					'kecamatan' => $request->district,
 					'alamat' => $request->address
 					];
 				if ($user_meta = UserMeta::where('user_id', Sentinel::getUser()->id)->where('meta_key','address')->first()) {
@@ -221,5 +225,65 @@ class OrderController extends HomeController
 			$disc = ($total*0.1);
 		}
 		return redirect('keranjang')->with('discount', $disc)->with('coupon', $request->coupon);
+	}
+
+	public function city_content(Request $request)
+	{
+		$this->data['city_data'] = City::where('id_province', $request->id)->get();
+		return view('city_content')->with('data', $this->data);
+	}
+
+	public function district_content(Request $request)
+	{
+		$this->data['district_data'] = District::where('id_city', $request->id)->get();
+		return view('district_content')->with('data', $this->data);
+	}
+
+	public function check_order(Request $request){
+		$order = Order::where('no_invoice', $request->invoice)->first();
+		if ($order) {
+			$this->order_review($order->id);
+			return view('main_layout')->with('data', $this->data)
+								  ->nest('content', 'order/order_review', array('data' => $this->data));
+		}else
+			return redirect('cek_order_form')->with('failed','Maaf No Invoice tidak terdaftar');
+	}
+
+	public function get_cost($id){
+		$curl = curl_init();
+
+		curl_setopt_array($curl, array(
+		  CURLOPT_URL => "http://api.rajaongkir.com/starter/cost",
+		  CURLOPT_RETURNTRANSFER => true,
+		  CURLOPT_ENCODING => "",
+		  CURLOPT_MAXREDIRS => 10,
+		  CURLOPT_TIMEOUT => 30,
+		  CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
+		  CURLOPT_CUSTOMREQUEST => "POST",
+		  CURLOPT_POSTFIELDS => 'origin=79&destination='.$id.'&weight=1000&courier=jne',
+		  CURLOPT_HTTPHEADER => array(
+		    "content-type: application/x-www-form-urlencoded",
+		    "key: 3817d2082f278a925d3407ecb04732d3"
+		  ),
+		));
+
+		$response = curl_exec($curl);
+		$err = curl_error($curl);
+
+		curl_close($curl);
+
+
+		if ($err) {
+		 	echo "cURL Error #:" . $err;
+		} else {
+			return $response;
+		  	
+		}
+	}
+
+	public function check_shipping(Request $request){
+		$cost = json_decode($this->get_cost($request->id));
+		$this->data['cost_data'] = serialize($cost->rajaongkir->results[0]->costs);
+		return view('cost_content')->with('data', $this->data);
 	}
 }

@@ -30,4 +30,9 @@ class UserMeta extends Model {
             return $data;
         });
 	}
+
+	public function province()
+    {
+        return $this->hasMany('App\Http\Models\Province');        
+    }
 }

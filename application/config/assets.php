@@ -12,6 +12,7 @@ return [
 		'font-awesome'				=> 'assets/font/font-awesome/css/font-awesome.css',
 		'font-awesome-min'			=> 'assets/font/font-awesome/css/font-awesome.min.css',
 		'font-family'				=> 'assets/css/font_family.css',
+		'datepicker'				=> 'assets/css/bootstrap-datepicker.min.css',
 
 		//LIB CSS
 		'lib-bootstrap'				=> 'assets/lib/bootstrap/css/bootstrap.css',
@@ -28,6 +29,7 @@ return [
 		'admin_css'					=> 'assets/admin/css/AdminLTE.min.css',
 		'skins'						=> 'assets/admin/css/skins/_all-skins.css',
 		'admin_bootstrap'			=> 'assets/admin/lib/bootstrap/css/bootstrap.min.css',
+		'ionicons'					=> 'assets/admin/css/ionicons.min.css',
 
 		//ADMIN PLUGIN CSS
 		'icheck'					=> 'assets/admin/plugins/iCheck/flat/blue.css',
@@ -71,6 +73,9 @@ return [
 		'jquery-ui'				=> 'assets/js/jquery-ui-1.10.2.custom.js',
 		'jquery'				=> 'assets/js/jquery-2.1.1.min.js',
 		'la_boutique'			=> 'assets/js/la_boutique.js',
+		'jquery-min'			=> 'assets/js/jquery.min.js',
+		'datepicker'			=> 'assets/js/bootstrap-datepicker.min.js',
+		'datepicker-locales'	=> 'assets/js/locales/bootstrap-datepicker.id.min.js',
 
 		//LIB
 		'bootstrap-lib'			=> 'assets/lib/bootstrap/js/bootstrap.js',
@@ -87,6 +92,7 @@ return [
 		'admin_js'				=> 'assets/admin/js/app.js',
 		'dashboard'				=> 'assets/admin/js/pages/dashboard.js',
 		'admin_bootstrap-js'	=> 'assets/admin/lib/bootstrap/js/bootstrap.min.js',
+		'jquery-adm'			=> 'assets/admin/js/jquery-2.1.4.min.js',
 
 		//ADMIN PLUGIN JS
 		'slimscroll'			=> 'assets/admin/plugins/slimScroll/jquery.slimscroll.min.js',
@@ -102,7 +108,10 @@ return [
 		//ADMIN JS
 		'admin_js'				=> 'assets/admin/js/app.js',
 		'dashboard'				=> 'assets/admin/js/pages/dashboard.js',
-		'admin_bootstrap-js'	=> 'assets/admin/lib/bootstrap/js/bootstrap.min.js',
+		'admin_bootstrap-js'	=> 'assets/admin/lib/bootstrap/js/bootstrap.min.js',		
+		'jquery-ui-adm'			=> 'assets/admin/js/jquery-ui.min.js',
+		'raphael'				=> 'assets/admin/js/raphael-min.js',
+		'moment'				=> 'assets/admin/js/moment.min.js',
 
 		//ADMIN PLUGIN JS
 		'slimscroll'			=> 'assets/admin/plugins/slimScroll/jquery.slimscroll.min.js',

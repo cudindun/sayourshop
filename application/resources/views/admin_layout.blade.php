@@ -11,7 +11,7 @@
     <?php // ============ CSS ============ ?>
 
     <!-- Ionicons -->
-    <link rel="stylesheet" href="https://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css">
+    <!-- <link rel="stylesheet" href="https://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css"> -->
 
     @foreach( $data['css_assets'] as $key => $assets ) 
       {!! Html::style($assets) !!}
@@ -310,6 +310,29 @@
                 <i class="fa fa-home"></i> <span>Home</span>
               </a>
             </li>
+            <li class="{{ Request::segment(2) === 'setting' ? 'active' : null }} treeview">
+              <a href="#">
+                <i class="fa fa-users"></i>
+                <span>Setting</span>
+                <i class="fa fa-angle-left pull-right"></i>
+              </a>
+              <ul class="treeview-menu">
+                <li><a href="{{ url('/master/setting/bank_account') }}"><i class="fa fa-circle-o text-yellow"></i> Bank Account </a></li>
+                <li><a href="{{ url('/master/setting/category/list') }}"><i class="fa fa-circle-o text-yellow"></i> Category </a></li>
+                <li><a href="{{ url('/master/setting/subcategory/list') }}"><i class="fa fa-circle-o text-yellow"></i> Subcategory </a></li>
+              </ul>
+            </li>
+            <li>
+              <a href="#">
+                <i class="fa fa-users"></i>
+                <span>Transaction</span>
+                <i class="fa fa-angle-left pull-right"></i>
+              </a>
+              <ul class="treeview-menu">
+                <li><a href="{{ url('/master/transaction/order') }}"><i class="fa fa-circle-o text-yellow"></i> Order </a></li>
+                <li><a href="{{ url('/master/user/create') }}"><i class="fa fa-circle-o text-aqua"></i> Create </a></li>
+              </ul>
+            </li>
             <li class="{{ Request::segment(2) === 'order' ? 'active' : null }} treeview">
               <a href="{{ url('/master') }}">
                 <i class="fa fa-shopping-cart"></i>
@@ -326,28 +349,6 @@
               <ul class="treeview-menu">
                 <li><a href="{{ url('/master/user/list') }}"><i class="fa fa-circle-o text-yellow"></i> List </a></li>
                 <li><a href="{{ url('/master/user/create') }}"><i class="fa fa-circle-o text-aqua"></i> Create </a></li>
-              </ul>
-            </li>
-            <li class="{{ Request::segment(2) === 'category' ? 'active' : null }} treeview">
-              <a href="#">
-                <i class="fa fa-folder"></i>
-                <span>Category</span>
-                <i class="fa fa-angle-left pull-right"></i>
-              </a>
-              <ul class="treeview-menu">
-                <li><a href="{{ url('/master/category/list') }}"><i class="fa fa-circle-o text-yellow"></i> List </a></li>
-                <li><a href="{{ url('/master/category/create') }}"><i class="fa fa-circle-o text-aqua"></i> Create </a></li>
-              </ul>
-            </li>
-            <li class="{{ Request::segment(2) === 'subcategory' ? 'active' : null }} treeview">
-              <a href="#">
-                <i class="fa fa-file"></i>
-                <span>SubCategory</span>
-                <i class="fa fa-angle-left pull-right"></i>
-              </a>
-              <ul class="treeview-menu">
-                <li><a href="{{ url('/master/subcategory/list') }}"><i class="fa fa-circle-o text-yellow"></i> List </a></li>
-                <li><a href="{{ url('/master/subcategory/create') }}"><i class="fa fa-circle-o text-aqua"></i> Create </a></li>
               </ul>
             </li>
             <li class="{{ Request::segment(2) === 'produk' ? 'active' : null }} treeview">
@@ -397,13 +398,13 @@
     <!-- jQuery 2.1.4 -->
     <?php // <script src="plugins/jQuery/jQuery-2.1.4.min.js"></script> ?>
     <!-- jQuery UI 1.11.4 -->
-    <script src="https://code.jquery.com/ui/1.11.4/jquery-ui.min.js"></script>
+    <!-- <script src="https://code.jquery.com/ui/1.11.4/jquery-ui.min.js"></script> -->
 
     <!-- Morris Chart -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/raphael/2.1.0/raphael-min.js"></script>
+    <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/raphael/2.1.0/raphael-min.js"></script> -->
 
     <!-- DateRangePicker -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.10.2/moment.min.js"></script>
+    <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.10.2/moment.min.js"></script> -->
 
     <!-- Resolve conflict in jQuery UI tooltip with Bootstrap tooltip -->
     <script>

@@ -84,19 +84,22 @@
                                 <h5 style="color: white">Alamat tujuan pengiriman</h5>
                             </div>
                             <div class="box-content">
+                                @if($data['address'])
+                                    <?php $query = unserialize($data['address']->meta_value); ?>
+                                    <select class="form-control" id="address_check" name="address_check">
+                                        <option value="">--Silahkan Pilih--</option>
+                                        @foreach($query as $new => $value)
+                                            <option value="{{$new}}">{{$value['nama']}} | {{$value['alamat']}} | {{$value['telepon']}}</option>
+                                        @endforeach
+                                    </select>
+                                    <br>
+                                    <div id="result_address" name="result_address"></div>
+                                @endif
                                 <table class="table table-responsive">
-                                    <thead>
-                                        <tr>
-                                            <th>Nama</th>
-                                            <th>No Telepon</th>
-                                            <th>Provinsi</th>
-                                            <th>Alamat</th>
-                                            <th>Kurir</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
                                         @if ($data['address']) 
                                             <?php $query = unserialize($data['address']->meta_value); ?>
+
+                                            <!-- mengambil properti produk -->
                                             @foreach($data['cart'] as $product)
                                                 <?php $properties = array();?>
                                                 @foreach( $product->options as $key => $value)
@@ -104,32 +107,15 @@
                                                 @endforeach
                                                 <input type="hidden" id="properties_{{$product->rowid}}" name="properties_{{$product->rowid}}" value="{{serialize($properties)}}"></input>
                                             @endforeach
-                                            @foreach($query as $address => $value)
-                                                <tr>
-                                                    @foreach($value as $index => $val)
-                                                        <td name="{{$index.'_'.$address}}" name="{{$index.'_'.$address}}">{{$val}}</td>
-                                                    @endforeach
-                                                    <td>
-                                                        <select name="courier_{{$address}}" id="courier_{{$address}}">
-                                                            <option value="JNE-OKE">JNE-OKE 3-4 hari
-                                                            <option value="JNE-REG">JNE-REG 1-2 hari
-                                                            <option value="JNE-YES">JNE-YES 1 hari
-                                                        </select>
-                                                    </td>
-                                                    @if(Cart::count())
-                                                        <td>
-                                                            <button class="btn btn-mini btn-greensea address" id="no_address" name="no_address" value="{{$address}}"  type="submit">Checkout</button></a>
-                                                        </td>
-                                                    @endif
-                                                </tr>
-                                            @endforeach
+
                                             <input type="hidden" class="form-control" id="coupon_code" name="coupon_code" value="{{session('coupon')}}">
                                             <input type="hidden" class="form-control" value="{{session('discount')}}" id="discount" name="discount">
+                                            <input type="hidden" class="form-control" id="shipping_price" name="shipping_price">
+                                            <input type="text" class="form-control" value="{{Cart::total()}}" id="cart_total" name="cart_total">
                                             <tr>
                                                 <td><button class="btn btn-mini btn-greensea" id="alamat_baru" name="alamat_baru" type="button">Alamat Baru</button></td>
                                             </tr>
                                         @endif
-                                    </tbody>
                                 </table>
                             </div>
                         </form>
@@ -144,19 +130,26 @@
                                             </div>
                                         </div>
                                         <div class="control-group">
-                                            <label for="phone" class="control-label">No.Telp</label>
-                                            <div class="controls">
-                                                <input class="span12" type="text" value="" name="phone" id="phone" />
-                                            </div>
-                                        </div>
-                                        <div class="control-group">
                                             <label for="city" class="control-label">Provinsi</label>
                                             <div class="controls">
                                                 <select class="span12" name="province" id="province" >
+                                                    <option value="">-- Silahkan Pilih --</option>
                                                     @foreach($data['provinces'] as $province)
-                                                        <option value="{{$province->nama_province}}">{{$province->nama_province}}
+                                                        <option value="{{$province->id}}">{{$province->name}}
                                                     @endforeach
                                                 </select>
+                                            </div>
+                                        </div>
+                                        <div class="control-group">
+                                            <label for="city" class="control-label">Kota/Kabupaten</label>
+                                            <div class="controls" id="city_content">
+                                                <select class="span12" name="city" id="city"></select>
+                                            </div>
+                                        </div>
+                                        <div class="control-group">
+                                            <label for="city" class="control-label">Kecamatan</label>
+                                            <div class="controls">
+                                                <select class="span12" name="district" id="district" ></select>
                                             </div>
                                         </div>
                                     </div>
@@ -164,19 +157,25 @@
                                         <div class="row-fluid">
                                             <div class="span12">
                                                 <div class="control-group">
+                                                    <label for="phone" class="control-label">No.Telp</label>
+                                                    <div class="controls">
+                                                        <input class="span12" type="text" value="" name="phone" id="phone" />
+                                                    </div>
+                                                </div>
+                                                <div class="control-group">
                                                     <label for="city" class="control-label">Kurir Pengiriman</label>
                                                     <div class="controls">
                                                         <select class="span12" name="courier" id="courier">
-                                                            <option value="JNE-OKE">JNE-OKE 3-4 hari
-                                                            <option value="JNE-REG">JNE-REG 1-2 hari
-                                                            <option value="JNE-YES">JNE-YES 1 hari
+                                                            <option value="JNE-OKE">JNE-OKE
+                                                            <option value="JNE-REG">JNE-REG
+                                                            <option value="JNE-YES">JNE-YES
                                                         </select>
                                                     </div>
                                                 </div>
                                             </div>
                                         </div>
                                         <div class="control-group">
-                                            <label for="address" class="control-label">Detail Alamat (<i>sertakan kota & kecamatan</i>)</label>
+                                            <label for="address" class="control-label">Detail Alamat</label>
                                             <div class="controls">
                                                 <textarea class="span12" name="address" id="address" rows="4" ></textarea>
                                             </div>
@@ -208,6 +207,7 @@
                         </form>                  
                     </div>  
                     <!-- End id="checkout-content" -->
+
                 </div>
             </div>
             <div class="span3">                                    
@@ -220,11 +220,14 @@
                         </div>
                         <div class="price-list">
                             <li>Subtotal: <strong>Rp. {{ number_format(Cart::total(), 0, ",", ".") }}</strong></li>
+                            
                             @if(session('discount'))
                                 <li>Diskon: <strong>- Rp. {{ number_format(session('discount'), 0, ",", ".") }}</strong></li>
                                 <li class="important">Total: <strong>Rp. {{ number_format(Cart::total()-session('discount'), 0, ",", ".") }}</strong></li>
                             @else
                                 <li>Diskon: <strong>Rp. {{ number_format(0, 0, ",", ".") }}</strong></li>
+                                <li><div id="shipping" name="shipping">Biaya Kirim: <strong>Rp. -</strong></div></li>
+                                <li><div id="total" name="total">Total: <strong>Rp. -</strong></div></li>
                                 <li class="important">Total: <strong>Rp. {{ number_format(Cart::total(), 0, ",", ".") }}</strong></li>
                             @endif
                         </div>
@@ -249,13 +252,35 @@
                         </form>     
                     </div>
                 </div>
+            <!-- End class="coupon" -->
+            <!-- Coupon -->
+                <div class="coupon">
+                    <div class="box">
+                        <div class="hgroup title">
+                            <h3>Estimasi Biaya Pengiriman</h3>
+                            <h5>Cek biaya pengiriman Anda disini</h5>
+                        </div>
+                            <label for="coupon_code">Provinsi</label>
+                                <select class="form-control" name="province_check" id="province_check" >
+                                    <option value="">-- Silahkan Pilih --</option>
+                                    @foreach($data['provinces'] as $province)
+                                        <option value="{{$province->id}}">{{$province->name}}
+                                    @endforeach
+                                </select>
+                            <label for="coupon_code">Kota/Kabupaten</label>
+                                <select class="form-control" name="city_check" id="city_check"></select>
+                                <div id='result_check'>
+                                    
+                                </div>
+                    </div>
+                </div>
             <!-- End class="coupon" -->               
             </div>
+
         </div>
     </div>  
 </section>
 <!-- End class="checkout" -->
-<script src="http://ajax.googleapis.com/ajax/libs/jquery/2.0.0/jquery.min.js"></script>
 <script type="text/javascript">
     $(document).ready(function()
     {
@@ -263,6 +288,68 @@
         {
             $('#form_new_address').show('slow');
             $('#btn_new_checkout').show('slow');
+        });
+
+        
+
+        $('#province').change(function()
+        {
+            var id = $('#province').val();
+            $.ajax({
+                url: "{!! url('konten_kota') !!}",
+                data: {id: id},
+                method:'GET',
+            }).done(function(data){
+                $('#city').html(data);
+            });
+        });
+
+        $('#city').change(function()
+        {
+            var id = $('#city').val();
+            $.ajax({
+                url: "{!! url('konten_kecamatan') !!}",
+                data: {id: id},
+                method:'GET',
+            }).done(function(data){
+                $('#district').html(data);
+            });
+        });
+
+        $('#province_check').change(function()
+        {
+            var id = $('#province_check').val();
+            $.ajax({
+                url: "{!! url('konten_kota') !!}",
+                data: {id: id},
+                method:'GET',
+            }).done(function(data){
+                $('#city_check').html(data);
+            });
+        });
+
+        $('#city_check').change(function()
+        {
+            var id = $('#city_check').val();
+            $.ajax({
+                url: "{!! url('cek_ongkir') !!}",
+                data: {id: id},
+                method:'POST',
+            }).done(function(data){
+                $('#result_check').html(data);
+            });
+        });
+
+        $('#address_check').change(function()
+        {
+            var id = $('#address_check').val();
+            $.ajax({
+                url: "{!! url('konten_alamat') !!}",
+                data: {id: id},
+                method:'GET',
+            }).done(function(data){
+                $('#result_address').html(data);
+            });
         });
     });
 

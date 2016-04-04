@@ -35,13 +35,20 @@ Route::get('delete_order/{row_id}','OrderController@delete_order');
 Route::get('update_order','OrderController@update_order');
 Route::get('checkout_order','OrderController@checkout_order');
 Route::get('tambah_alamat','UserController@add_address');
+Route::get('konten_kota','OrderController@city_content');
+Route::get('konten_kecamatan','OrderController@district_content');
 Route::get('hapus_alamat/{no_alamat}','UserController@delete_address');
 Route::get('checkout','OrderController@checkout');
 Route::get('order_validate/[no_invoice]','OrderController@order_validate');
 Route::get('discount','OrderController@discount');
 Route::get('order_review/{id}','OrderController@order_review');
-// Route::get('ajax_addCity','OrderController@add_city');
 Route::get('order_detail','UserController@modal_detail');
+Route::get('konfirmasi_pembayaran','PaymentController@payment_form');
+Route::get('pembayaran','PaymentController@payment');
+Route::get('check_order','OrderController@check_order');
+Route::post('get_shipping','OrderController@get_cost');
+Route::post('cek_ongkir','OrderController@check_shipping');
+Route::get('konten_alamat','UserController@address_content');
 //END ADE
 
 //UDIN
@@ -53,7 +60,11 @@ Route::get('lupa_pass','UserController@forgot_pass_form');
 //ADMIN
 Route::get('master','AdminController@home');
 Route::get('master/user/list','AdminController@home');
-Route::get('master/category/create','AdminController@create_category');
-Route::get('master/category/list','AdminController@list_category');
-Route::get('master/subcategory/create','AdminController@create_subcategory');
-Route::get('master/subcategory/list','AdminController@list_subcategory');
+Route::get('master/setting/category/create','Admin\SettingController@create_category');
+Route::get('master/setting/category/list','Admin\SettingController@list_category');
+Route::get('master/setting/subcategory/create','Admin\SettingController@create_subcategory');
+Route::get('master/setting/subcategory/list','Admin\SettingController@list_subcategory');
+Route::get('master/setting/bank_account','Admin\SettingController@bank_account_form');
+Route::get('master/setting/bank_account/add','Admin\SettingController@add_bank_account');
+Route::get('master/setting/bank_account/{id}','Admin\SettingController@del_bank_account');
+Route::get('master/transaction/order','Admin\TransactionController@order');
