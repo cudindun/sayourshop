@@ -67,59 +67,6 @@
             </div><!-- ./col -->
           </div><!-- /.row -->
 
-          
-          <!-- Default box -->
-          <div class="box">
-            <div class="box-header with-border">
-              <h3 class="box-title">List User (Tampilan Sementara)</h3>
-              <div class="box-tools pull-right">
-                <button class="btn btn-box-tool" data-widget="collapse" data-toggle="tooltip" title="Collapse"><i class="fa fa-minus"></i></button>
-                <button class="btn btn-box-tool" data-widget="remove" data-toggle="tooltip" title="Remove"><i class="fa fa-times"></i></button>
-              </div>
-            </div>
-            <div class="box-body">
-            	<?php // ======================== Data Table ================================ ?>
-              	  <table id="userlist_table" class="table table-bordered table-hover">
-                    <thead>
-                      <tr>
-                        <th>No</th>
-                        <th>Email</th>
-                        <th>First Name</th>
-                        <th>Last Name</th>
-                        <th>Phone</th>
-                        <th>Status</th>
-                        <th>Last Login</th>
-                      </tr>
-                    </thead>
-                    <tbody>
-                      <?php $i=1; foreach($data['user'] as $user): ?> 
-                      <tr>
-                        <td><?= $i ?></td>
-                        <td><?= $user->email ?></td>
-                        <td><?= $user->first_name ?></td>
-                        <td><?= $user->last_name ?></td>
-                        <td><?= $user->phone ?></td>
-                        <td><?= $user->status ?></td>
-                        <td><?= $user->last_login ?></td>
-                      </tr>
-                      <?php $i++; endforeach; ?>
-                    </tbody>
-                    <tfoot>
-                      <tr>
-                        <th>No</th>
-                        <th>Email</th>
-                        <th>First Name</th>
-                        <th>Last Name</th>
-                        <th>Phone</th>
-                        <th>Status</th>
-                        <th>Last Login</th>
-                      </tr>
-                    </tfoot>
-                  </table>
-                  <?php // ======================== END Data Table ================================ ?>
-            </div><!-- /.box-body -->
-          </div><!-- /.box -->
-
         </section><!-- /.content -->
 
 @section('script')
