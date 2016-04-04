@@ -45,7 +45,7 @@ Route::get('order_detail','UserController@modal_detail');
 //END ADE
 
 //UDIN
-Route::get('master/produk/create','ProductController@insert');
+Route::get('master/produk/create','ProductController@create');
 Route::get('keranjang','OrderController@cart_form');
 Route::get('lupa_pass','UserController@forgot_pass_form');
 //END UDIN
@@ -54,8 +54,8 @@ Route::get('lupa_pass','UserController@forgot_pass_form');
 Route::get('master','AdminController@home');
 Route::get('master/user/list','AdminController@list_user');
 Route::get('master/category/create','AdminController@create_category');
-Route::get('master/category/add','AdminController@add_category');
+Route::post('master/category/add','AdminController@add_category');
 Route::get('master/category/list','AdminController@list_category');
 Route::get('master/subcategory/create','AdminController@create_subcategory');
-Route::get('master/subcategory/add','AdminController@add_subcategory');
+Route::post('master/subcategory/add','AdminController@add_subcategory');
 Route::get('master/subcategory/list','AdminController@list_subcategory');

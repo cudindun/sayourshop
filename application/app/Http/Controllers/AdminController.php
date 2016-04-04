@@ -92,9 +92,10 @@ class AdminController extends Controller
 		$validator = Validator::make($request->all(), $rules);
 		if (!$validator->fails()) {
 	    	$category = New Category;
-	    	$category -> $request->input('name');
-	    	$category -> $request->input('slug');
+	    	$category->name =  $request->input('name');
+	    	$category->slug =  $request->input('slug');
 	    	$category->save();
+	    	return redirect('master/category/list');
 		}else{
 			return redirect('master/category/create')->with('error', 'Terdapat form kosong');
 		}
@@ -110,10 +111,12 @@ class AdminController extends Controller
 		$validator = Validator::make($request->all(), $rules);
 		if (!$validator->fails()) {
 	    	$category = New Subcategory;
-	    	$category -> $request->input('subname');
-	    	$category -> $request->input('category');
-	    	$category -> $request->input('slug');
+	    	$category->subname = $request->input('subname');
+	    	$category->category_id = $request->input('category');
+	    	$category->slug = $request->input('slug');
+	    	$category->properties = $request->input('properties');
 	    	$category->save();
+	    	return redirect('master/subcategory/list');
 		}else{
 			return redirect('master/subcategory/create')->with('error', 'Terdapat form kosong');
 		}
