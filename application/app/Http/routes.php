@@ -52,12 +52,19 @@ Route::get('lupa_pass','UserController@forgot_pass_form');
 
 //ADMIN
 Route::get('master','AdminController@home');
-Route::get('master/user/list','AdminController@list_user');
 Route::get('master/category/create','AdminController@create_category');
-Route::post('master/category/add','AdminController@add_category');
-Route::get('master/category/delete/{id}','AdminController@delete_category');
-Route::get('master/category/list','AdminController@list_category');
 Route::get('master/subcategory/create','AdminController@create_subcategory');
-Route::post('master/subcategory/add','AdminController@add_subcategory');
-Route::get('master/subcategory/delete/{id}','AdminController@delete_subcategory');
+
+//ADMIN VIEW (Detail)
+Route::get('master/category/view/{id}','AdminController@view_category');
+Route::get('master/subcategory/view/{id}','AdminController@view_subcategory');
+//ADMIN LIST
+Route::get('master/user/list','AdminController@list_user');
+Route::get('master/category/list','AdminController@list_category');
 Route::get('master/subcategory/list','AdminController@list_subcategory');
+//ADMIN ADD
+Route::post('master/category/add','AdminController@add_category');
+Route::post('master/subcategory/add','AdminController@add_subcategory');
+//ADMIN DELETE
+Route::get('master/category/delete/{id}','AdminController@delete_category');
+Route::get('master/subcategory/delete/{id}','AdminController@delete_subcategory');

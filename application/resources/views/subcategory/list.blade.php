@@ -41,7 +41,11 @@
                         <td><?= $subcategory->slug ?></td>
                         <td><?= $subcategory->properties ?></td>
                         <td><?= $subcategory->total_product ?></td>
-                        <td><a href="{{url('/master/subcategory/delete')}}/<?=$subcategory->id?>"><font color="red"><i class="fa fa-remove"></i></font></a></td>
+                        <td>
+                          <a href="{{url('/master/subcategory/view')}}/<?=$subcategory->id?>"><i class="fa fa-eye"></i></a>
+                          <a href="{{url('/master/subcategory/edit')}}/<?=$subcategory->id?>"><font color="orange"><i class="fa fa-pencil"></i></font></a>
+                          <a href="{{url('/master/subcategory/delete')}}/<?=$subcategory->id?>"><font color="red"><i class="fa fa-remove"></i></font></a>
+                        </td>
                       </tr>
                       <?php $i++; endforeach; ?>
                     </tbody>

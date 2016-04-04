@@ -18,7 +18,7 @@ use Redirect,Validator,Session;
 class AdminController extends Controller
 {
 
-	// ========== VIEW ============
+	// ========== TEMPLATE ============
 
     public function home()
 	{
@@ -79,6 +79,36 @@ class AdminController extends Controller
 		$this->data['subcategory']		= Subcategory::all();
 	    return view('admin_layout')->with('data', $this->data)
 								  ->nest('content', 'subcategory/list', array('data' => $this->data));
+	}
+
+	// ========== VIEW ===========
+
+	public function view_category($id)
+	{
+		$this->data['css_assets'] 	= Assets::load('css', ['admin_bootstrap', 'admin_css', 'font-awesome', 'skins']);
+		$this->data['js_assets'] 	= Assets::load('js', ['jquery', 'admin_js', 'dashboard', 'admin_bootstrap-js', 'slimscroll', 'fastclick']);
+		$this->data['title']		= 'Category | View';
+		if(Category::find($id)){
+			$this->data['category']		= Category::find($id);
+		}else{
+			return redirect('master/category/list');
+		}
+	    return view('admin_layout')->with('data', $this->data)
+								  ->nest('content', 'category/view', array('data' => $this->data));
+	}
+
+	public function view_subcategory($id)
+	{
+		$this->data['css_assets'] 	= Assets::load('css', ['admin_bootstrap', 'admin_css', 'font-awesome', 'skins']);
+		$this->data['js_assets'] 	= Assets::load('js', ['jquery', 'admin_js', 'dashboard', 'admin_bootstrap-js', 'slimscroll', 'fastclick']);
+		$this->data['title']		= 'Subcategory | View';
+		if(Subcategory::find($id)){
+			$this->data['category']		= Subcategory::find($id);
+		}else{
+			return redirect('master/subcategory/list');
+		}
+	    return view('admin_layout')->with('data', $this->data)
+								  ->nest('content', 'subcategory/view', array('data' => $this->data));
 	}
 
 	// ========== CREATE ============
