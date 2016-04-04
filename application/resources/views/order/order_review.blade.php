@@ -95,7 +95,7 @@
                                                     <tr>
                                                         <td colspan="2">&nbsp;</td>
                                                         <td>Subtotal</td>
-                                                        <td colspan="3">Rp. {{ number_format($data['order']->total_discount+$data['order']->total_price, 0, ",", ".") }}</td>
+                                                        <td colspan="3">Rp. {{ number_format($data['order']->total_discount+$data['order']->total_price-$data['order']->shipping_price, 0, ",", ".") }}</td>
                                                     </tr>
                                                     <tr>
                                                         <td colspan="2">&nbsp;</td>
@@ -105,7 +105,7 @@
                                                     <tr>
                                                         <td colspan="2">&nbsp;</td>
                                                         <td>Biaya Kirim</td>
-                                                        <td colspan="3">Menunggu Konfirmasi Admin</td>
+                                                        <td colspan="3">Rp. {{ number_format($data['order']->shipping_price, 0, ",", ".") }}</td>
                                                     </tr>
                                                     <tr>
                                                         <td colspan="2">&nbsp;</td>

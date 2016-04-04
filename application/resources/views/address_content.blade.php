@@ -19,8 +19,8 @@ Kecamatan {{$data['district']->name}}, {{$data['city']->nama}}<br>
             <tr>
                 <td>
                     <div class="radio">
-                        <input class="radiobtn" type="radio" name="optradio" id="radio_{{$result[$key]->service}}" value="{{$result[$key]->cost[0]->value}}">
-                    </div>{{$result[$key]->service}} (Rp. {{ number_format($result[$key]->cost[0]->value, 0, ",", ".") }})
+                        <input class="radiobtn" type="radio" name="optradio" id="{{$result[$key]->service}}" value="{{$result[$key]->cost[0]->value * ceil($data['weight']/1000)}}">
+                    </div>{{$result[$key]->service}} (Rp. {{ number_format($result[$key]->cost[0]->value * ceil($data['weight']/1000), 0, ",", ".") }})
                 </td>
             </tr>
         @endforeach
@@ -33,11 +33,15 @@ Kecamatan {{$data['district']->name}}, {{$data['city']->nama}}<br>
         {
             var id = this.id;
             var value = $('#'+id).val();
-            var test = addCommas(value);
+            var shipping = addCommas(value);
+            var cart = $('#cart_total').val();
+            var total = parseInt(cart)+parseInt(value);
+            var result = addCommas(total);
+            $('#courier_check').val('JNE-'+id);
             $('#no_address').attr('disabled',false);
             $('#shipping_price').val(value);
-            $('#shipping').html("Biaya Kirim: <strong>Rp. "+test+"</strong>");
-            console.log(tes);
+            $('#shipping').html("Biaya Kirim: <strong>Rp. "+shipping+"</strong>");
+            $('#total').html("Total: <strong>Rp. "+result+"</strong>");
         });
 
         function addCommas(nStr)

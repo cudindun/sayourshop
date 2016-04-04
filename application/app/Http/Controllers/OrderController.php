@@ -24,6 +24,13 @@ class OrderController extends HomeController
 		$this->data['js_assets'] 	= Assets::load('js', ['jquery','jquery-min','jquery-ui', 'bootstrap-min-lib', 'jquery-isotope', 'jquery-flexslider', 'jquery.elevatezoom', 'jquery-sharrre', 'imagesloaded', 'la_boutique', 'jquery-cookie']);
 		$this->data['address']		= UserMeta::where('user_id', Sentinel::getUser()->id)->where('meta_key','address')->first();
 		$this->data['provinces']	= Province::get();
+		$sum = 0;
+				foreach (Cart::content() as $key) {
+					$product = Product::where('id', $key->id)->first();
+					$result = $product->weight*$key->qty;
+					$sum += $result;
+				}
+		$this->data['weight']		= $sum;
 		$this->data['cart']			= Cart::content();
 		$this->data['title']		= 'Keranjang';
 	    return view('main_layout')->with('data', $this->data)
@@ -101,33 +108,33 @@ class OrderController extends HomeController
 		$order = new Order;
 		$order->user_id = $user->id;
 		$order->order_status = 'Menunggu Konfirmasi Admin';
-		if (is_numeric($request->no_address)) {
+		if (is_numeric($request->address_check)) {
 			$meta = UserMeta::where('user_id', $user->id)->where('meta_key','address')->first();
 			$unserialize = unserialize($meta->meta_value);
-			$address = $unserialize[$request->no_address];
-			$courier = 'courier_'.$request->no_address;
+			$address = $unserialize[$request->address_check];
 			$order->order_name = $address['nama'];
 			$order->order_phone = $address['telepon'];
 			$order->order_address = $address['alamat'];
-			$order->province = $address['provinsi'];
-			$order->courier = $request->$courier;
+			$order->province_id = $address['provinsi'];
+			$order->city_id = $address['kota'];
+			$order->district_id = $address['kecamatan'];
+			$order->courier = $request->courier_check;
+			$order->shipping_price = $request->shipping_price;
 			
 			if ($request->coupon_code) {
 				$order->discount_code = $request->coupon_code;
 				$order->total_discount = $request->discount;
 				$order->total_price = Cart::total()-$request->discount;
 			}else{
-				$order->total_price = Cart::total();	
+				$order->total_price = $request->cart_total + $request->shipping_price;	
 			}
 			$order->save();
 
 			$insert_id = $order->id;
 			$order = Order::find($insert_id);
-			$sum = 0;
 			foreach (Cart::content() as $key) {
 				$product = Product::where('id', $key->id)->first();
 				$result = $product->weight*$key->qty;
-				$sum += $result;
 				$rowid = 'properties_'.$key->rowid;
 				$orderdetail = new OrderDetail;
 				$orderdetail->order_id = $insert_id;
@@ -138,7 +145,7 @@ class OrderController extends HomeController
 				$orderdetail->total_weight = $result;
 				$orderdetail->save();
 			}
-			$order->total_weight = $sum;
+			$order->total_weight = $request->weight;
 			$order->no_invoice = date('Ymd').$user->id.$insert_id;
 			$order->save();
 			return redirect('order_review/'.$insert_id);
@@ -154,12 +161,13 @@ class OrderController extends HomeController
 			$validator 	= Validator::make($request->all(), $rules);
 			if (!$validator->fails()) {
 				$order->order_address = $request->address;
-				$order->courier = $request->courier;
+				$order->courier = $request->courier_check_new;
 				$order->order_name = $request->name;
 				$order->order_phone = $request->phone;
 				$order->province_id = $request->province;
 				$order->city_id = $request->city;
 				$order->district_id = $request->district;
+				$order->shipping_price = $request->shipping_price_new;
 				$alamat = [
 					'nama' => $request->name,
 					'telepon' => $request->phone,
@@ -186,17 +194,17 @@ class OrderController extends HomeController
 					$order->total_discount = $request->discount;
 					$order->total_price = Cart::total()-$request->discount;
 				}else{
-					$order->total_price = Cart::total();	
+					$order->total_price = $request->cart_total_new + $request->shipping_price_new;	
 				}
 				$order->save();
 
 				$insert_id = $order->id;
 				$order = Order::find($insert_id);
-				$sum = 0;
+				// $sum = 0;
 				foreach (Cart::content() as $key) {
 					$product = Product::where('id', $key->id)->first();
 					$result = $product->weight*$key->qty;
-					$sum += $result;
+					// $sum += $result;
 					$rowid = 'properties_'.$key->rowid;
 					$orderdetail = new OrderDetail;
 					$orderdetail->order_id = $insert_id;
@@ -207,7 +215,7 @@ class OrderController extends HomeController
 					$orderdetail->total_weight = $result;
 					$orderdetail->save();
 				}
-				$order->total_weight = $sum;
+				$order->total_weight = $request->weight_new;
 				$order->no_invoice = date('Ymd').$user->id.$insert_id;
 				$order->save();
 				return redirect('order_review/'.$insert_id);
@@ -285,5 +293,13 @@ class OrderController extends HomeController
 		$cost = json_decode($this->get_cost($request->id));
 		$this->data['cost_data'] = serialize($cost->rajaongkir->results[0]->costs);
 		return view('cost_content')->with('data', $this->data);
+	}
+
+	public function check_shipping_new(Request $request)
+	{
+		$cost = json_decode($this->get_cost($request->id));
+		$this->data['cost_data'] = serialize($cost->rajaongkir->results[0]->costs);
+		$this->data['weight']	 = $request->weight;
+		return view('check_shipping_new')->with('data', $this->data);
 	}
 }

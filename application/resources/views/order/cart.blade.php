@@ -111,7 +111,9 @@
                                             <input type="hidden" class="form-control" id="coupon_code" name="coupon_code" value="{{session('coupon')}}">
                                             <input type="hidden" class="form-control" value="{{session('discount')}}" id="discount" name="discount">
                                             <input type="hidden" class="form-control" id="shipping_price" name="shipping_price">
-                                            <input type="text" class="form-control" value="{{Cart::total()}}" id="cart_total" name="cart_total">
+                                            <input type="hidden" class="form-control" value="{{Cart::total()}}" id="cart_total" name="cart_total">
+                                            <input type="hidden" class="form-control" value="" id="courier_check" name="courier_check">
+                                            <input type="hidden" class="form-control" value="{{$data['weight']}}" id="weight" name="weight">
                                             <tr>
                                                 <td><button class="btn btn-mini btn-greensea" id="alamat_baru" name="alamat_baru" type="button">Alamat Baru</button></td>
                                             </tr>
@@ -165,10 +167,7 @@
                                                 <div class="control-group">
                                                     <label for="city" class="control-label">Kurir Pengiriman</label>
                                                     <div class="controls">
-                                                        <select class="span12" name="courier" id="courier">
-                                                            <option value="JNE-OKE">JNE-OKE
-                                                            <option value="JNE-REG">JNE-REG
-                                                            <option value="JNE-YES">JNE-YES
+                                                        <select class="span12 courier_new" name="courier" id="courier">
                                                         </select>
                                                     </div>
                                                 </div>
@@ -197,6 +196,12 @@
                                         @endforeach
                                         <input type="hidden" id="properties_{{$product->rowid}}" name="properties_{{$product->rowid}}" value="{{serialize($properties)}}"></input>
                                     @endforeach
+                                    <input type="hidden" class="form-control" id="coupon_code" name="coupon_code" value="{{session('coupon')}}">
+                                    <input type="hidden" class="form-control" value="{{session('discount')}}" id="discount" name="discount">
+                                    <input type="hidden" class="form-control" id="shipping_price_new" name="shipping_price_new">
+                                    <input type="hidden" class="form-control" value="{{Cart::total()}}" id="cart_total_new" name="cart_total_new">
+                                    <input type="hidden" class="form-control" value="" id="courier_check_new" name="courier_check_new">
+                                    <input type="hidden" class="form-control" value="{{$data['weight']}}" id="weight_new" name="weight_new">
                                     <div class="pull-right" hidden="true" id="btn_new_checkout" name="btn_new_checkout">
                                         <button type="submit" class="btn btn-greensea">
                                             Checkout <i class="icon-chevron-right"></i>
@@ -226,9 +231,16 @@
                                 <li class="important">Total: <strong>Rp. {{ number_format(Cart::total()-session('discount'), 0, ",", ".") }}</strong></li>
                             @else
                                 <li>Diskon: <strong>Rp. {{ number_format(0, 0, ",", ".") }}</strong></li>
-                                <li><div id="shipping" name="shipping">Biaya Kirim: <strong>Rp. -</strong></div></li>
-                                <li><div id="total" name="total">Total: <strong>Rp. -</strong></div></li>
-                                <li class="important">Total: <strong>Rp. {{ number_format(Cart::total(), 0, ",", ".") }}</strong></li>
+                                <li>
+                                    <div id="shipping" name="shipping">
+                                        Biaya Kirim: <strong>Rp. -</strong>
+                                    </div>
+                                </li>
+                                <li class="important">
+                                    <div id="total" name="total">
+                                        Total: <strong>Rp. {{ number_format(Cart::total(), 0, ",", ".") }}</strong>
+                                    </div>
+                                </li>
                             @endif
                         </div>
                     </div>
@@ -284,13 +296,30 @@
 <script type="text/javascript">
     $(document).ready(function()
     {
+        function addCommas(nStr)
+        {
+            nStr += '';
+            x = nStr.split('.');
+            x1 = x[0];
+            x2 = x.length > 1 ? '.' + x[1] : '';
+            var rgx = /(\d+)(\d{3})/;
+            while (rgx.test(x1)) {
+                x1 = x1.replace(rgx, '$1' + '.' + '$2');
+            }
+            return x1 + x2;
+        }
+
         $('#alamat_baru').click(function()
         {
+            var cart = $('#cart_total').val();
+            var reset = addCommas(cart);
             $('#form_new_address').show('slow');
             $('#btn_new_checkout').show('slow');
-        });
+            $('#total').html("Total: <strong>Rp. "+reset+"</strong>");
+            $('#result_address').hide('slow');
+            $('#address_check').val('');
 
-        
+        });
 
         $('#province').change(function()
         {
@@ -307,18 +336,31 @@
         $('#city').change(function()
         {
             var id = $('#city').val();
+            var weight = $('#weight_new').val();
             $.ajax({
                 url: "{!! url('konten_kecamatan') !!}",
                 data: {id: id},
                 method:'GET',
             }).done(function(data){
                 $('#district').html(data);
+                $('#courier').html('');
+            });
+
+            $.ajax({
+                url: "{!! url('shipping_new_address') !!}",
+                data: {id: id, weight:weight},
+                method:'POST',
+            }).done(function(data){
+                $('#courier').html(data);
+
             });
         });
 
         $('#province_check').change(function()
         {
             var id = $('#province_check').val();
+            var cart = $('#cart_total').val();
+            var value = $('#courier').val();
             $.ajax({
                 url: "{!! url('konten_kota') !!}",
                 data: {id: id},
@@ -343,13 +385,32 @@
         $('#address_check').change(function()
         {
             var id = $('#address_check').val();
+            var weight = $('#weight').val();
+            $('#result_address').hide('slow');
+            $('#form_new_address').hide('slow');
+            $('#btn_new_checkout').hide('slow');
             $.ajax({
                 url: "{!! url('konten_alamat') !!}",
-                data: {id: id},
+                data: {id: id,weight: weight},
                 method:'GET',
             }).done(function(data){
                 $('#result_address').html(data);
+                $('#result_address').show('slow');
             });
+        });
+
+        $('#courier').click(function()
+        {
+            var courier = $(this).children(":selected").attr("id");
+            var value = $(this).children(":selected").val();
+            var cost = addCommas(value);
+            var cart = $('#cart_total_new').val();
+            var total = parseInt(cart)+parseInt(value);
+            var result = addCommas(total);
+            $('#courier_check_new').val("JNE-"+courier);
+            $('#shipping').html("Biaya Kirim: <strong>Rp. "+cost+"</strong>");
+            $('#total').html("Total: <strong>Rp. "+result+"</strong>");
+            $('#shipping_price_new').val(value);
         });
     });
 

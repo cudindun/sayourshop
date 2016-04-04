@@ -49,6 +49,7 @@ Route::get('check_order','OrderController@check_order');
 Route::post('get_shipping','OrderController@get_cost');
 Route::post('cek_ongkir','OrderController@check_shipping');
 Route::get('konten_alamat','UserController@address_content');
+Route::post('shipping_new_address','OrderController@check_shipping_new');
 //END ADE
 
 //UDIN

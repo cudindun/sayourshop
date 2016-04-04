@@ -332,6 +332,7 @@ class UserController extends HomeController
 		$this->data['province'] = Province::where('id', $this->data['address']['provinsi'])->first();
 		$this->data['district'] = District::where('id', $this->data['address']['kecamatan'])->first();
 		$this->data['city'] = City::where('id', $this->data['address']['kota'])->first();
+		$this->data['weight']	= $request->weight;
 
 		$costs = app('App\Http\Controllers\OrderController')->get_cost($this->data['address']['kota']);
 		$cost = json_decode($costs);
