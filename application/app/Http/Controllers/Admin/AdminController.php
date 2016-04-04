@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Admin;
 
 use Illuminate\Http\Request;
 
@@ -58,7 +58,7 @@ class AdminController extends Controller
 		$this->data['title']		= 'Category | List';
 		$this->data['category']		= Category::all();
 	    return view('admin_layout')->with('data', $this->data)
-								  ->nest('content', 'category/list', array('data' => $this->data));
+								  ->nest('content', 'admin/setting/list_category', array('data' => $this->data));
 	}
 
 	public function create_subcategory()
@@ -76,9 +76,10 @@ class AdminController extends Controller
 		$this->data['css_assets'] 	= Assets::load('css', ['admin_bootstrap', 'admin_css', 'font-awesome', 'skins', 'dataTables_css']);
 		$this->data['js_assets'] 	= Assets::load('js', ['jquery', 'admin_js', 'admin_bootstrap-js', 'slimscroll', 'fastclick', 'dataTables_js', 'dataTables_bootsjs']);
 		$this->data['title']		= 'Subcategory | List';
+		$this->data['category']		= Category::all();
 		$this->data['subcategory']		= Subcategory::all();
 	    return view('admin_layout')->with('data', $this->data)
-								  ->nest('content', 'subcategory/list', array('data' => $this->data));
+								  ->nest('content', 'admin/setting/list_subcategory', array('data' => $this->data));
 	}
 
 	// ========== VIEW ===========
