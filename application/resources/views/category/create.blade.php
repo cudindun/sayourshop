@@ -25,16 +25,18 @@
 			<div class="box">
 				<div class="box-body">
 					<div class="col-lg-12">
-						<form class="form-horizontal" role="GET" action="" style="margin-top:25px">
+						{!! Form::open(array('url' => '/master/category/add', 'class' => 'form-horizontal', 'style' => 'margin-top:25px')) !!}
 			              	<div class="form-group">
-			                	<label class="col-sm-3 control-label">Nama Kategori<font color="red">*</font></label>				                <div class="col-sm-6">
-				            	<input type="text" class="form-control" id="category_name" name="category_name" placeholder="Baju Bekas">
+			                	<label class="col-sm-3 control-label">Nama Kategori<font color="red">*</font></label>				                
+			                	<div class="col-sm-6">
+				            	{!! Form::text('name', null, ['placeholder' => 'Apalah', 'class' => 'form-control']) !!}
 				           		</div>
 				          	</div>
 
 				          	<div class="form-group">
-			                	<label class="col-sm-3 control-label">Nama Slug<font color="red">*</font></label>				                <div class="col-sm-6">
-				            	<input type="text" class="form-control" id="slug_name" name="slug_name" placeholder="slugma">
+			                	<label class="col-sm-3 control-label">Nama Slug<font color="red">*</font></label>				                
+			                	<div class="col-sm-6">
+				            	{!! Form::text('slug', null, ['placeholder' => 'suglma', 'class' => 'form-control']) !!}
 				           		</div>
 				          	</div>
 
@@ -43,10 +45,10 @@
 				            <div class="form-group">
 				              	<div class="col-lg-12">
 				              	<p class="text-right">
-				              		<button type="submit" class="btn btn-small btn-belizehole pull-right" id="register_btn" >Submit</button>
+				              		<?= Form::submit('Submit', ['class' => 'btn btn-small btn-belizehole pull-right', 'id' => 'submit_btn']); ?>
 				              	</div>
 				            </div>
-				        </form>
+				        {!! Form::close() !!}
 			        </div>
 			        <div class="clear"></div>
 				</div>

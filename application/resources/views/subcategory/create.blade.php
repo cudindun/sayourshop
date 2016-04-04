@@ -25,36 +25,32 @@
 			<div class="box">
 				<div class="box-body">
 					<div class="col-lg-12">
-						<form class="form-horizontal" role="GET" action="" style="margin-top:25px">
+						{!! Form::open(array('url' => '/master/subcategory/add', 'class' => 'form-horizontal', 'style' => 'margin-top:25px')) !!}
 			              	<div class="form-group">
-			                	<label class="col-sm-3 control-label">Nama Sub Category<font color="red">*</font></label>				                <div class="col-sm-6">
-				            	<input type="text" class="form-control" id="subcategory_name" name="subcategory_name" placeholder="Baju Bekas">
+			                	<label class="col-sm-3 control-label">Nama Sub Category<font color="red">*</font></label>				                
+			                	<div class="col-sm-6">
+				            	{!! Form::text('subname', null, ['placeholder' => 'Apajalah', 'class' => 'form-control']) !!}
 				           		</div>
 				          	</div>
 
 				            <div class="form-group">
 				                <label class="col-sm-3 control-label">Kategori<font color="red">*</font></label>
 				                <div class="col-sm-6">
-				                  <select class="form-control">
-				                  	<option> -- Kategori -- </option>
-				                  	<option> 1 </option>
-				                  	<option> 2 </option>
-				                  </select>
+				                  {!! Form::select('category', $data['category_list'], null, ['class' => 'form-control']) !!}
 				                </div>
 				            </div>
 				            
 				            <div class="form-group">
 				                <label for="inputPrice" class="col-sm-3 control-label">Nama Slug<font color="red">*</font></label>
 				                <div class="col-sm-6">
-				                  <input type="text" class="form-control" id="slug_name" name="slug_name" placeholder="slugma teaa">
+				                  {!! Form::text('slug', null, ['placeholder' => 'SLugma', 'class' => 'form-control']) !!}
 				                </div>
 				            </div>
 				            
 				            <div class="form-group">
-				                <label for="inputDesc" class="col-sm-3 control-label">Properties<font color="red">*</font></label>
+				                <label for="inputDesc" class="col-sm-3 control-label">Properties</label>
 				                <div class="col-sm-6">
-				                  <textarea rows=5 class="form-control" id="desc_input" name="desc_input">
-				                  </textarea>
+				                  {!! Form::textarea('properties', null, ['size' => '30x5', 'class' => 'form-control']) !!}
 				                </div>
 				            </div>
 
@@ -63,10 +59,10 @@
 				            <div class="form-group">
 				              	<div class="col-lg-12">
 				              	<p class="text-right">
-				              		<button type="submit" class="btn btn-small btn-belizehole pull-right" id="register_btn" >Submit</button>
+				              		<?= Form::submit('Submit', ['class' => 'btn btn-small btn-belizehole pull-right', 'id' => 'submit_btn']); ?>
 				              	</div>
 				            </div>
-				        </form>
+				        {!! Form::close() !!}
 			        </div>
 			        <div class="clear"></div>
 				</div>

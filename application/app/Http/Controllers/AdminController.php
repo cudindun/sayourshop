@@ -10,10 +10,15 @@ use App\Http\Libraries\Assets;
 use App\Http\Models\User;
 use App\Http\Models\Category;
 use App\Http\Models\Subcategory;
+
+use Input;
 use DB;
+use Redirect,Validator,Session;
 
 class AdminController extends Controller
 {
+
+	// ========== VIEW ============
 
     public function home()
 	{
@@ -24,6 +29,17 @@ class AdminController extends Controller
 		$this->data['userCount']	= User::all()->count();
 	    return view('admin_layout')->with('data', $this->data)
 								  ->nest('content', 'admin/home', array('data' => $this->data));
+	}
+
+	public function list_user()
+	{
+		$this->data['css_assets'] 	= Assets::load('css', ['admin_bootstrap', 'admin_css', 'font-awesome', 'skins', 'dataTables_css']);
+		$this->data['js_assets'] 	= Assets::load('js', ['jquery', 'admin_js', 'admin_bootstrap-js', 'slimscroll', 'fastclick', 'dataTables_js', 'dataTables_bootsjs']);
+		$this->data['title']		= 'User | List';
+		$this->data['user']			= User::all();
+		$this->data['userCount']	= User::all()->count();
+	    return view('admin_layout')->with('data', $this->data)
+								  ->nest('content', 'admin/user_list', array('data' => $this->data));
 	}
 
 	public function create_category()
@@ -50,6 +66,7 @@ class AdminController extends Controller
 		$this->data['css_assets'] 	= Assets::load('css', ['admin_bootstrap', 'admin_css', 'font-awesome', 'skins']);
 		$this->data['js_assets'] 	= Assets::load('js', ['jquery', 'admin_js', 'dashboard', 'admin_bootstrap-js', 'slimscroll', 'fastclick']);
 		$this->data['title']		= 'Subcategory | Create';
+		$this->data['category_list']= [' - Select - '] + Category::lists('name', 'id')->all();
 	    return view('admin_layout')->with('data', $this->data)
 								  ->nest('content', 'subcategory/create', array('data' => $this->data));
 	}
@@ -62,6 +79,44 @@ class AdminController extends Controller
 		$this->data['subcategory']		= Subcategory::all();
 	    return view('admin_layout')->with('data', $this->data)
 								  ->nest('content', 'subcategory/list', array('data' => $this->data));
+	}
+
+	// ========== CREATE ============
+
+	public function add_category(Request $request)
+	{
+		$rules = array(
+			'name' => 'required',
+			'slug' => 'required', 
+			);
+		$validator = Validator::make($request->all(), $rules);
+		if (!$validator->fails()) {
+	    	$category = New Category;
+	    	$category -> $request->input('name');
+	    	$category -> $request->input('slug');
+	    	$category->save();
+		}else{
+			return redirect('master/category/create')->with('error', 'Terdapat form kosong');
+		}
+	}
+
+	public function add_subcategory(Request $request)
+	{
+		$rules = array(
+			'subname' => 'required',
+			'category' => 'required',
+			'slug' => 'required', 
+			);
+		$validator = Validator::make($request->all(), $rules);
+		if (!$validator->fails()) {
+	    	$category = New Subcategory;
+	    	$category -> $request->input('subname');
+	    	$category -> $request->input('category');
+	    	$category -> $request->input('slug');
+	    	$category->save();
+		}else{
+			return redirect('master/subcategory/create')->with('error', 'Terdapat form kosong');
+		}
 	}
 	
 }
