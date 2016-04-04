@@ -42,7 +42,7 @@
                         <td>
                           <a href="{{url('/master/category/view')}}/<?=$category->id?>"><i class="fa fa-eye"></i></a>
                           <a href="{{url('/master/category/edit')}}/<?=$category->id?>"><font color="orange"><i class="fa fa-pencil"></i></font></a>
-                          <a href="{{url('/master/category/delete')}}/<?=$category->id?>"><font color="red"><i class="fa fa-remove"></i></font></a>
+                          <a href="{{url('/master/category/delete')}}/<?=$category->id?>" data-method="post"><font color="red"><i class="fa fa-remove"></i></font></a>
                         </td>
                       </tr>
                       <?php $i++; endforeach; ?>

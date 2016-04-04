@@ -65,6 +65,8 @@ Route::get('master/subcategory/list','AdminController@list_subcategory');
 //ADMIN ADD
 Route::post('master/category/add','AdminController@add_category');
 Route::post('master/subcategory/add','AdminController@add_subcategory');
+//ADMIN EDIT
+Route::match(['get', 'post'],'master/category/edit/{id}','AdminController@edit_category');
 //ADMIN DELETE
 Route::get('master/category/delete/{id}','AdminController@delete_category');
 Route::get('master/subcategory/delete/{id}','AdminController@delete_subcategory');

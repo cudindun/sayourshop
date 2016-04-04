@@ -152,20 +152,53 @@ class AdminController extends Controller
 		}
 	}
 
+	// ========== EDIT ============
+
+	public function edit_category($id, Request $request)
+	{
+		if(Category::find($id)){
+			if($request->all()){
+				$rules = array(
+					'name' => 'required',
+					'slug' => 'required', 
+					);
+				$validator = Validator::make($request->all(), $rules);
+				if (!$validator->fails()) {
+					$category = Category::find($id);
+					$category->name = $request->input('name');
+					$category->slug = $request->input('slug');
+
+					if($category->save()){
+						return redirect('master/category/list');
+					}
+				}else{
+					return redirect('master/category/edit/'.$id)->with('error', 'Terdapat form kosong');
+				}
+			}else{
+				$this->data['css_assets'] 	= Assets::load('css', ['admin_bootstrap', 'admin_css', 'font-awesome', 'skins']);
+				$this->data['js_assets'] 	= Assets::load('js', ['jquery', 'admin_js', 'dashboard', 'admin_bootstrap-js', 'slimscroll', 'fastclick']);
+				$this->data['title']		= 'Category | Edit';
+				$this->data['category']		= Category::find($id);
+			    return view('admin_layout')->with('data', $this->data)
+										  ->nest('content', 'category/create', array('data' => $this->data));
+			}
+		}else{
+			return redirect('master/category/list');
+		}
+	}
+
 	// ========== DELETE ============
 
 	public function delete_category($id)
 	{
-		$category = new Category;
-		$category->find($id)->delete();
+		Category::find($id)->delete();
 
 		return redirect('master/category/list');
 	}
 
 	public function delete_subcategory($id)
 	{
-		$category = new Subcategory;
-		$category->find($id)->delete();
+		Subcategory::find($id)->delete();
 
 		return redirect('master/subcategory/list');
 	}
