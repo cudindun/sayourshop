@@ -75,7 +75,7 @@ class AdminController extends Controller
 	{
 		$this->data['css_assets'] 	= Assets::load('css', ['admin_bootstrap', 'admin_css', 'font-awesome', 'skins', 'dataTables_css']);
 		$this->data['js_assets'] 	= Assets::load('js', ['jquery', 'admin_js', 'admin_bootstrap-js', 'slimscroll', 'fastclick', 'dataTables_js', 'dataTables_bootsjs']);
-		$this->data['title']		= 'Category | List';
+		$this->data['title']		= 'Subcategory | List';
 		$this->data['subcategory']		= Subcategory::all();
 	    return view('admin_layout')->with('data', $this->data)
 								  ->nest('content', 'subcategory/list', array('data' => $this->data));
@@ -120,6 +120,24 @@ class AdminController extends Controller
 		}else{
 			return redirect('master/subcategory/create')->with('error', 'Terdapat form kosong');
 		}
+	}
+
+	// ========== DELETE ============
+
+	public function delete_category($id)
+	{
+		$category = new Category;
+		$category->find($id)->delete();
+
+		return redirect('master/category/list');
+	}
+
+	public function delete_subcategory($id)
+	{
+		$category = new Subcategory;
+		$category->find($id)->delete();
+
+		return redirect('master/subcategory/list');
 	}
 	
 }

@@ -28,6 +28,7 @@
                         <th>Total Product</th>
                         <th>Slug</th>
                         <th>Total Subkategori</th>
+                        <th></th>
                       </tr>
                     </thead>
                     <tbody>
@@ -38,6 +39,7 @@
                         <td><?= $category->total_product ?></td>
                         <td><?= $category->slug ?></td>
                         <td><?= $category->subcategories ?></td>
+                        <td><a href="{{url('/master/category/delete')}}/<?=$category->id?>"><font color="red"><i class="fa fa-remove"></i></font></a></td>
                       </tr>
                       <?php $i++; endforeach; ?>
                     </tbody>
@@ -53,5 +55,5 @@
       $(function () {
         $("#category_table").DataTable();
       });
-    </script>
+  </script>
 @stop

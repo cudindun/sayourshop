@@ -29,6 +29,7 @@
                         <th>Slug</th>
                         <th>Properties</th>
                         <th>Total Produk</th>
+                        <th></th>
                       </tr>
                     </thead>
                     <tbody>
@@ -40,6 +41,7 @@
                         <td><?= $subcategory->slug ?></td>
                         <td><?= $subcategory->properties ?></td>
                         <td><?= $subcategory->total_product ?></td>
+                        <td><a href="{{url('/master/subcategory/delete')}}/<?=$subcategory->id?>"><font color="red"><i class="fa fa-remove"></i></font></a></td>
                       </tr>
                       <?php $i++; endforeach; ?>
                     </tbody>
