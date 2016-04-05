@@ -281,6 +281,7 @@
 											</tr>
 										</thead>
 							            <tbody>
+							            <form action="{{url('konfirmasi_pembayaran')}}">
 							            @foreach($data['order'] as $value)
 							            <tr>
 							            	<td id="inv_{{$value->id}}" name="inv_{{$value->id}}">{{$value->no_invoice}}</td>
@@ -288,9 +289,13 @@
 							            	<td>Rp. {{ number_format($value->total_price, 0, ",", ".") }}</td>
 							            	<td>{{$value->order_status}}</td>
 							            	<td>{{$value->no_resi}}</td>
-							            	<td><button type="button" id="detail_{{$value->id}}" name="detail_{{$value->id}}" class="btn btn-mini btn-primary detail">Detail</button></td>
+							            	<td>
+							            		<button type="button" id="detail_{{$value->id}}" name="detail_{{$value->id}}" class="btn btn-mini btn-primary detail">Detail</button> 
+							            		<button type="submit" id="payment" name="payment" class="btn btn-mini btn-greensea" value="{{$value->no_invoice}}">Pembayaran</button>
+							            	</td>
 							            </tr>
 							            @endforeach
+							            </form>
 							            </tbody>
 									</table>
 									<!-- Modal -->

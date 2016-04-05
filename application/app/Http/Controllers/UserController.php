@@ -132,7 +132,7 @@ class UserController extends HomeController
 		$this->data['user']			= Sentinel::getUser();
 		$this->data['rekening']		= UserMeta::where('user_id', $this->data['user']->id)->where('meta_key','bank_account')->first();
 		$this->data['address']		= UserMeta::where('user_id', $this->data['user']->id)->where('meta_key','address')->first();
-		$this->data['order']		= Order::where('user_id', $this->data['user']->id)->get();
+		$this->data['order']		= Order::where('user_id', $this->data['user']->id)->orderBy('created_at','desc')->get();
 	    return view('main_layout')->with('data', $this->data)
 								  ->nest('content', 'user/dashboard', array('data' => $this->data));
 	}

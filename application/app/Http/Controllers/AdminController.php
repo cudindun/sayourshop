@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers\Admin;
+namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 
@@ -9,7 +9,6 @@ use App\Http\Controllers\Controller;
 use App\Http\Libraries\Assets;
 use App\Http\Models\User;
 use App\Http\Models\Category;
-use App\Http\Models\Product;
 use App\Http\Models\Subcategory;
 
 use Input;
@@ -40,17 +39,7 @@ class AdminController extends Controller
 		$this->data['user']			= User::all();
 		$this->data['userCount']	= User::all()->count();
 	    return view('admin_layout')->with('data', $this->data)
-								  ->nest('content', 'admin/user/user_list', array('data' => $this->data));
-	}
-
-	public function list_product()
-	{
-		$this->data['css_assets'] 	= Assets::load('css', ['admin_bootstrap', 'admin_css', 'font-awesome', 'skins', 'dataTables_css']);
-		$this->data['js_assets'] 	= Assets::load('js', ['jquery', 'admin_js', 'admin_bootstrap-js', 'slimscroll', 'fastclick', 'dataTables_js', 'dataTables_bootsjs']);
-		$this->data['title']		= 'Product | List';
-		$this->data['product']		= Product::all();
-	    return view('admin_layout')->with('data', $this->data)
-								  ->nest('content', 'admin/product/list_produk', array('data' => $this->data));
+								  ->nest('content', 'admin/user_list', array('data' => $this->data));
 	}
 
 	public function create_category()
@@ -59,7 +48,7 @@ class AdminController extends Controller
 		$this->data['js_assets'] 	= Assets::load('js', ['jquery', 'admin_js', 'dashboard', 'admin_bootstrap-js', 'slimscroll', 'fastclick']);
 		$this->data['title']		= 'Category | Create';
 	    return view('admin_layout')->with('data', $this->data)
-								  ->nest('content', 'category/form', array('data' => $this->data));
+								  ->nest('content', 'category/create', array('data' => $this->data));
 	}
 
 	public function list_category()
@@ -69,7 +58,7 @@ class AdminController extends Controller
 		$this->data['title']		= 'Category | List';
 		$this->data['category']		= Category::all();
 	    return view('admin_layout')->with('data', $this->data)
-								  ->nest('content', 'admin/setting/list_category', array('data' => $this->data));
+								  ->nest('content', 'category/list', array('data' => $this->data));
 	}
 
 	public function create_subcategory()
@@ -79,7 +68,7 @@ class AdminController extends Controller
 		$this->data['title']		= 'Subcategory | Create';
 		$this->data['category_list']= [' - Select - '] + Category::lists('name', 'id')->all();
 	    return view('admin_layout')->with('data', $this->data)
-								  ->nest('content', 'subcategory/form', array('data' => $this->data));
+								  ->nest('content', 'subcategory/create', array('data' => $this->data));
 	}
 
 	public function list_subcategory()
@@ -87,10 +76,9 @@ class AdminController extends Controller
 		$this->data['css_assets'] 	= Assets::load('css', ['admin_bootstrap', 'admin_css', 'font-awesome', 'skins', 'dataTables_css']);
 		$this->data['js_assets'] 	= Assets::load('js', ['jquery', 'admin_js', 'admin_bootstrap-js', 'slimscroll', 'fastclick', 'dataTables_js', 'dataTables_bootsjs']);
 		$this->data['title']		= 'Subcategory | List';
-		$this->data['category']		= Category::all();
 		$this->data['subcategory']		= Subcategory::all();
 	    return view('admin_layout')->with('data', $this->data)
-								  ->nest('content', 'admin/setting/list_subcategory', array('data' => $this->data));
+								  ->nest('content', 'subcategory/list', array('data' => $this->data));
 	}
 
 	// ========== VIEW ===========
@@ -124,37 +112,6 @@ class AdminController extends Controller
 	}
 
 	// ========== CREATE ============
-
-	public function add_user(Request $request)
-	{
-		if($request->all()){
-			echo "Horeeeeee";
-		}else{
-			$this->data['css_assets'] 	= Assets::load('css', ['admin_bootstrap', 'admin_css', 'font-awesome', 'skins']);
-			$this->data['js_assets'] 	= Assets::load('js', ['jquery', 'admin_js', 'dashboard', 'admin_bootstrap-js', 'slimscroll', 'fastclick']);
-			$this->data['title']		= 'User | Create';
-		    return view('admin_layout')->with('data', $this->data)
-									  ->nest('content', 'admin/user/form', array('data' => $this->data));
-		}
-	}
-
-	public function add_category(Request $request)
-	{
-		$rules = array(
-			'name' => 'required',
-			'slug' => 'required', 
-			);
-		$validator = Validator::make($request->all(), $rules);
-		if (!$validator->fails()) {
-	    	$category = New Category;
-	    	$category->name =  $request->input('name');
-	    	$category->slug =  $request->input('slug');
-	    	$category->save();
-	    	return redirect('master/category/list');
-		}else{
-			return redirect('master/category/create')->with('error', 'Terdapat form kosong');
-		}
-	}
 
 	public function add_subcategory(Request $request)
 	{
@@ -205,47 +162,10 @@ class AdminController extends Controller
 				$this->data['title']		= 'Category | Edit';
 				$this->data['category']		= Category::find($id);
 			    return view('admin_layout')->with('data', $this->data)
-										  ->nest('content', 'category/form', array('data' => $this->data));
+										  ->nest('content', 'category/create', array('data' => $this->data));
 			}
 		}else{
 			return redirect('master/category/list');
-		}
-	}
-
-	public function edit_subcategory($id, Request $request)
-	{
-		if(Subcategory::find($id)){
-			if($request->all()){
-				$rules = array(
-					'subname' => 'required',
-					'category' => 'required',
-					'slug' => 'required', 
-					);
-				$validator = Validator::make($request->all(), $rules);
-				if (!$validator->fails()) {
-					$category = Subcategory::find($id);
-					$category->subname = $request->input('subname');
-			    	$category->category_id = $request->input('category');
-			    	$category->slug = $request->input('slug');
-			    	$category->properties = $request->input('properties');
-
-					if($category->save()){
-						return redirect('master/subcategory/list');
-					}
-				}else{
-					return redirect('master/subcategory/edit/'.$id)->with('error', 'Terdapat form kosong');
-				}
-			}else{
-				$this->data['css_assets'] 	= Assets::load('css', ['admin_bootstrap', 'admin_css', 'font-awesome', 'skins']);
-				$this->data['js_assets'] 	= Assets::load('js', ['jquery', 'admin_js', 'dashboard', 'admin_bootstrap-js', 'slimscroll', 'fastclick']);
-				$this->data['title']		= 'Subcategory | Edit';
-				$this->data['category']		= Subcategory::find($id);
-				$this->data['category_list']= [' - Select - '] + Category::lists('name', 'id')->all();
-			    return view('admin_layout')->with('data', $this->data)
-										  ->nest('content', 'subcategory/form', array('data' => $this->data));
-			}
-		}else{
-			return redirect('master/subcategory/list');
 		}
 	}
 

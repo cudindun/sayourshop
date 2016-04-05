@@ -239,7 +239,7 @@
               <li class="dropdown user user-menu">
                 <a href="#" class="dropdown-toggle" data-toggle="dropdown">
                   <img>
-                  <span class="hidden-xs">Alexander Pierce</span>
+                  <span class="hidden-xs">{{ucwords(Sentinel::getUser()->first_name)}} {{ucwords(Sentinel::getUser()->last_name)}}</span>
                 </a>
                 <ul class="dropdown-menu">
                   <!-- User image -->
@@ -287,7 +287,7 @@
               {!! Html::image('assets/img/user2-160x160.jpg','user image', array('class' => 'img-circle')) !!}
             </div>
             <div class="pull-left info">
-              <p>Alexander Pierce</p>
+              <p>{{ucwords(Sentinel::getUser()->first_name)}} {{ucwords(Sentinel::getUser()->last_name)}}</p>
               <a href="#"><i class="fa fa-circle text-success"></i> Online</a>
             </div>
           </div>
@@ -311,6 +311,19 @@
                 <i class="fa fa-home"></i> <span>Home</span>
               </a>
             </li>
+            <li class="{{ Request::segment(2) === 'setting' ? 'active' : null }} treeview">
+              <a href="#">
+                <i class="fa fa-users"></i>
+                <span>Setting</span>
+                <i class="fa fa-angle-left pull-right"></i>
+              </a>
+              <ul class="treeview-menu">
+                <li><a href="{{ url('/master/setting/bank_account') }}"><i class="fa fa-circle-o text-yellow"></i> Bank Account </a></li>
+                <li><a href="{{ url('/master/setting/category/list') }}"><i class="fa fa-circle-o text-yellow"></i> Category </a></li>
+                <li><a href="{{ url('/master/setting/subcategory/list') }}"><i class="fa fa-circle-o text-yellow"></i> Subcategory </a></li>
+              </ul>
+            </li>
+            <li class="{{ Request::segment(2) === 'transaction' ? 'active' : null }} treeview">
             <li>
               <a href="#">
                 <i class="fa fa-users"></i>
@@ -319,6 +332,7 @@
               </a>
               <ul class="treeview-menu">
                 <li><a href="{{ url('/master/transaction/order') }}"><i class="fa fa-circle-o text-yellow"></i> Order </a></li>
+                <li><a href="{{ url('/master/transaction/pembayaran') }}"><i class="fa fa-circle-o text-yellow"></i> Konfirmasi Pembayaran </a></li>
                 <li><a href="{{ url('/master/user/create') }}"><i class="fa fa-circle-o text-aqua"></i> Create </a></li>
               </ul>
             </li>
@@ -376,6 +390,7 @@
                 <li><a href="{{ url('/master/subcategory/create') }}"><i class="fa fa-circle-o text-aqua"></i> Create </a></li>
               </ul>
             </li>
+
             <?php /*
             <li><a href="{{ url('/master/setting/category/list') }}"><i class="fa fa-circle-o text-yellow"></i> Category </a></li>
             <li><a href="{{ url('/master/setting/subcategory/list') }}"><i class="fa fa-circle-o text-yellow"></i> Subcategory </a></li>

@@ -11,16 +11,29 @@ use App\Http\Models\User;
 use App\Http\Models\Category;
 use App\Http\Models\Subcategory;
 use App\Http\Models\Option;
+use App\Http\Models\Order;
+use App\Http\Models\PaymentConfirmation;
 use DB, Validator;
 
 class TransactionController extends Controller
 {
+	public function payment_list()
+	{
+		$this->data['css_assets'] 	= Assets::load('css', ['admin_bootstrap', 'admin_css', 'font-awesome', 'skins', 'dataTables_css']);
+		$this->data['js_assets'] 	= Assets::load('js', ['jquery', 'admin_js', 'admin_bootstrap-js', 'slimscroll', 'fastclick', 'dataTables_js', 'dataTables_bootsjs']);
+		$this->data['title']		= 'SayourShop | Pembayaran';
+		$this->data['payment']		= PaymentConfirmation::orderBy('created_at','desc')->get();
+	    return view('admin_layout')->with('data', $this->data)
+								  ->nest('content', 'admin/transaction/payment', array('data' => $this->data));
+	}
+
     public function order()
 	{
-		$this->data['css_assets'] 	= Assets::load('css', ['admin_bootstrap', 'admin_css', 'font-awesome', 'skins', 'icheck', 'morris_chart', 'jvectormap', 'dataTables_css']);
-		$this->data['js_assets'] 	= Assets::load('js', ['jquery', 'admin_js', 'admin_bootstrap-js', 'slimscroll', 'fastclick', 'morris_chart_js', 'sparkline', 'jvectormap_js', 'jvectormap_world_js', 'knob', 'dataTables_js']);
-		$this->data['title']		= 'SayourShop | Rekening';
+		$this->data['css_assets'] 	= Assets::load('css', ['admin_bootstrap', 'admin_css', 'font-awesome', 'skins', 'dataTables_css']);
+		$this->data['js_assets'] 	= Assets::load('js', ['jquery', 'admin_js', 'admin_bootstrap-js', 'slimscroll', 'fastclick', 'dataTables_js', 'dataTables_bootsjs']);
+		$this->data['title']		= 'SayourShop | Pemesanan';
 		$this->data['bank_account'] = Option::where('meta_key','bank_account')->first();
+		$this->data['order']		= Order::orderBy('created_at','desc')->get();
 	    return view('admin_layout')->with('data', $this->data)
 								  ->nest('content', 'admin/transaction/order', array('data' => $this->data));
 	}

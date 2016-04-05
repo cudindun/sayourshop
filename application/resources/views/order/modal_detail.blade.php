@@ -29,7 +29,7 @@
               </tr>
               <tr>
                 <th>Tujuan Pengiriman</th>
-                <td>: {{$data['detail'][0]->order->order_address}}, {{$data['detail'][0]->order->province}}</td>
+                <td>: {{$data['detail'][0]->order->order_address}}, {{$data['detail'][0]->order->district->name}}, {{$data['detail'][0]->order->city->nama}}, {{$data['detail'][0]->order->province->name}}</td>
               </tr>
               <tr>
                 <th>Tanggal Pemesanan</th>
@@ -41,7 +41,7 @@
               </tr>
               <tr>
                 <th>Subtotal</th>
-                <td>: Rp. {{ number_format($data['detail'][0]->order->total_price + $data['detail'][0]->order->total_discount, 0, ",", ".") }}</td>
+                <td>: Rp. {{ number_format($data['detail'][0]->order->total_price + $data['detail'][0]->order->total_discount - $data['detail'][0]->order->shipping_price, 0, ",", ".") }}</td>
               </tr>
               <tr>
                 <th>Kupon</th>
