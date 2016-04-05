@@ -59,13 +59,27 @@ Route::get('lupa_pass','UserController@forgot_pass_form');
 //END UDIN
 
 //ADMIN
-Route::get('master','AdminController@home');
+Route::get('master','Admin\AdminController@home');
+Route::get('master/user/list','Admin\AdminController@home');
+Route::get('master/produk/list','Admin\AdminController@list_product');
+Route::get('master/setting/category/create','Admin\SettingController@create_category');
+Route::get('master/setting/category/list','Admin\SettingController@list_category');
+Route::get('master/setting/subcategory/create','Admin\SettingController@create_subcategory');
+Route::get('master/setting/subcategory/list','Admin\SettingController@list_subcategory');
+Route::get('master/setting/bank_account','Admin\SettingController@bank_account_form');
+
 Route::get('master/setting/bank_account/add','Admin\SettingController@add_bank_account');
 Route::get('master/transaction/order','Admin\TransactionController@order');
 Route::get('master/transaction/pembayaran','Admin\TransactionController@payment_list');
+Route::get('master/category/create','Admin\AdminController@create_category');
+Route::get('master/subcategory/create','Admin\AdminController@create_subcategory');
+Route::get('master/login',function(){
+	return view('admin.login');
+});
+
 //ADMIN VIEW (Detail)
-Route::get('master/category/view/{id}','AdminController@view_category');
-Route::get('master/subcategory/view/{id}','AdminController@view_subcategory');
+Route::get('master/category/view/{id}','Admin\AdminController@view_category');
+Route::get('master/subcategory/view/{id}','Admin\AdminController@view_subcategory');
 //ADMIN LIST
 Route::get('master/user/list','AdminController@list_user');
 Route::get('master/setting/bank_account','Admin\SettingController@bank_account_form');
@@ -75,7 +89,8 @@ Route::get('master/setting/subcategory/list','Admin\SettingController@list_subca
 Route::get('master/setting/category/create','Admin\SettingController@create_category');
 Route::get('master/setting/subcategory/create','Admin\SettingController@create_subcategory');
 //ADMIN EDIT
-Route::match(['get', 'post'],'master/category/edit/{id}','AdminController@edit_category');
+Route::match(['get', 'post'],'master/category/edit/{id}','Admin\AdminController@edit_category');
+Route::match(['get', 'post'],'master/subcategory/edit/{id}','Admin\AdminController@edit_subcategory');
 //ADMIN DELETE
 Route::get('master/category/delete/{id}','AdminController@delete_category');
 Route::get('master/subcategory/delete/{id}','AdminController@delete_subcategory');
