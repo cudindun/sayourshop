@@ -14,7 +14,7 @@ use App\Http\Models\Subcategory;
 
 use Input;
 use DB;
-use Redirect,Validator,Session;
+use Redirect,Validator,Session,Sentinel;
 
 class AdminController extends Controller
 {
@@ -23,6 +23,9 @@ class AdminController extends Controller
 
     public function home()
 	{
+		if(Sentinel::guest()){
+			return redirect('master/login');
+		}else{
 		$this->data['css_assets'] 	= Assets::load('css', ['admin_bootstrap', 'admin_css', 'font-awesome', 'skins', 'icheck', 'morris_chart', 'jvectormap', 'dataTables_css']);
 		$this->data['js_assets'] 	= Assets::load('js', ['jquery', 'admin_js', 'dashboard', 'admin_bootstrap-js', 'slimscroll', 'fastclick', 'morris_chart_js', 'sparkline', 'jvectormap_js', 'jvectormap_world_js', 'knob', 'dataTables_js']);
 		$this->data['title']		= 'SayourShop | Master';
@@ -30,6 +33,7 @@ class AdminController extends Controller
 		$this->data['userCount']	= User::all()->count();
 	    return view('admin_layout')->with('data', $this->data)
 								  ->nest('content', 'admin/home', array('data' => $this->data));
+		}
 	}
 
 	public function list_user()
