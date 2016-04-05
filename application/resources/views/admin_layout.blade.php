@@ -351,6 +351,7 @@
               </ul>
             </li>
             <li class="header">SETTING</li>
+            <li><a href="{{ url('/master/setting/bank_account') }}"><i class="fa fa-circle-o text-yellow"></i> Bank Account </a></li>
             <li class="{{ Request::segment(2) === 'category' ? 'active' : null }} treeview">
               <a href="#">
                 <i class="fa fa-folder"></i>
@@ -373,9 +374,10 @@
                 <li><a href="{{ url('/master/subcategory/create') }}"><i class="fa fa-circle-o text-aqua"></i> Create </a></li>
               </ul>
             </li>
-            <li><a href="{{ url('/master/setting/bank_account') }}"><i class="fa fa-circle-o text-yellow"></i> Bank Account </a></li>
+            <?php /*
             <li><a href="{{ url('/master/setting/category/list') }}"><i class="fa fa-circle-o text-yellow"></i> Category </a></li>
             <li><a href="{{ url('/master/setting/subcategory/list') }}"><i class="fa fa-circle-o text-yellow"></i> Subcategory </a></li>
+            */ ?>
           </ul>
 
           <?php //================================ END NAVIGATION ==================================== ?>

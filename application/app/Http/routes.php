@@ -71,6 +71,9 @@ Route::get('master/setting/bank_account/{id}','Admin\SettingController@del_bank_
 Route::get('master/transaction/order','Admin\TransactionController@order');
 Route::get('master/category/create','Admin\AdminController@create_category');
 Route::get('master/subcategory/create','Admin\AdminController@create_subcategory');
+Route::get('master/login',function(){
+	return view('admin.login');
+});
 
 //ADMIN VIEW (Detail)
 Route::get('master/category/view/{id}','Admin\AdminController@view_category');
