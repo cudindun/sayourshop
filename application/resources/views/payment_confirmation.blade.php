@@ -16,8 +16,11 @@
                                     <div class="span6">
                                         <label for="email">No Invoice</label>
                                         <div class="control-group">
-                                            
-                                            <input class="span12" type="text" id="no_invoice" name="no_invoice" required>
+                                            @if($data['invoice'])
+                                                <input class="span12" type="text" id="no_invoice" name="no_invoice" value="{{$data['invoice']}}" required>
+                                            @else
+                                                <input class="span12" type="text" id="no_invoice" name="no_invoice" required>
+                                            @endif
                                         </div>
                                     </div>
                                     <div class="span6">

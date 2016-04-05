@@ -12,12 +12,13 @@ use App\Http\Models\PaymentConfirmation;
 
 class PaymentController extends HomeController
 {
-    public function payment_form()
+    public function payment_form(Request $request)
 	{
 		$this->data['css_assets'] 	= Assets::load('css', ['lib-bootstrap', 'style', 'font-awesome', 'font-awesome-min', 'color-schemes-core', 'color-schemes-turquoise', 'bootstrap-responsive','font-family','datepicker']);
 		$this->data['js_assets'] 	= Assets::load('js', ['jquery','jquery-min','jquery-ui', 'bootstrap-min-lib', 'jquery-isotope', 'jquery-flexslider', 'jquery.elevatezoom', 'jquery-sharrre', 'imagesloaded', 'la_boutique', 'jquery-cookie','datepicker','datepicker-locales']);
 		$this->data['title']		= 'Konfirmasi Pembayaran';
 		$this->data['bank_account']	= Option::where('meta_key','bank_account')->first();
+		$this->data['invoice'] = $request->payment;
 	    return view('main_layout')->with('data', $this->data)
 								  ->nest('content', 'payment_confirmation', array('data' => $this->data));
 	}

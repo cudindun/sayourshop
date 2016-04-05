@@ -70,16 +70,22 @@ class SettingController extends Controller
 
 	public function create_category(Request $request)
 	{
-		$value = strtolower($request->category);
-		$db_cat = Category::where('name', $value)->first();
-		if ($db_cat) {
-			return redirect('master/category/list')->with('failed','Maaf kategori telah tersedia');
+		$rules = array('category' => 'required');
+		$validator = Validator::make($request->all(), $rules);
+		if (!$validator->fails()) {	
+			$value = strtolower($request->category);
+			$db_cat = Category::where('name', $value)->first();
+			if ($db_cat) {
+				return redirect('master/setting/category/list')->with('failed','Maaf kategori telah tersedia');
+			}else{
+				$category = new Category;
+				$category->name = $value;
+				$category->slug = str_replace(" ", "-", $value);
+				$category->save();
+			    return redirect('master/setting/category/list')->with('success','Kategori baru berhasil ditambahkan');
+			}
 		}else{
-			$category = new Category;
-			$category->name = $value;
-			$category->slug = str_replace(" ", "-", $value);
-			$category->save();
-		    return redirect('master/setting/category/list')->with('success','Kategori baru berhasil ditambahkan');
+			return redirect('master/setting/category/list')->with('failed','Silahkan isi Nama Kategori');
 		}
 	}
 
@@ -95,18 +101,25 @@ class SettingController extends Controller
 
 	public function create_subcategory(Request $request)
 	{
-		$value = strtolower($request->subcategory);
-		$category = Category::where('id',$request->category)->first();
-		$subcategory = Subcategory::where('category_id',$category->id)->where('subname',$value)->first();
-		if($subcategory){
-			return redirect('master/setting/subcategory/list')->with('failed','Maaf subkategori telah tersedia');
+		$rules = array(
+			'subcategory' => 'required');
+		$validator = Validator::make($request->all(), $rules);
+		if (!$validator->fails()) {
+			$value = strtolower($request->subcategory);
+			$category = Category::where('id',$request->category)->first();
+			$subcategory = Subcategory::where('category_id',$category->id)->where('subname',$value)->first();
+			if($subcategory){
+				return redirect('master/setting/subcategory/list')->with('failed','Maaf subkategori telah tersedia');
+			}else{
+				$subcategory = new Subcategory;
+				$subcategory->subname = $value;
+				$subcategory->slug = str_replace(" ", "-", $value);
+				$subcategory->category_id = $category->id;
+				$subcategory->save();
+			    return redirect('master/setting/subcategory/list')->with('success','Subkategori baru berhasil ditambahkan');
+			}
 		}else{
-			$subcategory = new Subcategory;
-			$subcategory->subname = $value;
-			$subcategory->slug = str_replace(" ", "-", $value);
-			$subcategory->category_id = $category->id;
-			$subcategory->save();
-		    return redirect('master/setting/subcategory/list')->with('success','Subkategori baru berhasil ditambahkan');
+			return redirect('master/setting/subcategory/list')->with('failed','Silahkan isi nama subkategori');
 		}
 	}
 

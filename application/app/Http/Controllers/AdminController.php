@@ -113,24 +113,6 @@ class AdminController extends Controller
 
 	// ========== CREATE ============
 
-	public function add_category(Request $request)
-	{
-		$rules = array(
-			'name' => 'required',
-			'slug' => 'required', 
-			);
-		$validator = Validator::make($request->all(), $rules);
-		if (!$validator->fails()) {
-	    	$category = New Category;
-	    	$category->name =  $request->input('name');
-	    	$category->slug =  $request->input('slug');
-	    	$category->save();
-	    	return redirect('master/category/list');
-		}else{
-			return redirect('master/category/create')->with('error', 'Terdapat form kosong');
-		}
-	}
-
 	public function add_subcategory(Request $request)
 	{
 		$rules = array(
@@ -192,15 +174,13 @@ class AdminController extends Controller
 	public function delete_category($id)
 	{
 		Category::find($id)->delete();
-
-		return redirect('master/category/list');
+		return redirect('master/setting/category/list');
 	}
 
 	public function delete_subcategory($id)
 	{
 		Subcategory::find($id)->delete();
-
-		return redirect('master/subcategory/list');
+		return redirect('master/setting/subcategory/list');
 	}
 	
 }

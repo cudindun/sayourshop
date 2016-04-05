@@ -23,21 +23,23 @@
               	  <table id="order_table" class="table table-bordered table-hover">
                     <thead>
                       <tr>
-                        <th>No Resi</th>
                         <th>No Invoice</th>
-                        <th>Status</th>
-                        <th>Detail</th>
+                        <th>Nama</th>
+                        <th>Tujuan</th>
+                        <th>Total Transfer</th>
+                        <th>Tanggal Transfer</th>
                         <th>Opsi</th>
                       </tr>
                     </thead>
                     <tbody>
-                      @foreach($data['order'] as $order)
+                      @foreach($data['payment'] as $payment)
                         <tr>
-                            <td><input type="text" class="col-sm-12"></td>
-                            <td>{{$order->no_invoice}}</td>
-                            <td>{{$order->order_status}}</td>
-                            <td><button class="btn btn-primary btn-xs detail" id="{{$order->id}}">Lihat</button></td>
-                            <td><button class="btn btn-success btn-xs">Lunas</button></td>
+                            <td>{{$payment->no_invoice}}</td>
+                            <td>{{$payment->account_name}}</td>
+                            <td>{{$payment->admin_account}}</td>
+                            <td>Rp. {{ number_format($payment->total_transfer, 0, ",", ".") }}</td>
+                            <td>{{$payment->transfer_date}}</td>
+                            <td><button type="button" class="btn btn-xs btn-primary">Konfirmasi</button></td>
                         </tr>
                       @endforeach
                     </tbody>
