@@ -11,7 +11,7 @@
     <?php // ============ CSS ============ ?>
 
     <!-- Ionicons -->
-    <!-- <link rel="stylesheet" href="https://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css"> -->
+    <link rel="stylesheet" href="https://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css">
 
     @foreach( $data['css_assets'] as $key => $assets ) 
       {!! Html::style($assets) !!}

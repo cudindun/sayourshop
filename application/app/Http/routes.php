@@ -61,6 +61,7 @@ Route::get('lupa_pass','UserController@forgot_pass_form');
 //ADMIN
 Route::get('master','Admin\AdminController@home');
 Route::get('master/user/list','Admin\AdminController@home');
+Route::get('master/produk/list','Admin\AdminController@list_product');
 Route::get('master/setting/category/create','Admin\SettingController@create_category');
 Route::get('master/setting/category/list','Admin\SettingController@list_category');
 Route::get('master/setting/subcategory/create','Admin\SettingController@create_subcategory');
@@ -87,6 +88,7 @@ Route::post('master/category/add','Admin\AdminController@add_category');
 Route::post('master/subcategory/add','Admin\AdminController@add_subcategory');
 //ADMIN EDIT
 Route::match(['get', 'post'],'master/category/edit/{id}','Admin\AdminController@edit_category');
+Route::match(['get', 'post'],'master/subcategory/edit/{id}','Admin\AdminController@edit_subcategory');
 //ADMIN DELETE
 Route::get('master/category/delete/{id}','Admin\AdminController@delete_category');
 Route::get('master/subcategory/delete/{id}','Admin\AdminController@delete_subcategory');
