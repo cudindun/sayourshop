@@ -310,18 +310,6 @@
                 <i class="fa fa-home"></i> <span>Home</span>
               </a>
             </li>
-            <li class="{{ Request::segment(2) === 'setting' ? 'active' : null }} treeview">
-              <a href="#">
-                <i class="fa fa-users"></i>
-                <span>Setting</span>
-                <i class="fa fa-angle-left pull-right"></i>
-              </a>
-              <ul class="treeview-menu">
-                <li><a href="{{ url('/master/setting/bank_account') }}"><i class="fa fa-circle-o text-yellow"></i> Bank Account </a></li>
-                <li><a href="{{ url('/master/setting/category/list') }}"><i class="fa fa-circle-o text-yellow"></i> Category </a></li>
-                <li><a href="{{ url('/master/setting/subcategory/list') }}"><i class="fa fa-circle-o text-yellow"></i> Subcategory </a></li>
-              </ul>
-            </li>
             <li>
               <a href="#">
                 <i class="fa fa-users"></i>
@@ -351,6 +339,18 @@
                 <li><a href="{{ url('/master/user/create') }}"><i class="fa fa-circle-o text-aqua"></i> Create </a></li>
               </ul>
             </li>
+            <li class="{{ Request::segment(2) === 'produk' ? 'active' : null }} treeview">
+              <a href="#">
+                <i class="fa fa-shopping-basket"></i>
+                <span>Product</span>
+                <i class="fa fa-angle-left pull-right"></i>
+              </a>
+              <ul class="treeview-menu">
+                <li><a href="{{ url('/master/produk/list') }}"><i class="fa fa-circle-o text-yellow"></i> List </a></li>
+                <li><a href="{{ url('/master/produk/create') }}"><i class="fa fa-circle-o text-aqua"></i> Create </a></li>
+              </ul>
+            </li>
+            <li class="header">SETTING</li>
             <li class="{{ Request::segment(2) === 'category' ? 'active' : null }} treeview">
               <a href="#">
                 <i class="fa fa-folder"></i>
@@ -373,17 +373,9 @@
                 <li><a href="{{ url('/master/subcategory/create') }}"><i class="fa fa-circle-o text-aqua"></i> Create </a></li>
               </ul>
             </li>
-            <li class="{{ Request::segment(2) === 'produk' ? 'active' : null }} treeview">
-              <a href="#">
-                <i class="fa fa-shopping-basket"></i>
-                <span>Product</span>
-                <i class="fa fa-angle-left pull-right"></i>
-              </a>
-              <ul class="treeview-menu">
-                <li><a href="{{ url('/master/produk/list') }}"><i class="fa fa-circle-o text-yellow"></i> List </a></li>
-                <li><a href="{{ url('/master/produk/create') }}"><i class="fa fa-circle-o text-aqua"></i> Create </a></li>
-              </ul>
-            </li>
+            <li><a href="{{ url('/master/setting/bank_account') }}"><i class="fa fa-circle-o text-yellow"></i> Bank Account </a></li>
+            <li><a href="{{ url('/master/setting/category/list') }}"><i class="fa fa-circle-o text-yellow"></i> Category </a></li>
+            <li><a href="{{ url('/master/setting/subcategory/list') }}"><i class="fa fa-circle-o text-yellow"></i> Subcategory </a></li>
           </ul>
 
           <?php //================================ END NAVIGATION ==================================== ?>
