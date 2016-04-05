@@ -36,6 +36,7 @@ return [
 		'morris_chart'				=> 'assets/admin/plugins/morris/morris.css',
 		'jvectormap'				=> 'assets/admin/plugins/jvectormap/jquery-jvectormap-1.2.2.css',
 		'dataTables_css'			=> 'assets/admin/plugins/datatables/dataTables.bootstrap.css',
+		'daterangepicker'			=> 'assets/admin/plugins/daterangepicker/daterangepicker-bs3.css',
 
 
 		//ADMIN CSS
@@ -104,6 +105,7 @@ return [
 		'knob'					=> 'assets/admin/plugins/knob/jquery.knob.js',
 		'dataTables_js'			=> 'assets/admin/plugins/datatables/jquery.dataTables.min.js',
 		'dataTables_bootsjs'	=> 'assets/admin/plugins/datatables/dataTables.bootstrap.min.js',
+		'daterangepicker'		=> 'assets/admin/plugins/daterangepicker/daterangepicker.js',
 
 		//ADMIN JS
 		'admin_js'				=> 'assets/admin/js/app.js',

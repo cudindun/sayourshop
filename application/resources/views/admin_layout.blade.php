@@ -3,6 +3,7 @@
   <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="_token" content="{!! csrf_token() !!}"/>
     <title>{!! $data['title'] !!}</title>
 
     <!-- Tell the browser to be responsive to screen width -->
@@ -352,6 +353,7 @@
             </li>
             <li class="header">SETTING</li>
             <li><a href="{{ url('/master/setting/bank_account') }}"><i class="fa fa-circle-o text-yellow"></i> Bank Account </a></li>
+            <li><a href="{{ url('/master/coupon') }}"><i class="fa fa-circle-o text-yellow"></i> Coupon </a></li>
             <li class="{{ Request::segment(2) === 'category' ? 'active' : null }} treeview">
               <a href="#">
                 <i class="fa fa-folder"></i>
@@ -405,6 +407,7 @@
 
     <?php // ========================= JS ==========================?>
 
+    @yield('js')
     
 
     @foreach( $data['js_assets'] as $key => $assets ) 

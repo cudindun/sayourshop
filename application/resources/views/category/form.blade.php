@@ -11,12 +11,12 @@
 	<section class="content-header">
         <h1>
             Category
-            <small>$activity</small>
+            <small><?= $activity ?></small>
         </h1>
         <ol class="breadcrumb">
             <li><a href="{{url('/master')}}"><i class="fa fa-home"></i> Home</a></li>
-            <li><a href="{{url('/master/category')}}"><i class="fa fa-folder"></i> Category</a></li>
-            <li><a href="{{url('/master/category/create')}}"></i> $activity</a></li>
+            <li><a href="{{url('/master/category/list')}}"><i class="fa fa-folder"></i> Category</a></li>
+            <li><a href="{{url('/master/category/create')}}"></i> <?= $activity ?></a></li>
         </ol>
     </section>
 
