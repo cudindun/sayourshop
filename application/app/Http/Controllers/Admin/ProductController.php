@@ -14,6 +14,10 @@ use DB, Input, Validator, Storage, File;
 
 class ProductController extends HomeController
 {
+	public function __construct(){
+		$this->middleware('admin');
+	}
+	
     public function product($slug)
 	{
 		$this->data['css_assets'] 	= Assets::load('css', ['lib-bootstrap', 'style', 'font-awesome', 'font-awesome-min', 'flexslider', 'color-schemes-core', 'color-schemes-turquoise', 'jquery-parallax', 'bootstrap-responsive','font-family']);

@@ -15,6 +15,10 @@ use Redirect,Validator,Session;
 
 class CouponController extends Controller
 {
+	public function __construct(){
+		$this->middleware('admin');
+	}
+	
 	public function list_coupon()
 	{
 		$this->data['css_assets'] 	= Assets::load('css', ['admin_bootstrap', 'admin_css', 'font-awesome', 'skins', 'dataTables_css', 'datepicker', 'daterangepicker']);

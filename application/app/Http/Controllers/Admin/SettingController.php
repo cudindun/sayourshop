@@ -15,6 +15,10 @@ use DB, Validator;
 
 class SettingController extends Controller
 {
+	public function __construct(){
+		$this->middleware('admin');
+	}
+	
     public function bank_account_form()
 	{
 		$this->data['css_assets'] 	= Assets::load('css', ['admin_bootstrap', 'admin_css', 'font-awesome', 'skins', 'icheck', 'morris_chart', 'jvectormap', 'dataTables_css']);
