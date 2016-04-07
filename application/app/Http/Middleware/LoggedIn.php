@@ -15,5 +15,6 @@ class LoggedIn
 		    	return redirect('error');
 		    }
 	    }
+	    return $next($request);
     }
 }
