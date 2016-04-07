@@ -30,21 +30,32 @@
         <a href="#"><b>Sayour</b>SHOP</a>
       </div><!-- /.login-logo -->
       <div class="login-box-body">
+          @if(session('success'))
+          <div class="alert alert-success">
+              {{session('success')}}
+          </div>
+          @endif
+          @if(session('error'))
+          <div class="alert alert-danger">
+              {{session('error')}}
+          </div>
+          @endif
         <p class="login-box-msg">Sign in to start your session</p>
-        <form action="../../index2.html" method="post">
+        <form action="{{url('master/login')}}" method="post" role="POST">
+          <input type="hidden" name="_token" value="{{ csrf_token() }}">
           <div class="form-group has-feedback">
-            <input type="email" class="form-control" placeholder="Email">
+            <input type="email" class="form-control" placeholder="Email" name="email">
             <span class="glyphicon glyphicon-envelope form-control-feedback"></span>
           </div>
           <div class="form-group has-feedback">
-            <input type="password" class="form-control" placeholder="Password">
+            <input type="password" class="form-control" placeholder="Password" name="password">
             <span class="glyphicon glyphicon-lock form-control-feedback"></span>
           </div>
           <div class="row">
             <div class="col-xs-8">
               <div class="checkbox icheck">
                 <label>
-                  <input type="checkbox"> Remember Me
+                  <input type="checkbox" name="remember"> Remember Me
                 </label>
               </div>
             </div><!-- /.col -->

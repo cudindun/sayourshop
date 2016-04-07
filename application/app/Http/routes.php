@@ -64,11 +64,12 @@ Route::get('master/produk/list','Admin\AdminController@list_product');
 Route::get('master/login', function(){
 	return view('admin.login');
 })->middleware('isLoggedIn');
+Route::post('master/login','UserController@admin_login');
 //ADMIN VIEW (Detail)
 Route::get('master/category/view/{id}','Admin\AdminController@view_category');
 Route::get('master/subcategory/view/{id}','Admin\AdminController@view_subcategory');
 //ADMIN LIST
-Route::get('master/coupon','Admin\CouponController@list_coupon');
+Route::get('master/setting/coupon','Admin\CouponController@list_coupon');
 Route::get('master/setting/bank_account','Admin\SettingController@bank_account_form');
 Route::get('master/user/list','Admin\AdminController@list_user');
 Route::get('master/setting/bank_account','Admin\SettingController@bank_account_form');

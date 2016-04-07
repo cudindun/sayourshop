@@ -199,6 +199,40 @@ class UserController extends HomeController
 		}
 	}
 
+	public function admin_login(Request $request)
+	{
+		$rules = array(
+			'email' => 'required|email',
+			'password' => 'required' 
+			);
+		$validator 	= Validator::make($request->all(), $rules);
+		if (!$validator->fails()) {	//cek input form
+			$credentials = array(
+			        'email'    		=> $request->email,
+		  	   		'password' 		=> $request->password
+			    );
+			$user = Sentinel::findByCredentials($credentials); //return data" user
+			if ($user == "") { //cek akun
+				return redirect('master/login')->with('error','Email/Password Anda salah');
+			}else{
+				$tes = Sentinel::validateCredentials($user, $credentials); //return boolean 1/0
+				if ($tes == "") { //cek password
+					return redirect('master/login')->with('error','Email/Password Anda salah');
+				}else{
+					$active = Activation::completed($user);
+					if ($active == "") { //cek aktivasi
+						return redirect('master/login')->with('error','Akun Anda belum diaktivasi/aktivasi sudah tidak berlaku .Silahkan cek email Anda atau kirim ulang kode aktivasi');
+					}else{
+						Sentinel::login($user);
+						return redirect('/master');
+					}	
+				}	
+			}
+		}else{
+			return redirect('master/login')->with('error','Email or Password Cannot Blank');
+		}
+	}
+
 	public function update(Request $request)
 	{
 		$rules = array(

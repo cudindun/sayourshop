@@ -68,7 +68,7 @@
                             Support Team
                             <small><i class="fa fa-clock-o"></i> 5 mins</small>
                           </h4>
-                          <p>Why not buy a new awesome theme?</p>
+                          <p><?= var_dump(Sentinel::getUser()->status) ?></p>
                         </a>
                       </li><!-- end message -->
                       <li>
@@ -319,13 +319,12 @@
               </a>
               <ul class="treeview-menu">
                 <li><a href="{{ url('/master/setting/bank_account') }}"><i class="fa fa-circle-o text-yellow"></i> Bank Account </a></li>
-                <li><a href="{{ url('/master/coupon') }}"><i class="fa fa-circle-o text-yellow"></i> Coupon </a></li>
+                <li><a href="{{ url('/master/setting/coupon') }}"><i class="fa fa-circle-o text-yellow"></i> Coupon </a></li>
                 <li><a href="{{ url('/master/setting/category/list') }}"><i class="fa fa-circle-o text-yellow"></i> Category </a></li>
                 <li><a href="{{ url('/master/setting/subcategory/list') }}"><i class="fa fa-circle-o text-yellow"></i> Subcategory </a></li>
               </ul>
             </li>
             <li class="{{ Request::segment(2) === 'transaction' ? 'active' : null }} treeview">
-            <li>
               <a href="#">
                 <i class="fa fa-users"></i>
                 <span>Transaction</span>
@@ -336,13 +335,6 @@
                 <li><a href="{{ url('/master/transaction/pembayaran') }}"><i class="fa fa-circle-o text-yellow"></i> Konfirmasi Pembayaran </a></li>
                 <li><a href="{{ url('/master/user/create') }}"><i class="fa fa-circle-o text-aqua"></i> Create </a></li>
               </ul>
-            </li>
-            <li class="{{ Request::segment(2) === 'order' ? 'active' : null }} treeview">
-              <a href="{{ url('/master') }}">
-                <i class="fa fa-shopping-cart"></i>
-                <span>List Order</span>
-                <span class="label label-warning pull-right">4 New</span>
-              </a>
             </li>
             <li class="{{ Request::segment(2) === 'user' ? 'active' : null }} treeview">
               <a href="#">
