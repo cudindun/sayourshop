@@ -45,7 +45,7 @@
                     <tbody>
                       <?php $i=1; foreach($data['kupon'] as $kupon): ?> 
                       <tr>
-                        <td></td>
+                        <td><?=$i?></td>
                         <td></td>
                         <td>></td>
                         <td></td>

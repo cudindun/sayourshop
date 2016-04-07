@@ -61,9 +61,9 @@ Route::get('lupa_pass','UserController@forgot_pass_form');
 //ADMIN
 Route::get('master','Admin\AdminController@home');
 Route::get('master/produk/list','Admin\AdminController@list_product');
-Route::get('master/login',function(){
+Route::get('master/login', function(){
 	return view('admin.login');
-});
+})->middleware('isLoggedIn');
 //ADMIN VIEW (Detail)
 Route::get('master/category/view/{id}','Admin\AdminController@view_category');
 Route::get('master/subcategory/view/{id}','Admin\AdminController@view_subcategory');
