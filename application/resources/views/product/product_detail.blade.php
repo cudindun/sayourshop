@@ -12,30 +12,23 @@
                     <div class="span4">
                         <div class="product-images">
                             <div class="box">
+                                <?php
+                                    $image = unserialize($data['product']->image);
+                                ?>
                                 <div class="primary">
-                                    <img src="{{asset('assets/image/thumbnails/db_file_img_228_480xauto.jpg')}}" data-zoom-image="{{asset('assets/image/thumbnails/db_file_img_228_480xauto.jpg')}}" alt="Chaser Overalls" style="max-width:100%;position:relative!IMPORTANT;" />
+                                    <img src="{{url('application/storage/photo_product/'.$image[0])}}" data-zoom-image="{{url('application/storage/photo_product/'.$image[0])}}" alt="Chaser Overalls" style="max-width:100%;position:relative!IMPORTANT;" />
                                 </div>
                                 <div class="thumbs" id="gallery" align="center">
                                     <ul class="thumbs-list">
-                                        <li>
-                                            <a class="active" href="#" data-image="{{asset('assets/image/thumbnails/db_file_img_228_480xauto.jpg')}}" title="Chaser Overalls" data-zoom-image="{{asset('assets/image/thumbnails/db_file_img_228_480xauto.jpg')}}">
-                                                <img style="max-width: 100%;" src="{{ asset('assets/image/thumbnails/db_file_img_228_160xauto.jpg')}}" alt="Chaser Overalls" />
-                                            </a>
-                                        </li>
+                                        @foreach($image as $images)
+                                            <li>
+                                                <a class="active" href="#" data-image="{{url('application/storage/photo_product/'.$images)}}" title="{{$data['product']->name}}" data-zoom-image="{{url('application/storage/photo_product/'.$images)}}">
+                                                    <img style="max-width: 100%;" src="{{url('application/storage/photo_product/'.$images)}}" alt="{{$data['product']->name}}" />
+                                                </a>
+                                            </li>
+                                        @endforeach
                                     </ul>
                                 </div>
-
-                                            <!-- <div class="social">
-                            <div id="sharrre">
-                                <div class="exfacebook sharrre"><button class="btn btn-mini btn-facebook"><i class="icon-facebook"></i> &nbsp; 12</button></div>
-    
-                                <div class="extwitter sharrre"><button class="btn btn-mini btn-twitter"><i class="icon-twitter"></i> &nbsp; 3</button></div>
-    
-                                <div class="googleplus sharrre"><button class="btn btn-mini btn-googleplus"><i class="icon-google-plus"></i> &nbsp; 19</button></div>
-    
-                                <div class="pinterest sharrre"><button class="btn btn-mini btn-pinterest"><i class="icon-pinterest"></i> &nbsp; 64</button></div>
-                            </div>
-                                            </div> -->
                             </div>
                         </div>
                     </div>
