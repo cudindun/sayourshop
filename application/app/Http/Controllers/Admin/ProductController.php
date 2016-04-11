@@ -15,6 +15,10 @@ use DB, Input, Validator, Storage, File;
 
 class ProductController extends Controller
 {
+	public function __construct(){
+		$this->middleware('admin');
+	}
+	
     public function create()
 	{
 		$this->data['css_assets'] 	= Assets::load('css', ['admin_bootstrap', 'admin_css', 'font-awesome', 'skins','ionicons']);

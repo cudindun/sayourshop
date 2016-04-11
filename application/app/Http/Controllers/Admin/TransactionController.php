@@ -17,6 +17,10 @@ use DB, Validator;
 
 class TransactionController extends Controller
 {
+	public function __construct(){
+		$this->middleware('admin');
+	}
+	
 	public function payment_list()
 	{
 		$this->data['css_assets'] 	= Assets::load('css', ['admin_bootstrap', 'admin_css', 'font-awesome', 'skins', 'dataTables_css']);

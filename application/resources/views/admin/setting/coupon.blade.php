@@ -43,15 +43,15 @@
                       </tr>
                     </thead>
                     <tbody>
-                      <?php $i=1; foreach($data['kupon'] as $kupon): ?> 
+                      <?php $i=1; foreach($data['kupon'] as $voc): $code = unserialize($voc->meta_value); ?> 
                       <tr>
-                        <td></td>
-                        <td></td>
-                        <td>></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
+                        <td><?=$i?></td>
+                        <td><?= $code[0]['code'] ?></td>
+                        <td><?= $code[0]['discount'] ?></td>
+                        <td><?= $code[0]['maxDiscount'] ?></td>
+                        <td><?= $voc->created_at ?></td>
+                        <td><?= $code[0]['beginDate'] ?></td>
+                        <td><?= $code[0]['endDate'] ?></td>
                       </tr>
                       <?php $i++; endforeach; ?>
                     </tbody>

@@ -15,12 +15,16 @@ use Redirect,Validator,Session;
 
 class CouponController extends Controller
 {
+	public function __construct(){
+		$this->middleware('admin');
+	}
+	
 	public function list_coupon()
 	{
 		$this->data['css_assets'] 	= Assets::load('css', ['admin_bootstrap', 'admin_css', 'font-awesome', 'skins', 'dataTables_css', 'datepicker', 'daterangepicker']);
 		$this->data['js_assets'] 	= Assets::load('js', ['jquery', 'admin_js', 'admin_bootstrap-js', 'slimscroll', 'fastclick', 'dataTables_js', 'dataTables_bootsjs', 'datepicker', 'daterangepicker']);
 		$this->data['title']		= 'Coupon | List';
-		$this->data['kupon']		= Option::all();
+		$this->data['kupon']		= Option::where('meta_key','voucher')->get();
 	    return view('admin_layout')->with('data', $this->data)
 								  ->nest('content', 'admin/setting/coupon', array('data' => $this->data));
 	}
