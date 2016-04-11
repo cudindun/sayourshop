@@ -133,4 +133,10 @@ class SettingController extends Controller
 	    return view('admin_layout')->with('data', $this->data)
 								  ->nest('content', 'admin/setting/list_subcategory', array('data' => $this->data));
 	}
+
+	public function category_content(Request $request)
+	{
+		$this->data['subcategory'] = Subcategory::where('category_id', $request->id)->get();
+		return view('admin/setting/subcategory_content')->with('data', $this->data);
+	}
 }

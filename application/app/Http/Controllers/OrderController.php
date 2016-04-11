@@ -200,11 +200,9 @@ class OrderController extends HomeController
 
 				$insert_id = $order->id;
 				$order = Order::find($insert_id);
-				// $sum = 0;
 				foreach (Cart::content() as $key) {
 					$product = Product::where('id', $key->id)->first();
 					$result = $product->weight*$key->qty;
-					// $sum += $result;
 					$rowid = 'properties_'.$key->rowid;
 					$orderdetail = new OrderDetail;
 					$orderdetail->order_id = $insert_id;

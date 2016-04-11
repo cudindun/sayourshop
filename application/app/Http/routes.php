@@ -53,7 +53,6 @@ Route::post('shipping_new_address','OrderController@check_shipping_new');
 //END ADE
 
 //UDIN
-Route::get('master/produk/create','ProductController@create');
 Route::get('keranjang','OrderController@cart_form');
 Route::get('lupa_pass','UserController@forgot_pass_form');
 //END UDIN
@@ -61,6 +60,7 @@ Route::get('lupa_pass','UserController@forgot_pass_form');
 //ADMIN
 Route::get('master','Admin\AdminController@home');
 Route::get('master/produk/list','Admin\AdminController@list_product');
+Route::post('master/produk/tambah','Admin\ProductController@add_product');
 Route::get('master/login',function(){
 	return view('admin.login');
 });
@@ -77,6 +77,7 @@ Route::get('master/setting/subcategory/list','Admin\SettingController@list_subca
 Route::get('master/transaction/order','Admin\TransactionController@order');
 Route::get('master/transaction/pembayaran','Admin\TransactionController@payment_list');
 //ADMIN ADD
+Route::get('master/produk/create','Admin\ProductController@create');
 Route::get('master/setting/bank_account/add','Admin\SettingController@add_bank_account');
 
 Route::post('master/category/add','Admin\AdminController@add_category');
@@ -95,3 +96,6 @@ Route::match(['get', 'post'],'master/subcategory/edit/{id}','Admin\AdminControll
 Route::get('master/category/delete/{id}','Admin\AdminController@delete_category');
 Route::get('master/subcategory/delete/{id}','Admin\AdminController@delete_subcategory');
 Route::get('master/setting/bank_account/{id}','Admin\SettingController@del_bank_account');
+
+//ADMIN AJAX
+Route::get('konten_kategori','Admin\SettingController@category_content');

@@ -3,7 +3,7 @@
   <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="_token" content="{!! csrf_token() !!}"/>
+    <meta name="csrf-token" content="{!! csrf_token() !!}"/>
     <title>{!! $data['title'] !!}</title>
 
     <!-- Tell the browser to be responsive to screen width -->
@@ -12,7 +12,7 @@
     <?php // ============ CSS ============ ?>
 
     <!-- Ionicons -->
-    <link rel="stylesheet" href="https://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css">
+    <!-- <link rel="stylesheet" href="https://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css"> -->
 
     @foreach( $data['css_assets'] as $key => $assets ) 
       {!! Html::style($assets) !!}
@@ -419,6 +419,13 @@
     <!-- Resolve conflict in jQuery UI tooltip with Bootstrap tooltip -->
     <script>
       $.widget.bridge('uibutton', $.ui.button);
+    </script>
+    <script type="text/javascript">
+      $.ajaxSetup({
+    headers: {
+        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+    }
+});
     </script>
 
     @yield('script')

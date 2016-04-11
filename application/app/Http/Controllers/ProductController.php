@@ -59,14 +59,6 @@ class ProductController extends HomeController
 
 	}
 
-	public function create()
-	{
-		$this->data['css_assets'] 	= Assets::load('css', ['admin_bootstrap', 'admin_css', 'font-awesome', 'skins']);
-		$this->data['js_assets'] 	= Assets::load('js', ['jquery', 'admin_js', 'dashboard', 'admin_bootstrap-js', 'slimscroll', 'fastclick']);
-		$this->data['title']		= 'Product | Create';
-	    return view('admin_layout')->with('data', $this->data)
-								  ->nest('content', 'product/product_insert', array('data' => $this->data));
-	}
 
 	// public function save_photo() {
 	// 	for ($i=1; $i <6 ; $i++) { 

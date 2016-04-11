@@ -10,42 +10,118 @@ use App\Http\Libraries\Assets;
 use App\Http\Models\Category;
 use App\Http\Models\Subcategory;
 use App\Http\Models\Product;
+use App\Http\Models\ProductSize;
 use DB, Input, Validator, Storage, File;
 
-class ProductController extends HomeController
+class ProductController extends Controller
 {
-    public function product($slug)
+    public function create()
 	{
-		$this->data['css_assets'] 	= Assets::load('css', ['lib-bootstrap', 'style', 'font-awesome', 'font-awesome-min', 'flexslider', 'color-schemes-core', 'color-schemes-turquoise', 'jquery-parallax', 'bootstrap-responsive','font-family']);
-		$this->data['js_assets'] 	= Assets::load('js', ['jquery', 'jquery-ui', 'jquery-easing', 'bootstrap-min-lib', 'jquery-isotope', 'jquery-flexslider', 'jquery.elevatezoom', 'jquery-sharrre', 'jquery-gmap3', 'imagesloaded', 'la_boutique', 'jquery-cookie', 'jquery-parallax-lib']);
-		$this->data['slugcategory']	= Category::where('slug',$slug)->first();
-		$this->data['title']		= ucwords($this->data['slugcategory']->name);
-		$this->data['product']		= Product::where('category_id', $this->data['slugcategory']->id)->get();
-	    return view('main_layout')->with('data', $this->data)
-								  ->nest('content', 'product/product', array('data' => $this->data));
-	}
-
-	public function create()
-	{
-		$this->data['css_assets'] 	= Assets::load('css', ['admin_bootstrap', 'admin_css', 'font-awesome', 'skins']);
-		$this->data['js_assets'] 	= Assets::load('js', ['jquery', 'admin_js', 'dashboard', 'admin_bootstrap-js', 'slimscroll', 'fastclick']);
+		$this->data['css_assets'] 	= Assets::load('css', ['admin_bootstrap', 'admin_css', 'font-awesome', 'skins','ionicons']);
+		$this->data['js_assets'] 	= Assets::load('js', ['jquery', 'admin_js', 'admin_bootstrap-js', 'slimscroll', 'fastclick']);
 		$this->data['title']		= 'Product | Create';
+		$this->data['category']		= Category::get();
 	    return view('admin_layout')->with('data', $this->data)
-								  ->nest('content', 'product/product_insert', array('data' => $this->data));
+								  ->nest('content', 'admin/product_insert', array('data' => $this->data));
 	}
 
-	// public function save_photo() {
-	// 	for ($i=1; $i <6 ; $i++) { 
-	// 		if (Input::file('image'.$i)->isValid()) {
-	// 			$destinationPath = storage_path('app/photo_product'); // upload path
-	// 	        $extension = Input::file('image'.$i)->getClientOriginalExtension(); // getting image extension
-	// 			$fileName = 'tes-baju-t-shirt'.$i.'.'.$extension; // renameing image
-	// 	    	$tes = Input::file('image'.$i)->move($destinationPath, $fileName); // uploading file to given path
-	// 	    	$image = array(
-	// 	    		'$i' => $fileName,
-	// 	    		);
-	// 		}
-	// 	}     s
-	// }
-	
+	public function add_product(Request $request)
+	{
+		$form = array(
+			'name'	=> $request->prodname,   
+			'desc'	=> $request->desc_input,
+			'price'	=> $request->price_input,
+			'quantity'	=> $request->quantity_tmp,
+			'category_id'	=> $request->category,
+			'subcategory_id'	=> $request->subcategory,
+			'weight'	=> $request->weight,
+			'size'	=> $request->optradio,
+			'color'	=> $request->color
+			);
+		$rules = array(
+			'name'	=> 'required', 
+			'desc'	=> 'required',
+			'price'	=> 'required',
+			'quantity'	=> 'required',
+			'category_id'	=> 'required',
+			'subcategory_id'	=> 'required',
+			'weight'	=> 'required',
+			'size'	=> 'required',
+			'color'	=> 'required'
+			);
+		$validator 	= Validator::make($form, $rules);
+		if (!$validator->fails()) {
+			$product = new Product;
+			$product->category_id = $request->category;
+			$product->name = $request->prodname;
+			$product->slug = str_replace(" ", "-", $request->prodname);
+			$product->desc = $request->desc_input;
+			$product->price = $request->price_input;
+			$product->quantity = $request->quantity_tmp;
+			$product->subcategory_id = $request->subcategory;
+			$product->weight = $request->weight;
+			$product->save();
+
+			$insert_id = $product->id;
+			$arraysize = array();
+			if ($request->optradio == "automatic") {
+				for ($i=0; $i < 4; $i++) { 
+					$size = new ProductSize;
+					$size->product_id = $insert_id;
+					$size->size = $request->$i;
+					$size->quantity = 5;
+					$size->save();
+					array_push($arraysize, $request->$i);
+				}
+			}else{
+				if ($request->allsize) {
+					$size = new ProductSize;
+					$size->product_id = $insert_id;
+					$size->size = $request->allsize;
+					$size->quantity = $request->allsize_qty;
+					$size->save();
+					array_push($arraysize, $request->$allsize);
+				}else{
+					for ($i=0; $i < 4; $i++) {
+						$qty = strtolower($request->$i.'_qty');
+						if (!$request->$qty == 0) {
+							$size = new ProductSize;
+							$size->product_id = $insert_id;
+							$size->size = $request->$i;
+							$size->quantity = $request->$qty;
+							$size->save();
+							array_push($arraysize, $request->$allsize);
+						}
+					}
+				}
+			}
+			$color = explode(',', $request->color);
+			$properties = array(
+				'ukuran' => $arraysize,
+				'warna' => $color 
+				);
+			$photos = array();
+			for ($i=0; $i < 5; $i++) {
+				$form = strval('tes_'.$i);
+				if (!is_null($request->$form) ) {
+					$file = array('image' => Input::file($form));
+				  	$rules = array('image' => 'mimes:jpeg,jpg,png|required|max:10000'); //mimes:jpeg,bmp,png and for max size max:10000
+				  	$validator = Validator::make($file, $rules);
+				  	if (!$validator->fails()) {
+					  	$destinationPath = storage_path('photo_product') ; // upload path
+				        $extension = Input::file($form)->getClientOriginalExtension(); // getting image extension
+						$fileName = $insert_id.'_'.$i.'.'.$extension; // renameing image
+				    	Input::file($form)->move($destinationPath, $fileName); // uploading file to given path
+				    	array_push($photos, $fileName);
+			    	}
+				}
+			}
+			$product->properties = serialize($properties);
+			$product->image = serialize($photos);
+			$product->save();
+			return redirect('master/produk/create')->with('completed','Produk berhasil ditambahkan');
+		}else{
+			return redirect('master/produk/create')->with('failed','Produk gagal ditambahkan');
+		};
+	}
 }
