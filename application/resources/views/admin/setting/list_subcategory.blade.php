@@ -63,7 +63,8 @@
                         <td>
                           <a href="{{url('/master/subcategory/view')}}/<?=$subcategory->id?>"><i class="fa fa-eye"></i></a>
                           <a href="{{url('/master/subcategory/edit')}}/<?=$subcategory->id?>"><font color="orange"><i class="fa fa-pencil"></i></font></a>
-                          <a href="{{url('/master/subcategory/delete')}}/<?=$subcategory->id?>" method="post"><font color="red"><i class="fa fa-remove"></i></font></a>
+                          <a href="#" id="delete" value="<?=$subcategory->id?>" method="post"><font color="red"><i class="fa fa-remove"></i></font></a>
+                        </td>
                         </td>
                       </tr>
                       <?php $i++; endforeach; ?>
@@ -79,6 +80,15 @@
 	<script>
       $(function () {
         $("#subcategorylist_table").DataTable();
+      });
+
+      $('a#delete').click(function(){
+        r = confirm("Are You Sure Want to Remove This Item?");
+
+        if (r == true) {
+           window.location.href='{{url("/master/subcategory/delete")}}/'+$(this).attr("value");
+        }
+
       });
     </script>
 @stop

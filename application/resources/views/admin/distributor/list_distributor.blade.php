@@ -1,12 +1,12 @@
 		<section class="content-header">
           <h1>
-            Category
+            Distributor
             <small>List</small>
           </h1>
           <ol class="breadcrumb">
             <li><a href="{{url('/master')}}"><i class="fa fa-home"></i> Home</a></li>
-            <li><a href="#"><i class="fa fa-folder"></i> Category</a></li>
-            <li><a href="{{url('/master/category/list')}}"></i> List</a></li>
+            <li><a href="#"><i class="fa fa-user"></i> Distributor</a></li>
+            <li><a href="{{url('/master/distributor/list')}}"></i> List</a></li>
           </ol>
         </section>
 
@@ -26,38 +26,35 @@
                       {{session('failed')}}
                   </div>
               @endif
-              <form action="{{url('master/setting/category/create')}}" role="GET">
-                <input type="text" id="category" name="category"></input>
-                <button type="submit" class="btn btn-xs btn-primary">Tambah</button>
-              </form>
             </div>
             <div class="box-body">
             	<?php // ======================== Data Table ================================ ?>
-              	  <table id="category_table" class="table table-bordered table-hover">
+              	  <table id="distributorlist_table" class="table table-bordered table-hover">
 
                     <thead>
                       <tr>
                         <th>No</th>
-                        <th>Nama Kategori</th>
-                        <th>Total Product</th>
-                        <th>Slug</th>
-                        <th>Total Subkategori</th>
+                        <th>Nama Distributor</th>
+                        <th>Email</th>
+                        <th>Address</th>
+                        <th>Phone</th>
+                        <th>Date Created</th>
                         <th></th>
                       </tr>
                     </thead>
                     <tbody>
-                      <?php $i=1; foreach($data['category'] as $category): ?> 
+                      <?php $i=1; foreach($data['distributor'] as $distributor): ?> 
                       <tr>
                         <td><?= $i ?></td>
-                        <td><?= $category->name ?></td>
-                        <td><?= $category->total_product ?></td>
-                        <td><?= $category->slug ?></td>
-                        <td><?= $category->subcategories ?></td>
+                        <td><?= $distributor->name ?></td>
+                        <td><?= $distributor->email ?></td>
+                        <td><?= $distributor->address ?></td>
+                        <td><?= $distributor->phone ?></td>
+                        <td><?= $distributor->created_at ?></td>
                         <td>
-                          <a href="{{url('/master/category/view')}}/<?=$category->id?>"><i class="fa fa-eye"></i></a>
-                          <a href="{{url('/master/category/edit')}}/<?=$category->id?>"><font color="orange"><i class="fa fa-pencil"></i></font></a>
-                          <a href="#" id="delete" value="<?=$category->id?>" method="post"><font color="red"><i class="fa fa-remove"></i></font></a>
-                        </td>
+                          <a href="{{url('/master/distributor/view')}}/<?=$distributor->id?>"><i class="fa fa-eye"></i></a>
+                          <a href="{{url('/master/distributor/edit')}}/<?=$distributor->id?>"><font color="orange"><i class="fa fa-pencil"></i></font></a>
+                          <a href="#" id="delete" value="<?=$distributor->id?>" method="post"><font color="red"><i class="fa fa-remove"></i></font></a>
                         </td>
                       </tr>
                       <?php $i++; endforeach; ?>
@@ -70,18 +67,18 @@
         </section><!-- /.content -->
 
 @section('script')
-	<script>
+	  <script>
       $(function () {
-        $("#category_table").DataTable();
+        $("#distributorlist_table").DataTable();
       });
 
       $('a#delete').click(function(){
         r = confirm("Are You Sure Want to Remove This Item?");
 
         if (r == true) {
-           window.location.href='{{url("/master/category/delete")}}/'+$(this).attr("value");
+           window.location.href='{{url("/master/distributor/delete")}}/'+$(this).attr("value");
         }
 
       });
-  </script>
+    </script>
 @stop

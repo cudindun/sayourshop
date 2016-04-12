@@ -69,15 +69,18 @@ Route::post('master/login','UserController@admin_login');
 //ADMIN VIEW (Detail)
 Route::get('master/category/view/{id}','Admin\AdminController@view_category');
 Route::get('master/subcategory/view/{id}','Admin\AdminController@view_subcategory');
+Route::get('master/distributor/view/{id}','Admin\DistributorController@view');
 //ADMIN LIST
 Route::get('master/setting/coupon','Admin\CouponController@list_coupon');
+Route::get('master/distributor/list','Admin\DistributorController@list_distributor');
 Route::get('master/setting/bank_account','Admin\SettingController@bank_account_form');
-Route::get('master/user/list','Admin\AdminController@list_user');
 Route::get('master/setting/bank_account','Admin\SettingController@bank_account_form');
 Route::get('master/setting/category/list','Admin\SettingController@list_category');
 Route::get('master/setting/subcategory/list','Admin\SettingController@list_subcategory');
 Route::get('master/transaction/order','Admin\TransactionController@order');
 Route::get('master/transaction/pembayaran','Admin\TransactionController@payment_list');
+Route::get('master/user/list','Admin\AdminController@list_user');
+
 //ADMIN ADD
 Route::get('master/produk/create','Admin\ProductController@create');
 Route::get('master/setting/bank_account/add','Admin\SettingController@add_bank_account');
@@ -91,13 +94,18 @@ Route::match(['get', 'post'],'master/user/create','Admin\AdminController@add_use
 Route::get('master/setting/category/create','Admin\SettingController@create_category');
 Route::get('master/setting/subcategory/create','Admin\SettingController@create_subcategory');
 
+Route::match(['get', 'post'],'master/distributor/create','Admin\DistributorController@create');
+
 //ADMIN EDIT
 Route::match(['get', 'post'],'master/category/edit/{id}','Admin\AdminController@edit_category');
 Route::match(['get', 'post'],'master/subcategory/edit/{id}','Admin\AdminController@edit_subcategory');
+Route::match(['get', 'post'],'master/distributor/edit/{id}','Admin\DistributorController@edit');
+
 //ADMIN DELETE
 Route::get('master/category/delete/{id}','Admin\AdminController@delete_category');
 Route::get('master/subcategory/delete/{id}','Admin\AdminController@delete_subcategory');
 Route::get('master/setting/bank_account/{id}','Admin\SettingController@del_bank_account');
+Route::get('master/distributor/delete/{id}','Admin\DistributorController@delete');
 
 //ADMIN AJAX
 Route::get('konten_kategori','Admin\SettingController@category_content');
