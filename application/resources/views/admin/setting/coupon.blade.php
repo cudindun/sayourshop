@@ -40,6 +40,7 @@
                         <th>Date Added</th>
                         <th>Date Active</th>
                         <th>Date Expired</th>
+                        <th></th>
                       </tr>
                     </thead>
                     <tbody>
@@ -52,6 +53,11 @@
                         <td><?= $voc->created_at ?></td>
                         <td><?= $code[0]['beginDate'] ?></td>
                         <td><?= $code[0]['endDate'] ?></td>
+                        <td>
+                          <a href="#"><i class="fa fa-eye"></i></a>
+                          <a href="#"><font color="orange"><i class="fa fa-pencil"></i></font></a>
+                          <a href="#" id="delete" value="<?=$voc->id?>" method="post"><font color="red"><i class="fa fa-remove"></i></font></a>
+                        </td>
                       </tr>
                       <?php $i++; endforeach; ?>
                     </tbody>
@@ -195,6 +201,15 @@
                 }
             });      
         }
+      });
+
+      $('a#delete').click(function(){
+        r = confirm("Are You Sure Want to Remove This Item?");
+
+        if (r == true) {
+           window.location.href='{{url("/master/setting/coupon")}}/'+$(this).attr("value");
+        }
+
       });
  
     </script>
