@@ -55,6 +55,12 @@ class ProductController extends Controller
 			);
 		$validator 	= Validator::make($form, $rules);
 		if (!$validator->fails()) {
+			$category = Category::where('id', $request->category)->first();
+			$category->total_product += 1;
+			$category->save();
+			$category = Subcategory::where('id', $request->category)->first();
+			$category->total_product += 1;
+			$category->save();
 			$product = new Product;
 			$product->category_id = $request->category;
 			$product->name = $request->prodname;

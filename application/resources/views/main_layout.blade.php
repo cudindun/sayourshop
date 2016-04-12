@@ -21,8 +21,8 @@
                             <!-- Search -->
                             <div class="search">
                                 <div class="qs_s">
-                                    <form method="post" action="search.html" />
-                                        <input type="text" name="query" id="query" placeholder="Search&hellip;" autocomplete="off" value="" />
+                                    <form method="get" action="{{url('cari')}}" />
+                                        <input type="text" name="search" id="query" placeholder="Masukkan Nama Barang&hellip;" autocomplete="off" value="" />
                                     </form>
                                 </div>
                             </div>

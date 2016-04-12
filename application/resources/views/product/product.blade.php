@@ -56,7 +56,7 @@
                         </div>
                     </div>
                 </div>
-                <div class="span3">
+                <div class="span2">
                     <!-- Sidebar -->
                     <aside class="sidebar">
                         <div class="children">
@@ -97,92 +97,66 @@
                                 </div>
                             </div>
                         </div>
-                        <!-- End class="price-filter" -->        
-                        <!-- This month only! widget -->
-                        <div class="widget Text">
-                            <h3 class="widget-title widget-title ">This month only!</h3>
-                            <h5>Free UK shipping!</h5>
-                            <h6><i class="icon-gift"> &nbsp; </i> Free gift wrap</h6>
-
-                            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Neque beatae tempore porro officiis!</p>
-                            <a class="btn btn-primary" href="#">
-                                BUY NOW <em>for</em> $85
-                            </a>
-                        </div>
-                        <!-- End class="widget Text" -->               
+                        <!-- End class="price-filter" -->                     
                     </aside>
                      <!-- End sidebar -->
                 </div>
-                <div class="span9">
+                <div class="span10">
                     <?php // ============================ Banner 1 ================================= ?>
                     <div class="col-lg-6" style="margin: 0px;padding: 0px 5px 0 5px;" >
-                        <div class="box text-center" style="min-height:250px">
+                        <div class="box text-center" style="min-height:180px">
                             <h2>BANNER 1</h2>
                         </div>
                     </div>
                     <?php // ============================ Banner 2 ================================= ?>
                     <div class="col-lg-6" style="margin: 0px;padding: 0px 5px 0 5px;" >
-                        <div class="box text-center" style="min-height:250px">
+                        <div class="box text-center" style="min-height:180px">
                             <h2>BANNER 2</h2>
                         </div>
                     </div>
                 </div>
-                <div class="span9">
+                <div class="span10">
                     <!-- Products list -->
                     <div class="product-list isotope">
                     @foreach($data['product'] as $product)
                         <?php
                             $image = unserialize($product->image);
                         ?>
-                        <li class="standard" data-price="58">
+                        <li class="standard" data-price="28" style="width: 220px;">
                             <a href="{{url('produk/'.$product->category->slug.'/'.$product->subcategory->slug.'/'.$product->id)}}" title="Lisette Dress">
                                 <div class="image img-responsive">
-                                    <img src="{{url('application/storage/photo_product/'.$image[0])}}" class="primary">
-                                    <img src="{{url('application/storage/photo_product/'.$image[1])}}" class="secondary">
+                                    <img height="220px" src="{{url('application/storage/photo_product/'.$image[0])}}" class="primary">
+                                    <img height="220px" src="{{url('application/storage/photo_product/'.$image[1])}}" class="secondary">
                                 </div>
                                 <div class="title">
-                                    <div class="prices">
+                                <div class="prices">
                                         <span class="price">Rp. {{ number_format($product->price, 0, ",", ".") }}</span>
                                     </div>
                                     <h3>{{ucwords($product->name)}}</h3>
+                                    
                                     <div class="rating rating-4.5">
+
                                     <i class="fa fa-heart"></i>
                                     <i class="fa fa-heart"></i>
                                     <i class="fa fa-heart"></i>
                                     <i class="fa fa-heart"></i>
                                     <i class="fa fa-heart"></i>
+                                    
                                     </div>
+
                                 </div>
                             </a>
                         </li>
+
                     @endforeach
-                        <li class="standard" data-price="38">
-                            <a href="product.html" title="El Paso Tank">
-                                <div class="image">
-                                    {!! Html::image('assets/image/thumbnails/db_file_img_48_640xauto.jpg','', array('class' => 'primary')) !!}
-                                    {!! Html::image('assets/image/thumbnails/db_file_img_49_640xauto.jpg','', array('class' => 'secondary')) !!}
-                                </div>
-                                <div class="title">
-                                    <div class="prices">
-                                        <span class="price">£38.00</span>
-                                    </div>
-                                    <h3>El Paso Tank</h3>
-                                    <div class="rating rating-4.5">
-                                    <i class="fa fa-heart"></i>
-                                    <i class="fa fa-heart"></i>
-                                    <i class="fa fa-heart"></i>
-                                    <i class="fa fa-heart"></i>
-                                    <i class="fa fa-heart"></i>
-                                    </div>
-                                </div>
-                            </a>
-                        </li>
                     </div>
                     <!-- End class="product-list isotope" --> 
                     <!-- "Load More" Button -->
-                    <button id="load_more" class="btn btn-block" data-category="16" data-rows="20" data-page="1" data-featured="true">
-                        <span>Load more</span> &nbsp; <i class="icon-spinner icon-spin icon-large"></i>
-                    </button>         
+                    <?php $products = $data['product']?>
+                    <div align="center">
+                        {!! $products->render(); !!}    
+                    </div>  
+
                     <!-- End "Load More" Button -->
                 </div>
             </div>

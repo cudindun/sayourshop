@@ -151,22 +151,26 @@
     <div class="container">
         <div class="row">
             <div class="col-lg-12">
-                <div class="box border-top" style="margin-bottom:10px;min-height: 190px;">
+                <div class="box border-top" style="margin-bottom:10px;min-height: 210px;">
                             <h4 class="widget-title widget-title ">Produk Terbaru</h3>
                             <div class="product-list-small">
-                                <li style="float: left;">            
+                                @foreach($data['product'] as $product)
+                                <?php
+                                    $image = unserialize($product->image);
+                                ?>
+                                <li style="float: left;padding-right: 5px;">            
                                     <div class="image" style="width: 110px;">
                                         <a href="product.html" title="Lolita" style="border: 0px;" >
-                                            <image src="assets/image/thumbnails/db_file_img_269_160xauto.jpg" style="width:110px; max-width: 500px;height: 110px;">
+                                            <image src="{{url('application/storage/photo_product/'.$image[0])}}" style="width:110px; max-width: 500px;height: 110px;">
                                         </a>
                                     </div>
                                     <div class="desc">
                                         <h6>
-                                            <a href="product.html" title="Lolita">Lolita</a>
+                                            <a href="product.html" title="Lolita">{{$product->name}}</a>
                                         </h6>
 
                                         <div class="price">
-                                            £88.00                                      
+                                            Rp. {{ number_format($product->price, 0, ",", ".") }}                                     
                                         </div>
 
                                         <div class="rating rating-4">
@@ -178,98 +182,7 @@
                                         </div>
                                     </div>
                                 </li>
-                                <li style="float: left;">            
-                                    <div class="image" style="width: 110px;">
-                                        <a href="product.html" title="Lolita" style="border: 0px;" >
-                                            <image src="assets/image/thumbnails/db_file_img_269_160xauto.jpg" style="width:110px; max-width: 500px;height: 110px;">
-                                        </a>
-                                    </div>
-                                    <div class="desc">
-                                        <h6>
-                                            <a href="product.html" title="Lolita">Lolita</a>
-                                        </h6>
-
-                                        <div class="price">
-                                            £88.00                                      
-                                        </div>
-
-                                        <div class="rating rating-4">
-                                            <i class="fa fa-heart"></i>
-                                            <i class="fa fa-heart"></i>
-                                            <i class="fa fa-heart"></i>
-                                            <i class="fa fa-heart"></i>
-                                        </div>
-                                    </div>
-                                </li>
-                                <li style="float: left;">            
-                                    <div class="image" style="width: 110px;">
-                                        <a href="product.html" title="Lolita" style="border: 0px;" >
-                                            <image src="assets/image/thumbnails/db_file_img_269_160xauto.jpg" style="width:110px; max-width: 500px;height: 110px;">
-                                        </a>
-                                    </div>
-                                    <div class="desc">
-                                        <h6>
-                                            <a href="product.html" title="Lolita">Lolita</a>
-                                        </h6>
-
-                                        <div class="price">
-                                            £88.00                                      
-                                        </div>
-
-                                        <div class="rating rating-4">
-                                            <i class="fa fa-heart"></i>
-                                            <i class="fa fa-heart"></i>
-                                            <i class="fa fa-heart"></i>
-                                            <i class="fa fa-heart"></i>
-                                        </div>
-                                    </div>
-                                </li>
-                                <li style="float: left;">            
-                                    <div class="image" style="width: 110px;">
-                                        <a href="product.html" title="Lolita" style="border: 0px;" >
-                                            <image src="assets/image/thumbnails/db_file_img_269_160xauto.jpg" style="width:110px; max-width: 500px;height: 110px;">
-                                        </a>
-                                    </div>
-                                    <div class="desc">
-                                        <h6>
-                                            <a href="product.html" title="Lolita">Lolita</a>
-                                        </h6>
-
-                                        <div class="price">
-                                            £88.00                                      
-                                        </div>
-
-                                        <div class="rating rating-4">
-                                            <i class="fa fa-heart"></i>
-                                            <i class="fa fa-heart"></i>
-                                            <i class="fa fa-heart"></i>
-                                            <i class="fa fa-heart"></i>
-                                        </div>
-                                    </div>
-                                </li>
-                                <li style="float: left;">            
-                                    <div class="image" style="width: 110px;">
-                                        <a href="product.html" title="Lolita" style="border: 0px;" >
-                                            <image src="assets/image/thumbnails/db_file_img_269_160xauto.jpg" style="width:110px; max-width: 500px;height: 110px;">
-                                        </a>
-                                    </div>
-                                    <div class="desc">
-                                        <h6>
-                                            <a href="product.html" title="Lolita">Lolita</a>
-                                        </h6>
-
-                                        <div class="price">
-                                            £88.00                                      
-                                        </div>
-
-                                        <div class="rating rating-4">
-                                            <i class="fa fa-heart"></i>
-                                            <i class="fa fa-heart"></i>
-                                            <i class="fa fa-heart"></i>
-                                            <i class="fa fa-heart"></i>
-                                        </div>
-                                    </div>
-                                </li>
+                                @endforeach
                             </div>
                
                 </div>

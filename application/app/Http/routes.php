@@ -12,6 +12,7 @@
 */
 //ADE
 Route::get('/', 'HomeController@index');
+Route::get('cari','ProductController@search');
 Route::get('produk/{slug}','ProductController@product');
 Route::get('produk/{slug}/{subcategory}','ProductController@subproduct');
 Route::get('produk/{slug}/{subcategory}/{id}','ProductController@detail');
