@@ -119,8 +119,7 @@
                             </form>
                         </div>                       
                     </div>  
-                    <!-- End id="checkout-content" -->
-                   
+                    <!-- End id="checkout-content" -->  
                 </div>
             </div>
         </div>

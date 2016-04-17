@@ -75,6 +75,8 @@ class OrderController extends HomeController
 			'options' => $properti
 			);
 		Cart::add($order);
+		// echo "<pre>";
+		// print_r(Cart::content());
 		return redirect('detail/'.$request->id)->with('success', 'Barang telah ditambahkan ke dalam keranjang');
 	}
 
@@ -107,7 +109,7 @@ class OrderController extends HomeController
 		$user = Sentinel::getUser();
 		$order = new Order;
 		$order->user_id = $user->id;
-		$order->order_status = 'Menunggu Konfirmasi Admin';
+		$order->order_status = 'Menunggu Pembayaran';
 		if (is_numeric($request->address_check)) {
 			$meta = UserMeta::where('user_id', $user->id)->where('meta_key','address')->first();
 			$unserialize = unserialize($meta->meta_value);

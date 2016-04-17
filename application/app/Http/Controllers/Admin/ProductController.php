@@ -11,6 +11,7 @@ use App\Http\Models\Category;
 use App\Http\Models\Subcategory;
 use App\Http\Models\Product;
 use App\Http\Models\ProductSize;
+use App\Http\Models\OrderDetail;
 use DB, Input, Validator, Storage, File;
 
 class ProductController extends Controller
@@ -25,8 +26,17 @@ class ProductController extends Controller
 		$this->data['js_assets'] 	= Assets::load('js', ['jquery', 'admin_js', 'admin_bootstrap-js', 'slimscroll', 'fastclick']);
 		$this->data['title']		= 'Product | Create';
 		$this->data['category']		= Category::get();
+		$this->data['array']		= '';
 	    return view('admin_layout')->with('data', $this->data)
 								  ->nest('content', 'admin/product_insert', array('data' => $this->data));
+	}
+
+	public function modal_product(Request $request)
+	{
+		$this->data['product'] = Product::where('id', $request->product_id)->first();
+		$this->data['size'] = ProductSize::where('product_id', $request->product_id)->get();
+		$this->data['order']  = OrderDetail::where('product_id', $request->product_id)->orderBy('created_at','DESC')->get();
+		return view('admin/product/modal_product')->with('data', $this->data);
 	}
 
 	public function add_product(Request $request)
@@ -133,5 +143,19 @@ class ProductController extends Controller
 		}else{
 			return redirect('master/produk/create')->with('failed','Produk gagal ditambahkan');
 		};
+	}
+
+	public function variant(Request $request)
+	{
+		$size = array(
+			$request->size => "5",
+			);
+		$cobaarray = array(
+			$request->index => $size, 
+			);
+		echo "tes function";
+		echo "<pre>";
+		print_r($cobaarray);
+		echo "<pre>";
 	}
 }
