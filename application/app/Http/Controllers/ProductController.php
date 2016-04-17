@@ -34,7 +34,7 @@ class ProductController extends HomeController
 		$this->data['js_assets'] 	= Assets::load('js', ['jquery', 'jquery-ui', 'jquery-easing', 'bootstrap-min-lib', 'jquery-isotope', 'jquery-flexslider', 'jquery.elevatezoom', 'jquery-sharrre', 'jquery-gmap3', 'imagesloaded', 'la_boutique', 'jquery-cookie', 'jquery-parallax-lib']);
 		$this->data['slugcategory']	= Category::where('slug',$slug)->first();
 		$this->data['title']		= ucwords($this->data['slugcategory']->name);
-		$this->data['product']		= Product::where('category_id', $this->data['slugcategory']->id)->orderBy('DESC')->SimplePaginate(10);
+		$this->data['product']		= Product::where('category_id', $this->data['slugcategory']->id)->orderBy('DESC')->Paginate(10);
 	    return view('main_layout')->with('data', $this->data)
 								  ->nest('content', 'product/product', array('data' => $this->data));
 	}
