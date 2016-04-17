@@ -91,7 +91,7 @@ Route::get('master/setting/bank_account/add','Admin\SettingController@add_bank_a
 Route::post('master/category/add','Admin\AdminController@add_category');
 Route::post('master/subcategory/add','Admin\AdminController@add_subcategory');
 
-Route::post('master/coupon/create','Admin\CouponController@create');
+Route::post('master/setting/coupon/create','Admin\CouponController@create');
 Route::match(['get', 'post'],'master/user/create','Admin\AdminController@add_user');
 
 Route::get('master/setting/category/create','Admin\SettingController@create_category');
@@ -103,11 +103,13 @@ Route::match(['get', 'post'],'master/distributor/create','Admin\DistributorContr
 Route::match(['get', 'post'],'master/category/edit/{id}','Admin\AdminController@edit_category');
 Route::match(['get', 'post'],'master/subcategory/edit/{id}','Admin\AdminController@edit_subcategory');
 Route::match(['get', 'post'],'master/distributor/edit/{id}','Admin\DistributorController@edit');
+Route::post('master/setting/coupon/edit/{id}','Admin\CouponController@edit');
 
 //ADMIN DELETE
 Route::get('master/category/delete/{id}','Admin\AdminController@delete_category');
 Route::get('master/subcategory/delete/{id}','Admin\AdminController@delete_subcategory');
 Route::get('master/setting/bank_account/{id}','Admin\SettingController@del_bank_account');
+Route::get('master/setting/coupon/{id}','Admin\CouponController@delete');
 Route::get('master/distributor/delete/{id}','Admin\DistributorController@delete');
 
 //ADMIN AJAX
