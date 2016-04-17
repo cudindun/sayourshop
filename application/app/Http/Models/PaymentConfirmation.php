@@ -34,4 +34,9 @@ class PaymentConfirmation extends Model {
             return $data;
         });
 	}
+
+	public function order()
+    {
+        return $this->belongsTo('App\Http\Models\Order');        
+    }
 }

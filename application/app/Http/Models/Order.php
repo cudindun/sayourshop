@@ -62,4 +62,9 @@ class Order extends Model {
     {
         return $this->belongsTo('App\Http\Models\Province');
     }
+
+    public function payment_confirmation()
+    {
+        return $this->hasOne('App\Http\Models\PaymentConfirmation');
+    }
 }
