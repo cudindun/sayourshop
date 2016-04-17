@@ -45,7 +45,7 @@ Route::get('discount','OrderController@discount');
 Route::get('order_review/{id}','OrderController@order_review');
 Route::get('order_detail','UserController@modal_detail');
 Route::get('konfirmasi_pembayaran','PaymentController@payment_form');
-Route::get('pembayaran','PaymentController@payment');
+Route::post('pembayaran','PaymentController@payment');
 Route::get('check_order','OrderController@check_order');
 Route::post('get_shipping','OrderController@get_cost');
 Route::post('cek_ongkir','OrderController@check_shipping');
@@ -80,8 +80,11 @@ Route::get('master/setting/subcategory/list','Admin\SettingController@list_subca
 Route::get('master/transaction/order','Admin\TransactionController@order');
 Route::get('master/transaction/pembayaran','Admin\TransactionController@payment_list');
 Route::get('master/user/list','Admin\AdminController@list_user');
+Route::get('master/produk_detail','Admin\ProductController@modal_product');
 
 //ADMIN ADD
+Route::post('master/transaction/payment','Admin\TransactionController@payment');
+
 Route::get('master/produk/create','Admin\ProductController@create');
 Route::get('master/setting/bank_account/add','Admin\SettingController@add_bank_account');
 
@@ -111,3 +114,6 @@ Route::get('master/distributor/delete/{id}','Admin\DistributorController@delete'
 
 //ADMIN AJAX
 Route::get('konten_kategori','Admin\SettingController@category_content');
+Route::post('insert_shipping','Admin\TransactionController@insert_shipping');
+Route::post('send','Admin\TransactionController@send');
+Route::post('add_variant', 'Admin\ProductController@variant');

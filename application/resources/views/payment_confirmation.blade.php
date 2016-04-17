@@ -1,11 +1,20 @@
-<!-- Content section -->		
 <section class="main">
     <!-- Reset password -->
     <section class="confirm_payment">
         <div class="container">
             <div class="row">
                 <div class="span9 offset1">
-                    <form enctype="multipart/form-data" action="{{url('pembayaran')}}" method="get" />
+                    @if(session('success'))
+                                <div class="alert alert-success">
+                                    {{session('success')}}
+                                </div>
+                                @endif
+                                @if(session('failed'))
+                                <div class="alert alert-danger">
+                                    {{session('failed')}}
+                                </div>
+                                @endif
+                    <form enctype="multipart/form-data" action="{{url('pembayaran')}}" method="post" />
                         <div class="box">
                             <div class="hgroup">
                                 <h4>Konfirmasi Pembayaran</h4>
@@ -63,7 +72,12 @@
                                     <div class="span6">
                                         <label for="email">Jumlah Transfer (<i>tanpa titik</i>)</label>
                                         <div class="control-group">
-                                            <input class="span12" type="text" id="total_transfer" name="total_transfer" required>
+                                            @if($data['total_price'])
+                                                <input class="span12" type="text" id="total_transfer" name="total_transfer" value="{{$data['total_price']}}" required>
+                                            @else
+                                                <input class="span12" type="text" id="total_transfer" name="total_transfer" required>
+                                            @endif
+                                            
                                         </div>
                                     </div>
                                 </div>
@@ -107,4 +121,4 @@
         });
     });
 </script>
-<!-- End class="main" -->
+<!-- End class="main"

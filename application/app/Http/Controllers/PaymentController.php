@@ -9,6 +9,7 @@ use App\Http\Libraries\Assets;
 use DB, Cart, Validator;
 use App\Http\Models\Option;
 use App\Http\Models\PaymentConfirmation;
+use App\Http\Models\Order;
 
 class PaymentController extends HomeController
 {
@@ -19,6 +20,12 @@ class PaymentController extends HomeController
 		$this->data['title']		= 'Konfirmasi Pembayaran';
 		$this->data['bank_account']	= Option::where('meta_key','bank_account')->first();
 		$this->data['invoice'] = $request->payment;
+		if ($this->data['invoice']) {
+			$invoice = Order::where('no_invoice',$request->payment)->first();
+			$this->data['total_price'] = $invoice->total_price;
+		}else{
+			$this->data['total_price'] = 0;
+		}
 	    return view('main_layout')->with('data', $this->data)
 								  ->nest('content', 'payment_confirmation', array('data' => $this->data));
 	}
@@ -36,18 +43,26 @@ class PaymentController extends HomeController
 			);
 		$validator = Validator::make($request->all(), $rules);
 		if (!$validator->fails()) {
-			$payment = new PaymentConfirmation;
-			$payment->no_invoice = $request->no_invoice;
-			$payment->account_name = $request->account_name;
-			$payment->bank_account = $request->bank_account;
-			$payment->bank_name = $request->bank_name;
-			$payment->admin_account = $request->admin_account;
-			$payment->total_transfer = $request->total_transfer;
-			$payment->transfer_date = $request->transfer_date;
-			$payment->save();
-			return redirect('pembayaran')->with('success','Konfirmasi berhasil .Kami akan mengecek pembayaran Anda');
+			$order = Order::where('no_invoice',$request->no_invoice)->first();
+			if (!is_null($order)) {
+				$payment = new PaymentConfirmation;
+				$payment->no_invoice = $order->no_invoice;
+				$payment->account_name = $request->account_name;
+				$payment->bank_account = $request->bank_account;
+				$payment->bank_name = $request->bank_name;
+				$payment->admin_account = $request->admin_account;
+				$payment->total_transfer = $request->total_transfer;
+				$payment->transfer_date = $request->transfer_date;
+				$payment->order_id = $order->id;
+				$payment->save();
+				$order->order_status = "Telah Dibayar";
+				$order->save();
+				return redirect('konfirmasi_pembayaran')->with('success','Konfirmasi berhasil .Kami akan mengecek pembayaran Anda');
+			}else{
+				return redirect('konfirmasi_pembayaran')->with('failed','Maaf no invoice tidak terdaftar');
+			}
 		}else{
-			return redirect('pembayaran')->with('failed','Silahkan isi form sesuai yang disediakan');
+			return redirect('konfirmasi_pembayaran')->with('failed','Silahkan isi form sesuai yang disediakan');
 		}
 	}
 }

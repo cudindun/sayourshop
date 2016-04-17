@@ -24,6 +24,9 @@
 		<div class="box-body">
 			<div class="col-lg-12">
 				{!! Form::open(array('url'=>'master/produk/tambah','method'=>'POST', 'files'=>true, 'class'=>'form-horizontal', 'style'=> 'margin-top:25px')) !!}
+				<?php
+					print_r($data['array']);
+				?>
 		        	<div class="form-group">
 			            <label class="col-sm-3 control-label">Nama Produk<font color="red">*</font></label>				                
 			           	<div class="col-sm-6">
@@ -66,8 +69,9 @@
 				    </div>
 				            
 				    <div class="form-group">
-				        <label for="inputPrice" class="col-sm-3 control-label">Ukuran & Jumlah<font color="red">*</font></label>
+				        <label for="inputPrice" class="col-sm-3 control-label">Varian<font color="red">*</font><br><i>(saat ini memiliki 0 varian produk)</i></label>
 				        <div class="col-sm-6">
+				        	<input type="text" class="form-control" id="color" name="color" placeholder="Masukkan satu warna produk">
 				            <label class="radio-inline"><input class="radiobtn" type="radio" name="optradio" id="automatic" value="automatic">Otomatis</label>
 				            <label class="radio-inline"><input class="radiobtn" type="radio" name="optradio" id="costumize" value="costumize" >Kostumisasi</label>
 
@@ -91,7 +95,11 @@
 				            	<label class="col-sm-2"><input id="allsize" name="allsize" type="checkbox" value="allsize">All Size</label>
 				            	<input type="number" min="0" id="allsize_qty" name="allsize_qty" disabled="true" value="0"></input>
 				            </div>
+				            <div class="checkbox">
+				            <button type="button" class="btn btn-xs btn-info col-sm-3" id="varian" name="varian">Tambah varian</button>
+				            </div>
 				        </div>
+
 				   </div>
 
 				    <div class="form-group">
@@ -150,6 +158,27 @@
 		<script type="text/javascript">
 			$(document).ready(function()
 	    	{
+	    		$('#varian').click(function()
+		        {
+		        	var indexID = "coba";  //nama indeksnya
+		        	var temp = []; 
+					temp[indexID] = ["stuff","lagi"]; //isi arraynya
+					var size = "m";
+					var array = ["stuff","lagi"];
+		        	console.log(array);
+
+		        	$.ajax({
+		                url: "{!! url('add_variant') !!}",
+		                data: {
+		                	index: indexID,
+		                	size: size
+		                },
+		                method:'POST',
+		            }).done(function(data){
+		                console.log("function")
+		            });
+		        });
+
 	    		$('#automatic').click(function()
 		        {
 		        	$('input[type=number]').attr( 'disabled',true);

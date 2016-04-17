@@ -52,7 +52,7 @@ class AdminController extends Controller
 		$this->data['css_assets'] 	= Assets::load('css', ['admin_bootstrap', 'admin_css', 'font-awesome', 'skins', 'dataTables_css']);
 		$this->data['js_assets'] 	= Assets::load('js', ['jquery', 'admin_js', 'admin_bootstrap-js', 'slimscroll', 'fastclick', 'dataTables_js', 'dataTables_bootsjs']);
 		$this->data['title']		= 'Product | List';
-		$this->data['product']		= Product::all();
+		$this->data['product']		= Product::orderBy('created_at','DESC')->get();
 	    return view('admin_layout')->with('data', $this->data)
 								  ->nest('content', 'admin/product/list_produk', array('data' => $this->data));
 	}

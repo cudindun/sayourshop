@@ -274,6 +274,7 @@
 											<tr>
 												<th>Invoice</th>
 												<th>Tanggal Pemesanan</th>
+												<th>Detail</th>
 							                    <th>Total Harga</th>
 							                    <th>Status</th>
 							                    <th>No. Resi</th>
@@ -286,13 +287,23 @@
 							            <tr>
 							            	<td id="inv_{{$value->id}}" name="inv_{{$value->id}}">{{$value->no_invoice}}</td>
 							            	<td>{{ date_format(date_create($value->created_at), "d M Y")}}</td>
-							            	<td>Rp. {{ number_format($value->total_price, 0, ",", ".") }}</td>
+							            	<td><button type="button" id="detail_{{$value->id}}" name="detail_{{$value->id}}" class="btn btn-mini btn-belizehole detail">Detail</button> </td>
+							            	<td name="total_price" id="total_price">Rp. {{ number_format($value->total_price, 0, ",", ".") }}</td>
 							            	<td>{{$value->order_status}}</td>
 							            	<td>{{$value->no_resi}}</td>
-							            	<td>
-							            		<button type="button" id="detail_{{$value->id}}" name="detail_{{$value->id}}" class="btn btn-mini btn-primary detail">Detail</button> 
-							            		<button type="submit" id="payment" name="payment" class="btn btn-mini btn-greensea" value="{{$value->no_invoice}}">Pembayaran</button>
-							            	</td>
+							            	@if ($value->order_status == 'Menunggu Pembayaran')
+								            	<td>
+								            		<button type="submit" id="payment" name="payment" class="btn btn-mini btn-greensea" value="{{$value->no_invoice}}">Pembayaran</button>
+								            	</td>
+								            @elseif($value->order_status == 'Dikirim')
+								            	<td>
+								            		<button class="btn btn-mini btn-greensea" id="review" name="review">Review</button>
+								            	</td>
+							            	@else
+								            	<td>
+								            		<button type="button" disabled="true" class="btn btn-mini btn-greensea">Pembayaran</button>
+								            	</td>
+							            	@endif
 							            </tr>
 							            @endforeach
 							            </form>

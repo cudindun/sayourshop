@@ -84,4 +84,28 @@ class TransactionController extends Controller
 		$update = Option::where('meta_key','bank_account')->update(['meta_value' => $serialize]);
 		return redirect('master/setting/bank_account')->with('success','Nomor rekening berhasil dihapus');
 	}
+
+	public function payment(Request $request)
+	{
+		$order = Order::where('id', $request->payment)->first();
+		$order->order_status = "Lunas";
+		$order->save();
+		return redirect('master/transaction/pembayaran');
+	}
+
+	public function insert_shipping(Request $request)
+	{
+		$order = Order::where('id', $request->orderid)->first();
+		$order->no_resi = $request->resi;
+		$order->save();
+	}
+
+	public function send(Request $request)
+	{
+		$order = Order::where('id', $request->orderid)->first();
+		$product = $order->order_detail;
+
+		$order->order_status = "Dikirim";
+		$order->save();
+	}
 }
