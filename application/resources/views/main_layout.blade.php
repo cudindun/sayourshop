@@ -92,6 +92,9 @@
                         <li>
                             <a href="{{url('konfirmasi_pembayaran')}}">Konfirmasi Pembayaran</a>
                         </li>
+                        <li>
+                            <a href="{{url('contact')}}">Kontak Kami</a>
+                        </li>
                     </div>
                     <!-- End class="main-menu" -->
                 </div>
@@ -165,7 +168,7 @@
                             <a href="store-locator.html" title="Store locator" class="title">Store locator</a>
                         </li>
                         <li>
-                            <a href="contact-us.html" title="Contact us" class="title">Contact us</a>
+                            <a href="{{url('contact')}}" title="Contact us" class="title">Contact us</a>
                         </li>                                           
                     </div>
                 </div>
