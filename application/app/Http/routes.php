@@ -56,6 +56,7 @@ Route::post('shipping_new_address','OrderController@check_shipping_new');
 //UDIN
 Route::get('keranjang','OrderController@cart_form');
 Route::get('lupa_pass','UserController@forgot_pass_form');
+Route::match(['get', 'post'],'contact','HomeController@contact_us');
 //END UDIN
 
 //ADMIN

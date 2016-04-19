@@ -1,12 +1,15 @@
-    <section class="content-header">
+
+		<section class="content-header">
           <h1>
-            User
+            Product
             <small>List</small>
           </h1>
           <ol class="breadcrumb">
             <li><a href="{{url('/master')}}"><i class="fa fa-home"></i> Home</a></li>
-            <li><a href="#"><i class="fa fa-users"></i> Product</a></li>
-            <li><a href="{{url('/master/user/list')}}"></i> List</a></li>
+
+            <li><a href="#"><i class="fa fa-file"></i> Product</a></li>
+            <li><a href="{{url('/master/product/list')}}"></i> List</a></li>
+
           </ol>
         </section>
 
@@ -15,34 +18,52 @@
           
           <!-- Default box -->
           <div class="box box-warning">
+            <div class="box-header with-border">
+              @if(session('success'))
+                <div class="alert alert-success">
+                    {{session('success')}}
+                </div>
+              @endif
+              @if(session('failed'))
+                  <div class="alert alert-danger">
+                      {{session('failed')}}
+                  </div>
+              @endif
+            </div>
             <div class="box-body">
             	<?php // ======================== Data Table ================================ ?>
               	  <table id="productlist_table" class="table table-bordered table-hover">
+
                     <thead>
                       <tr>
                         <th>No</th>
                         <th>Tanggal</th>
                         <th>Nama Produk</th>
-                        <th>Detail</th>
                         <th>Harga</th>
                         <th>Jumlah</th>
                         <th>Opsi</th>
                       </tr>
                     </thead>
                     <tbody>
-                      <?php $i=1; foreach($data['product'] as $product): ?>
-                      <?php $properties = unserialize($product->properties)?> 
+                      <?php $i=1; foreach($data['product'] as $product): ?> 
                       <tr>
                         <td><?= $i ?></td>
                         <td><?= date_format(date_create($product->created_at), "d M Y") ?></td>
                         <td><?= $product->name ?></td>
-                        <td><button type="button" id="detail_{{$product->id}}" name="detail_{{$product->id}}" class="btn btn-xs btn-primary detail">Detail</button></td>
                         <td>Rp. <?= number_format($product->price, 0, ",", ".") ?></td>
                         <td><?= $product->quantity ?></td>
                         @if($product->status != 'publish')
-                          <td><button class="btn btn-success btn-xs active" id="<?= $product->id ?>" name="<?= $product->name ?>" data-toggle="modal" data-target="#myModal">Aktifkan</button> <button class="btn btn-danger btn-xs delete" id="<?= $product->id ?>">Hapus</button></td>
+                          <td>
+                            <button class="btn btn-success btn-xs active" id="<?= $product->id ?>" name="<?= $product->name ?>" data-toggle="modal" data-target="#myModal">Aktifkan</button>
+                            <a href="#" id="detail_{{$product->id}}" name="detail_{{$product->id}}" class="detail"><i class="fa fa-eye"></i></a>
+                            <a href="#" id="delete" value="<?=$product->id?>" method="post"><font color="red"><i class="fa fa-remove"></i></font></a>
+                          </td>
                         @else
-                          <td><button class="btn btn-danger btn-xs">Non-Aktifkan</button></td>
+                          <td>
+                            <button class="btn btn-danger btn-xs">Non-Aktifkan</button>
+                            <a href="#" id="detail_{{$product->id}}" name="detail_{{$product->id}}" class="detail"><i class="fa fa-eye"></i></a>
+                            <a href="#" id="delete" value="<?=$product->id?>" method="post"><font color="red"><i class="fa fa-remove"></i></font></a>
+                          </td>
                         @endif
                       </tr>
                       <?php $i++; endforeach; ?>
@@ -50,6 +71,8 @@
                   </table>
                   <?php // ======================== END Data Table ================================ ?>
             </div><!-- /.box-body -->
+          </div><!-- /.box -->
+
             <!-- Modal -->
             <div id="modaldetail"></div>
             <div id="myModal" class="modal fade" role="dialog">
@@ -127,6 +150,14 @@
         $('.modal-title').html('Varian produk ' + name);
       });
 
+      $('a#delete').click(function(){
+        r = confirm("Are You Sure Want to Remove This Item?");
+
+        if (r == true) {
+           window.location.href='{{url("/master/product/delete")}}/'+$(this).attr("value");
+        }
+      });
+
       $('.detail').click(function(){
         var id = this.id.substr(7);
         $.ajax({
@@ -154,7 +185,6 @@
                 $('#xl_qty').val(5);
                 $('#s_qty_tmp').val(5);
                 $('#allsize').prop( "checked",false);
-                // $('#quantity').val(20);
                 $('#size').val("s,m,l,xl");
                 $('#quantity_tmp').val(20);
                 $('#quantity').html("20 pcs");
