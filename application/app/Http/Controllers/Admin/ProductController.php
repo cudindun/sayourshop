@@ -45,23 +45,17 @@ class ProductController extends Controller
 			'name'	=> $request->prodname,   
 			'desc'	=> $request->desc_input,
 			'price'	=> $request->price_input,
-			'quantity'	=> $request->quantity_tmp,
 			'category_id'	=> $request->category,
 			'subcategory_id'	=> $request->subcategory,
 			'weight'	=> $request->weight,
-			'size'	=> $request->optradio,
-			'color'	=> $request->color
 			);
 		$rules = array(
 			'name'	=> 'required', 
 			'desc'	=> 'required',
 			'price'	=> 'required',
-			'quantity'	=> 'required',
 			'category_id'	=> 'required',
 			'subcategory_id'	=> 'required',
 			'weight'	=> 'required',
-			'size'	=> 'required',
-			'color'	=> 'required'
 			);
 		$validator 	= Validator::make($form, $rules);
 		if (!$validator->fails()) {
@@ -77,49 +71,49 @@ class ProductController extends Controller
 			$product->slug = str_replace(" ", "-", $request->prodname);
 			$product->desc = $request->desc_input;
 			$product->price = $request->price_input;
-			$product->quantity = $request->quantity_tmp;
 			$product->subcategory_id = $request->subcategory;
 			$product->weight = $request->weight;
 			$product->save();
 
+			// $insert_id = $product->id;
+			// $arraysize = array();
+			// if ($request->optradio == "automatic") {
+			// 	for ($i=0; $i < 4; $i++) { 
+			// 		$size = new ProductSize;
+			// 		$size->product_id = $insert_id;
+			// 		$size->size = $request->$i;
+			// 		$size->quantity = 5;
+			// 		$size->save();
+			// 		array_push($arraysize, $request->$i);
+			// 	}
+			// }else{
+			// 	if ($request->allsize) {
+			// 		$size = new ProductSize;
+			// 		$size->product_id = $insert_id;
+			// 		$size->size = $request->allsize;
+			// 		$size->quantity = $request->allsize_qty;
+			// 		$size->save();
+			// 		array_push($arraysize, $request->$allsize);
+			// 	}else{
+			// 		for ($i=0; $i < 4; $i++) {
+			// 			$qty = strtolower($request->$i.'_qty');
+			// 			if (!$request->$qty == 0) {
+			// 				$size = new ProductSize;
+			// 				$size->product_id = $insert_id;
+			// 				$size->size = $request->$i;
+			// 				$size->quantity = $request->$qty;
+			// 				$size->save();
+			// 				array_push($arraysize, $request->$allsize);
+			// 			}
+			// 		}
+			// 	}
+			// }
+			// $color = explode(',', $request->color);
+			// $properties = array(
+			// 	'ukuran' => $arraysize,
+			// 	'warna' => $color 
+			// 	);
 			$insert_id = $product->id;
-			$arraysize = array();
-			if ($request->optradio == "automatic") {
-				for ($i=0; $i < 4; $i++) { 
-					$size = new ProductSize;
-					$size->product_id = $insert_id;
-					$size->size = $request->$i;
-					$size->quantity = 5;
-					$size->save();
-					array_push($arraysize, $request->$i);
-				}
-			}else{
-				if ($request->allsize) {
-					$size = new ProductSize;
-					$size->product_id = $insert_id;
-					$size->size = $request->allsize;
-					$size->quantity = $request->allsize_qty;
-					$size->save();
-					array_push($arraysize, $request->$allsize);
-				}else{
-					for ($i=0; $i < 4; $i++) {
-						$qty = strtolower($request->$i.'_qty');
-						if (!$request->$qty == 0) {
-							$size = new ProductSize;
-							$size->product_id = $insert_id;
-							$size->size = $request->$i;
-							$size->quantity = $request->$qty;
-							$size->save();
-							array_push($arraysize, $request->$allsize);
-						}
-					}
-				}
-			}
-			$color = explode(',', $request->color);
-			$properties = array(
-				'ukuran' => $arraysize,
-				'warna' => $color 
-				);
 			$photos = array();
 			for ($i=0; $i < 5; $i++) {
 				$form = strval('tes_'.$i);
@@ -136,7 +130,7 @@ class ProductController extends Controller
 			    	}
 				}
 			}
-			$product->properties = serialize($properties);
+			// $product->properties = serialize($properties);
 			$product->image = serialize($photos);
 			$product->save();
 			return redirect('master/produk/create')->with('completed','Produk berhasil ditambahkan');
@@ -145,17 +139,8 @@ class ProductController extends Controller
 		};
 	}
 
-	public function variant(Request $request)
+	public function modal_variant(Request $request)
 	{
-		$size = array(
-			$request->size => "5",
-			);
-		$cobaarray = array(
-			$request->index => $size, 
-			);
-		echo "tes function";
-		echo "<pre>";
-		print_r($cobaarray);
-		echo "<pre>";
+		return view('modal_variant');
 	}
 }

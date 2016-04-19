@@ -23,49 +23,37 @@ th{
           <div class="tab-pane fade in active" id="detail-product">
             <table class="table table-responsive">
               <tr>
-                <th>Gambar</th>
-                  <td>: 
+                <td colspan="4" align="center"><h4>{{ucwords($data['product']->name)}} <font size="-1"><i>({{ date_format(date_create($data['product']->created_at), "d M Y")}})</i></font></h4></td>
+              </tr>
+              <tr>
+                  <td colspan="4" align="center">
                     <?php $image = unserialize($data['product']->image);?>
                     @foreach($image as $images => $value)
-                      <img width="10%" height="10%" src="{{url('application/storage/photo_product/'.$value)}}">
+                      <img width="15%" src="{{url('application/storage/photo_product/'.$value)}}">
                     @endforeach
                   </td>
               </tr>
-              <tr>
-                <th>Nama</th>
-                <td>: {{$data['product']->name}}</td>
-              </tr>
-              <tr>
-                <th>Tanggal</th>
-                <td>: {{ date_format(date_create($data['product']->created_at), "d M Y")}}</td>
-              </tr>
-              <tr>
-                <th>Kategori</th>
-                <td>: {{$data['product']->category->name}}</td>
-              </tr>
-              <tr>
-                <th>Subkategori</th>
-                <td>: {{$data['product']->subcategory->subname}}</td>
-              </tr>
+              
               <tr>
                 <th>Harga</th>
                 <td>: {{$data['product']->price}}</td>
-              </tr>
-              <tr>
-                <th>Jumlah</th>
-                <td>: {{$data['product']->quantity}}</td>
-              </tr>
-              <tr>
-                <th>Terjual</th>
-                <td>: {{$data['product']->sold}}</td>
-              </tr>
-              <tr>
                 <th>Berat</th>
                 <td>: {{$data['product']->weight}}</td>
               </tr>
               <tr>
-                <th>Deskripsi</th>
-                <td>: {{$data['product']->desc}}</td>
+                <th>Kategori</th>
+                <td>: {{$data['product']->category->name}}</td>
+                <th>Jumlah</th>
+                <td>: {{$data['product']->quantity}}</td>
+              </tr>
+              <tr>
+                <th>Subkategori</th>
+                <td>: {{$data['product']->subcategory->subname}}</td>
+                <th>Terjual</th>
+                <td>: {{$data['product']->sold}}</td>
+              </tr>
+              <tr>
+                <td colspan="4">{{$data['product']->desc}}</td>
               </tr>
             </table>
           </div>
@@ -101,8 +89,8 @@ th{
                 </tr>
               </thead>
               <tbody>
+              @foreach($data['order'] as $order)
                 <tr>
-                  @foreach($data['order'] as $order)
                     <td>{{$order->order->no_invoice}}</td>
                     <td>{{$order->order->order_name}}</td>
                     <?php $property = unserialize($order->properties);?>
@@ -113,8 +101,8 @@ th{
                     </td>
                     <td>{{$order->quantity}}</td>
                     <td>{{$order->order->order_status}}</td>
-                  @endforeach
                 </tr>
+                @endforeach
               </tbody>
             </table>
           </div>

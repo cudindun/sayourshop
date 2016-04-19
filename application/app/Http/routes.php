@@ -66,10 +66,14 @@ Route::get('master/login',function(){
 	return view('admin.login');
 })->middleware('isLoggedIn');
 Route::post('master/login','UserController@admin_login');
+Route::get('modal_variant', 'Admin\ProductController@modal_variant');
+Route::post('add_variant', 'Admin\ProductController@modal_variant');
+
 //ADMIN VIEW (Detail)
 Route::get('master/category/view/{id}','Admin\AdminController@view_category');
 Route::get('master/subcategory/view/{id}','Admin\AdminController@view_subcategory');
 Route::get('master/distributor/view/{id}','Admin\DistributorController@view');
+
 //ADMIN LIST
 Route::get('master/setting/coupon','Admin\CouponController@list_coupon');
 Route::get('master/distributor/list','Admin\DistributorController@list_distributor');
@@ -116,4 +120,3 @@ Route::get('master/distributor/delete/{id}','Admin\DistributorController@delete'
 Route::get('konten_kategori','Admin\SettingController@category_content');
 Route::post('insert_shipping','Admin\TransactionController@insert_shipping');
 Route::post('send','Admin\TransactionController@send');
-Route::post('add_variant', 'Admin\ProductController@variant');
