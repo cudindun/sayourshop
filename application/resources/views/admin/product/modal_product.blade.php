@@ -59,6 +59,7 @@ th{
           </div>
 
           <div class="tab-pane fade" id="detail-atribute">
+            <div id="alert-qty"></div>
             <?php $properties = unserialize($data['product']->properties);?>
 
             <div class="col-sm-12">
@@ -71,7 +72,6 @@ th{
                     <td>
                       @foreach($value as $size => $qty)
                         <tr>
-                          <input type="hidden" value="{{$qty}}" id="tmp_{{$size}}"></input>
                           <td style="padding: 10px;">{{strtoupper($size)}}</td>
                           <td>: <input class="qty"  type="number" value="{{$qty}}" id="{{$size}}" name="{{$key}}" ></input> pcs</td>
                         </tr>
@@ -124,7 +124,8 @@ th{
 <script type="text/javascript">
 $(document).ready(function()
   {
-    var coba = 'tes';
+    var qty_tmp = 0;
+
     $('#detail').modal('show');
 
     $(function () {
@@ -147,25 +148,28 @@ $(document).ready(function()
 
     $('.qty')
     .on('focus', function(){
-      var val = $(this).val();
-      console.log(coba);
+      qty_tmp = $(this).val();
     })
     .change(function()
     {
       var id = this.id;
       var qty = $("#"+id).val();
       var color = this.name;
-      console.log(coba);
-      // $.ajax({
-      //   url: "{!! url('edit_qty') !!}",
-      //   data: {
-      //     product_id:product_id,
-      //     color: color,
-      //     id: id,
-      //     qty: qty
-      //   },
-      //   method:'POST',
-      // });
+      var tes = qty_tmp;
+      var product_id = $("#product_id").val();
+      $.ajax({
+        url: "{!! url('edit_qty') !!}",
+        data: {
+          product_id:product_id,
+          color: color,
+          id: id,
+          qty: qty,
+          qty_tmp: tes
+        },
+        method:'POST',
+      }).done(function(data){
+        $("#alert-qty").html("<div class='alert alert-success'>Jumlah untuk ukuran <b style='text-transform:uppercase'>"+ id +"</b> berhasil diubah</div>"); 
+      });
     });
 });
 </script>

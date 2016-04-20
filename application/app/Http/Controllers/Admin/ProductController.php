@@ -158,6 +158,12 @@ class ProductController extends Controller
 	{
 		$product = Product::where('id', $request->product_id)->first();
 		$unserialize = unserialize($product->properties);
-		$unserialize[$request->color][$request->id] = $request->qty;		
+		$unserialize[$request->color][$request->id] = $request->qty;
+		$properties = serialize($unserialize);
+		$total = ($product->quantity - $request->qty_tmp) + $request->qty;
+
+		$product->quantity = $total;
+		$product->properties = $properties;
+		$product->save();
 	}
 }
