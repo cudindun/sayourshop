@@ -8,6 +8,7 @@ use App\Http\Requests;
 use App\Http\Controllers\Controller;
 use App\Http\Libraries\Assets;
 use App\Http\Models\User;
+use App\Http\Models\Ask;
 use App\Http\Models\Category;
 use App\Http\Models\Product;
 use App\Http\Models\Subcategory;
@@ -97,6 +98,16 @@ class AdminController extends Controller
 								  ->nest('content', 'admin/setting/list_subcategory', array('data' => $this->data));
 	}
 
+	public function list_message()
+	{
+		$this->data['css_assets'] 	= Assets::load('css', ['admin_bootstrap', 'admin_css', 'font-awesome', 'skins', 'dataTables_css']);
+		$this->data['js_assets'] 	= Assets::load('js', ['jquery', 'admin_js', 'admin_bootstrap-js', 'slimscroll', 'fastclick', 'dataTables_js', 'dataTables_bootsjs']);
+		$this->data['title']		= 'Message | List';
+		$this->data['message']		= Ask::all();
+	    return view('admin_layout')->with('data', $this->data)
+								  ->nest('content', 'admin/message/list', array('data' => $this->data));
+	}
+
 	// ========== VIEW ===========
 
 	public function view_category($id)
@@ -125,6 +136,23 @@ class AdminController extends Controller
 		}
 	    return view('admin_layout')->with('data', $this->data)
 								  ->nest('content', 'subcategory/view', array('data' => $this->data));
+	}
+
+	public function view_message($id)
+	{
+		$this->data['css_assets'] 	= Assets::load('css', ['admin_bootstrap', 'admin_css', 'font-awesome', 'skins']);
+		$this->data['js_assets'] 	= Assets::load('js', ['jquery', 'admin_js', 'dashboard', 'admin_bootstrap-js', 'slimscroll', 'fastclick']);
+		$this->data['title']		= 'Message | View';
+		if(Ask::find($id)){
+			$this->data['message']		= Ask::find($id);
+			$message = Ask::find($id);
+			$message->status = 1;
+			$message->save();
+		}else{
+			return redirect('master/message/list');
+		}
+	    return view('admin_layout')->with('data', $this->data)
+								  ->nest('content', 'admin/message/view', array('data' => $this->data));
 	}
 
 	// ========== CREATE ============
@@ -265,6 +293,18 @@ class AdminController extends Controller
 	{
 		Subcategory::find($id)->delete();
 		return redirect('master/setting/subcategory/list');
+	}
+
+	public function delete_message($id)
+	{
+		$message = Ask::find($id);
+		
+		if($message->status == 0){
+			return redirect('master/message/list')->with('error', 'Tidak dapat menghapus pesan yang belum dibaca');
+		}else{
+			$message->delete();
+			return redirect('master/message/list')->with('success', 'Pesan telah dihapus');
+		}
 	}
 	
 }

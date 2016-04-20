@@ -9,7 +9,6 @@
                         <div class="row">
                             <div class="col-lg-12">
                             @if(session('success'))
-                              <br/>
                               <div class="alert alert-success">
                                   {{session('success')}}
                                   <button type="button" class="close" data-dismiss="alert" aria-label="Close">
@@ -18,7 +17,6 @@
                               </div>
                               @endif
                               @if(session('error'))
-                              <br/>
                               <div class="alert alert-danger">
                                   {{session('error')}}
                                   <button type="button" class="close" data-dismiss="alert" aria-label="Close">
@@ -89,9 +87,9 @@
 
                                                         <div class="col-lg-6">
                                                             <div class="control-group">
-                                                                <label for="order_no" class="control-label">Inquiry</label>
+                                                                <label for="order_no" class="control-label">Type</label>
                                                                 <div class="controls">
-                                                                    <select id="inquiry" class="form-control">
+                                                                    <select name="type" id="type" class="form-control">
                                                                         <option value="saran">Saran</option>
                                                                         <option value="pertanyaan">Pertanyaan</option>
                                                                         <option value="keluhan">Keluhan</option>
@@ -99,7 +97,7 @@
                                                                     </select>
                                                                 </div>
                                                             </div>
-                                                            <input type="text" id="any-else" value="lainnya..." class="form-control">
+                                                            <input type="text" name="any-else" id="any-else" value="" placeholder="lainnya..." class="form-control">
                                                         </div>
                                                     </div>
 
@@ -142,11 +140,12 @@
     @section('script')
         <script type='text/javascript'>
         $("#any-else").hide();
-            $("#inquiry").change(function(){
+            $("#type").change(function(){
                 if($(this).val()=='lainnya'){
                     $("#any-else").show();
                 }else{
                     $("#any-else").hide();
+                    $("#any-else").val("");
                 }
             });
         </script>

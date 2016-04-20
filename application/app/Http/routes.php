@@ -67,6 +67,7 @@ Route::get('master/login',function(){
 	return view('admin.login');
 })->middleware('isLoggedIn');
 Route::post('master/login','UserController@admin_login');
+Route::get('master/message/list', 'Admin\AdminController@list_message');
 Route::get('modal_variant', 'Admin\ProductController@modal_variant');
 Route::post('add_variant', 'Admin\ProductController@modal_variant');
 
@@ -74,6 +75,7 @@ Route::post('add_variant', 'Admin\ProductController@modal_variant');
 Route::get('master/category/view/{id}','Admin\AdminController@view_category');
 Route::get('master/subcategory/view/{id}','Admin\AdminController@view_subcategory');
 Route::get('master/distributor/view/{id}','Admin\DistributorController@view');
+Route::get('master/message/view/{id}','Admin\AdminController@view_message');
 
 //ADMIN LIST
 Route::get('master/setting/coupon','Admin\CouponController@list_coupon');
@@ -116,6 +118,7 @@ Route::get('master/subcategory/delete/{id}','Admin\AdminController@delete_subcat
 Route::get('master/setting/bank_account/{id}','Admin\SettingController@del_bank_account');
 Route::get('master/setting/coupon/{id}','Admin\CouponController@delete');
 Route::get('master/distributor/delete/{id}','Admin\DistributorController@delete');
+Route::get('master/message/delete/{id}','Admin\AdminController@delete_message');
 
 //ADMIN AJAX
 Route::get('konten_kategori','Admin\SettingController@category_content');
