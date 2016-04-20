@@ -125,6 +125,7 @@ Route::get('master/setting/bank_account/{id}','Admin\SettingController@del_bank_
 Route::get('master/setting/coupon/{id}','Admin\CouponController@delete');
 Route::get('master/distributor/delete/{id}','Admin\DistributorController@delete');
 Route::get('master/message/delete/{id}','Admin\AdminController@delete_message');
+Route::get('master/produk/delete/{id}','Admin\ProductController@delete');
 
 //ADMIN AJAX
 Route::get('konten_kategori','Admin\SettingController@category_content');

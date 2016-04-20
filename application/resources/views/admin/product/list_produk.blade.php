@@ -203,7 +203,7 @@
         r = confirm("Are You Sure Want to Remove This Item?");
 
         if (r == true) {
-           window.location.href='{{url("/master/product/delete")}}/'+$(this).attr("value");
+           window.location.href='{{url("/master/produk/delete")}}/'+$(this).attr("value");
         }
       });
 

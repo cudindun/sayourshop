@@ -126,7 +126,9 @@
                             <a href="{{url('produk/'.$product->category->slug.'/'.$product->subcategory->slug.'/'.$product->id)}}" title="Lisette Dress">
                                 <div class="image img-responsive">
                                     <img height="220px" src="{{url('application/storage/photo_product/'.$image[0])}}" class="primary">
-                                    <img height="220px" src="{{url('application/storage/photo_product/'.$image[1])}}" class="secondary">
+                                    <?php if(count($image) == 1): else: ?>
+                                        <img height="220px" src="{{url('application/storage/photo_product/'.$image[1])}}" class="secondary">
+                                    <?php endif; ?>
                                 </div>
                                 <div class="title">
                                 <div class="prices">
