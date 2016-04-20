@@ -118,7 +118,7 @@ class AdminController extends Controller
 		if(Category::find($id)){
 			$this->data['category']		= Category::find($id);
 		}else{
-			return redirect('master/category/list');
+			return redirect('master/category/list')->with('error', 'Data tidak ada');;
 		}
 	    return view('admin_layout')->with('data', $this->data)
 								  ->nest('content', 'category/view', array('data' => $this->data));
@@ -132,7 +132,7 @@ class AdminController extends Controller
 		if(Subcategory::find($id)){
 			$this->data['category']		= Subcategory::find($id);
 		}else{
-			return redirect('master/subcategory/list');
+			return redirect('master/subcategory/list')->with('error', 'Data tidak ada');;
 		}
 	    return view('admin_layout')->with('data', $this->data)
 								  ->nest('content', 'subcategory/view', array('data' => $this->data));
@@ -149,7 +149,7 @@ class AdminController extends Controller
 			$message->status = 1;
 			$message->save();
 		}else{
-			return redirect('master/message/list');
+			return redirect('master/message/list')->with('error', 'Data tidak ada');;
 		}
 	    return view('admin_layout')->with('data', $this->data)
 								  ->nest('content', 'admin/message/view', array('data' => $this->data));
@@ -298,6 +298,10 @@ class AdminController extends Controller
 	public function delete_message($id)
 	{
 		$message = Ask::find($id);
+
+		if(!$message){
+			return redirect('master/message/list')->with('error', 'Data tidak ada');
+		}
 		
 		if($message->status == 0){
 			return redirect('master/message/list')->with('error', 'Tidak dapat menghapus pesan yang belum dibaca');

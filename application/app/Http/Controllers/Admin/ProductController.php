@@ -75,44 +75,6 @@ class ProductController extends Controller
 			$product->weight = $request->weight;
 			$product->save();
 
-			// $insert_id = $product->id;
-			// $arraysize = array();
-			// if ($request->optradio == "automatic") {
-			// 	for ($i=0; $i < 4; $i++) { 
-			// 		$size = new ProductSize;
-			// 		$size->product_id = $insert_id;
-			// 		$size->size = $request->$i;
-			// 		$size->quantity = 5;
-			// 		$size->save();
-			// 		array_push($arraysize, $request->$i);
-			// 	}
-			// }else{
-			// 	if ($request->allsize) {
-			// 		$size = new ProductSize;
-			// 		$size->product_id = $insert_id;
-			// 		$size->size = $request->allsize;
-			// 		$size->quantity = $request->allsize_qty;
-			// 		$size->save();
-			// 		array_push($arraysize, $request->$allsize);
-			// 	}else{
-			// 		for ($i=0; $i < 4; $i++) {
-			// 			$qty = strtolower($request->$i.'_qty');
-			// 			if (!$request->$qty == 0) {
-			// 				$size = new ProductSize;
-			// 				$size->product_id = $insert_id;
-			// 				$size->size = $request->$i;
-			// 				$size->quantity = $request->$qty;
-			// 				$size->save();
-			// 				array_push($arraysize, $request->$allsize);
-			// 			}
-			// 		}
-			// 	}
-			// }
-			// $color = explode(',', $request->color);
-			// $properties = array(
-			// 	'ukuran' => $arraysize,
-			// 	'warna' => $color 
-			// 	);
 			$insert_id = $product->id;
 			$photos = array();
 			for ($i=0; $i < 5; $i++) {
@@ -130,7 +92,6 @@ class ProductController extends Controller
 			    	}
 				}
 			}
-			// $product->properties = serialize($properties);
 			$product->image = serialize($photos);
 			$product->save();
 			return redirect('master/produk/create')->with('completed','Produk berhasil ditambahkan');
@@ -139,8 +100,70 @@ class ProductController extends Controller
 		};
 	}
 
-	public function modal_variant(Request $request)
+	public function add_variant(Request $request)
 	{
-		return view('modal_variant');
+		$product = Product::where('id', $request->id)->first();
+		$size = explode(",", $request->size);
+		array_pop($size);
+		$arraysize = array();
+		foreach ($size as $key) {
+			$qty = $key."_qty";
+			$arraysize[$key] = $request->$qty;
+		}
+
+		if ($product->properties) {
+			$unserialize = unserialize($product->properties);
+			$unserialize[$request->color] = $arraysize;
+			$color = serialize($unserialize);
+			$product->properties = $color;
+			$product->quantity += $request->total;
+			$product->save();
+			return count($unserialize);	
+		}else{
+			$arraycolor = array(
+				$request->color => $arraysize
+			);
+			$color = serialize($arraycolor);
+			$product->properties = $color;
+			$product->quantity = $request->total;
+			$product->save();
+			return count($arraycolor);
+		}
+	}
+
+	public function activated_product(Request $request)
+	{
+		$product = Product::where('id', $request->id)->first();
+		$product->status = "publish";
+		$product->save();
+	}
+
+	public function unactivated_product(Request $request)
+	{
+		$product = Product::where('id', $request->id)->first();
+		$product->status = "unactive";
+		$product->save();
+	}
+
+	public function ajax_attr(Request $request)
+	{
+		$product = Product::where('id', $request->id)->first();
+		$unserialize = unserialize($product->properties);
+		echo "<pre>";
+		print_r($unserialize[$request->color]);
+		echo "<pre>";
+	}
+
+	public function edit_qty(Request $request)
+	{
+		$product = Product::where('id', $request->product_id)->first();
+		$unserialize = unserialize($product->properties);
+		$unserialize[$request->color][$request->id] = $request->qty;
+		$properties = serialize($unserialize);
+		$total = ($product->quantity - $request->qty_tmp) + $request->qty;
+
+		$product->quantity = $total;
+		$product->properties = $properties;
+		$product->save();
 	}
 }

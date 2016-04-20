@@ -76,6 +76,8 @@ Route::get('master/category/view/{id}','Admin\AdminController@view_category');
 Route::get('master/subcategory/view/{id}','Admin\AdminController@view_subcategory');
 Route::get('master/distributor/view/{id}','Admin\DistributorController@view');
 Route::get('master/message/view/{id}','Admin\AdminController@view_message');
+Route::get('ajax_modal_attr','Admin\ProductController@ajax_attr');
+
 
 //ADMIN LIST
 Route::get('master/setting/coupon','Admin\CouponController@list_coupon');
@@ -105,12 +107,16 @@ Route::get('master/setting/category/create','Admin\SettingController@create_cate
 Route::get('master/setting/subcategory/create','Admin\SettingController@create_subcategory');
 
 Route::match(['get', 'post'],'master/distributor/create','Admin\DistributorController@create');
+Route::post('add_variant', 'Admin\ProductController@add_variant');
 
 //ADMIN EDIT
 Route::match(['get', 'post'],'master/category/edit/{id}','Admin\AdminController@edit_category');
 Route::match(['get', 'post'],'master/subcategory/edit/{id}','Admin\AdminController@edit_subcategory');
 Route::match(['get', 'post'],'master/distributor/edit/{id}','Admin\DistributorController@edit');
 Route::post('master/setting/coupon/edit/{id}','Admin\CouponController@edit');
+Route::post('activated_product', 'Admin\ProductController@activated_product');
+Route::post('unactivated_product', 'Admin\ProductController@unactivated_product');
+Route::post('edit_qty', 'Admin\ProductController@edit_qty');
 
 //ADMIN DELETE
 Route::get('master/category/delete/{id}','Admin\AdminController@delete_category');

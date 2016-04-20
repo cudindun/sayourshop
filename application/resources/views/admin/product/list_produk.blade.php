@@ -18,6 +18,7 @@
           
           <!-- Default box -->
           <div class="box box-warning">
+            <div id="activated_product"></div>
             <div class="box-header with-border">
               @if(session('success'))
                 <div class="alert alert-success">
@@ -60,7 +61,7 @@
                           </td>
                         @else
                           <td>
-                            <button class="btn btn-danger btn-xs">Non-Aktifkan</button>
+                            <button class="btn btn-danger btn-xs unactivated" id="<?= $product->id ?>">Non-Aktifkan</button>
                             <a href="#" id="detail_{{$product->id}}" name="detail_{{$product->id}}" class="detail"><i class="fa fa-eye"></i></a>
                             <a href="#" id="delete" value="<?=$product->id?>" method="post"><font color="red"><i class="fa fa-remove"></i></font></a>
                           </td>
@@ -82,6 +83,7 @@
                   <div class="modal-header">
                     <button type="button" class="close" data-dismiss="modal">&times;</button>
                     <h4 class="modal-title">Modal Header</h4>
+                    <div id="varian_total"></div>
                   </div>
                   <div class="modal-body">
                     <div class="form-group">
@@ -114,14 +116,14 @@
                         <label class="col-sm-2">Total</label>
                         <b><div id="quantity" name="quantity"></div></b>
                         <input type="hidden" class="form-control" id="id" name="id" value="" >
-                        <input type="text" class="form-control" id="size" name="size" >
+                        <input type="hidden" class="form-control" id="size" name="size" >
                         <input type="hidden" class="form-control" id="quantity_tmp" name="quantity_tmp" >
                       </div>
                     </div>
                   </div>
                   <div class="modal-footer">
-                    <button type="button" class="btn btn-info btn-xs" id="varian">Simpan Varian</button>
-                    <button type="button" class="btn btn-success btn-xs">Selesai</button>
+                    <button type="button" class="btn btn-info btn-xs" id="varian" name="varian">Simpan Varian</button>
+                    <button type="button" class="btn btn-success btn-xs" id="done" name="done" data-dismiss="modal">Selesai</button>
                   </div>
                 </div>
               </div>
@@ -135,12 +137,59 @@
         $("#productlist_table").DataTable();
       });
 
+      $('.unactivated').click(function(){
+        var id = this.id;
+        $.ajax({
+          url: "{!! url('unactivated_product') !!}",
+          data: {
+            id: id
+          },
+          method:'POST',
+        }).done(function(data){
+          location.reload();
+        });
+      });
+
+      $('#done').click(function(){
+        var id = $('#id').val();
+        $.ajax({
+          url: "{!! url('activated_product') !!}",
+          data: {
+            id: id
+          },
+          method:'POST',
+        }).done(function(data){
+          location.reload();
+        });
+      });
+
       $('#varian').click(function(){
         var size = $('#size').val();
         var total = $('#quantity_tmp').val();
         var color = $('#color').val();
         var id = $('#id').val();
-        
+        var s_qty = $('#s_qty').val();
+        var m_qty = $('#m_qty').val();
+        var l_qty = $('#l_qty').val();
+        var xl_qty = $('#xl_qty').val();
+        var allsize_qty = $('#allsize_qty').val(); 
+        $.ajax({
+          url: "{!! url('add_variant') !!}",
+          data: {
+            size: size,
+            total: total,
+            color: color,
+            s_qty: s_qty,
+            m_qty: m_qty,
+            l_qty: l_qty,
+            xl_qty: xl_qty,
+            allsize: allsize_qty,
+            id: id
+          },
+          method:'POST',
+        }).done(function(data){
+          $('#varian_total').html("Varian produk saat ini ada <b>" + data + "</b> varian");
+        });
       });
 
       $('.active').click(function(){
@@ -185,7 +234,7 @@
                 $('#xl_qty').val(5);
                 $('#s_qty_tmp').val(5);
                 $('#allsize').prop( "checked",false);
-                $('#size').val("s,m,l,xl");
+                $('#size').val("s,m,l,xl,");
                 $('#quantity_tmp').val(20);
                 $('#quantity').html("20 pcs");
             });
@@ -208,6 +257,7 @@
             {
                 var result = parseInt($('#quantity_tmp').val()) - parseInt($('#s_qty').val()) ;
                 var show = result.toString();
+                var size = $('#size').val().replace("allsize","");
                 $('#automatic').prop("checked",false);
                 $('#costumize').prop("checked",true);
                 $('#allsize').prop("checked",false);
@@ -215,20 +265,25 @@
                 $('#allsize_qty').val(0);
                 if ($('#s').prop( "checked" )) {
                   $('#s_qty').attr('disabled',false);
+
                   $(function() {
-              $('#s_qty').blur(function (){
-              quantity();
-               });
-            });
+                  $('#s_qty').blur(function (){
+                  quantity();
+                  $('#size').val(size.concat("s,"));
+                  });
+                  console.log(s_qty);
+                });
                 }else{ 
                   $('#s_qty').attr('disabled',true);
                   $('#s_qty').val(0);
                   if (result = '') {
                     $('#quantity').html("0 pcs");   
-                    $('#quantity_tmp').val(0);  
+                    $('#quantity_tmp').val(0); 
+                    $('#size').val(size.replace("s,",""));
                   }else{
                     $('#quantity').html(show + " pcs");
                     $('#quantity_tmp').val(show);
+                    $('#size').val(size.replace("s,",""));
                   }
                 }
             });
@@ -237,6 +292,7 @@
             {
                 var result = parseInt($('#quantity_tmp').val()) - parseInt($('#m_qty').val()) ;
                 var show = result.toString();
+                var size = $('#size').val().replace("allsize","");;
                 $('#automatic').prop("checked",false);
                 $('#costumize').prop("checked",true);
                 $('#allsize').prop("checked",false);
@@ -247,6 +303,7 @@
                   $(function() {
               $('#m_qty').blur(function (){
               quantity();
+              $('#size').val(size.concat("m,"));
                });
             });
                 }else{ 
@@ -254,10 +311,12 @@
                   $('#m_qty').val(0);
                   if (result = '') {
                     $('#quantity').html("0 pcs"); 
-                    $('#quantity_tmp').val(0);  
+                    $('#quantity_tmp').val(0);
+                    $('#size').val(size.replace("m,",""));   
                   }else{
                     $('#quantity').html(show + " pcs");
                     $('#quantity_tmp').val(show);
+                    $('#size').val(size.replace("m,","")); 
                   }
                 }
             });
@@ -266,6 +325,7 @@
             {
                 var result = parseInt($('#quantity_tmp').val()) - parseInt($('#l_qty').val()) ;
                 var show = result.toString();
+                var size = $('#size').val().replace("allsize","");;
                 $('#automatic').prop("checked",false);
                 $('#costumize').prop("checked",true);
                 $('#allsize').prop("checked",false);
@@ -276,6 +336,7 @@
                   $(function() {
               $('#l_qty').blur(function (){
               quantity();
+              $('#size').val(size.concat("l,"));
                });
             });
                 }else{ 
@@ -284,9 +345,11 @@
                   if (result = '') {
                     $('#quantity').html("0 pcs");  
                     $('#quantity_tmp').val(0);
+                    $('#size').val(size.replace("l,","")); 
                   }else{
                     $('#quantity').html(show + " pcs");
                     $('#quantity_tmp').val(show);
+                    $('#size').val(size.replace("l,","")); 
                   }
                 }
             });
@@ -295,6 +358,7 @@
             {
                 var result = parseInt($('#quantity_tmp').val()) - parseInt($('#xl_qty').val()) ;
                 var show = result.toString();
+                var size = $('#size').val().replace("allsize","");;
                 $('#automatic').prop("checked",false);
                 $('#costumize').prop("checked",true);
                 $('#allsize').prop("checked",false);
@@ -305,6 +369,7 @@
                   $(function() {
               $('#xl_qty').blur(function (){
               quantity();
+              $('#size').val(size.concat("xl,"));
                });
             });
                 }else{ 
@@ -313,9 +378,11 @@
                   if (result = '') {
                     $('#quantity').html("0 pcs"); 
                     $('#quantity_tmp').val(0);
+                    $('#size').val(size.replace("xl,","")); 
                   }else{
                     $('#quantity').html(show + " pcs");
                     $('#quantity_tmp').val(show);
+                    $('#size').val(size.replace("xl,","")); 
                   }
                 }
             });
@@ -343,6 +410,7 @@
                   $(function() {
               $('#allsize_qty').blur(function (){
               quantity();
+              $('#size').val("allsize");
                });
             });
                 }else{ 
@@ -351,9 +419,11 @@
                   if (result = '') {
                     $('#quantity').html("0 pcs"); 
                     $('#quantity_tmp').val(0);
+                    $('#size').val(size.replace("allsize","")); 
                   }else{
                     $('#quantity').html(show + " pcs");
                     $('#quantity_tmp').val(show);
+                    $('#size').val(size.replace("allsize","")); 
                   }
                 }
             });
