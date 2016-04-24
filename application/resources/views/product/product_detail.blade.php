@@ -82,7 +82,7 @@
                                                     </div>
                                                     <div class="sku">
                                                         <i class="icon-pencil"></i>
-                                                        <span rel="tooltip" title="SKU is 0092">Berat</span>
+                                                        <span rel="tooltip" title="Berat barang">Berat</span>
                                                     </div>
                                                     <div class="categories">
                                                         <span id="weight" name="weight"><i class="icon-tags"></i><a href="#" title="Dresses">{{$data['product']->weight}} g</a></span>
@@ -95,30 +95,18 @@
                                             <div class="options">
                                                 <div class="row-fluid">
                                                     <div class="span6">
-                                                        <div class="control-group">
-                                                            <label for="product_options" class="control-label">Jumlah</label>
-                                                            <div class="controls">
-                                                                <input type="number" id="quantity" name="quantity" min="1" value="1" class="span12"></input>
-                                                            </div>
-                                                        </div>
-
-                                                        @if($data['product']->properties)
                                                         <?php  $properties = unserialize($data['product']->properties);?>
-                                                            @foreach($properties as $key => $value)
-
                                                                 <div class="control-group">
-                                                                    <label for="product_options" class="control-label">{{$key}}</label>
+                                                                    <label for="product_options" class="control-label">Warna</label>
                                                                     <div class="controls">
-                                                                        <select id="{{$key}}" name="{{$key}}" class="span12">
-                                                                            @foreach($value as $a)
-                                                                            <option name="{{$key}}" value="{{$a}}" />{{$a}}
+                                                                        <select id="warna" name="warna" class="span12">
+                                                                            @foreach($properties as $key => $value)
+                                                                            <option name="{{$key}}" value="{{$key}}" />{{$key}}
                                                                             @endforeach
                                                                         </select>
                                                                     </div>
                                                                 </div>
-                                                            @endforeach
-                                                            
-                                                        @endif
+                                                                <div id="size_product"></div>
                                                     </div>
                                                 </div>
                                             </div>
@@ -306,9 +294,42 @@
 @section('script')
 
 	<script type="text/javascript">
+    $(document).ready(function()
+    {
+        var color = $('#warna option:selected').val();
+        var product_id = $('input[name=id]').val();
+        $.ajax({
+            url: "{!! url('size_product') !!}",
+            data: {
+                id: product_id,
+                color: color
+            },
+            method:'POST',
+            success: function(data) {
+                    $('#size_product').html(data);
+                }
+        });
+
         $("#quantity").on("keydown", function(e){-1!==$.inArray(e.keyCode,[46,8,9,27,13,110,190])||/65|67|86|88/.test(e.keyCode)&&(!0===e.ctrlKey||!0===e.metaKey)||35<=e.keyCode&&40>=e.keyCode||(e.shiftKey||48>e.keyCode||57<e.keyCode)&&(96>e.keyCode||105<e.keyCode)&&e.preventDefault()});
 
 	    $("#zoom-image").elevateZoom({cursor: "pointer", galleryActiveClass: "active", scrollZoom : true , imageCrossfade: true, loadingIcon: "http://www.elevateweb.co.uk/spinner.gif"});
+
+        $('#warna').click(function(){
+            var color = $('#warna option:selected').val();
+            var product_id = $('input[name=id]').val();
+            $.ajax({
+                url: "{!! url('size_product') !!}",
+                data: {
+                    id: product_id,
+                    color: color
+                },
+                method:'POST',
+                success: function(data) {
+                    $('#size_product').html(data);
+                }
+            });
+        });
+    });
     </script>
 
     <script id="dsq-count-scr" src="//sayourshop.disqus.com/count.js" async></script>

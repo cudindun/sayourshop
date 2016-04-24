@@ -12,6 +12,7 @@ use App\Http\Libraries\Assets;
 use App\Http\Models\Category;
 use App\Http\Models\Subcategory;
 use App\Http\Models\Product;
+use App\Http\Models\Option;
 use DB, Input, Validator, Storage, File;
 
 class ProductController extends HomeController
@@ -34,6 +35,7 @@ class ProductController extends HomeController
 		$this->data['js_assets'] 	= Assets::load('js', ['jquery', 'jquery-ui', 'jquery-easing', 'bootstrap-min-lib', 'jquery-isotope', 'jquery-flexslider', 'jquery.elevatezoom', 'jquery-sharrre', 'jquery-gmap3', 'imagesloaded', 'la_boutique', 'jquery-cookie', 'jquery-parallax-lib']);
 		$this->data['slugcategory']	= Category::where('slug',$slug)->first();
 		$this->data['title']		= ucwords($this->data['slugcategory']->name);
+		$this->data['banner']		= Option::where('meta_key','banner_'.$slug)->first();
 		$this->data['product']		= Product::where('category_id', $this->data['slugcategory']->id)->orderBy('DESC')->Paginate(10);
 	    return view('main_layout')->with('data', $this->data)
 								  ->nest('content', 'product/product', array('data' => $this->data));
@@ -45,6 +47,7 @@ class ProductController extends HomeController
 		$this->data['js_assets'] 	= Assets::load('js', ['jquery', 'jquery-ui', 'jquery-easing', 'bootstrap-min-lib', 'jquery-isotope', 'jquery-flexslider', 'jquery.elevatezoom', 'jquery-sharrre', 'jquery-gmap3', 'imagesloaded', 'la_boutique', 'jquery-cookie', 'jquery-parallax-lib']);
 		$this->data['slugcategory']	= Category::where('slug',$slug)->first();
 		$this->data['slugsubcategory']	= Subcategory::where('slug',$subcategory)->first();
+		$this->data['banner']		= Option::where('meta_key','banner_'.$slug)->first();
 		$this->data['title']		= $this->data['slugsubcategory']->name;
 		$this->data['product']		= Product::where('category_id', $this->data['slugcategory']->id)->where('subcategory_id', $this->data['slugsubcategory']->id)->SimplePaginate(10);;
 	    return view('main_layout')->with('data', $this->data)
@@ -73,19 +76,14 @@ class ProductController extends HomeController
 
 	}
 
-
-	// public function save_photo() {
-	// 	for ($i=1; $i <6 ; $i++) { 
-	// 		if (Input::file('image'.$i)->isValid()) {
-	// 			$destinationPath = storage_path('app/photo_product'); // upload path
-	// 	        $extension = Input::file('image'.$i)->getClientOriginalExtension(); // getting image extension
-	// 			$fileName = 'tes-baju-t-shirt'.$i.'.'.$extension; // renameing image
-	// 	    	$tes = Input::file('image'.$i)->move($destinationPath, $fileName); // uploading file to given path
-	// 	    	$image = array(
-	// 	    		'$i' => $fileName,
-	// 	    		);
-	// 		}
-	// 	}     s
-	// }
+	public function size_product(Request $request)
+	{
+		$this->data['product'] = Product::where('id', $request->id)->first();
+		$this->data['color'] = $request->color;
+		$properties = unserialize($this->data['product']->properties);
+		$this->data['properties'] = unserialize($this->data['product']->properties);
+		$this->data['reverse'] = array_reverse($properties[$request->color]);
+		return view('product/size_content')->with('data', $this->data);
+	}
 	
 }

@@ -44,8 +44,8 @@
                                                             </h5>
                                                         </td>
                                                         <td class="col_properties text-left">
-                                                            @foreach( $product->options as $key => $value)
-                                                                {{ucwords($key.' : '.$value)}}<br>
+                                                            @foreach( $product->options as $value)
+                                                                {{ucwords($value)}}&nbsp;
                                                             @endforeach
                                                         </td>
                                                         <td class="col_remove text-right">

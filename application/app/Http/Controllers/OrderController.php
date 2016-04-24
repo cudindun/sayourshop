@@ -14,6 +14,7 @@ use App\Http\Models\District;
 use App\Http\Models\UserMeta;
 use App\Http\Models\Order;
 use App\Http\Models\OrderDetail;
+use App\Http\Models\Option;
 use DB, Cart, Sentinel, Validator;
 
 class OrderController extends HomeController
@@ -44,6 +45,7 @@ class OrderController extends HomeController
 		$this->data['address']		= UserMeta::where('user_id', Sentinel::getUser()->id)->where('meta_key','address')->first();
 		$this->data['order']		= Order::where('id', $id)->first();
 		$this->data['orderdetail']  = OrderDetail::where('order_id', $this->data['order']->id)->get();
+		$this->data['bank']			= Option::where('meta_key','bank_account')->first();
 		$this->data['title']		= 'Checkout';
 		Cart::destroy();
 	    return view('main_layout')->with('data', $this->data)
@@ -60,13 +62,9 @@ class OrderController extends HomeController
 
 	public function order(Request $request){
 		$product = Product::where('id', $request->id)->first();
-		if ($properties = unserialize($product->properties)) {
 			$properti = array();
-			foreach ($properties as $key => $value) {
-				$attr = $request->$key;
-				$properti[$key] = $attr;
-			}
-		}
+			array_push($properti, $request->size);
+			array_push($properti, $request->warna);
 		$order = array(
 			'id' => $request->id, 
 			'name' => $request->name, 

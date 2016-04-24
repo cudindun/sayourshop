@@ -12,7 +12,8 @@ use App\Http\Models\Subcategory;
 use App\Http\Models\Product;
 use App\Http\Models\ProductSize;
 use App\Http\Models\OrderDetail;
-use DB, Input, Validator, Storage, File;
+use App\Http\Models\Distributor;
+use DB, Input, Validator, Storage, File, Image;
 
 class ProductController extends Controller
 {
@@ -26,6 +27,7 @@ class ProductController extends Controller
 		$this->data['js_assets'] 	= Assets::load('js', ['jquery', 'admin_js', 'admin_bootstrap-js', 'slimscroll', 'fastclick']);
 		$this->data['title']		= 'Product | Create';
 		$this->data['category']		= Category::get();
+		$this->data['distributor']	= Distributor::get();
 		$this->data['array']		= '';
 	    return view('admin_layout')->with('data', $this->data)
 								  ->nest('content', 'admin/product_insert', array('data' => $this->data));
@@ -73,6 +75,7 @@ class ProductController extends Controller
 			$product->price = $request->price_input;
 			$product->subcategory_id = $request->subcategory;
 			$product->weight = $request->weight;
+			$product->distributor_id = $request->distributor;
 			$product->save();
 
 			$insert_id = $product->id;
@@ -80,16 +83,12 @@ class ProductController extends Controller
 			for ($i=0; $i < 5; $i++) {
 				$form = strval('tes_'.$i);
 				if (!is_null($request->$form) ) {
-					$file = array('image' => Input::file($form));
-				  	$rules = array('image' => 'mimes:jpeg,jpg,png|required|max:10000'); //mimes:jpeg,bmp,png and for max size max:10000
-				  	$validator = Validator::make($file, $rules);
-				  	if (!$validator->fails()) {
-					  	$destinationPath = storage_path('photo_product') ; // upload path
-				        $extension = Input::file($form)->getClientOriginalExtension(); // getting image extension
-						$fileName = $insert_id.'_'.$i.'.'.$extension; // renameing image
-				    	Input::file($form)->move($destinationPath, $fileName); // uploading file to given path
-				    	array_push($photos, $fileName);
-			    	}
+					$file = Input::file($form);
+				  	$img = Image::make($file);
+				  	$filename = rand().'.jpg';
+		      		$img->resize(370,474);
+	     			$img->save(storage_path('photo_product/'.$filename),50);
+			    	array_push($photos, $filename);
 				}
 			}
 			$product->image = serialize($photos);

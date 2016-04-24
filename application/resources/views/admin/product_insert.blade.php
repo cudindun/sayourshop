@@ -34,6 +34,18 @@
 			       		</div>
 		          	</div>
 
+		          	<div class="form-group">
+			            <label class="col-sm-3 control-label">Distributor<font color="red">*</font></label>				                
+			           	<div class="col-sm-6">
+				           	<select class="form-control" id="distributor" name="distributor">
+				                <option value=""> -- Distributor -- </option>
+				                @foreach($data['distributor'] as $distributor)
+				                  	<option value="{{$distributor->id}}">{{$distributor->name}}</option>
+				                @endforeach
+				            </select>
+			       		</div>
+		          	</div>
+
 				    <div class="form-group">
 			            <label class="col-sm-3 control-label">Kategori<font color="red">*</font></label>
 				        <div class="col-sm-6">
