@@ -165,4 +165,29 @@ class ProductController extends Controller
 		$product->properties = $properties;
 		$product->save();
 	}
+
+	public function delete($id)
+	{
+		$product = Product::find($id);
+		$inOrder = OrderDetail::where('product_id', $id)->count();
+
+		if(!$product){
+			return redirect('master/produk/list')->with('error', 'Data tidak ada');
+		}else{
+			if($inOrder > 0){
+				$product->status = 'unactive';
+				if($product->save()){
+					return redirect('master/produk/list')->with('success', 'Produk tidak bisa di hapus karena masih dalam order, produk sementara di non aktifkan');
+				}else{
+					return redirect('master/produk/list')->with('error', '404');					
+				}
+			}elseif($inOrder == 0){
+				if($product->delete()){
+					return redirect('master/produk/list')->with('success', 'Produk '.$product->name.' Berhasil Dihapus');
+				}else{
+					return redirect('master/produk/list')->with('error', '404');	
+				}
+			}
+		}
+	}
 }

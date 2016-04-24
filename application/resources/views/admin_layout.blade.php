@@ -1,3 +1,13 @@
+<?php 
+  use App\Http\Models\Ask;
+
+  $data['mailCount'] = Ask::where('status', 0)->count();
+  $data['mail'] = Ask::All();
+  $now = Date("Y-m-d H:i:s");
+  $now = new DateTime($now);
+
+ ?>
+
 <!DOCTYPE html>
 <html>
   <head>
@@ -52,76 +62,66 @@
               <li class="dropdown messages-menu">
                 <a href="#" class="dropdown-toggle" data-toggle="dropdown">
                   <i class="fa fa-envelope-o"></i>
-                  <span class="label label-success">4</span>
+                  <span class="label label-success"><?php if ($data['mailCount'] > 0){echo $data['mailCount'];}else{echo "";} ?></span>
                 </a>
                 <ul class="dropdown-menu">
-                  <li class="header">You have 4 messages</li>
+                  <li class="header">You have {{ $data['mailCount'] }} new messages</li>
                   <li>
                     <!-- inner menu: contains the actual data -->
                     <ul class="menu">
-                      <li><!-- start message -->
-                        <a href="#">
+                      <?php $i=0;foreach($data['mail'] as $mail): 
+                        if($i == 6 ){
+                          break;
+                        }
+                      ?>
+                      <li style="<?= $mail->status == 1 ? "background-color:rgba(0,0,0,0.05);" : "" ?>"><!-- start message -->
+                        <a href="{{ url('/master/message/view') }}/{{ $mail->id }}">
                           <div class="pull-left">
-                            {!! Html::image('assets/img/user2-160x160.jpg','user image', array('class' => 'img-circle')) !!}
+                            {!! Html::image('assets/image/user-image.png','user image', array('class' => 'img-circle')) !!}
                           </div>
                           <h4>
-                            Support Team
-                            <small><i class="fa fa-clock-o"></i> 5 mins</small>
+                            <?php // ==================== Type ======================= ?>
+                            {{ $mail->type }}
+                            <small>
+                            <i class="fa fa-clock-o"></i> 
+                              <?php // ==================== Penghitungan waktu selisih ======================= ?>
+                              <?php 
+                                $date = strtotime($mail->created_at);
+                                $date = date("Y-m-d H:i:s", $date);
+                                $date = new DateTime($date); 
+                                $diff  = $date->diff($now); 
+                                if($diff->d == 0){
+                                  if($diff->h == 0){
+                                    if($diff->m == 0){
+                                      echo 'Less than a minute ago';
+                                    }else{
+                                      echo $diff->m . ' minutes ago';
+                                    }                                   
+                                  }else{
+                                    echo $diff->h . ' hours ago';
+                                  }
+                                }else{
+                                  echo $diff->d . ' days ago';
+                                }
+                              ?>
+                              <?php // ==================== END Penghitungan waktu selisih ======================= ?>
+                            </small>
                           </h4>
-                          <p><?= var_dump(Sentinel::getUser()->status) ?></p>
+                          <?php // ==================== isi pesan small ======================= ?>
+                          <p>
+                          <?php 
+                            if (strlen($mail->ask) <= 20)
+                                echo $mail->ask;
+                            else
+                                echo substr($mail->ask, 0, 20) . '...';
+                          ?>
+                          </p>
                         </a>
                       </li><!-- end message -->
-                      <li>
-                        <a href="#">
-                          <div class="pull-left">
-                            {!! Html::image('assets/img/user3-128x128.jpg','user image', array('class' => 'img-circle')) !!}
-                          </div>
-                          <h4>
-                            AdminLTE Design Team
-                            <small><i class="fa fa-clock-o"></i> 2 hours</small>
-                          </h4>
-                          <p>Why not buy a new awesome theme?</p>
-                        </a>
-                      </li>
-                      <li>
-                        <a href="#">
-                          <div class="pull-left">
-                            {!! Html::image('assets/img/user4-128x128.jpg','user image', array('class' => 'img-circle')) !!}
-                          </div>
-                          <h4>
-                            Developers
-                            <small><i class="fa fa-clock-o"></i> Today</small>
-                          </h4>
-                          <p>Why not buy a new awesome theme?</p>
-                        </a>
-                      </li>
-                      <li>
-                        <a href="#">
-                          <div class="pull-left">
-                            {!! Html::image('assets/img/user3-128x128.jpg','user image', array('class' => 'img-circle')) !!}
-                          </div>
-                          <h4>
-                            Sales Department
-                            <small><i class="fa fa-clock-o"></i> Yesterday</small>
-                          </h4>
-                          <p>Why not buy a new awesome theme?</p>
-                        </a>
-                      </li>
-                      <li>
-                        <a href="#">
-                          <div class="pull-left">
-                            {!! Html::image('assets/img/user4-128x128.jpg','user image', array('class' => 'img-circle')) !!}
-                          </div>
-                          <h4>
-                            Reviewers
-                            <small><i class="fa fa-clock-o"></i> 2 days</small>
-                          </h4>
-                          <p>Why not buy a new awesome theme?</p>
-                        </a>
-                      </li>
+                      <?php $i++;endforeach; ?>
                     </ul>
                   </li>
-                  <li class="footer"><a href="#">See All Messages</a></li>
+                  <li class="footer"><a href="{{ url('/master/message/list') }}">See All Messages</a></li>
                 </ul>
               </li>
               <!-- Notifications: style can be found in dropdown.less -->

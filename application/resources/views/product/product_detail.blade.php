@@ -20,6 +20,7 @@
                                 </div>
                                 <div class="thumbs" id="gallery" align="center">
                                     <ul class="thumbs-list">
+                                        <?php if($image == null): else: ?>
                                         @foreach($image as $images)
                                             <li>
                                                 <a class="active" href="#" data-image="{{url('application/storage/photo_product/'.$images)}}" title="{{$data['product']->name}}" data-zoom-image="{{url('application/storage/photo_product/'.$images)}}">
@@ -27,6 +28,7 @@
                                                 </a>
                                             </li>
                                         @endforeach
+                                    <?php endif; ?>
                                     </ul>
                                 </div>
                             </div>
@@ -111,7 +113,7 @@
                                                 </div>
                                             </div>
                                             <div class="add-to-cart">
-                                                <button class="btn btn-primary btn-large" type="submit">
+                                                <button class="btn btn-primary btn-large" type="submit" id="add-to-crot">
                                                     <i class="icon-plus"></i> &nbsp; Add to cart
                                                 </button>
                                             </div>
@@ -311,7 +313,7 @@
         });
 
         $("#quantity").on("keydown", function(e){-1!==$.inArray(e.keyCode,[46,8,9,27,13,110,190])||/65|67|86|88/.test(e.keyCode)&&(!0===e.ctrlKey||!0===e.metaKey)||35<=e.keyCode&&40>=e.keyCode||(e.shiftKey||48>e.keyCode||57<e.keyCode)&&(96>e.keyCode||105<e.keyCode)&&e.preventDefault()});
-
+        
 	    $("#zoom-image").elevateZoom({cursor: "pointer", galleryActiveClass: "active", scrollZoom : true , imageCrossfade: true, loadingIcon: "http://www.elevateweb.co.uk/spinner.gif"});
 
         $('#warna').click(function(){
@@ -330,6 +332,10 @@
             });
         });
     });
+        
+        <?php if($data['product']->status == 'unactive'): ?>
+            $("#add-to-crot").prop('disabled', true);
+        <?php endif; ?>
     </script>
 
     <script id="dsq-count-scr" src="//sayourshop.disqus.com/count.js" async></script>

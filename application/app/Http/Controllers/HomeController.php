@@ -10,7 +10,9 @@ use App\Http\Libraries\Assets;
 use App\Http\Models\Category;
 use App\Http\Models\Product;
 use App\Http\Models\Option;
+use App\Http\Models\Ask;
 use DB, Cart;
+use Redirect,Validator,Session;
 
 class HomeController extends Controller
 {
@@ -36,7 +38,27 @@ class HomeController extends Controller
 	public function contact_us(Request $request)
 	{
 		if($request->all()){
-			return 'yay';
+			$rules = array(
+				'name' => 'required',
+				'email' => 'required|email',
+				'type' => 'required',
+				'message' => 'required',
+
+				);
+			$validator = Validator::make($request->all(), $rules);
+			if (!$validator->fails()) {
+				$ask = New Ask;
+				$ask->name = $request->input('name') . "(" . $request->input('email') . ")";
+				$ask->type = $request->input('type');
+				$ask->ask = $request->input('message');
+				$ask->status = 0;
+
+				if($ask->save()){
+					return redirect('contact')->with('success', 'Pesan anda telah dikirimkan, kami akan membalas pesan anda secepatnya');;
+				}
+			}else{
+				return redirect('contact')->with('error', 'harap isi semua form');
+			}
 		}else{
 			$this->data['css_assets'] 	= Assets::load('css', ['lib-bootstrap', 'style', 'font-awesome', 'font-awesome-min', 'flexslider', 'color-schemes-core', 'color-schemes-turquoise', 'jquery-parallax', 'bootstrap-responsive','font-family']);
 			$this->data['js_assets'] 	= Assets::load('js', ['jquery', 'jquery-ui', 'jquery-easing', 'bootstrap-min-lib', 'jquery-isotope', 'jquery-flexslider', 'jquery.elevatezoom', 'jquery-sharrre', 'jquery-gmap3', 'imagesloaded', 'la_boutique', 'jquery-cookie', 'jquery-parallax-lib']);
