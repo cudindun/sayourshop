@@ -313,7 +313,7 @@
             </li>
             <li class="{{ Request::segment(2) === 'setting' ? 'active' : null }} treeview">
               <a href="#">
-                <i class="fa fa-users"></i>
+                <i class="fa fa-gears"></i>
                 <span>Setting</span>
                 <i class="fa fa-angle-left pull-right"></i>
               </a>
@@ -327,7 +327,7 @@
             </li>
             <li class="{{ Request::segment(2) === 'transaction' ? 'active' : null }} treeview">
               <a href="#">
-                <i class="fa fa-users"></i>
+                <i class="fa fa-money"></i>
                 <span>Transaction</span>
                 <i class="fa fa-angle-left pull-right"></i>
               </a>
