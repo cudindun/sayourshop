@@ -174,6 +174,8 @@ class ProductController extends Controller
 		if(!$product){
 			return redirect('master/produk/list')->with('error', 'Data tidak ada');
 		}else{
+			$image = unserialize($product->image);
+			$path = base_path().'/storage/photo_product/';
 			if($inOrder > 0){
 				$product->status = 'unactive';
 				if($product->save()){
@@ -183,6 +185,11 @@ class ProductController extends Controller
 				}
 			}elseif($inOrder == 0){
 				if($product->delete()){
+					if(!$image == NULL){
+						foreach($image as $image){
+							File::delete($path.$image);
+						}
+					}
 					return redirect('master/produk/list')->with('success', 'Produk '.$product->name.' Berhasil Dihapus');
 				}else{
 					return redirect('master/produk/list')->with('error', '404');	
