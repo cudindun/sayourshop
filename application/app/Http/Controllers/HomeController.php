@@ -9,6 +9,7 @@ use App\Http\Controllers\Controller;
 use App\Http\Libraries\Assets;
 use App\Http\Models\Category;
 use App\Http\Models\Product;
+use App\Http\Models\Option;
 use App\Http\Models\Ask;
 use DB, Cart;
 use Redirect,Validator,Session;
@@ -29,6 +30,7 @@ class HomeController extends Controller
 		$this->data['js_assets'] 	= Assets::load('js', ['jquery', 'jquery-ui', 'jquery-easing', 'bootstrap-min-lib', 'jquery-isotope', 'jquery-flexslider', 'jquery.elevatezoom', 'jquery-sharrre', 'jquery-gmap3', 'imagesloaded', 'la_boutique', 'jquery-cookie', 'jquery-parallax-lib']);
 		$this->data['title']		= 'Home';
 		$this->data['product']		= Product::orderBy('created_at','DESC')->Paginate(5);
+		$this->data['banner']		= Option::where('meta_key','banner_home')->first();
 	    return view('main_layout')->with('data', $this->data)
 								  ->nest('content', 'home', array('data' => $this->data));
 	}

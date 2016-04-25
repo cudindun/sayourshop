@@ -12,6 +12,7 @@ use App\Http\Models\Ask;
 use App\Http\Models\Category;
 use App\Http\Models\Product;
 use App\Http\Models\Subcategory;
+use App\Http\Models\Distributor;
 
 use Input;
 use DB;
@@ -54,6 +55,7 @@ class AdminController extends Controller
 		$this->data['js_assets'] 	= Assets::load('js', ['jquery', 'admin_js', 'admin_bootstrap-js', 'slimscroll', 'fastclick', 'dataTables_js', 'dataTables_bootsjs']);
 		$this->data['title']		= 'Product | List';
 		$this->data['product']		= Product::orderBy('created_at','DESC')->get();
+		$this->data['distributor']	= Distributor::get();
 	    return view('admin_layout')->with('data', $this->data)
 								  ->nest('content', 'admin/product/list_produk', array('data' => $this->data));
 	}

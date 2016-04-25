@@ -318,6 +318,7 @@
                 <i class="fa fa-angle-left pull-right"></i>
               </a>
               <ul class="treeview-menu">
+                <li><a href="{{ url('banner_list') }}"><i class="fa fa-circle-o text-yellow"></i> Banner </a></li>
                 <li><a href="{{ url('/master/setting/bank_account') }}"><i class="fa fa-circle-o text-yellow"></i> Bank Account </a></li>
                 <li><a href="{{ url('/master/setting/coupon') }}"><i class="fa fa-circle-o text-yellow"></i> Coupon </a></li>
                 <li><a href="{{ url('/master/setting/category/list') }}"><i class="fa fa-circle-o text-yellow"></i> Category </a></li>

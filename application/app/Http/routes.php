@@ -51,6 +51,7 @@ Route::post('get_shipping','OrderController@get_cost');
 Route::post('cek_ongkir','OrderController@check_shipping');
 Route::get('konten_alamat','UserController@address_content');
 Route::post('shipping_new_address','OrderController@check_shipping_new');
+Route::post('size_product','ProductController@size_product');
 //END ADE
 
 //UDIN
@@ -90,6 +91,8 @@ Route::get('master/transaction/order','Admin\TransactionController@order');
 Route::get('master/transaction/pembayaran','Admin\TransactionController@payment_list');
 Route::get('master/user/list','Admin\AdminController@list_user');
 Route::get('master/produk_detail','Admin\ProductController@modal_product');
+Route::get('banner_list', 'Admin\SettingController@list_banner');
+Route::get('home_banner', 'Admin\SettingController@home_banner');
 
 //ADMIN ADD
 Route::post('master/transaction/payment','Admin\TransactionController@payment');
@@ -108,6 +111,7 @@ Route::get('master/setting/subcategory/create','Admin\SettingController@create_s
 
 Route::match(['get', 'post'],'master/distributor/create','Admin\DistributorController@create');
 Route::post('add_variant', 'Admin\ProductController@add_variant');
+Route::post('insert_banner', 'Admin\SettingController@add_home_banner');
 
 //ADMIN EDIT
 Route::match(['get', 'post'],'master/category/edit/{id}','Admin\AdminController@edit_category');
@@ -124,6 +128,7 @@ Route::get('master/subcategory/delete/{id}','Admin\AdminController@delete_subcat
 Route::get('master/setting/bank_account/{id}','Admin\SettingController@del_bank_account');
 Route::get('master/setting/coupon/{id}','Admin\CouponController@delete');
 Route::get('master/distributor/delete/{id}','Admin\DistributorController@delete');
+Route::post('delete_home_banner','Admin\SettingController@delete_home_banner');
 Route::get('master/message/delete/{id}','Admin\AdminController@delete_message');
 Route::get('master/produk/delete/{id}','Admin\ProductController@delete');
 
@@ -131,3 +136,5 @@ Route::get('master/produk/delete/{id}','Admin\ProductController@delete');
 Route::get('konten_kategori','Admin\SettingController@category_content');
 Route::post('insert_shipping','Admin\TransactionController@insert_shipping');
 Route::post('send','Admin\TransactionController@send');
+Route::get('category_banner', 'Admin\SettingController@category_banner');
+Route::post('insert_category_banner', 'Admin\SettingController@insert_category_banner');

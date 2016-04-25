@@ -39,21 +39,13 @@
         <div class="container" style="padding: 0px;">
             <div class="row">
                 <div class="span12">
-                    <div class="box" style="min-height:350px;margin-top:15px">
-                        <p><h2>SLIDER READY STOCK</h2></p>
-                        <div class="col-lg-12" id="port">
-                            <ul class="thumbs_index index parallax-layer">
-                                <li><a class="img_thumb thumb" href="#" style="background: url('http://webdev.stephband.info/jparallax/images/parallax_thumbnails/1.jpg');">item</a></li>
-                                <li><a class="img_thumb thumb" href="#" style="background: url('http://webdev.stephband.info/jparallax/images/parallax_thumbnails/2.jpg');">item</a></li>
-                                <li><a class="img_thumb thumb" href="#" style="background: url('http://webdev.stephband.info/jparallax/images/parallax_thumbnails/3.jpg');">item</a></li>
-                                <li><a class="img_thumb thumb" href="#" style="background: url('http://webdev.stephband.info/jparallax/images/parallax_thumbnails/4.jpg');">item</a></li>
-                                <li><a class="img_thumb thumb" href="#" style="background: url('http://webdev.stephband.info/jparallax/images/parallax_thumbnails/5.jpg');">item</a></li>
-                                <li><a class="img_thumb thumb" href="#" style="background: url('http://webdev.stephband.info/jparallax/images/parallax_thumbnails/6.jpg');">item</a></li>
-                                <li><a class="img_thumb thumb" href="#" style="background: url('http://webdev.stephband.info/jparallax/images/parallax_thumbnails/1.jpg');">item</a></li>
-                                <li><a class="img_thumb thumb" href="#" style="background: url('http://webdev.stephband.info/jparallax/images/parallax_thumbnails/2.jpg');">item</a></li>
-                                <li><a class="img_thumb thumb" href="#" style="background: url('http://webdev.stephband.info/jparallax/images/parallax_thumbnails/3.jpg');">item</a></li>
-                            </ul>
+                    <div style="min-height:350px;margin-top:15px">
+                        @if($data['banner'])
+                        <?php $banner = unserialize($data['banner']->meta_value);?>
+                        <div class="col-lg-12" style="padding: 0px;margin: 0px;">
+                            <img src="{{url('application/storage/photo_banner/'.$banner['banner1'])}}">
                         </div>
+                        @endif
                     </div>
                 </div>
                 <div class="span2">
@@ -103,19 +95,16 @@
                 </div>
                 <div class="span10">
                     <?php // ============================ Banner 1 ================================= ?>
-                    <div class="col-lg-6" style="margin: 0px;padding: 0px 5px 0 5px;" >
-                        <div class="box text-center" style="min-height:180px">
-                            <h2>BANNER 1</h2>
-                        </div>
+                    <div class="col-lg-6" style="margin: 0px;padding: 0px;" >
+                            <img src="{{url('application/storage/photo_banner/'.$banner['banner2'])}}">
                     </div>
                     <?php // ============================ Banner 2 ================================= ?>
-                    <div class="col-lg-6" style="margin: 0px;padding: 0px 5px 0 5px;" >
-                        <div class="box text-center" style="min-height:180px">
-                            <h2>BANNER 2</h2>
-                        </div>
+                    <div class="col-lg-6" style="margin: 0px;padding: 0px;min-height: 100px;" >
+                            <img src="{{url('application/storage/photo_banner/'.$banner['banner3'])}}">
                     </div>
                 </div>
-                <div class="span10">
+                <hr>
+                <div class="span10" style="padding-top: 10px;">
                     <!-- Products list -->
                     <div class="product-list isotope">
                     @foreach($data['product'] as $product)

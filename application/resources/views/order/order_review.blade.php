@@ -73,8 +73,8 @@
                                                         </td>
                                                         <td class="col_product">
                                                             <h5>
-                                                                @foreach( $properties = unserialize($order->properties) as $key => $value)
-                                                                    {{ucwords($key.' : '.$value)}}<br>
+                                                                @foreach( $properties = unserialize($order->properties) as $value)
+                                                                    {{ucwords($value)}}&nbsp;
                                                                 @endforeach
                                                             </h5>
                                                         </td>
@@ -85,7 +85,7 @@
                                                             <span>Rp. {{ number_format($order->product->price, 0, ",", ".") }}</span>
                                                         </td>
                                                         <td>
-                                                            <span>{{$order->product->weight*$order->quantity}} g</span>
+                                                            <span>{{number_format($order->product->weight*$order->quantity, 0, ",", ".")}} g</span>
                                                         </td>
                                                         <td>
                                                             <span>Rp. {{ number_format($order->product->price*$order->quantity, 0, ",", ".") }}</span>
@@ -110,9 +110,22 @@
                                                     <tr>
                                                         <td colspan="2">&nbsp;</td>
                                                         <td>Total Biaya</td>
-                                                        <td colspan="3">Rp. {{ number_format($data['order']->total_price, 0, ",", ".") }}</td>
+                                                        <td colspan="3"><b>Rp. {{ number_format($data['order']->total_price, 0, ",", ".") }}</b></td>
                                                     </tr>
                                             </tbody>
+                                        </table>
+                                        <table>
+                                            <tr>
+                                                        <?php 
+                                                            $bank = unserialize($data['bank']->meta_value);
+                                                        ?>
+                                                        <td width="50%">Pembayaran paling lambat <b>1x24 jam</b>. Silahkan transfer ke salah satu No. Rekening berikut</td>
+                                                        <td >
+                                                        @foreach( $bank as $key => $value)
+                                                                {{$value['bank_name']}} {{$value['bank_account']}} a.n {{$value['account_name']}}<br>
+                                                        @endforeach
+                                                        </td>
+                                                    </tr>
                                         </table>
                                     </div>
                                 </div>
