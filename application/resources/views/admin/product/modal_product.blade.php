@@ -102,8 +102,8 @@ th{
                     <td>{{$order->order->order_name}}</td>
                     <?php $property = unserialize($order->properties);?>
                     <td>
-                      @foreach($property as $size => $value)
-                        {{$size}} : {{$value}}<br>
+                      @foreach($property as $value)
+                        {{$value}}&nbsp;
                       @endforeach
                     </td>
                     <td>{{$order->quantity}}</td>

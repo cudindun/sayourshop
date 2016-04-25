@@ -52,6 +52,7 @@ Route::post('cek_ongkir','OrderController@check_shipping');
 Route::get('konten_alamat','UserController@address_content');
 Route::post('shipping_new_address','OrderController@check_shipping_new');
 Route::post('size_product','ProductController@size_product');
+Route::post('add_review','OrderController@add_review');
 //END ADE
 
 //UDIN

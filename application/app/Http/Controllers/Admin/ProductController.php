@@ -10,7 +10,6 @@ use App\Http\Libraries\Assets;
 use App\Http\Models\Category;
 use App\Http\Models\Subcategory;
 use App\Http\Models\Product;
-use App\Http\Models\ProductSize;
 use App\Http\Models\OrderDetail;
 use App\Http\Models\Distributor;
 use DB, Input, Validator, Storage, File, Image;
@@ -36,7 +35,6 @@ class ProductController extends Controller
 	public function modal_product(Request $request)
 	{
 		$this->data['product'] = Product::where('id', $request->product_id)->first();
-		$this->data['size'] = ProductSize::where('product_id', $request->product_id)->get();
 		$this->data['order']  = OrderDetail::where('product_id', $request->product_id)->orderBy('created_at','DESC')->get();
 		return view('admin/product/modal_product')->with('data', $this->data);
 	}
