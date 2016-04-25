@@ -77,11 +77,12 @@
                         <div class="price-filter">
                             <div class="box border-top">
                                 <div class="hgroup title">
-                                    <h3>Refine products</h3>
+                                    <h3>Filter products</h3>
                                 </div>
                                 <div style="margin-top:8px">
-                                    <select class="form-control" >
-                                        <option selected>Sort By</option>
+                                    <h7>Sort By : </h7>
+                                    <select class="form-control" style="margin-top:8px">
+                                        <option selected> - - - </option>
                                         <option >Name</option>
                                         <option >Price</option>
                                         <option >Category</option>
