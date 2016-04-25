@@ -295,9 +295,9 @@
 								            	<td>
 								            		<button type="submit" id="payment" name="payment" class="btn btn-mini btn-greensea" value="{{$value->no_invoice}}">Pembayaran</button>
 								            	</td>
-								            @elseif($value->order_status == 'Dikirim')
+								            @elseif($value->order_status == 'Terkirim')
 								            	<td>
-								            		<button class="btn btn-mini btn-greensea" id="review" name="review">Review</button>
+								            		<button type="button" class="btn btn-mini btn-greensea" id="review" name="{{$value->id}}" value="{{$value->no_resi}}">Review</button>
 								            	</td>
 							            	@else
 								            	<td>
@@ -358,6 +358,22 @@
                 method:'GET',
             }).done(function(data){
                 $('#district').html(data);
+            });
+        });
+
+        $('#review').click(function(){
+        	var resi = this.value;
+        	var order_id = this.name;
+        	console.log(order_id);
+        	$.ajax({
+                url: "{!! url('add_review') !!}",
+                data: {
+                	resi: resi,
+                	order_id: order_id
+                },
+                method:'POST',
+            }).done(function(data){
+                $('#modaldetail').html(data);
             });
         });
 	});

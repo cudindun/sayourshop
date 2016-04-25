@@ -127,11 +127,11 @@
                                     
                                     <div class="rating rating-4.5">
 
-                                    <i class="fa fa-heart"></i>
-                                    <i class="fa fa-heart"></i>
-                                    <i class="fa fa-heart"></i>
-                                    <i class="fa fa-heart"></i>
-                                    <i class="fa fa-heart"></i>
+                                    <i class="fa fa-star"></i>
+                                    <i class="fa fa-star"></i>
+                                    <i class="fa fa-star"></i>
+                                    <i class="fa fa-star"></i>
+                                    <i class="fa fa-star"></i>
                                     
                                     </div>
 

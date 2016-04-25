@@ -125,8 +125,8 @@ class UserController extends HomeController
 
 	public function dashboard()
 	{
-		$this->data['css_assets'] 	= Assets::load('css', ['lib-bootstrap', 'style', 'color-schemes-core', 'font-awesome', 'font-awesome-min', 'color-schemes-turquoise', 'bootstrap-responsive','font-family']);
-		$this->data['js_assets'] 	= Assets::load('js', ['jquery', 'jquery-ui', 'jquery-easing', 'bootstrap-min-lib', 'jquery-isotope', 'jquery-flexslider', 'jquery.elevatezoom', 'jquery-sharrre', 'jquery-gmap3', 'imagesloaded', 'la_boutique', 'jquery-cookie']);
+		$this->data['css_assets'] 	= Assets::load('css', ['lib-bootstrap','lib-bootstrap-min', 'style', 'color-schemes-core', 'font-awesome', 'font-awesome-min', 'color-schemes-turquoise', 'bootstrap-responsive','font-family', 'star-rating', 'star-rating-min']);
+		$this->data['js_assets'] 	= Assets::load('js', ['jquery', 'jquery-ui', 'jquery-easing', 'bootstrap-min-lib', 'jquery-isotope', 'jquery-flexslider', 'jquery.elevatezoom', 'jquery-sharrre', 'jquery-gmap3', 'imagesloaded', 'la_boutique', 'jquery-cookie','star-rating', 'star-rating-min']);
 		$this->data['title']		= 'SayourShop | My Profile';
 		$this->data['province']		= Province::get();
 		$this->data['user']			= Sentinel::getUser();

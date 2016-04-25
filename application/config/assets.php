@@ -13,6 +13,8 @@ return [
 		'font-awesome-min'			=> 'assets/font/font-awesome/css/font-awesome.min.css',
 		'font-family'				=> 'assets/css/font_family.css',
 		'datepicker'				=> 'assets/css/bootstrap-datepicker.min.css',
+		'star-rating'				=> 'assets/css/star-rating.css',
+		'star-rating-min'			=> 'assets/css/star-rating.min.css',
 
 		//LIB CSS
 		'lib-bootstrap'				=> 'assets/lib/bootstrap/css/bootstrap.css',
@@ -77,6 +79,8 @@ return [
 		'jquery-min'			=> 'assets/js/jquery.min.js',
 		'datepicker'			=> 'assets/js/bootstrap-datepicker.min.js',
 		'datepicker-locales'	=> 'assets/js/locales/bootstrap-datepicker.id.min.js',
+		'star-rating'			=> 'assets/js/star-rating.js',
+		'star-rating-min'		=> 'assets/js/star-rating.min.js',
 
 		//LIB
 		'bootstrap-lib'			=> 'assets/lib/bootstrap/js/bootstrap.js',

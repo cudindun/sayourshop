@@ -3,7 +3,7 @@
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateProductSizeTable extends Migration
+class AddEmailColumnAskTable extends Migration
 {
     /**
      * Run the migrations.
@@ -12,13 +12,8 @@ class CreateProductSizeTable extends Migration
      */
     public function up()
     {
-        Schema::create('product_size', function (Blueprint $table) {
-            $table->increments('id');
-            $table->string('product_id');
-            $table->string('size');
-            $table->integer('quantity');
-            $table->integer('sold');
-            $table->timestamps();
+        Schema::table('ask', function ($table) {
+            $table->string('email');
         });
     }
 

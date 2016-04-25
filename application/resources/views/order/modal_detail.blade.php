@@ -78,13 +78,13 @@
                   <td>{{$order->product->name}}</td>
                   <td>
                   <?php $properties = unserialize($order->properties)?>
-                  @foreach( $properties as $key => $value)
-                      {{$key}}  : {{$value}}<br>
+                  @foreach( $properties as $value)
+                      {{$value}}&nbsp;
                   @endforeach
                   </td>
                   <td>{{$order->quantity}}</td>
                   <td>Rp. {{ number_format($order->total_price, 0, ",", ".") }}</td>
-                  <td>{{$order->total_weight}} g</td>
+                  <td>{{number_format($order->total_weight, 0, ",", ".")}} g</td>
                 </tr>
                 @endforeach
               </tbody>

@@ -300,4 +300,12 @@ class OrderController extends HomeController
 		$this->data['weight']	 = $request->weight;
 		return view('check_shipping_new')->with('data', $this->data);
 	}
+
+	public function add_review(Request $request)
+	{
+		$this->data['order'] = OrderDetail::where('order_id', $request->order_id)->get();
+		// echo "<pre>";
+		// print_r($this->data['order']);
+		return view('user/modal_review')->with('data', $this->data);
+	}
 }

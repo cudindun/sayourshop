@@ -138,11 +138,11 @@
                                                         <h6>Sam Ritora</h6>
                                                         <small>08/30/2013</small>
                                                         <div class="rating rating-5">
-                                                            <i class="fa fa-heart"></i>
-                                                            <i class="fa fa-heart"></i>
-                                                            <i class="fa fa-heart"></i>
-                                                            <i class="fa fa-heart"></i>
-                                                            <i class="fa fa-heart"></i>
+                                                            <i class="fa fa-star"></i>
+                                                            <i class="fa fa-star"></i>
+                                                            <i class="fa fa-star"></i>
+                                                            <i class="fa fa-star"></i>
+                                                            <i class="fa fa-star"></i>
                                                         </div>
                                                     </div>
                                                 </div>
