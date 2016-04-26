@@ -15,7 +15,7 @@ use App\Http\Models\Province;
 use App\Http\Models\District;
 use App\Http\Models\City;
 use App\Http\Models\OrderDetail;
-use DB, Sentinel, Validator, Activation, Storage, Input, Session, Redirect, File;
+use DB, Mail, Sentinel, Validator, Activation, Storage, Input, Session, Redirect, File;
 
 class UserController extends HomeController
 {
@@ -100,7 +100,7 @@ class UserController extends HomeController
 		    	'first_name' => $request->first_name_input,
 		    	'last_name' => $request->last_name_input,
 		    	'phone' => $request->phone_input,
-		    	'status' => '1',
+		    	'status' => '0',
 		    	'permissions' => $permissions
 				);
 			if ($pass == $re_pass) {
@@ -108,10 +108,12 @@ class UserController extends HomeController
 					$register = Sentinel::register($user);
 					$new_member = User::find($register->id);
 					$new_member->phone = $request->phone_input;
-					$new_member->status = '1';
+					$new_member->status = '0';
 					$new_member->save();
 					Activation::create($register);
-					return redirect('login_form')->with('success','Pendaftaran berhasil kode aktivasi akun telah dikirimkan. Silahkan cek email Anda');
+					$getActive = Activations::where('user_id', $register->id)->first(); // get key code from activation table
+					$this->SendConfirmationEmail($request->email_input, $getActive->code, $register->id, $user); // send email, key, id, data($user) to mail
+					return redirect('login_form')->with('success','Pendaftaran berhasil kode aktivasi akun telah dikirimkan. Silahkan cek email Anda.');
 				}else{
 					return redirect('daftar')->with('error','Maaf email Anda sudah terdaftar');
 				}
@@ -374,4 +376,33 @@ class UserController extends HomeController
 
 		return view('address_content')->with('data', $this->data);
 	}
+
+	//Send Confirmation Email 
+	public function SendConfirmationEmail($email, $key, $id, $data){
+
+    	Mail::send('email.account_activation', ['key' => $key, 'id' => $id, 'data' => $data], function ($m) use ($email) {
+            $m->from('sayour@shop.com', 'sayourshop.com');
+
+            $m->to($email)->subject('SayourShop Account Activation');
+        });
+    }
+
+    public function account_activation($id, $key){
+    	$now = Date("Y-m-d H:i:s");
+    	$getActive = Activations::where('code', $key)->where('user_id', $id)->first();
+
+    	$getActive->completed = 1;
+    	$getActive->completed_at = $now;
+
+    	if($getActive->completed == 1){
+    		return redirect('login_form')->with('error', 'Akun anda sudah diaktivasi!');
+    	}else{
+	    	if($getActive->save()){
+	    		return redirect('login_form')->with('success', 'Akun berhasil di aktivasi. Anda sudah dapat login sekarang!');
+	    	}else{
+	    		return redirect('error');
+	    	}
+	    }
+
+    }
 }
