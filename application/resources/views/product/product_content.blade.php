@@ -47,17 +47,30 @@
     $('.pagination a').click(function(e){
         e.preventDefault();
         var url = $(this).attr('href');
-        var page = url.substr(-6);
         var category_id = $('#slug_category').val();
-        $.ajax({
-            url: url,
-            data: {
-                category_id: category_id
-            },
-            method:'POST',
-        }).done(function(data){
-            $('#content').html(data);
-        });
+        var subcategory_id = $('#slug_subcategory').val();
+        if (subcategory_id == undefined) {
+            $.ajax({
+                url: url,
+                data: {
+                    category_id: category_id
+                },
+                method:'POST',
+            }).done(function(data){
+                $('#content').html(data);
+            });
+        }else{
+            $.ajax({
+                url: url,
+                data: {
+                    category_id: category_id,
+                    subcategory_id: subcategory_id
+                },
+                method:'POST',
+            }).done(function(data){
+                $('#content').html(data);
+            });
+        }
     });
 
 </script>
