@@ -122,36 +122,7 @@
                                     <!-- End id="product" -->
                                     <!-- Ratings tab -->
                                     <div class="tab-pane" id="ratings">
-                                        <div class="ratings-items">
-                                            @foreach($data['review'] as $reviews)
-                                            <article class="rating-item">
-                                                <div class="row-fluid">
-                                                    <div class="span1">
-                                                        <img src="{{url('application/storage/photo_profile/'.$reviews->user->image)}}" class="gravatar" width="60px" alt="" />
-                                                    </div>
-                                                    <div class="span11">
-                                                        <h6>
-                                                            {{ucwords($reviews->user->first_name)}} {{ucwords($reviews->user->last_name)}} <small><i>({{ date_format(date_create($reviews->created_at), "d M Y")}})</i></small>
-                                                        </h6>
-                                                        <p>{{$reviews->review}}</p>
-                                                        <br>
-                                                        <div class="rating">
-                                                            <?php 
-                                                                for ($i=0; $i < $reviews->rating ; $i++) { 
-                                                            ?>
-                                                            <i class="fa fa-star" style="color: #1abc9c;"></i>
-                                                            <?php
-                                                            }
-                                                            ?>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </article>
-                                            @endforeach
-                                                    <div align="center">
-                                                        {!! $data['review']->render(); !!}    
-                                                    </div>
-                                        </div>
+                                        
                                     </div>
                                     <!-- End id="ratings" -->
                                     <!-- Ratings tab -->
@@ -281,6 +252,7 @@
     {
         var color = $('#warna option:selected').val();
         var product_id = $('input[name=id]').val();
+
         $.ajax({
             url: "{!! url('size_product') !!}",
             data: {
@@ -293,9 +265,14 @@
                 }
         });
 
-        $('.pagination').click(function(){
-            e.preventDefault;
-            // location.reload;
+        $.ajax({
+            url: "{!! url('review_content') !!}",
+            data: {
+                product_id: product_id
+            },
+            method:'POST',
+        }).done(function(data){
+            $('#ratings').html(data);
         });
 
         $("#quantity").on("keydown", function(e){-1!==$.inArray(e.keyCode,[46,8,9,27,13,110,190])||/65|67|86|88/.test(e.keyCode)&&(!0===e.ctrlKey||!0===e.metaKey)||35<=e.keyCode&&40>=e.keyCode||(e.shiftKey||48>e.keyCode||57<e.keyCode)&&(96>e.keyCode||105<e.keyCode)&&e.preventDefault()});

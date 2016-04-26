@@ -55,6 +55,7 @@ Route::post('size_product','ProductController@size_product');
 Route::post('modal_review','OrderController@modal_review');
 Route::post('add_review','OrderController@add_review');
 Route::post('product_content','ProductController@product_content');
+Route::post('review_content','ProductController@review_content');
 //END ADE
 
 //UDIN

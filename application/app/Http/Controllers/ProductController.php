@@ -61,7 +61,7 @@ class ProductController extends HomeController
 		$this->data['js_assets'] 	= Assets::load('js', ['jquery', 'jquery-ui', 'jquery-easing', 'bootstrap-min-lib', 'jquery-isotope', 'jquery-flexslider', 'jquery.elevatezoom', 'jquery-sharrre', 'jquery-gmap3', 'imagesloaded', 'la_boutique', 'jquery-cookie', 'jquery-parallax-lib']);
 		$this->data['title']		= 'Produk';
 		$this->data['count']		= Reviews::where('product_id',$id)->get();
-		$this->data['review']		= Reviews::where('product_id',$id)->Paginate(5);
+		
 		$this->data['product']		= Product::where('id',$id)->first();
 	    return view('main_layout')->with('data', $this->data)
 								  ->nest('content', 'product/product_detail', array('data' => $this->data));
@@ -93,6 +93,12 @@ class ProductController extends HomeController
 	{
 		$this->data['product']		= Product::where('category_id', $request->category_id)->orderBy('DESC')->Paginate(20);
 		return view('product/product_content')->with('data', $this->data);
+	}
+
+	public function review_content(Request $request)
+	{
+		$this->data['review']		= Reviews::where('product_id',$request->product_id)->Paginate(5);
+		return view('product/review_content')->with('data', $this->data);
 	}
 	
 }
