@@ -49,7 +49,7 @@
                                     <li>
                                          <a href="#ratings" data-toggle="tab">
                                             <i class="icon-heart icon-large"></i>
-                                            <span class="hidden-phone">Ratings</span>
+                                            <span class="hidden-phone">Testimonial ({{count($data['count'])}})</span>
                                         </a>
                                     </li>
                                     <li>
@@ -122,33 +122,7 @@
                                     <!-- End id="product" -->
                                     <!-- Ratings tab -->
                                     <div class="tab-pane" id="ratings">
-                                        <div class="ratings-items">
-                                            <article class="rating-item">
-                                                <div class="row-fluid">
-                                                    <div class="span9">
-                                                        <h5>Shaped for crush</h5>
-                                                        <p>
-                                                            I hope they release some more colours of this dress. It feels great and looks sexier.<br />
-                                                            <br />
-                                                            I love it!
-                                                        </p>
-                                                    </div>
-                                                    <div class="span3">
-                                                        <img src="{{asset('assets/image/thumbnails/avatar.png')}}" class="gravatar" alt="" />
-                                                        <h6>Sam Ritora</h6>
-                                                        <small>08/30/2013</small>
-                                                        <div class="rating rating-5">
-                                                            <i class="fa fa-star"></i>
-                                                            <i class="fa fa-star"></i>
-                                                            <i class="fa fa-star"></i>
-                                                            <i class="fa fa-star"></i>
-                                                            <i class="fa fa-star"></i>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </article>
-                                            <hr />
-                                        </div>
+                                        
                                     </div>
                                     <!-- End id="ratings" -->
                                     <!-- Ratings tab -->
@@ -192,28 +166,6 @@
             </div>
         </section>
         <!-- End class="product-info" -->
-        <!-- Product Reviews -->
-        <section class="product-reviews">
-            <div class="container">
-                <div class="span8 offset2">
-                    <h5>Tell us why you <span class="script">love <em class="icon-heart"></em></span> this product</h5>
-                    <!-- Facebook comments -->
-                    <div id="fb-root"></div>
-                    <script>(function(d, s, id) {
-                        var js, fjs = d.getElementsByTagName(s)[0];
-                        if (d.getElementById(id)) return;
-                        js = d.createElement(s); js.id = id;
-                        js.src = "//connect.facebook.net/id_ID/sdk.js#xfbml=1&version=v2.5";
-                        fjs.parentNode.insertBefore(js, fjs);
-                    }(document, 'script', 'facebook-jssdk'));</script>
-
-                    <div class="fb-comments" data-width="730" data-href="https://developers.facebook.com/docs/plugins/comments#configurator" data-numposts="5"></div>
-                    <!-- <div class="fb-comments" data-width="730" data-href="http://la-boutique.twindots.com/product/chaser-overalls" data-num-posts="10"></div> -->
-                                <!-- End Facebook comments -->     
-                </div>
-            </div>      
-        </section>
-        <!-- End class="product-reviews" -->
         <!-- Related products -->
         <section class="product-related">
             <div class="container" style="padding: 0px;">
@@ -300,6 +252,7 @@
     {
         var color = $('#warna option:selected').val();
         var product_id = $('input[name=id]').val();
+
         $.ajax({
             url: "{!! url('size_product') !!}",
             data: {
@@ -310,6 +263,16 @@
             success: function(data) {
                     $('#size_product').html(data);
                 }
+        });
+
+        $.ajax({
+            url: "{!! url('review_content') !!}",
+            data: {
+                product_id: product_id
+            },
+            method:'POST',
+        }).done(function(data){
+            $('#ratings').html(data);
         });
 
         $("#quantity").on("keydown", function(e){-1!==$.inArray(e.keyCode,[46,8,9,27,13,110,190])||/65|67|86|88/.test(e.keyCode)&&(!0===e.ctrlKey||!0===e.metaKey)||35<=e.keyCode&&40>=e.keyCode||(e.shiftKey||48>e.keyCode||57<e.keyCode)&&(96>e.keyCode||105<e.keyCode)&&e.preventDefault()});

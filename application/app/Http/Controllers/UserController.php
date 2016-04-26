@@ -149,7 +149,7 @@ class UserController extends HomeController
 	  	else {
 		    if (Input::file('image')->isValid()) {
 		    	File::delete('photo_profile/'.$id->image);//hapus foto lama
-				$destinationPath = 'photo_profile'; // upload path
+				$destinationPath = storage_path('photo_profile'); // upload path
 		        $extension = Input::file('image')->getClientOriginalExtension(); // getting image extension
 				$fileName = $id->id.'.'.$extension; // renameing image
 				//insert DB

@@ -94,6 +94,7 @@
                     </aside>
                      <!-- End sidebar -->
                 </div>
+                <input type="hidden" value="{{$data['slugcategory']->id}}" id="slug_category"></input>
                 <div class="span10">
                     <?php // ============================ Banner 1 ================================= ?>
                     <div class="col-lg-6" style="margin: 0px;padding: 0px;" >
@@ -151,21 +152,27 @@
 
                     <!-- End "Load More" Button -->
                 </div>
+                <div id="content"></div>
             </div>
         </div>
     </section>
 </section>
 <?php //Java script for this page  ?>
 @section('script')
-    <script type="text/javascript">
-      jQuery(document).ready(function(){
-        // Declare parallax on layers
-        jQuery('.parallax-layer').parallax({
-          mouseport: jQuery("#port"),
-          yparallax: false
+<script type="text/javascript">
+    jQuery(document).ready(function(){
+        var category_id = $('#slug_category').val();
+        $.ajax({
+            url: "{!! url('product_content') !!}",
+            data: {
+                category_id: category_id
+            },
+            method:'POST',
+        }).done(function(data){
+            $('#content').html(data);
         });
       });
-
-    </script>
+ 
+</script>
 
 @stop
