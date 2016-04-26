@@ -144,3 +144,6 @@ Route::post('insert_shipping','Admin\TransactionController@insert_shipping');
 Route::post('send','Admin\TransactionController@send');
 Route::get('category_banner', 'Admin\SettingController@category_banner');
 Route::post('insert_category_banner', 'Admin\SettingController@insert_category_banner');
+
+//email
+Route::get('account-activation/{id}&key={code}', 'UserController@account_activation');

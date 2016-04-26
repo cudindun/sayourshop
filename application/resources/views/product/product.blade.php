@@ -1,6 +1,5 @@
 <style>
         .thumb{display:inline-block;vertical-align:baseline;overflow:hidden;padding-top:64px;height:0;width:64px;-webkit-background-size:cover;-moz-background-size:cover;-o-background-size:cover;background-size:cover;background-position:0 0;background-repeat:no-repeat;text-decoration:none;color:inherit}
-
         #port {
             margin: 0.58em 0px;
             overflow: hidden;
@@ -9,7 +8,6 @@
             height: 168px;
             padding: 24px 64px;
         }
-
         .thumbs_index {
             padding: 0 12px;
             /* initial position */
@@ -26,7 +24,6 @@
         .img_thumb {
           padding-top: 120px;
           width: 192px;
-
           -webkit-box-shadow: 0 4px 24px rgba(0, 0, 0, 0.4);
              -moz-box-shadow: 0 4px 24px rgba(0, 0, 0, 0.4);
                   box-shadow: 0 4px 24px rgba(0, 0, 0, 0.4);
