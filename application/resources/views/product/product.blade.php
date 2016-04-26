@@ -1,6 +1,5 @@
 <style>
         .thumb{display:inline-block;vertical-align:baseline;overflow:hidden;padding-top:64px;height:0;width:64px;-webkit-background-size:cover;-moz-background-size:cover;-o-background-size:cover;background-size:cover;background-position:0 0;background-repeat:no-repeat;text-decoration:none;color:inherit}
-
         #port {
             margin: 0.58em 0px;
             overflow: hidden;
@@ -9,7 +8,6 @@
             height: 168px;
             padding: 24px 64px;
         }
-
         .thumbs_index {
             padding: 0 12px;
             /* initial position */
@@ -26,7 +24,6 @@
         .img_thumb {
           padding-top: 120px;
           width: 192px;
-
           -webkit-box-shadow: 0 4px 24px rgba(0, 0, 0, 0.4);
              -moz-box-shadow: 0 4px 24px rgba(0, 0, 0, 0.4);
                   box-shadow: 0 4px 24px rgba(0, 0, 0, 0.4);
@@ -81,11 +78,11 @@
                                 </div>
                                 <div style="margin-top:8px">
                                     <h7>Sort By : </h7>
-                                    <select id="sort-by" class="form-control" style="margin-top:8px">
+                                    <select class="form-control" style="margin-top:8px">
                                         <option selected> - - - </option>
-                                        <option value="name">Name</option>
-                                        <option value="price">Price</option>
-                                        <option value="category">Category</option>
+                                        <option >Name</option>
+                                        <option >Price</option>
+                                        <option >Category</option>
                                     </select>
                                 </div>
                             </div>
@@ -106,52 +103,6 @@
                     </div>
                 </div>
                 <hr>
-                <div class="span10" style="padding-top: 10px;">
-                    <!-- Products list -->
-                    <div class="product-list isotope" id="product-list">
-                    @foreach($data['product'] as $product)
-                        <?php
-                            $image = unserialize($product->image);
-                        ?>
-                        <li class="standard" style="width: 220px;">
-                            <a href="{{url('produk/'.$product->category->slug.'/'.$product->subcategory->slug.'/'.$product->id)}}" title="Lisette Dress">
-                                <div class="image img-responsive">
-                                    <img height="220px" src="{{url('application/storage/photo_product/'.$image[0])}}" class="primary">
-                                    <?php if(count($image) == 1): else: ?>
-                                        <img height="220px" src="{{url('application/storage/photo_product/'.$image[1])}}" class="secondary">
-                                    <?php endif; ?>
-                                </div>
-                                <div class="title">
-                                    <div class="prices">
-                                        <span class="price" data-type="price">Rp. {{ number_format($product->price, 0, ",", ".") }}</span>
-                                    </div>
-                                    <h3 id="nama">{{ucwords($product->name)}}</h3>
-                                    
-                                    <div class="rating rating-4.5">
-
-                                    <i class="fa fa-star"></i>
-                                    <i class="fa fa-star"></i>
-                                    <i class="fa fa-star"></i>
-                                    <i class="fa fa-star"></i>
-                                    <i class="fa fa-star"></i>
-                                    
-                                    </div>
-
-                                </div>
-                            </a>
-                        </li>
-
-                    @endforeach
-                    </div>
-                    <!-- End class="product-list isotope" --> 
-                    <!-- "Load More" Button -->
-                    <?php $products = $data['product']?>
-                    <div align="center">
-                        {!! $products->render(); !!}    
-                    </div>  
-
-                    <!-- End "Load More" Button -->
-                </div>
                 <div id="content"></div>
             </div>
         </div>
@@ -171,8 +122,7 @@
         }).done(function(data){
             $('#content').html(data);
         });
-      });
- 
+    });  
 </script>
 
 @stop
