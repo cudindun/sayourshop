@@ -13,6 +13,7 @@ use App\Http\Models\Category;
 use App\Http\Models\Subcategory;
 use App\Http\Models\Product;
 use App\Http\Models\Option;
+use App\Http\Models\Reviews;
 use DB, Input, Validator, Storage, File;
 
 class ProductController extends HomeController
@@ -36,9 +37,9 @@ class ProductController extends HomeController
 		$this->data['slugcategory']	= Category::where('slug',$slug)->first();
 		$this->data['title']		= ucwords($this->data['slugcategory']->name);
 		$this->data['banner']		= Option::where('meta_key','banner_'.$slug)->first();
-		$this->data['product']		= Product::where('category_id', $this->data['slugcategory']->id)->orderBy('DESC')->Paginate(10);
 	    return view('main_layout')->with('data', $this->data)
 								  ->nest('content', 'product/product', array('data' => $this->data));
+
 	}
 
 	public function subproduct($slug, $subcategory)
@@ -59,6 +60,8 @@ class ProductController extends HomeController
 		$this->data['css_assets'] 	= Assets::load('css', ['lib-bootstrap', 'font-awesome', 'font-awesome-min', 'flexslider', 'color-schemes-core', 'color-schemes-turquoise', 'bootstrap-responsive','font-family']);
 		$this->data['js_assets'] 	= Assets::load('js', ['jquery', 'jquery-ui', 'jquery-easing', 'bootstrap-min-lib', 'jquery-isotope', 'jquery-flexslider', 'jquery.elevatezoom', 'jquery-sharrre', 'jquery-gmap3', 'imagesloaded', 'la_boutique', 'jquery-cookie', 'jquery-parallax-lib']);
 		$this->data['title']		= 'Produk';
+		$this->data['count']		= Reviews::where('product_id',$id)->get();
+		$this->data['review']		= Reviews::where('product_id',$id)->Paginate(5);
 		$this->data['product']		= Product::where('id',$id)->first();
 	    return view('main_layout')->with('data', $this->data)
 								  ->nest('content', 'product/product_detail', array('data' => $this->data));
@@ -84,6 +87,12 @@ class ProductController extends HomeController
 		$this->data['properties'] = unserialize($this->data['product']->properties);
 		$this->data['reverse'] = array_reverse($properties[$request->color]);
 		return view('product/size_content')->with('data', $this->data);
+	}
+
+	public function product_content(Request $request)
+	{
+		$this->data['product']		= Product::where('category_id', $request->category_id)->orderBy('DESC')->Paginate(20);
+		return view('product/product_content')->with('data', $this->data);
 	}
 	
 }

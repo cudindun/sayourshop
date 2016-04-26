@@ -15,6 +15,7 @@ use App\Http\Models\UserMeta;
 use App\Http\Models\Order;
 use App\Http\Models\OrderDetail;
 use App\Http\Models\Option;
+use App\Http\Models\Reviews;
 use DB, Cart, Sentinel, Validator;
 
 class OrderController extends HomeController
@@ -73,8 +74,6 @@ class OrderController extends HomeController
 			'options' => $properti
 			);
 		Cart::add($order);
-		// echo "<pre>";
-		// print_r(Cart::content());
 		return redirect('detail/'.$request->id)->with('success', 'Barang telah ditambahkan ke dalam keranjang');
 	}
 
@@ -301,11 +300,32 @@ class OrderController extends HomeController
 		return view('check_shipping_new')->with('data', $this->data);
 	}
 
+	public function modal_review(Request $request)
+	{
+		$this->data['order'] = OrderDetail::where('order_id', $request->order_id)->groupby('product_id')->get();
+		return view('user/modal_review')->with('data', $this->data);
+	}
+
 	public function add_review(Request $request)
 	{
-		$this->data['order'] = OrderDetail::where('order_id', $request->order_id)->get();
-		// echo "<pre>";
-		// print_r($this->data['order']);
-		return view('user/modal_review')->with('data', $this->data);
+		$product = Product::where('id', $request->product_id)->first();
+
+		$orderdetail = OrderDetail::where('order_id', $request->order_id)->where('product_id', $request->product_id)->get();
+		foreach ($orderdetail as $value) {
+			$value->review = 'reviewed';
+			$value->save();
+		}
+
+		$review = new Reviews;
+		$review->user_id = Sentinel::getUser()->id;
+		$review->product_id = $product->id;
+		$review->rating = $request->rating;
+		$review->review = $request->review;
+		$review->status = 'publish';
+		$review->save();
+
+		$product->rating += $request->rating;
+		$product->save();
+
 	}
 }

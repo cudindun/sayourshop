@@ -366,7 +366,7 @@
         	var order_id = this.name;
         	console.log(order_id);
         	$.ajax({
-                url: "{!! url('add_review') !!}",
+                url: "{!! url('modal_review') !!}",
                 data: {
                 	resi: resi,
                 	order_id: order_id
