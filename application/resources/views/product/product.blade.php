@@ -81,11 +81,11 @@
                                 </div>
                                 <div style="margin-top:8px">
                                     <h7>Sort By : </h7>
-                                    <select class="form-control" style="margin-top:8px">
+                                    <select id="sort-by" class="form-control" style="margin-top:8px">
                                         <option selected> - - - </option>
-                                        <option >Name</option>
-                                        <option >Price</option>
-                                        <option >Category</option>
+                                        <option value="name">Name</option>
+                                        <option value="price">Price</option>
+                                        <option value="category">Category</option>
                                     </select>
                                 </div>
                             </div>
@@ -107,12 +107,12 @@
                 <hr>
                 <div class="span10" style="padding-top: 10px;">
                     <!-- Products list -->
-                    <div class="product-list isotope">
+                    <div class="product-list isotope" id="product-list">
                     @foreach($data['product'] as $product)
                         <?php
                             $image = unserialize($product->image);
                         ?>
-                        <li class="standard" data-price="28" style="width: 220px;">
+                        <li class="standard" style="width: 220px;">
                             <a href="{{url('produk/'.$product->category->slug.'/'.$product->subcategory->slug.'/'.$product->id)}}" title="Lisette Dress">
                                 <div class="image img-responsive">
                                     <img height="220px" src="{{url('application/storage/photo_product/'.$image[0])}}" class="primary">
@@ -121,10 +121,10 @@
                                     <?php endif; ?>
                                 </div>
                                 <div class="title">
-                                <div class="prices">
-                                        <span class="price">Rp. {{ number_format($product->price, 0, ",", ".") }}</span>
+                                    <div class="prices">
+                                        <span class="price" data-type="price">Rp. {{ number_format($product->price, 0, ",", ".") }}</span>
                                     </div>
-                                    <h3>{{ucwords($product->name)}}</h3>
+                                    <h3 id="nama">{{ucwords($product->name)}}</h3>
                                     
                                     <div class="rating rating-4.5">
 
@@ -165,6 +165,7 @@
           yparallax: false
         });
       });
+
     </script>
 
 @stop
