@@ -142,7 +142,7 @@
                         
             <div class="col-lg-2">
                 <!-- Support -->
-                <div class="support">
+                <div class="support" style="min-height:200px">
                     <h6>Support</h6>
 
                     <div class="links">
@@ -150,26 +150,17 @@
                             <a href="about-us.html" title="About us" class="title">About us</a>
                         </li>
                         <li>
-                            <a href="typography.html" title="Typography" class="title">Typography</a>
-                        </li>
-                        <li>
-                            <a href="retina-ready-icons.html" title="Retina-ready icons" class="title">Retina-ready icons</a>
-                        </li>
-                        <li>
-                            <a href="buttons.html" title="Buttons" class="title">Buttons</a>
-                        </li>
-                        <li>
-                            <a href="elements.html" title="Elements" class="title">Elements</a>
-                        </li>
-                        <li>
-                            <a href="grids.html" title="Grids" class="title">Grids</a>
-                        </li>
-                        <li>
-                            <a href="store-locator.html" title="Store locator" class="title">Store locator</a>
-                        </li>
-                        <li>
                             <a href="{{url('contact')}}" title="Contact us" class="title">Contact us</a>
-                        </li>                                           
+                        </li> 
+                        <li>
+                            <a href="{{url('contact')}}" title="Contact us" class="title">Forgot Password</a>
+                        </li>
+                        <li>
+                            <a href="{{url('contact')}}" title="Contact us" class="title">Check Order</a>
+                        </li>                                         
+                        <li>
+                            <a href="typography.html" title="Typography" class="title">Confirm Payment</a>
+                        </li>
                     </div>
                 </div>
                 <!-- End class="support" -->
@@ -199,16 +190,35 @@
             <div class="col-lg-2">
                 
                 <!-- Categories -->
-                <div class="categories">
+                <div class="categories" style="min-height:200px">
                     <h6>Categories</h6>
 
-                    <div class="links">
-                        <li>
-                            <a href="category.html" title="Mens">Mens</a>
-                        </li>
-                        <li>
-                            <a href="category.html" title="Womens">Womens</a>
-                        </li>
+                    <div class="list-chevron links">
+                        <?php
+                            $total_app = count($data['category']);
+
+                            for ($i=0; $i < $total_app ; $i++) { 
+                            ?>
+                                <li>
+                                    <a href="{{ url('produk/'.$data['category'][$i]->slug) }}">
+                                        {{$data['category'][$i]->name}}
+                                    </a>
+                                    @if($data['category'][$i]->subcategories == "1")
+                                    <?php $tes=$data['category'][$i]->subcategory; $category=$data['category'][$i]->slug;?>
+                                        <ul class="dropdown-menu">
+                                            @foreach($tes as $key)
+                                            <li>
+                                                <a href="{{ url('produk/'.$category.'/'.$key->slug)}}" title="Shoes">
+                                                       {{ucwords($key->subname)}}           
+                                                </a>
+                                            </li>
+                                            @endforeach
+                                        </ul>
+                                    @endif
+                                </li>
+                            <?php
+                            }
+                        ?>
                     </div>
                 </div>
                 <!-- End class="categories" -->
@@ -219,48 +229,45 @@
                 <div class="confidence">
                     <h6>Pay with confidence</h6>
 
-                    {!! Html::image('assets/image/stripe.png') !!}
+                    {!! Html::image('assets/image/payment_image/bca500.png', '', array('style' => 'width:150px')) !!}
+                    {!! Html::image('assets/image/payment_image/bni300x200.png', '', array('style' => 'width:150px')) !!}
                 </div>
                 <!-- End class="confidence" -->
             </div>
 
             <div class="col-lg-4">
-                <h6>From the blog</h6>
+                <div class="faq" style="min-height:200px">
+                    <h6>FAQ</h6>
 
-                <div class="list-chevron links">
-                    <li>
-                        <a href="blog-post.html">Article with video</a>
-                        <small>05/01/2013</small>
-                    </li>
-                    <li>
-                        <a href="blog-post.html">Article with images</a>
-                        <small>03/14/2013</small>
-                    </li>
-                    <li>
-                        <a href="blog-post.html">Article with style!</a>
-                        <small>08/31/2013</small>
-                    </li>
+                    <div class="links">
+                        <li>
+                            <a href="about-us.html" title="About us" class="title">All Help</a>
+                        </li>                                        
+                    </div>
                 </div>
             </div>
+
 
             <div class="col-lg-4">              
 
                 <!-- Newsletter subscription -->
-                <div class="newsletter">
-                    <h6>Newsletter subscription</h6>                                        
-                </div>
-
-                <form class="form-horizontal" onsubmit="$('#newsletter_subscribe').modal('show'); return false;" enctype="multipart/form-data" action="/" method="post">
-                    <div class="input-group">
-                        <input type="text" class="form-control" id="exampleInputName2" placeholder="Search..." >
-                        <span class="input-group-btn">
-                            <button class="btn btn-default" type="button" style="height:34px"><span class="glyphicon glyphicon-search" aria-hidden="true"></span></button>
-                        </span>
+                <div style="min-height:200px">
+                    <div class="newsletter">
+                        <h6>Newsletter subscription</h6>                                        
                     </div>
-                </form>
 
-                <div class="newsletter">
-                    <p style="margin-top:20px">Sign up to receive our latest news and updates direct to your inbox</p>
+                    <form class="form-horizontal" onsubmit="$('#newsletter_subscribe').modal('show'); return false;" enctype="multipart/form-data" action="/" method="post">
+                        <div class="input-group">
+                            <input type="text" class="form-control" id="exampleInputName2" placeholder="Search..." >
+                            <span class="input-group-btn">
+                                <button class="btn btn-default" type="button" style="height:34px"><span class="glyphicon glyphicon-search" aria-hidden="true"></span></button>
+                            </span>
+                        </div>
+                    </form>
+
+                    <div class="newsletter">
+                        <p style="margin-top:20px">Sign up to receive our latest news and updates direct to your inbox</p>
+                    </div>
                 </div>
                 <!-- End class="newsletter" -->
                 
@@ -281,12 +288,17 @@
                         </li>
 
                         <li>
-                            <a class="pinterest" href="#" title="Pinterest">Pinterest</a>                               
+                            <a class="youtube" href="#" title="YouTube">YouTube</a>                             
                         </li>
 
                         <li>
-                            <a class="youtube" href="#" title="YouTube">YouTube</a>                             
+                            <a class="googleplus" href="#" title="Google+">Google+</a>                              
                         </li>
+                        <?php /*
+                        <li>
+                            <a class="pinterest" href="#" title="Pinterest">Pinterest</a>                               
+                        </li>
+
 
                         <li>
                             <a class="vimeo" href="#" title="Vimeo">Vimeo</a>                               
@@ -295,10 +307,7 @@
                         <li>
                             <a class="flickr" href="#" title="Flickr">Flickr</a>                                
                         </li>
-
-                        <li>
-                            <a class="googleplus" href="#" title="Google+">Google+</a>                              
-                        </li>
+                
 
                         <li>
                             <a class="dribbble" href="#" title="Dribbble">Dribbble</a>                              
@@ -315,7 +324,7 @@
                         <li>
                             <a class="linkedin" href="#" title="LinkedIn">LinkedIn</a>                              
                         </li>
-
+                         */ ?>
                         <li>
                             <a class="instagram" href="#" title="Instagram">Instagram</a>                               
                         </li>
