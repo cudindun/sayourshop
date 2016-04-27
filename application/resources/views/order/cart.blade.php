@@ -197,8 +197,8 @@
                                         <input type="hidden" id="properties_{{$product->rowid}}" name="properties_{{$product->rowid}}" value="{{serialize($properties)}}"></input>
                                     @endforeach
                                     <input type="hidden" class="form-control" id="coupon_code" name="coupon_code" value="{{session('coupon')}}">
-                                    <input type="hidden" class="form-control" value="{{session('discount')}}" id="discount" name="discount">
-                                    <input type="hidden" class="form-control" id="shipping_price_new" name="shipping_price_new">
+                                    <input type="text" class="form-control" value="{{session('discount')}}" id="discount" name="discount">
+                                    <input type="text" class="form-control" id="shipping_price_new" name="shipping_price_new">
                                     <input type="hidden" class="form-control" value="{{Cart::total()}}" id="cart_total_new" name="cart_total_new">
                                     <input type="hidden" class="form-control" value="" id="courier_check_new" name="courier_check_new">
                                     <input type="hidden" class="form-control" value="{{$data['weight']}}" id="weight_new" name="weight_new">
@@ -228,9 +228,10 @@
                             
                             @if(session('discount'))
                                 <li>Diskon: <strong>- Rp. {{ number_format(session('discount'), 0, ",", ".") }}</strong></li>
-                                <li class="important">Total: <strong>Rp. {{ number_format(Cart::total()-session('discount'), 0, ",", ".") }}</strong></li>
+                               <!--  <li class="important">Total: <strong>Rp. {{ number_format(Cart::total()-session('discount'), 0, ",", ".") }}</strong></li> -->
                             @else
                                 <li>Diskon: <strong>Rp. {{ number_format(0, 0, ",", ".") }}</strong></li>
+                            @endif
                                 <li>
                                     <div id="shipping" name="shipping">
                                         Biaya Kirim: <strong>Rp. -</strong>
@@ -238,10 +239,10 @@
                                 </li>
                                 <li class="important">
                                     <div id="total" name="total">
-                                        Total: <strong>Rp. {{ number_format(Cart::total(), 0, ",", ".") }}</strong>
+                                        Total: <strong>Rp. {{ number_format(Cart::total()-session('discount'), 0, ",", ".") }}</strong>
                                     </div>
                                 </li>
-                            @endif
+                            
                         </div>
                     </div>
                 </div>
@@ -405,7 +406,12 @@
             var value = $(this).children(":selected").val();
             var cost = addCommas(value);
             var cart = $('#cart_total_new').val();
-            var total = parseInt(cart)+parseInt(value);
+            var discount = $('#discount').val();
+            if (discount == undefined) {
+                var total = parseInt(cart)+parseInt(value);
+            }else{
+                var total = (parseInt(cart)+parseInt(value))-parseInt(discount);
+            };
             var result = addCommas(total);
             $('#courier_check_new').val("JNE-"+courier);
             $('#shipping').html("Biaya Kirim: <strong>Rp. "+cost+"</strong>");
