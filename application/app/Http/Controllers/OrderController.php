@@ -63,6 +63,7 @@ class OrderController extends HomeController
 
 	public function order(Request $request){
 		$product = Product::where('id', $request->id)->first();
+		$this->data['count'] = Reviews::where('product_id',$request->id)->get();
 			$properti = array();
 			array_push($properti, $request->size);
 			array_push($properti, $request->warna);

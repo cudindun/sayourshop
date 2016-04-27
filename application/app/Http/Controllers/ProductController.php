@@ -76,6 +76,7 @@ class ProductController extends HomeController
 		$this->data['js_assets'] 	= Assets::load('js', ['jquery', 'jquery-ui', 'jquery-easing', 'bootstrap-min-lib', 'jquery-isotope', 'jquery-flexslider', 'jquery.elevatezoom', 'jquery-sharrre', 'jquery-gmap3', 'imagesloaded', 'la_boutique', 'jquery-cookie', 'jquery-parallax-lib']);
 		$this->data['title']		= 'Produk';
 		$this->data['product']		= Product::where('id',$id)->first();
+		$this->data['count']		= Reviews::where('product_id',$id)->get();
 	    return view('main_layout')->with('data', $this->data)
 								  ->nest('content', 'product/product_detail', array('data' => $this->data));
 

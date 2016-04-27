@@ -6,7 +6,7 @@ use Illuminate\Http\Request;
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
 use App\Http\Libraries\Assets;
-use DB, Cart, Validator;
+use DB, Cart, Validator, Mail;
 use App\Http\Models\Option;
 use App\Http\Models\PaymentConfirmation;
 use App\Http\Models\Order;
@@ -57,6 +57,9 @@ class PaymentController extends HomeController
 				$payment->save();
 				$order->order_status = "Telah Dibayar";
 				$order->save();
+
+				$this->sendEmailPayment($data);
+				
 				return redirect('konfirmasi_pembayaran')->with('success','Konfirmasi berhasil .Kami akan mengecek pembayaran Anda');
 			}else{
 				return redirect('konfirmasi_pembayaran')->with('failed','Maaf no invoice tidak terdaftar');
@@ -65,4 +68,12 @@ class PaymentController extends HomeController
 			return redirect('konfirmasi_pembayaran')->with('failed','Silahkan isi form sesuai yang disediakan');
 		}
 	}
+
+	public function sendEmailPayment($data)
+    {
+      Mail::send('emails.confirm_payment', $data, function($message) use ($data) { 
+                $message->from($data['email_admin'], 'Covanti.com');
+                $message->to($data['email'], $data['invoice'])->subject('Konfirmasi Pembayaran');
+                });
+    }
 }
