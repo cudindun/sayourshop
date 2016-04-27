@@ -80,7 +80,7 @@ return [
     |
     */
 
-    'username' => 'cudindun@gmail.com',
+    'username' => 'sayourshop.official@gmail.com',
 
     /*
     |--------------------------------------------------------------------------
@@ -93,7 +93,7 @@ return [
     |
     */
 
-    'password' => 'ikigipwoclvwoaet',
+    'password' => 'lbrjhfsseswijsuz',
 
     /*
     |--------------------------------------------------------------------------
