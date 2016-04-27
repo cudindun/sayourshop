@@ -401,11 +401,12 @@ class UserController extends HomeController
     public function account_activation($id, $key){
     	$now = Date("Y-m-d H:i:s");
     	$getActive = Activations::where('code', $key)->where('user_id', $id)->first();
+    	$complete = $getActive->completed;
 
     	$getActive->completed = 1;
     	$getActive->completed_at = $now;
 
-    	if($getActive->completed == 1){
+    	if($complete == 1){
     		return redirect('login_form')->with('error', 'Akun anda sudah diaktivasi!');
     	}else{
 	    	if($getActive->save()){
