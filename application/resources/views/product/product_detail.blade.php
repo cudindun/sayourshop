@@ -113,8 +113,11 @@
                                                 </div>
                                             </div>
                                             <div class="add-to-cart">
-                                                <button class="btn btn-primary btn-large" type="submit" id="add-to-crot">
-                                                    <i class="icon-plus"></i> &nbsp; Add to cart
+                                                <button class="btn btn-primary btn-small" type="submit" id="add-to-crot">
+                                                    <i class="icon-plus"></i> Beli
+                                                </button>
+                                                <button class="btn btn-primary btn-small" type="button" id="wishlist">
+                                                    <i class="icon-plus"></i> Simpan Produk
                                                 </button>
                                             </div>
                                         </form>                     
@@ -122,7 +125,6 @@
                                     <!-- End id="product" -->
                                     <!-- Ratings tab -->
                                     <div class="tab-pane" id="ratings">
-                                        
                                     </div>
                                     <!-- End id="ratings" -->
                                     <!-- Ratings tab -->
@@ -250,8 +252,24 @@
 	<script type="text/javascript">
     $(document).ready(function()
     {
+
+
         var color = $('#warna option:selected').val();
         var product_id = $('input[name=id]').val();
+
+        $('#wishlist').click(function(){
+            var product_id = $('input[name=id]').val();
+            $.ajax({
+            url: "{!! url('wishlist') !!}",
+            data: {
+                product_id: product_id
+            },
+            method:'POST',
+            success: function(data) {
+                    alert('Produk berhasil ditambahkan ke wishlist');
+                }
+            });
+        });
 
         $.ajax({
             url: "{!! url('size_product') !!}",

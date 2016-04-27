@@ -52,7 +52,7 @@
                             <div class="box border-top">
                                 <div class="hgroup title">
                                     <h3>
-                                        <a href="{{$data['slugcategory']->slug}}" title="Ready Stock">{{ucwords($data['slugcategory']->name)}}</a>
+                                        <a href="{{url('produk/'.$data['slugcategory']->slug)}}" title="Ready Stock">{{ucwords($data['slugcategory']->name)}}</a>
                                     </h3>
                                 </div>
                                 @if($data['slugcategory']->subcategories == "1")
@@ -92,6 +92,9 @@
                      <!-- End sidebar -->
                 </div>
                 <input type="hidden" value="{{$data['slugcategory']->id}}" id="slug_category"></input>
+                @if($data['slugsubcategory'] != '')
+                    <input type="hidden" value="{{$data['slugsubcategory']->id}}" id="slug_subcategory"></input>
+                @endif
                 <div class="span10">
                     <?php // ============================ Banner 1 ================================= ?>
                     <div class="col-lg-6" style="margin: 0px;padding: 0px;" >
@@ -113,15 +116,31 @@
 <script type="text/javascript">
     jQuery(document).ready(function(){
         var category_id = $('#slug_category').val();
-        $.ajax({
-            url: "{!! url('product_content') !!}",
-            data: {
-                category_id: category_id
-            },
-            method:'POST',
-        }).done(function(data){
-            $('#content').html(data);
-        });
+        var subcategory_id = $('#slug_subcategory').val();
+        if (subcategory_id == undefined) {
+            $.ajax({
+                url: "{!! url('product_content') !!}",
+                data: {
+                    category_id: category_id
+                },
+                method:'POST',
+            }).done(function(data){
+                $('#content').html(data);
+            });
+        }else{
+            $.ajax({
+                url: "{!! url('subproduct_content') !!}",
+                data: {
+                    category_id: category_id,
+                    subcategory_id: subcategory_id
+                },
+                method:'POST',
+            }).done(function(data){
+                $('#content').html(data);
+            });
+        }
+
+        
     });  
 </script>
 

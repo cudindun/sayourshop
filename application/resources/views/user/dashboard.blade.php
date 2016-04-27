@@ -30,7 +30,7 @@
 								</div>
 							@else
 								<div class="text-center">
-									<img src="photo_profile/{{$data['user']->image}}" class="user-image">
+									<img src=" {{url('application/storage/photo_profile/'.$data['user']->image)}}" class="user-image">
 								</div>
 							@endif
 							<div class="text-center">
@@ -55,10 +55,10 @@
 							<ul class="nav nav-tabs" role="tablist">
 	    						<li role="presentation" class="active"><a href="#profile" aria-controls="profile" role="tab" data-toggle="tab">Profil</a></li>
 	    						<li role="presentation"><a href="#order" aria-controls="order" role="tab" data-toggle="tab">Daftar Pesanan</a></li>
-	    						<li role="presentation"><a href="#wish" aria-controls="order" role="tab" data-toggle="tab">Wish List</a></li>
+	    						<li role="presentation"><a href="#wishlist" aria-controls="order" role="tab" data-toggle="tab">Wish List</a></li>
 	    					</ul>
 
-	    					<div class="tab-content" style="background:white;color:black">
+	    					<div class="tab-content" style="background:white;color:black;padding-bottom: 20px;">
 	    						@if(session('success'))
 								<div class="alert alert-success">
 			  						{{session('success')}}
@@ -130,7 +130,7 @@
 							            </div>
 							        </div>
 
-					            	<div class="col-sm-11" style=" margin-bottom: 20px;">
+					            	<!-- <div class="col-sm-11" style=" margin-bottom: 20px;">
 						            	<div class="panel panel-success" style="margin: 20px 35px 0 10px;padding: 0px; ">
 							            	<div class="panel-heading" style="margin: 0px;"><b>Rekening Bank</b></div>
 							            	<div class="panel-body">
@@ -170,7 +170,7 @@
 							            	</div>
 							            	<div class="panel-footer"></div>
 							            </div>
-							        </div>
+							        </div> -->
 							        <!-- Modal -->
 									<div id="add_address" class="modal fade" role="dialog">
 									  <div class="modal-dialog">
@@ -312,8 +312,16 @@
 									<!-- Modal -->
 									<div id="modaldetail"></div>
 								</div>
-								<div role="tabpanel" class="tab-pane fade" id="wish">
-									yeah
+								<div role="tabpanel" class="tab-pane fade" id="wishlist">
+									@foreach($data['wishlist'] as $wish)
+									<?php 
+									$image = unserialize($wish->image); 
+									?>
+									<div class="text-center pull-left col-sm-3" style="padding-top:10px; ">
+										<img src=" {{url('application/storage/photo_product/'.$image[0])}}" class="product" style="width: 150px;"><br> <br>
+										<a href="{{url('produk/'.$wish->category->slug.'/'.$wish->subcategory->slug.'/'.$wish->id)}}"><button type="button" class="btn btn-mini btn-primary">{{$wish->name}}</button></a>
+									</div>
+									@endforeach
 								</div>
 								<div class="clear"></div>
 							</div>
