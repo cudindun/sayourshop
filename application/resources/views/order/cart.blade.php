@@ -29,10 +29,10 @@
                                                 <tr>
                                                     <th class="col_product text-left">Produk</th>
                                                     <th class="col_properties text-left">Properti</th>
-                                                    <th class="col_remove text-right">&nbsp;</th>
                                                     <th class="col_qty text-right">Jumlah</th>
                                                     <th class="col_single text-right">Harga</th>
                                                     <th class="col_total text-right">Total</th>
+                                                    <th class="col_remove text-right">&nbsp;</th>
                                                 </tr>
                                             </thead>
                                             <tbody>
@@ -48,12 +48,6 @@
                                                                 {{ucwords($value)}}&nbsp;
                                                             @endforeach
                                                         </td>
-                                                        <td class="col_remove text-right">
-                                                            <a href="{{ url('delete_order/'.$product->rowid) }}">
-                                                                <span rel="tooltip" title="Hapus"><i class="fa fa-trash icon-large"></i></span>
-                                                                <input type="hidden" name="row_id" value="{{$product->rowid}}" />
-                                                            </a>
-                                                        </td>
                                                         <td class="col_qty text-right">
                                                             <input type="text" name="quantity_{{$product->rowid}}" value="{{$product->qty}}" />
                                                             <button class="btn btn-mini" type="submit">
@@ -65,6 +59,12 @@
                                                         </td>
                                                         <td class="col_total text-right">
                                                             <span class="total-price">Rp. {{ number_format($product->subtotal, 0, ",", ".") }}</span>
+                                                        </td>
+                                                        <td class="col_remove text-right">
+                                                            <a href="{{ url('delete_order/'.$product->rowid) }}">
+                                                                <span rel="tooltip" title="Hapus"><i class="fa fa-trash icon-large"></i></span>
+                                                                <input type="hidden" name="row_id" value="{{$product->rowid}}" />
+                                                            </a>
                                                         </td>
                                                     </tr>
                                                 @endforeach
