@@ -14,11 +14,8 @@ use App\Http\Models\OrderDetail;
 use App\Http\Models\Distributor;
 use DB, Input, Validator, Storage, File, Image;
 
-class ProductController extends Controller
+class ProductController extends AdminController
 {
-	public function __construct(){
-		$this->middleware('admin');
-	}
 	
     public function create()
 	{

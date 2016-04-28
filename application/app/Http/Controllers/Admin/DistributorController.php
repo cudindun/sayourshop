@@ -13,11 +13,8 @@ use Input;
 use DB;
 use Redirect,Validator,Session;
 
-class DistributorController extends Controller
+class DistributorController extends AdminController
 {
-	public function __construct(){
-		$this->middleware('admin');
-	}
 	
 	public function list_distributor()
 	{

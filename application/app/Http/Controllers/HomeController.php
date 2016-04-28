@@ -8,6 +8,7 @@ use App\Http\Requests;
 use App\Http\Controllers\Controller;
 use App\Http\Libraries\Assets;
 use App\Http\Models\Category;
+use App\Http\Models\Guest;
 use App\Http\Models\Product;
 use App\Http\Models\Option;
 use App\Http\Models\Ask;
@@ -22,6 +23,8 @@ class HomeController extends Controller
 		$this->data['request'] 			= $request;
 		$this->data['cart'] 			= Cart::count();
 		//$this->data['main-cart-content'] = dd($this->get_cart());
+
+		$this->middleware('getGuest');
 	}
 
     public function index()
