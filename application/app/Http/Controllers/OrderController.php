@@ -124,7 +124,7 @@ class OrderController extends HomeController
 			if ($request->coupon_code) {
 				$order->discount_code = $request->coupon_code;
 				$order->total_discount = $request->discount;
-				$order->total_price = Cart::total()-$request->discount;
+				$order->total_price = (Cart::total()+$request->shipping_price)-$request->discount;
 			}else{
 				$order->total_price = $request->cart_total + $request->shipping_price;	
 			}
@@ -226,9 +226,16 @@ class OrderController extends HomeController
 	public function discount(Request $request)
 	{
 		$total = Cart::total();
-		if($request->coupon = 'tesvoucher')
-		{
-			$disc = ($total*0.1);
+		$voucher = Option::where('meta_key','voucher')->first()->meta_value;
+		$coupon = unserialize($voucher);
+		foreach ($coupon as $value) {
+			if ($value['code'] == $request->coupon) {
+				$code = $value;
+			}
+		}	
+		$disc = (($total*$code['discount'])/100);
+		if ($disc > $code['maxDiscount']) {
+			$disc = $code['maxDiscount'];
 		}
 		return redirect('keranjang')->with('discount', $disc)->with('coupon', $request->coupon);
 	}

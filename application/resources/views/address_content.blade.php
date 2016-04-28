@@ -35,8 +35,14 @@ Kecamatan {{$data['district']->name}}, {{$data['city']->nama}}<br>
             var value = $('#'+id).val();
             var shipping = addCommas(value);
             var cart = $('#cart_total').val();
-            var total = parseInt(cart)+parseInt(value);
+            var discount = $('#discount').val();
+            if (discount == '') {
+                var total = parseInt(cart)+parseInt(value);
+            }else{
+                var total = (parseInt(cart)+parseInt(value))-parseInt(discount);
+            };
             var result = addCommas(total);
+            console.log(discount);
             $('#courier_check').val('JNE-'+id);
             $('#no_address').attr('disabled',false);
             $('#shipping_price').val(value);
