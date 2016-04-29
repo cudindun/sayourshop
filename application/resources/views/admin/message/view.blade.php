@@ -15,15 +15,15 @@
           
           <!-- Default box -->
           <div class="box box-primary">
-            <div class="box-header with-border">
-
-            </div>
-            <div class="box-body">
+            <div class="mailbox-read-info">
+            <h3>{{ $data['message']->type }}</h3>
+            </div> 
+            <div class="box-body" style="min-height:150px">
             	<?php // ======================== Table ================================ ?>
               	  <table id="message_table" class="table table-hover">
                       <tr>
                         <td colspan=2>{!! Html::image('assets/image/user-image.png','user image', array('class' => 'img-circle', 'style' => 'width:30px')) !!}
-                            &nbsp; &nbsp;<b>{!! $data['message']->name !!}</b>
+                            &nbsp; &nbsp;<b>{!! $data['message']->name !!}</b> - <i style="color:#888"> {!! $data['message']->email !!} </i>
                             <div class="pull-right">
                               {!! $data['message']->created_at !!}
                             </div>
@@ -37,10 +37,35 @@
                   
             </div><!-- /.box-body -->
             <div class="box-footer">
-              <button id="back" class="btn btn-primary pull-right" style="padding:12px">Back to List</button>
-              <button id="reply" class="btn btn-danger pull-right" style="padding:12px;margin-right:8px">Reply</button>
+              <button class="pull-right btn btn-default" id="back"><i class="fa fa-arrow-circle-left"></i> Back </button>
             </div>
+            
           </div><!-- /.box -->
+
+          <!-- quick email widget -->
+              <div class="box box-info">
+                <div class="box-header">
+                  <i class="fa fa-envelope"></i>
+                  <h3 class="box-title">Reply</h3>
+                </div>
+                <div class="box-body">
+                  <form action="#" method="post">
+                    <div class="form-group">
+                      <input type="email" class="form-control" name="emailto" placeholder="{{ $data['message']->email }}" disabled>
+                    </div>
+                    <div class="form-group">
+                      <input type="text" class="form-control" name="subject" placeholder="Subject">
+                    </div>
+                    <div>
+                      <textarea class="textarea" placeholder="Message" style="width: 100%; height: 125px; font-size: 14px; line-height: 18px; border: 1px solid #dddddd; padding: 10px;"></textarea>
+                    </div>
+                  </form>
+                </div>
+                <div class="box-footer clearfix">
+                  <button class="pull-right btn btn-default" id="send">Send <i class="fa fa-arrow-circle-right"></i></button>
+                  <button class="pull-right btn btn-default" id="back"><i class="fa fa-arrow-circle-left"></i> Back </button>
+                </div>
+              </div>
 
         </section><!-- /.content -->
 

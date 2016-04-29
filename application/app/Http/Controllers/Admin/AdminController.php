@@ -107,8 +107,9 @@ class AdminController extends Controller
 	{
 		$this->data['css_assets'] 	= Assets::load('css', ['admin_bootstrap', 'admin_css', 'font-awesome', 'skins', 'dataTables_css']);
 		$this->data['js_assets'] 	= Assets::load('js', ['jquery', 'admin_js', 'admin_bootstrap-js', 'slimscroll', 'fastclick', 'dataTables_js', 'dataTables_bootsjs']);
-		$this->data['title']		= 'Message | List';
-		$this->data['message']		= Ask::all();
+		$this->data['title']		= 'Mailbox';
+		$this->data['message']		= Ask::orderBy('id', 'DESC')->simplePaginate(25);
+		$this->data['total_message']= new Ask;
 	    return view('admin_layout')->with('data', $this->data)
 								  ->nest('content', 'admin/message/list', array('data' => $this->data));
 	}
@@ -145,8 +146,8 @@ class AdminController extends Controller
 
 	public function view_message($id)
 	{
-		$this->data['css_assets'] 	= Assets::load('css', ['admin_bootstrap', 'admin_css', 'font-awesome', 'skins']);
-		$this->data['js_assets'] 	= Assets::load('js', ['jquery', 'admin_js', 'dashboard', 'admin_bootstrap-js', 'slimscroll', 'fastclick']);
+		$this->data['css_assets'] 	= Assets::load('css', ['admin_bootstrap', 'admin_css', 'font-awesome', 'skins', 'wysihtml']);
+		$this->data['js_assets'] 	= Assets::load('js', ['jquery', 'admin_js', 'dashboard', 'admin_bootstrap-js','wysihtml', 'slimscroll', 'fastclick' ]);
 		$this->data['title']		= 'Message | View';
 		if(Ask::find($id)){
 			$this->data['message']		= Ask::find($id);
