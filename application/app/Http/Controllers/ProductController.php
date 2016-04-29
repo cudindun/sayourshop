@@ -25,7 +25,7 @@ class ProductController extends HomeController
 		$this->data['js_assets'] 	= Assets::load('js', ['jquery', 'jquery-ui', 'jquery-easing', 'bootstrap-min-lib', 'jquery-isotope', 'jquery-flexslider', 'jquery.elevatezoom', 'jquery-sharrre', 'jquery-gmap3', 'imagesloaded', 'la_boutique', 'jquery-cookie', 'jquery-parallax-lib']);
 		$this->data['title']		= ucwords('Pencarian');
 		$this->data['name']			= $request->search;
-		$this->data['query']		= Product::where('name','like', '%'.$request->search.'%')->orderBy('DESC')->get();
+		$this->data['query']	= Product::where('name','like', '%'.$request->search.'%')->orderBy('DESC')->Paginate(20);
 		$this->data['category']		= Category::get();
 	    return view('main_layout')->with('data', $this->data)
 								  ->nest('content', 'search', array('data' => $this->data));
@@ -79,9 +79,8 @@ class ProductController extends HomeController
 		$this->data['css_assets'] 	= Assets::load('css', ['lib-bootstrap', 'font-awesome', 'font-awesome-min', 'flexslider', 'color-schemes-core', 'color-schemes-turquoise', 'bootstrap-responsive','font-family']);
 		$this->data['js_assets'] 	= Assets::load('js', ['jquery', 'jquery-ui', 'jquery-easing', 'bootstrap-min-lib', 'jquery-isotope', 'jquery-flexslider', 'jquery.elevatezoom', 'jquery-sharrre', 'jquery-gmap3', 'imagesloaded', 'la_boutique', 'jquery-cookie', 'jquery-parallax-lib']);
 		$this->data['count']		= Reviews::where('product_id',$id)->get();
-		
 		$this->data['product']		= Product::where('id',$id)->first();
-
+		$this->data['related']		= Product::where('subcategory_id', $this->data['product']->subcategory_id)->orderByRaw("RAND()")->limit(4)->get();
 		if($this->data['product'] == NULL){
 			$this->data['title']	= '404 - not found';
 			$this->data['message']	= 'Product that you looking for is not found or has been removed';
@@ -152,5 +151,40 @@ class ProductController extends HomeController
 		}
 		$wishlist->meta_value = serialize($wish);
 		$wishlist->save();
+	}
+
+	public function del_wishlist(Request $request)
+	{
+		$product = Product::where('id', $request->product_id)->first();
+
+		$user = Sentinel::getUser();
+		$wishlist = UserMeta::where('meta_key','wishlist')->where('user_id', $user->id)->first();
+		$wish = unserialize($wishlist->meta_value);
+		foreach ($wish as $value) {
+			if ($value == $product->slug) {
+				$wish = array_diff($wish, array($product->slug));
+			}
+		}
+		echo "<pre>";
+		print_r($wish);
+		$new = array_values($wish);
+		if (count($new) == 0) {
+			$delete = UserMeta::where('meta_key','wishlist')->where('user_id', $user->id)->delete();
+		}else{
+			$wishlist->meta_value = serialize($new);
+			$wishlist->save();
+		}
+	}
+
+	public function ajax_search(Request $request)
+	{
+		$this->data['query']	= Product::where('name','like', '%'.$request->search.'%')->orderBy('DESC')->Paginate(20);
+		return view('search_content')->with('data', $this->data);
+	}
+
+	public function ajax_category_search(Request $request)
+	{
+		$this->data['query']	= Product::where('name','like', '%'.$request->search.'%')->where('category_id', $request->category_id)->orderBy('DESC')->Paginate(20);
+		return view('search_content')->with('data', $this->data);
 	}	
 }

@@ -16,6 +16,7 @@
 						<div class="col-lg-6">
 						<p>Login User</p>
 							<form role="POST" action="{{url('login')}}">
+							<input type="hidden" name="_token" value="<?php echo csrf_token(); ?>">
 					            <div class="box-content">
 					                <div class="row-fluid">
 					                    <div class="span6">

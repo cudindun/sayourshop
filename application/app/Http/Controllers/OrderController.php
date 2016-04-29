@@ -78,9 +78,8 @@ class OrderController extends HomeController
 		return redirect('detail/'.$request->id)->with('success', 'Barang telah ditambahkan ke dalam keranjang');
 	}
 
-	public function delete_order($row_id){
-		Cart::remove($row_id);
-		return redirect('keranjang')->with('success', 'Barang telah dihapus dari keranjang');
+	public function delete_order(Request $request){
+		Cart::remove($request->rowid);
 	}
 
 	public function update_order(Request $request){
@@ -148,6 +147,18 @@ class OrderController extends HomeController
 			$order->total_weight = $request->weight;
 			$order->no_invoice = date('Ymd').$user->id.$insert_id;
 			$order->save();
+
+			//update quantity product
+			$orderdetail = OrderDetail::where('order_id', $insert_id)->get();
+			foreach ($orderdetail as $detail) {
+				$unserialize = unserialize($detail->properties);
+				$product = Product::where('id', $detail->product_id)->first();
+				$productqty = unserialize($product->properties);
+				$productqty[$unserialize[1]][$unserialize[0]] -= $detail->quantity;
+				$product->properties = serialize($productqty);
+				$product->quantity -= $detail->quantity;
+				$product->save();
+			} 
 			return redirect('order_review/'.$insert_id);
 		}else{
 			$rules = array(
@@ -192,7 +203,7 @@ class OrderController extends HomeController
 				if ($request->coupon_code) {
 					$order->discount_code = $request->coupon_code;
 					$order->total_discount = $request->discount;
-					$order->total_price = Cart::total()-$request->discount;
+					$order->total_price = (Cart::total()+$request->shipping_price_new)-$request->discount;
 				}else{
 					$order->total_price = $request->cart_total_new + $request->shipping_price_new;	
 				}
@@ -216,6 +227,18 @@ class OrderController extends HomeController
 				$order->total_weight = $request->weight_new;
 				$order->no_invoice = date('Ymd').$user->id.$insert_id;
 				$order->save();
+
+				//update quantity product
+				$orderdetail = OrderDetail::where('order_id', $insert_id)->get();
+				foreach ($orderdetail as $detail) {
+					$unserialize = unserialize($detail->properties);
+					$product = Product::where('id', $detail->product_id)->first();
+					$productqty = unserialize($product->properties);
+					$productqty[$unserialize[1]][$unserialize[0]] -= $detail->quantity;
+					$product->properties = serialize($productqty);
+					$product->quantity -= $detail->quantity;
+					$product->save();
+				}
 				return redirect('order_review/'.$insert_id);
 			}else{
 				return redirect('keranjang')->with('fail', 'Silahkan isi alamat baru sesuai form yang disediakan');

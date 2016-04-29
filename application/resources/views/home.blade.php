@@ -57,7 +57,7 @@
                 <div class="free-shipping" id="parallax-top-product">
                     <div class="col-lg-12" style="min-height:270px;margin-bottom:10px;">
                         <div class="hgroup title" style="margin-bottom: 0px;background: none;">
-                            <h3>Top Product</h3>
+                            <h3>Top 3 Product</h3>
                         </div>
                         <div class="col-lg-12" id="port" style="margin-top: 0px;margin-bottom: 0px;">
                             <ul class="thumbs_index index parallax-layer">
@@ -75,13 +75,13 @@
             <?php // ================ PRODUCT MO READY 2 ==================  ?>
             <div class="col-lg-3" >
                 <div class="world-shipping">
-                    <img src="{{url('application/storage/photo_banner/'.$banner['banner1'])}}">
+                    <img src="{{url('application/storage/photo_banner/'.$banner['banner1'])}}" style="max-width: 100%;">
                 </div>
             </div>
             <?php // ================ READY STOCK ==================  ?>
             <div class="col-lg-3" >
                 <div class="world-shipping">
-                        <img src="{{url('application/storage/photo_banner/'.$banner['banner2'])}}">
+                        <img src="{{url('application/storage/photo_banner/'.$banner['banner2'])}}" style="max-width: 100%;">
                 </div>
             </div>
         </div>
@@ -94,7 +94,7 @@
         <div class="row">
             <div class="col-lg-12">
                 <div class="box border-top" style="margin-bottom:10px;min-height: 210px;">
-                    <h4 class="widget-title widget-title ">Kategori Terlaris</h3>
+                    <h4 class="widget-title widget-title ">Produk Terbaru</h3>
                     <div class="product-list-small">
                         @foreach($data['product'] as $product)
                             <?php
@@ -102,23 +102,28 @@
                             ?>
                             <li style="float: left;padding-right: 5px;">            
                                 <div class="image" style="width: 110px;">
-                                    <a href="product.html" title="Lolita" style="border: 0px;" >
-                                        <image src="{{url('application/storage/photo_product/'.$image[0])}}" style="width:110px; max-width: 500px;height: 110px;">
+                                    <a href="{{url('detail/'.$product->id)}}" title="{{$product->name}}" style="border: 0px;" >
+                                        <image src="{{url('application/storage/photo_product/'.$image[0])}}" style=" max-width: 110px;height: 110px;">
                                     </a>
                                 </div>
                                 <div class="desc">
                                     <h6>
-                                        <a href="product.html" title="Lolita">{{$product->name}}</a>
+                                        <a href="{{url('detail/'.$product->id)}}" title="{{$product->name}}">{{ucwords($product->name)}}</a>
                                     </h6>
                                     <div class="price">
                                         Rp. {{ number_format($product->price, 0, ",", ".") }}                                     
                                     </div>
-                                    <div class="rating rating-4">
-                                        <i class="fa fa-heart"></i>
-                                        <i class="fa fa-heart"></i>
-                                        <i class="fa fa-heart"></i>
-                                        <i class="fa fa-heart"></i>
-                                        <i class="fa fa-heart"></i>
+                                    <div class="rating">
+                                        @if($product->rating > 0)
+                                        <?php 
+                                            $stars = $product->rating/count($product->reviews);
+                                            for ($i=0; $i < $stars; $i++) { 
+                                        ?>
+                                            <i class="fa fa-star"></i>
+                                        <?php
+                                            }
+                                        ?>
+                                        @endif
                                     </div>
                                 </div>
                             </li>
@@ -135,7 +140,8 @@
     <div class="container">
         <div class="row">
             <div class="col-lg-12" style="margin-bottom: 10px;" >
-                    <img src="{{url('application/storage/photo_banner/'.$banner['banner3'])}}">
+                    <img src="{{url('application/storage/photo_banner/'.$banner['banner3'])}}" style="max-width: 100%;
+    height: auto;">
             </div>
         </div>
     </div>
@@ -154,59 +160,66 @@
                             ?>
                             <li style="float: left;padding-right: 5px;">            
                                 <div class="image" style="width: 110px;">
-                                    <a href="product.html" title="Lolita" style="border: 0px;" >
+                                    <a href="{{url('detail/'.$product->id)}}" title="{{$product->name}}" style="border: 0px;" >
                                         <image src="{{url('application/storage/photo_product/'.$image[0])}}" style="width:110px; max-width: 500px;height: 110px;">
                                     </a>
                                 </div>
                                 <div class="desc">
                                     <h6>
-                                        <a href="product.html" title="Lolita">{{$product->name}}</a>
+                                        <a href="{{url('detail/'.$product->id)}}" title="{{$product->name}}">{{$product->name}}</a>
                                     </h6>
                                     <div class="price">
                                         Rp. {{ number_format($product->price, 0, ",", ".") }}                                     
                                     </div>
-                                    <div class="rating rating-4">
-                                        <i class="fa fa-heart"></i>
-                                        <i class="fa fa-heart"></i>
-                                        <i class="fa fa-heart"></i>
-                                        <i class="fa fa-heart"></i>
-                                        <i class="fa fa-heart"></i>
+                                    <div class="rating">
+                                        @if($product->rating > 0)
+                                        <?php 
+                                            $stars = $product->rating/count($product->reviews);
+                                            for ($i=0; $i < $stars; $i++) { 
+                                        ?>
+                                            <i class="fa fa-star"></i>
+                                        <?php
+                                            }
+                                        ?>
+                                        @endif
                                     </div>
                                 </div>
                             </li>
                         @endforeach
                     </div>
-                </div>  
+                
             </div>
         </div>
     </div>
 </section>
 
 <?php // ============================ Section 3 ================================== ?>
-<section class="promos" style="margin-bottom:25px">
+<section class="promos" style="margin:0px;">
     <div class="container">
-        <div class="row">
-            <?php // ============================ PRE ORDER ================================== ?>
-            <div class="col-lg-3" style="margin-bottom: 10px;" >
-                    <img src="{{url('application/storage/photo_banner/'.$banner['banner4'])}}">
-            </div>
-            <?php // ============================ TOP PRODUK SLIDER ================================== ?>
+        <div class="row" style="text-align: center;">
+        <!-- Slider -->
+            <!-- End class="flexslider" --> 
             <div class="col-lg-9" >
-                <div class="flexslider" style="margin-top:0px;margin-bottom: 10px;">
+                <div class="flexslider" style="margin:10px;">
                     <ul class="slides">
-                        @if($banner['slider2'] != '')
-                            @foreach($banner['slider2'] as $slide2)
-                                <li>
-                                    <img src="{{url('application/storage/photo_banner/'.$slide2)}}">
-                                </li>
-                            @endforeach
-                        @endif
+                        <?php $banner = unserialize($data['banner']->meta_value);?>
+                        @foreach($banner['slider1'] as $slide1)
+                        <li>
+                            <img src="{{url('application/storage/photo_banner/'.$slide1)}}">
+                        </li>
+                        @endforeach
                     </ul>
                 </div>
             </div>
+            <?php // ================ PRODUCT MO READY 2 ==================  ?>
+            <div class="col-lg-3" >
+                <div class="world-shipping">
+                    <img src="{{url('application/storage/photo_banner/'.$banner['banner4'])}}" style="max-width: 100%;">
+                </div>
+            </div>
+            <?php // ================ READY STOCK ==================  ?>
         </div>
     </div>
-
 </section> 
     <!-- End class="home" -->
 

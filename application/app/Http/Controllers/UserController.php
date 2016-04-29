@@ -138,13 +138,14 @@ class UserController extends HomeController
 		
 		$this->data['wish']		= UserMeta::where('user_id', $this->data['user']->id)->where('meta_key','wishlist')->first();
 		$this->data['wishlist'] = array();
-		$unserialize = unserialize($this->data['wish']->meta_value);
-		foreach ($unserialize as $value) {
-			$product = Product::where('slug', $value)->first();
-			$image = unserialize($product->image);
-			array_push($this->data['wishlist'], $product);
+		if ($this->data['wish'] != '') {
+			$unserialize = unserialize($this->data['wish']->meta_value);
+			foreach ($unserialize as $value) {
+				$product = Product::where('slug', $value)->first();
+				$image = unserialize($product->image);
+				array_push($this->data['wishlist'], $product);
+			}
 		}
-
 		$this->data['order']		= Order::where('user_id', $this->data['user']->id)->orderBy('created_at','desc')->get();
 	    return view('main_layout')->with('data', $this->data)
 								  ->nest('content', 'user/dashboard', array('data' => $this->data));

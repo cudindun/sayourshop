@@ -19,14 +19,18 @@
                                     </div>
                                     <h3>{{ucwords($product->name)}}</h3>
                                     
-                                    <div class="rating rating-4.5">
-
-                                    <i class="fa fa-star"></i>
-                                    <i class="fa fa-star"></i>
-                                    <i class="fa fa-star"></i>
-                                    <i class="fa fa-star"></i>
-                                    <i class="fa fa-star"></i>
-                                    
+                                    <div class="rating">
+                                    @if($product->rating > 0)
+                                    <?php 
+                                        $stars = $product->rating/count($product->reviews);
+                                        for ($i=0; $i < $stars; $i++) { 
+                                    ?>
+                                        <i class="fa fa-star"></i>
+                                    <?php
+                                        }
+                                    ?>
+                                    {{count($product->reviews)}} review
+                                    @endif
                                     </div>
 
                                 </div>

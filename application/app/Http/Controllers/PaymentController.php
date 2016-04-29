@@ -10,6 +10,8 @@ use DB, Cart, Validator, Mail;
 use App\Http\Models\Option;
 use App\Http\Models\PaymentConfirmation;
 use App\Http\Models\Order;
+use App\Http\Models\OrderDetail;
+use App\Http\Models\Product;
 
 class PaymentController extends HomeController
 {
@@ -55,10 +57,16 @@ class PaymentController extends HomeController
 				$payment->transfer_date = $request->transfer_date;
 				$payment->order_id = $order->id;
 				$payment->save();
+
 				$order->order_status = "Telah Dibayar";
 				$order->save();
-
-				$this->sendEmailPayment($data);
+				
+				$orderdetail = OrderDetail::where('order_id', $order->id)->get();
+				foreach ($orderdetail as $detail) {
+					$product = Product::where('id', $detail->product_id)->first();
+					$product->sold += $detail->quantity;
+					$product->save();
+				}
 				
 				return redirect('konfirmasi_pembayaran')->with('success','Konfirmasi berhasil .Kami akan mengecek pembayaran Anda');
 			}else{
@@ -69,11 +77,4 @@ class PaymentController extends HomeController
 		}
 	}
 
-	public function sendEmailPayment($data)
-    {
-      Mail::send('emails.confirm_payment', $data, function($message) use ($data) { 
-                $message->from($data['email_admin'], 'Covanti.com');
-                $message->to($data['email'], $data['invoice'])->subject('Konfirmasi Pembayaran');
-                });
-    }
 }

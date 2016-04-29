@@ -5,7 +5,7 @@
             <div class="container" style="padding-left: 0px;padding-right: 0px;">
             @if(session('success'))
                 <div class="alert alert-success">
-                    {{session('success')}}
+                    {{session('success')}} <a href="{{url('keranjang')}}"><button type="button" class="btn btn-mini btn-primary">Lihat Keranjang</button></a>
                 </div>
             @endif
                 <div class="row">
@@ -201,56 +201,25 @@
         <section class="product-related">
             <div class="container" style="padding: 0px;">
                 <div class="span12" style="margin-left: 0px;">
-                    <h5>Can't find what you're looking for? Why not try these&hellip;</h5>
+                    <h5>Produk kami lainnya&hellip;</h5>
                     <div class="product-list isotope">
+                        @foreach($data['related'] as $related)
+                        <?php
+                            $image = unserialize($related->image);
+                        ?>
                         <li class="standard" data-price="160">
                             <a href="product.html" title="1300 in Grey">
                                 <div class="image">
-                                    <img class="primary" src="{{ asset('assets/image/thumbnails/db_file_img_228_160xauto.jpg')}}" alt="Lisette Dress" />
-                                    <img class="secondary" src="{{ asset('assets/image/thumbnails/db_file_img_229_160xauto.jpg')}}" alt="Lisette Dress" />
+                                    <img class="primary" src="{{url('application/storage/photo_product/'.$image[0])}}" alt="Lisette Dress" />
+                                    <img class="secondary" src="{{url('application/storage/photo_product/'.$image[1])}}" alt="Lisette Dress" />
                                 </div>
                                 <div class="title">
-                                    <div class="prices"><span class="price">£160.00</span></div>
-                                    <h3>1300 in Grey</h3>
+                                    <div class="prices"><span class="price">{{$related->price}}</span></div>
+                                    <h3>{{$related->name}}</h3>
                                 </div>
                             </a>
                         </li>
-                        <li class="standard" data-price="75">
-                            <a href="product.html" title="574 In Navy">
-                                <div class="image">
-                                    <img class="primary" src="{{ asset('assets/image/thumbnails/db_file_img_137_640xauto.jpg')}}" alt="El Silencio" />
-                                    <img class="secondary" src="{{ asset('assets/image/thumbnails/db_file_img_138_640xauto.jpg')}}" alt="El Silencio" />
-                                </div>
-                                <div class="title">
-                                    <div class="prices"><span class="price">£75.00</span></div>
-                                    <h3>574 In Navy</h3>
-                                </div>
-                            </a>
-                        </li>
-                        <li class="standard" data-price="70">
-                            <a href="product.html" title="574 In Red">
-                                <div class="image">
-                                    <img class="primary" src="{{ asset('assets/image/thumbnails/db_file_img_122_640xauto.jpg')}}" alt="" />
-                                    <img class="secondary" src="{{ asset('assets/image/thumbnails/db_file_img_123_640xauto.jpg')}}" alt="" />
-                                </div>
-                                <div class="title">
-                                    <div class="prices"><span class="price">£70.00</span></div>
-                                    <h3>574 In Red</h3>
-                                </div>
-                            </a>
-                        </li>
-                        <li class="standard" data-price="70">
-                            <a href="product.html" title="574 In Red">
-                                <div class="image">
-                                    <img class="primary" src="{{ asset('assets/image/thumbnails/db_file_img_122_640xauto.jpg')}}" alt="" />
-                                    <img class="secondary" src="{{ asset('assets/image/thumbnails/db_file_img_123_640xauto.jpg')}}" alt="" />
-                                </div>
-                                <div class="title">
-                                    <div class="prices"><span class="price">£70.00</span></div>
-                                    <h3>574 In Red</h3>
-                                </div>
-                            </a>
-                        </li>
+                        @endforeach
                     </div>
                 </div>
             </div>  
@@ -281,7 +250,6 @@
 	<script type="text/javascript">
     $(document).ready(function()
     {
-
 
         var color = $('#warna option:selected').val();
         var product_id = $('input[name=id]').val();

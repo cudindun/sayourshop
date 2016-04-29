@@ -13,6 +13,7 @@
                 </div>
             @endif
             <div class="span9">
+           
                 <div class="box" style="padding-top: 0px;">
                     <!-- Checkout content -->
                     <div id="tab-content">
@@ -47,6 +48,12 @@
                                                             @foreach( $product->options as $value)
                                                                 {{ucwords($value)}}&nbsp;
                                                             @endforeach
+                                                        </td>
+                                                        <td class="col_remove text-right">
+                                                            <a href="javascript:void(0)" class="delete" name="{{$product->rowid}}">
+                                                                <span rel="tooltip" title="Hapus"><i class="fa fa-trash icon-large"></i></span>
+                                                                <input type="hidden" name="row_id" value="{{$product->rowid}}" />
+                                                            </a>
                                                         </td>
                                                         <td class="col_qty text-right">
                                                             <input type="text" name="quantity_{{$product->rowid}}" value="{{$product->qty}}" />
@@ -197,8 +204,8 @@
                                         <input type="hidden" id="properties_{{$product->rowid}}" name="properties_{{$product->rowid}}" value="{{serialize($properties)}}"></input>
                                     @endforeach
                                     <input type="hidden" class="form-control" id="coupon_code" name="coupon_code" value="{{session('coupon')}}">
-                                    <input type="text" class="form-control" value="{{session('discount')}}" id="discount" name="discount">
-                                    <input type="text" class="form-control" id="shipping_price_new" name="shipping_price_new">
+                                    <input type="hidden" class="form-control" value="{{session('discount')}}" id="discount" name="discount">
+                                    <input type="hidden" class="form-control" id="shipping_price_new" name="shipping_price_new">
                                     <input type="hidden" class="form-control" value="{{Cart::total()}}" id="cart_total_new" name="cart_total_new">
                                     <input type="hidden" class="form-control" value="" id="courier_check_new" name="courier_check_new">
                                     <input type="hidden" class="form-control" value="{{$data['weight']}}" id="weight_new" name="weight_new">
@@ -297,6 +304,18 @@
 <script type="text/javascript">
     $(document).ready(function()
     {
+        $('a.delete').click(function(){
+            var rowid = this.name;
+            console.log(rowid);
+            $.ajax({
+                url: "{!! url('delete_order') !!}",
+                data: {rowid: rowid},
+                method:'POST',
+            }).done(function(data){
+                location.reload();
+            });
+        });
+
         function addCommas(nStr)
         {
             nStr += '';
@@ -312,8 +331,15 @@
 
         $('#alamat_baru').click(function()
         {
-            var cart = $('#cart_total').val();
-            var reset = addCommas(cart);
+            if ($('#discount').val() != '') {
+                var discount = $('#discount').val();
+                var cart = $('#cart_total').val() - discount;
+                var reset = addCommas(cart);
+                console.log(discount);
+            }else{
+                var cart = $('#cart_total').val();
+                var reset = addCommas(cart);
+            }
             $('#form_new_address').show('slow');
             $('#btn_new_checkout').show('slow');
             $('#total').html("Total: <strong>Rp. "+reset+"</strong>");
@@ -400,14 +426,14 @@
             });
         });
 
-        $('#courier').click(function()
+        $('#courier').change(function()
         {
             var courier = $(this).children(":selected").attr("id");
             var value = $(this).children(":selected").val();
             var cost = addCommas(value);
             var cart = $('#cart_total_new').val();
             var discount = $('#discount').val();
-            if (discount == undefined) {
+            if (discount == '') {
                 var total = parseInt(cart)+parseInt(value);
             }else{
                 var total = (parseInt(cart)+parseInt(value))-parseInt(discount);
