@@ -37,10 +37,18 @@ class ProductController extends HomeController
 		$this->data['js_assets'] 	= Assets::load('js', ['jquery', 'jquery-ui', 'jquery-easing', 'bootstrap-min-lib', 'jquery-isotope', 'jquery-flexslider', 'jquery.elevatezoom', 'jquery-sharrre', 'jquery-gmap3', 'imagesloaded', 'la_boutique', 'jquery-cookie', 'jquery-parallax-lib']);
 		$this->data['slugcategory']	= Category::where('slug',$slug)->first();
 		$this->data['slugsubcategory']	='';
-		$this->data['title']		= ucwords($this->data['slugcategory']->name);
-		$this->data['banner']		= Option::where('meta_key','banner_'.$slug)->first();
-	    return view('main_layout')->with('data', $this->data)
+
+		if($this->data['slugcategory'] == NULL){
+			$this->data['title'] 	= '404 - not found';
+			$this->data['message']	= 'Category that you looking for is not found or has been removed';
+			return view('main_layout')->with('data', $this->data)
+								  ->nest('content', 'error/404_product', array('data' => $this->data));
+		}else{	
+			$this->data['title']	= ucwords($this->data['slugcategory']->name);
+			$this->data['banner']	= Option::where('meta_key','banner_'.$slug)->first();
+	    	return view('main_layout')->with('data', $this->data)
 								  ->nest('content', 'product/product', array('data' => $this->data));
+		}
 
 	}
 
@@ -50,23 +58,39 @@ class ProductController extends HomeController
 		$this->data['js_assets'] 	= Assets::load('js', ['jquery', 'jquery-ui', 'jquery-easing', 'bootstrap-min-lib', 'jquery-isotope', 'jquery-flexslider', 'jquery.elevatezoom', 'jquery-sharrre', 'jquery-gmap3', 'imagesloaded', 'la_boutique', 'jquery-cookie', 'jquery-parallax-lib']);
 		$this->data['slugcategory']	= Category::where('slug',$slug)->first();
 		$this->data['slugsubcategory']	= Subcategory::where('slug',$subcategory)->first();
-		$this->data['banner']		= Option::where('meta_key','banner_'.$slug)->first();
-		$this->data['title']		= $this->data['slugsubcategory']->name;
+		//$this->data['banner']		= Option::where('meta_key','banner_'.$slug)->first();
+		//$this->data['title']		= $this->data['slugsubcategory']->name;
 		
-	    return view('main_layout')->with('data', $this->data)
+		if($this->data['slugcategory'] == NULL || $this->data['slugsubcategory'] == NULL){
+			$this->data['title'] 	= '404 - not found';
+			$this->data['message']	= 'Subcategory that you looking for is not found or has been removed';
+			return view('main_layout')->with('data', $this->data)
+								  ->nest('content', 'error/404_product', array('data' => $this->data));
+		}else{	
+			$this->data['banner']		= Option::where('meta_key','banner_'.$slug)->first();
+			$this->data['title']		= ucwords($this->data['slugcategory']->name) . ' - ' .$this->data['slugsubcategory']->subname;
+	    	return view('main_layout')->with('data', $this->data)
 								  ->nest('content', 'product/product', array('data' => $this->data));
+		}
 	}
 
 	public function detail($slug, $subcategory, $id)
 	{
 		$this->data['css_assets'] 	= Assets::load('css', ['lib-bootstrap', 'font-awesome', 'font-awesome-min', 'flexslider', 'color-schemes-core', 'color-schemes-turquoise', 'bootstrap-responsive','font-family']);
 		$this->data['js_assets'] 	= Assets::load('js', ['jquery', 'jquery-ui', 'jquery-easing', 'bootstrap-min-lib', 'jquery-isotope', 'jquery-flexslider', 'jquery.elevatezoom', 'jquery-sharrre', 'jquery-gmap3', 'imagesloaded', 'la_boutique', 'jquery-cookie', 'jquery-parallax-lib']);
-		$this->data['title']		= 'Produk';
 		$this->data['count']		= Reviews::where('product_id',$id)->get();
 		$this->data['product']		= Product::where('id',$id)->first();
 		$this->data['related']		= Product::where('subcategory_id', $this->data['product']->subcategory_id)->orderByRaw("RAND()")->limit(4)->get();
-	    return view('main_layout')->with('data', $this->data)
-								  ->nest('content', 'product/product_detail', array('data' => $this->data));
+		if($this->data['product'] == NULL){
+			$this->data['title']	= '404 - not found';
+			$this->data['message']	= 'Product that you looking for is not found or has been removed';
+			return view('main_layout')->with('data', $this->data)
+								  ->nest('content', 'error/404_product', array('data' => $this->data));
+		}else{
+			$this->data['title']		= $this->data['product']->name;
+	    	return view('main_layout')->with('data', $this->data)
+								  ->nest('content', 'product/product_detail', array('data' => $this->data));	
+		}
 	}
 
 	public function detail_cart($id)

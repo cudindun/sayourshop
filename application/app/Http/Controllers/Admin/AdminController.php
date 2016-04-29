@@ -10,6 +10,7 @@ use App\Http\Libraries\Assets;
 use App\Http\Models\User;
 use App\Http\Models\Ask;
 use App\Http\Models\Category;
+use App\Http\Models\Guest;
 use App\Http\Models\Product;
 use App\Http\Models\Subcategory;
 use App\Http\Models\Distributor;
@@ -23,6 +24,8 @@ class AdminController extends Controller
 
 	public function __construct(){
 		$this->middleware('admin');
+
+		$this->data['guest'] = Guest::all()->count();
 	}
 
 	// ========== TEMPLATE ============

@@ -13,11 +13,8 @@ use App\Http\Models\Subcategory;
 use App\Http\Models\Option;
 use DB, Validator, Input, Image, File;
 
-class SettingController extends Controller
+class SettingController extends AdminController
 {
-	public function __construct(){
-		$this->middleware('admin');
-	}
 	
     public function bank_account_form()
 	{

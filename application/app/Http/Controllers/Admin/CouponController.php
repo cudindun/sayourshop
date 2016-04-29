@@ -13,11 +13,8 @@ use Input;
 use DB;
 use Redirect,Validator,Session;
 
-class CouponController extends Controller
+class CouponController extends AdminController
 {
-	public function __construct(){
-		$this->middleware('admin');
-	}
 	
 	public function list_coupon()
 	{

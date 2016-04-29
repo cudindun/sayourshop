@@ -5,7 +5,7 @@
         <input type="hidden" value="{{$data['product']->id}}" id="tmp_id" name="tmp_id"></input>
         <input type="hidden" value="{{$data['color']}}" id="tmp_col" name="tmp_col"></input>
         <div class="controls">
-        <select name="size" id="size" class="span12">
+        <select name="size" id="size" class="form-control">
             @foreach($data['reverse'] as $key => $value)
                         <option value="{{$key}}">{{strtoupper($key)}}</option>
             @endforeach
@@ -19,7 +19,7 @@
 <div class="control-group">
     <label for="product_options" class="control-label">Jumlah</label>
     <div class="controls qty_size">
-        <input type="number" id="quantity" name="quantity" min="1" value="1" class="span12"></input>
+        <input type="number" id="quantity" name="quantity" min="1" value="1" class="form-control"></input>
     </div>
 </div>
 
