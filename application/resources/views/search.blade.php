@@ -40,9 +40,11 @@
             <div class="row">
                 <div class="span12">
                     <div class="box">
+                    <input type="hidden" id="search_category" value=""></input>
                         <p>
                             <h6> 
                                 Hasil Pencarian "<b>{{$data['name']}}</b>"
+                                <input type="hidden" id="pencarian" value="{{$data['name']}}"></input>
                                 <div class="pull-right">
                                     <select class="form-control" >
                                         <option selected>Urut Berdasarkan</option>
@@ -68,7 +70,7 @@
                                 <div class="category-list secondary">
                                     @foreach($data['category'] as $category)
                                     <li>
-                                        <a href="#" title="{{ucwords($category->name)}}">
+                                        <a href="javascript:void(0)" title="{{ucwords($category->name)}}" class="category" id="{{$category->id}}">
                                             {{ucwords($category->name)}}            
                                         </a>
                                     </li>
@@ -79,44 +81,8 @@
                     </aside>
                      <!-- End sidebar -->
                 </div>
-                <div class="span10">
-                    @if($data['query'] != '')
-                    <!-- Products list -->
-                        <div class="product-list isotope">
-                            @foreach($data['query'] as $product)
-                            <?php
-                                $image = unserialize($product->image);
-                            ?>
-                                <li class="standard" style="width: 220px;">
-                                    <a href="{{url('produk/'.$product->category->slug.'/'.$product->subcategory->slug.'/'.$product->id)}}" title="{{$produc->name}}">
-                                        <div class="image img-responsive">
-                                            <img height="220px" src="{{url('application/storage/photo_product/'.$image[0])}}" class="primary">
-                                            <img height="220px" src="{{url('application/storage/photo_product/'.$image[1])}}" class="secondary">
-                                        </div>
-                                        <div class="title">
-                                            <div class="prices">
-                                                <span class="price">Rp. {{ number_format($product->price, 0, ",", ".") }}</span>
-                                            </div>
-                                            <h3>{{ucwords($product->name)}}</h3>
-                                            <div class="rating rating-4.5">
-                                            <i class="fa fa-heart"></i>
-                                            <i class="fa fa-heart"></i>
-                                            <i class="fa fa-heart"></i>
-                                            <i class="fa fa-heart"></i>
-                                            <i class="fa fa-heart"></i>
-                                            </div>
-                                        </div>
-                                    </a>
-                                </li>
-                            @endforeach
-                        </div>
-                    <!-- End class="product-list isotope" -->
-                    @endif 
-                    <!-- "Load More" Button -->
-                    <button id="load_more" class="btn btn-block" data-category="16" data-rows="20" data-page="1" data-featured="true">
-                        <span>Load more</span> &nbsp; <i class="icon-spinner icon-spin icon-large"></i>
-                    </button>         
-                    <!-- End "Load More" Button -->
+                <div class="span10" id="search_content">
+                    
                 </div>
             </div>
         </div>
@@ -125,13 +91,40 @@
 <?php //Java script for this page  ?>
 @section('script')
     <script type="text/javascript">
-      jQuery(document).ready(function(){
-        // Declare parallax on layers
+    jQuery(document).ready(function(){
+        var search = $('#pencarian').val();
+
         jQuery('.parallax-layer').parallax({
           mouseport: jQuery("#port"),
           yparallax: false
         });
-      });
+
+        $.ajax({
+            url: "{!! url('ajax_cari') !!}",
+            data: {
+                search: search
+            },
+            method:'POST',
+        }).done(function(data){
+            $('#search_content').html(data);
+        });
+
+        $('a.category').click(function(){
+            var category = this.id;
+            $('#search_category').val(category); 
+            console.log(category);
+            $.ajax({
+            url: "{!! url('ajax_category_search') !!}",
+            data: {
+                search: search,
+                category_id: category
+            },
+            method:'POST',
+        }).done(function(data){
+            $('#search_content').html(data);
+        });
+        });
+    });
     </script>
 
 @stop

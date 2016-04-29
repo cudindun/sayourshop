@@ -16,13 +16,32 @@ Kecamatan {{$data['district']->name}}, {{$data['city']->nama}}<br>
             <th style="text-align: center;">Paket Kurir</th>
         </tr>
         @foreach ($result as $key => $value)
+            @if($result[$key]->service == 'OKE' || $result[$key]->service == 'CTCOKE')
             <tr>
                 <td>
                     <div class="radio">
                         <input class="radiobtn" type="radio" name="optradio" id="{{$result[$key]->service}}" value="{{$result[$key]->cost[0]->value * ceil($data['weight']/1000)}}">
-                    </div>{{$result[$key]->service}} (Rp. {{ number_format($result[$key]->cost[0]->value * ceil($data['weight']/1000), 0, ",", ".") }})
+                    </div>OKE (Rp. {{ number_format($result[$key]->cost[0]->value * ceil($data['weight']/1000), 0, ",", ".") }})
                 </td>
             </tr>
+            @elseif($result[$key]->service == 'REG' || $result[$key]->service == 'CTC')
+            <tr>
+                <td>
+                    <div class="radio">
+                        <input class="radiobtn" type="radio" name="optradio" id="{{$result[$key]->service}}" value="{{$result[$key]->cost[0]->value * ceil($data['weight']/1000)}}">
+                    </div>REG (Rp. {{ number_format($result[$key]->cost[0]->value * ceil($data['weight']/1000), 0, ",", ".") }})
+                </td>
+            </tr>
+            @elseif($result[$key]->service == 'YES' || $result[$key]->service == 'CTCYES')
+            <tr>
+                <td>
+                    <div class="radio">
+                        <input class="radiobtn" type="radio" name="optradio" id="{{$result[$key]->service}}" value="{{$result[$key]->cost[0]->value * ceil($data['weight']/1000)}}">
+                    </div>YES (Rp. {{ number_format($result[$key]->cost[0]->value * ceil($data['weight']/1000), 0, ",", ".") }})
+                </td>
+            </tr>
+            @endif
+
         @endforeach
     </table>
 </div>

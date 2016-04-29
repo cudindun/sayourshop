@@ -13,12 +13,14 @@
 //ADE
 Route::get('/', 'HomeController@index');
 Route::get('cari','ProductController@search');
+Route::post('ajax_cari','ProductController@ajax_search');
+Route::post('ajax_category_search', 'ProductController@ajax_category_search');
 Route::get('produk/{slug}','ProductController@product');
 Route::get('produk/{slug}/{subcategory}','ProductController@subproduct');
 Route::get('produk/{slug}/{subcategory}/{id}','ProductController@detail');
 Route::get('detail/{id}','ProductController@detail_cart');
 Route::get('login_form','UserController@login_form');
-Route::get('login','UserController@login');
+Route::match(['get', 'post'],'login','UserController@login');
 Route::get('logout','UserController@logout');
 Route::get('daftar','UserController@register_form');
 Route::get('register','UserController@register');
@@ -32,7 +34,7 @@ Route::get('tambah_rek','UserController@add_bank_acc');
 Route::get('hapus_rek/{no_rek}','UserController@delete_bank_acc');
 Route::post('save_photo','ProductController@save_photo');
 Route::post('order','OrderController@order');
-Route::get('delete_order/{row_id}','OrderController@delete_order');
+Route::post('delete_order','OrderController@delete_order');
 Route::get('update_order','OrderController@update_order');
 Route::get('checkout_order','OrderController@checkout_order');
 Route::get('tambah_alamat','UserController@add_address');
@@ -58,6 +60,7 @@ Route::post('product_content','ProductController@product_content');
 Route::post('subproduct_content','ProductController@subproduct_content');
 Route::post('review_content','ProductController@review_content');
 Route::post('wishlist', 'ProductController@wishlist');
+Route::post('del_wishlist', 'ProductController@del_wishlist');
 //END ADE
 
 //UDIN

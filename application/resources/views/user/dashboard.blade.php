@@ -320,6 +320,7 @@
 									<div class="text-center pull-left col-sm-3" style="padding-top:10px; ">
 										<img src=" {{url('application/storage/photo_product/'.$image[0])}}" class="product" style="width: 150px;"><br> <br>
 										<a href="{{url('produk/'.$wish->category->slug.'/'.$wish->subcategory->slug.'/'.$wish->id)}}"><button type="button" class="btn btn-mini btn-primary">{{$wish->name}}</button></a>
+										<button type="button" class="btn btn-mini btn-alizarin del_wish" id="{{$wish->id}}">Hapus</button>
 									</div>
 									@endforeach
 								</div>
@@ -334,6 +335,20 @@
 <script type="text/javascript">
 	$(document).ready(function()
 	{
+		$('.del_wish').click(function(){
+			var id = this.id;
+			console.log(id);
+			$.ajax({
+				url: "{!! url('del_wishlist') !!}",
+				data: {product_id: id},
+                method:'POST',
+			}).done(function(data){
+				alert("Produk telah dihapus dari wishlist");
+				location.reload();
+			});
+
+		});
+
 		$('.detail').click(function(){
 			var id = this.id.substr(7);
 			$.ajax({

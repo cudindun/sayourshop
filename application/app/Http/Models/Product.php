@@ -50,4 +50,9 @@ class Product extends Model {
     {
         return $this->hasMany('App\Http\Models\OrderDetail');
     }
+
+    public function reviews()
+    {
+    	return $this->hasMany('App\Http\Models\Reviews','product_id');
+    }
 }

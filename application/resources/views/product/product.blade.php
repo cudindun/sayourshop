@@ -36,14 +36,12 @@
         <div class="container" style="padding: 0px;">
             <div class="row">
                 <div class="span12">
-                    <div style="min-height:350px;margin-top:15px">
                         @if($data['banner'])
                         <?php $banner = unserialize($data['banner']->meta_value);?>
                         <div class="col-lg-12" style="padding: 0px;margin: 0px;">
-                            <img src="{{url('application/storage/photo_banner/'.$banner['banner1'])}}">
+                            <img src="{{url('application/storage/photo_banner/'.$banner['banner1'])}}" style="max-width: 100%; padding-bottom: 20px;">
                         </div>
                         @endif
-                    </div>
                 </div>
                 <div class="span2">
                     <!-- Sidebar -->
@@ -98,11 +96,11 @@
                 <div class="span10">
                     <?php // ============================ Banner 1 ================================= ?>
                     <div class="col-lg-6" style="margin: 0px;padding: 0px;" >
-                            <img src="{{url('application/storage/photo_banner/'.$banner['banner2'])}}">
+                            <img src="{{url('application/storage/photo_banner/'.$banner['banner2'])}}" style="max-width: 100%;">
                     </div>
                     <?php // ============================ Banner 2 ================================= ?>
                     <div class="col-lg-6" style="margin: 0px;padding: 0px;min-height: 100px;" >
-                            <img src="{{url('application/storage/photo_banner/'.$banner['banner3'])}}">
+                            <img src="{{url('application/storage/photo_banner/'.$banner['banner3'])}}" style="max-width: 100%;">
                     </div>
                 </div>
                 <hr>
