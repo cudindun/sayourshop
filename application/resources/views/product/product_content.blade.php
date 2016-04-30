@@ -8,9 +8,9 @@
                         <li class="standard" data-price="28" style="width: 220px;">
                             <a href="{{url('produk/'.$product->category->slug.'/'.$product->subcategory->slug.'/'.$product->id)}}" title="Lisette Dress">
                                 <div class="image img-responsive">
-                                    <img height="220px" src="{{url('application/storage/photo_product/'.$image[0])}}" class="primary">
+                                    <img src="{{url('application/storage/photo_product/'.$image[0])}}" class="primary">
                                     <?php if(count($image) == 1): else: ?>
-                                        <img height="220px" src="{{url('application/storage/photo_product/'.$image[1])}}" class="secondary">
+                                        <img src="{{url('application/storage/photo_product/'.$image[1])}}" class="secondary">
                                     <?php endif; ?>
                                 </div>
                                 <div class="title">
@@ -36,7 +36,6 @@
                                 </div>
                             </a>
                         </li>
-
                     @endforeach
                     </div>
                     <!-- End class="product-list isotope" --> 

@@ -28,32 +28,23 @@
                                     <div class="row-fluid">
                                         <div class="col-lg-10">
                                             <div class="content">
-                                                <h1>Get in touch!</h1>
-                                                <p class="lead">Our opening hours are Monday to Friday &mdash; 9:00 to 18:00 GMT</p>
-                                                <p>For <strong>hosting</strong> and <strong>support</strong>, please visit our <a href="http://laboutique.ticksy.com" target="_blank">support board</a>. Oh and don’t forget to check out our amazing <a href="http://themeforest.net/user/Tfingi" target="_blank"><strong>La Boutique <em>Pro</em></strong></a> theme.</p>
-                                                <hr />
                                                 <h3>Kontak Kami</h3>
-                                                <div class="map" style="height: 320px; width: 100%; background-color: #F0F0F0;" data-address="16 Clocktower Mews, Newmarket, CB8 8LL, UK" data-zoom="12">&nbsp;</div>
                                                 <hr />
                                                 <div class="row-fluid">
                                                     <div class="col-md-4">
-                                                        <h5><em class="icon-map-marker icon-larger"></em> La Boutique</h5>
-                                                        <p>Clocktower Mews<br />Newmarket CB8 8LL<br />United Kingdom</p>
+                                                        <h5><em class="icon-map-marker icon-larger"></em> Sayourshop</h5>
+                                                        <p>Jln. Narogong Megah 4 blok E15 no 5<br />Kota Bekasi, Bekasi Timur<br />17115</p>
                                                     </div>
                                                     <div class="col-md-4">
-                                                        <h5><em class="icon-phone icon-larger"></em> Call us</h5>
-                                                        <p>Well, don't really call us as we do not offer telephone support :)<br /><strong>+44 1234 567 890</strong></p>
-                                                    </div>
-                                                    <div class="col-md-4">
-                                                        <h5><em class="icon-medkit icon-larger"></em> Support</h5>
-                                                        <p>A dedicated team provides timely and effective <a href="http://laboutique.ticksy.com" target="_blank">support</a> whenever you need a hand getting things right.</p>
+                                                        <h5><em class="icon-phone icon-larger"></em> Hubungi Kami</h5>
+                                                        <p><strong>sayourshop.official@gmail.com</strong><br>
+                                                        <strong>+6212345678910</strong></p>
                                                     </div>
                                                 </div>
                                                 <hr />
 
                                                 <form id="form" enctype="multipart/form-data" action="{{url('contact')}}" role="POST" />
                                                     
-                                                    <h3>Send us a message</h3>
 
                                                     <div class="row-fluid">
                                                         <div class="col-lg-6">
@@ -115,7 +106,7 @@
                                                     <div class="row-fluid">
                                                         <div class="col-lg-12">
                                                             <button type="submit" class="btn btn-primary">
-                                                                Send message
+                                                                Kirim Pesan
                                                             </button>
                                                         </div>
                                                     </div>

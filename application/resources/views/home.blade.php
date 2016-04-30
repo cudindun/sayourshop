@@ -72,27 +72,28 @@
     <div class="container">
         <div class="row">
             <div class="col-lg-12">
-                <div class="box border-top" style="margin-bottom:10px;min-height: 210px;">
-                    <h4 class="widget-title widget-title ">Produk Terbaru</h3>
-                    <div class="product-list-small">
-                        @foreach($data['product'] as $product)
+            <div class="col-lg-12 box border-top">
+                    <h4 >Produk Terlaris</h4>
+                    <div class="product-list isotope">
+                        @foreach($data['sold'] as $product)
                             <?php
                                 $image = unserialize($product->image);
                             ?>
-                            <li style="float: left;padding-right: 5px;">            
-                                <div class="image" style="width: 110px;">
-                                    <a href="{{url('detail/'.$product->id)}}" title="{{$product->name}}" style="border: 0px;" >
-                                        <image src="{{url('application/storage/photo_product/'.$image[0])}}" style=" max-width: 110px;height: 110px;">
-                                    </a>
-                                </div>
-                                <div class="desc">
-                                    <h6>
-                                        <a href="{{url('detail/'.$product->id)}}" title="{{$product->name}}">{{ucwords($product->name)}}</a>
-                                    </h6>
-                                    <div class="price">
-                                        Rp. {{ number_format($product->price, 0, ",", ".") }}                                     
+                            <li class="standard" data-price="28" style="width: 198px;">
+                                <a href="{{url('produk/'.$product->category->slug.'/'.$product->subcategory->slug.'/'.$product->id)}}" title="Lisette Dress">
+                                    <div class="image img-responsive">
+                                        <img  src="{{url('application/storage/photo_product/'.$image[0])}}" class="primary">
+                                        <?php if(count($image) == 1): else: ?>
+                                            <img src="{{url('application/storage/photo_product/'.$image[1])}}" class="secondary">
+                                        <?php endif; ?>
                                     </div>
-                                    <div class="rating">
+                                    <div class="title">
+                                    <div class="prices">
+                                            <span class="price">Rp. {{ number_format($product->price, 0, ",", ".") }}</span>
+                                        </div>
+                                        <h3>{{ucwords($product->name)}}</h3>
+                                        
+                                        <div class="rating">
                                         @if($product->rating > 0)
                                         <?php 
                                             $stars = $product->rating/count($product->reviews);
@@ -102,13 +103,17 @@
                                         <?php
                                             }
                                         ?>
+                                        {{count($product->reviews)}} review
                                         @endif
+                                        </div>
+
                                     </div>
-                                </div>
+                                </a>
                             </li>
                         @endforeach
                     </div>
-                </div>  
+             
+            </div>
             </div>
         </div>
     </div>
@@ -131,26 +136,27 @@
         <div class="row">
             <div class="col-lg-12">
                 <div class="box border-top" style="margin-bottom:10px;min-height: 210px;">
-                    <h4 class="widget-title widget-title ">Most Reviewed</h3>
-                    <div class="product-list-small">
-                        @foreach($data['reviews'] as $product)
+                    <h4 class="widget-title widget-title ">Produk Terbaru</h3>
+                    <div class="product-list isotope">
+                        @foreach($data['product'] as $product)
                             <?php
                                 $image = unserialize($product->image);
                             ?>
-                            <li style="float: left;padding-right: 5px;">            
-                                <div class="image" style="width: 110px;">
-                                    <a href="{{url('detail/'.$product->id)}}" title="{{$product->name}}" style="border: 0px;" >
-                                        <image src="{{url('application/storage/photo_product/'.$image[0])}}" style="width:110px; max-width: 500px;height: 110px;">
-                                    </a>
-                                </div>
-                                <div class="desc">
-                                    <h6>
-                                        <a href="{{url('detail/'.$product->id)}}" title="{{$product->name}}">{{$product->name}}</a>
-                                    </h6>
-                                    <div class="price">
-                                        Rp. {{ number_format($product->price, 0, ",", ".") }}                                     
+                            <li class="standard" data-price="28" style="width: 198px;">
+                                <a href="{{url('produk/'.$product->category->slug.'/'.$product->subcategory->slug.'/'.$product->id)}}" title="Lisette Dress">
+                                    <div class="image img-responsive">
+                                        <img  src="{{url('application/storage/photo_product/'.$image[0])}}" class="primary">
+                                        <?php if(count($image) == 1): else: ?>
+                                            <img src="{{url('application/storage/photo_product/'.$image[1])}}" class="secondary">
+                                        <?php endif; ?>
                                     </div>
-                                    <div class="rating">
+                                    <div class="title">
+                                    <div class="prices">
+                                            <span class="price">Rp. {{ number_format($product->price, 0, ",", ".") }}</span>
+                                        </div>
+                                        <h3>{{ucwords($product->name)}}</h3>
+                                        
+                                        <div class="rating">
                                         @if($product->rating > 0)
                                         <?php 
                                             $stars = $product->rating/count($product->reviews);
@@ -160,9 +166,12 @@
                                         <?php
                                             }
                                         ?>
+                                        {{count($product->reviews)}} review
                                         @endif
+                                        </div>
+
                                     </div>
-                                </div>
+                                </a>
                             </li>
                         @endforeach
                     </div>

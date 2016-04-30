@@ -101,12 +101,14 @@
                 
                 <div class=" col-sm-12 visible-xs-* hidden-lg hidden-sm hidden-md">
                     <!-- Main menu (mobile) -->
-                    <select class="form-control">
+                    <select class="form-control" onchange="location = this.value;">
                         <option value="" selected="selected" />Go to&hellip;
-                        <option value="/" />Home
-                        <option value="category.html" />Produk
-                        <option value="category.html" />Ready Stock
-                        <option value="category.html" />Pre-Order                 
+                        <option value="{{url('/')}}" />Home
+                        @foreach($data['category'] as $category)
+                            <option value="{{url('produk/'.$category->slug)}}" />{{ucwords($category->name)}}   
+                        @endforeach
+                        <option value="{{url('check_order')}}" />Cek Order 
+                        <option value="{{url('contact')}}" />Kontak Kami              
                     </select>
                 </div>
             </div>
@@ -120,41 +122,24 @@
 {!! $content !!}
 
 <!-- Twitter bar -->
-<div class="twitter-bar">
-    <div class="container">
-        <div class="row">
-            <div class="col-lg-12">
-                <div class="icon">
-                    <i class="fa fa-twitter"></i>
-                </div>
-                <div id="tweets" data-username="lemonstand">
-
-                </div>
-            </div>
-        </div>
-    </div>
-</div>
 <!-- End class="twitter-bar" -->            
 <!-- Footer -->
-<div class="footer">
+<div class="footer" style="margin-top: 40px;">
     <div class="container">
         <div class="row">   
                         
-            <div class="col-lg-2">
+            <div class="col-lg-3">
                 <!-- Support -->
                 <div class="support" style="min-height:200px">
                     <h6>Support</h6>
 
-                    <div class="links">
+                    <div class="list-chevron links">
                         <li>
                             <a href="about-us.html" title="About us" class="title">About us</a>
                         </li>
                         <li>
-                            <a href="{{url('contact')}}" title="Contact us" class="title">Contact us</a>
+                            <a href="{{url('contact')}}" title="Kontak Kami" class="title">Kontak Kami</a>
                         </li> 
-                        <li>
-                            <a href="{{url('contact')}}" title="Contact us" class="title">Forgot Password</a>
-                        </li>
                         <li>
                             <a href="{{url('contact')}}" title="Contact us" class="title">Check Order</a>
                         </li>                                         
@@ -164,30 +149,10 @@
                     </div>
                 </div>
                 <!-- End class="support" -->
-
-                <hr />
-
-                <!-- My account -->
-                <div class="account">
-                    <h6>My account</h6>
-
-                    <div class="links">                              
-                        <li>
-                            @if(Sentinel::check())
-                        <a href="{{url('dashboard')}}" style="min-width:150px"><i class="fa fa-user"></i> {{Sentinel::getUser()->email}}</a>
-                        <br>
-                        <a href="{{url('logout')}}" style="min-width:150px"><i class="glyphicon glyphicon-log-out"></i> Log Out</a>
-                        @else
-                        <a href="{{url('login_form')}}" style="min-width:150px"><i class="fa fa-user"></i> Login | Register</a>
-                        @endif                               
-                        </li>
-                    </div>
-                </div>
-                <!-- End class="account"-->
                 
             </div>
 
-            <div class="col-lg-2">
+            <div class="col-lg-3">
                 
                 <!-- Categories -->
                 <div class="categories" style="min-height:200px">
@@ -201,7 +166,7 @@
                             ?>
                                 <li>
                                     <a href="{{ url('produk/'.$data['category'][$i]->slug) }}">
-                                        {{$data['category'][$i]->name}}
+                                        {{ucwords($data['category'][$i]->name)}}
                                     </a>
                                     @if($data['category'][$i]->subcategories == "1")
                                     <?php $tes=$data['category'][$i]->subcategory; $category=$data['category'][$i]->slug;?>
@@ -223,10 +188,9 @@
                 </div>
                 <!-- End class="categories" -->
 
-                <hr />
 
                 <!-- Pay with confidence -->
-                <div class="confidence">
+                <div class="confidence" hidden="true">
                     <h6>Pay with confidence</h6>
 
                     {!! Html::image('assets/image/payment_image/bca500.png', '', array('style' => 'width:150px')) !!}
@@ -235,20 +199,10 @@
                 <!-- End class="confidence" -->
             </div>
 
-            <div class="col-lg-4">
-                <div class="faq" style="min-height:200px">
-                    <h6>FAQ</h6>
-
-                    <div class="links">
-                        <li>
-                            <a href="about-us.html" title="About us" class="title">All Help</a>
-                        </li>                                        
-                    </div>
-                </div>
-            </div>
+            
 
 
-            <div class="col-lg-4">              
+            <div class="col-lg-3">              
 
                 <!-- Newsletter subscription -->
                 <div style="min-height:200px">
@@ -270,11 +224,10 @@
                     </div>
                 </div>
                 <!-- End class="newsletter" -->
-                
-                <hr />
+            </div>
                 
                 <!-- Social icons -->
-                <div class="social">
+                <div class="social col-md-3">
                     <h6>Socialize with us</h6>
 
                     <div class="social-icons">
@@ -333,7 +286,7 @@
                 </div>
                 <!-- End class="social" -->
 
-            </div>
+            
         </div>
     </div>
 </div>
