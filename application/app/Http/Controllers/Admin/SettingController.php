@@ -182,21 +182,21 @@ class SettingController extends AdminController
 		      			array_push($unserialize['slider1'], $filename);
 		      		};
 		      	}elseif($key == 'slider2'){
-		      		$img->resize(858,null,function ($constraint) {$constraint->aspectRatio();});
+		      		$img->resize(266,null,function ($constraint) {$constraint->aspectRatio();});
 		      		if ($unserialize['slider2'] == '') {
 		      			array_push($key_banner, $filename);
 		      			$unserialize[$key] = $key_banner;
 		      		}else{
 		      			array_push($unserialize['slider2'], $filename);
 		      		};
-		      	}elseif ($key == 'banner3') {
+		      	}elseif ($key == 'banner1') {
 		      		$filename= $key.'.jpg';
 		      		$img->resize(1155,null,function ($constraint) {$constraint->aspectRatio();});
 		      		$key_banner = $filename;
 		      		$unserialize[$key] = $key_banner;
 		      	}else{
 		      		$filename= $key.'.jpg';
-		      		$img->resize(266,null,function ($constraint) {$constraint->aspectRatio();});
+		      		$img->resize(562,null,function ($constraint) {$constraint->aspectRatio();});
 		      		$key_banner = $filename;
 		      		$unserialize[$key] = $key_banner;
 		      	}

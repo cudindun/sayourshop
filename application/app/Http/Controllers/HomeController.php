@@ -24,7 +24,7 @@ class HomeController extends Controller
 		$this->data['cart'] 			= Cart::count();
 		//$this->data['main-cart-content'] = dd($this->get_cart());
 
-		$this->middleware('getGuest');
+		// $this->middleware('getGuest');
 	}
 
     public function index()
@@ -32,7 +32,9 @@ class HomeController extends Controller
 		$this->data['css_assets'] 	= Assets::load('css', ['lib-bootstrap', 'style', 'font-awesome', 'font-awesome-min', 'flexslider', 'color-schemes-core', 'color-schemes-turquoise', 'jquery-parallax', 'bootstrap-responsive','font-family']);
 		$this->data['js_assets'] 	= Assets::load('js', ['jquery', 'jquery-ui', 'jquery-easing', 'bootstrap-min-lib', 'jquery-isotope', 'jquery-flexslider', 'jquery.elevatezoom', 'jquery-sharrre', 'jquery-gmap3', 'imagesloaded', 'la_boutique', 'jquery-cookie', 'jquery-parallax-lib']);
 		$this->data['title']		= 'Home';
-		$this->data['product']		= Product::orderBy('created_at','DESC')->Paginate(5);
+		$this->data['product']		= Product::orderBy('created_at','DESC')->limit(5)->get();
+		$this->data['reviews']		= Product::orderBy('rating','DESC')->limit(5)->get();
+		$this->data['sold']			= Product::orderBy('sold','DESC')->limit(3)->get();
 		$this->data['banner']		= Option::where('meta_key','banner_home')->first();
 	    return view('main_layout')->with('data', $this->data)
 								  ->nest('content', 'home', array('data' => $this->data));

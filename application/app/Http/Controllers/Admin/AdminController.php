@@ -63,15 +63,6 @@ class AdminController extends Controller
 								  ->nest('content', 'admin/product/list_produk', array('data' => $this->data));
 	}
 
-	public function create_category()
-	{
-		$this->data['css_assets'] 	= Assets::load('css', ['admin_bootstrap', 'admin_css', 'font-awesome', 'skins']);
-		$this->data['js_assets'] 	= Assets::load('js', ['jquery', 'admin_js', 'dashboard', 'admin_bootstrap-js', 'slimscroll', 'fastclick']);
-		$this->data['title']		= 'Category | Create';
-	    return view('admin_layout')->with('data', $this->data)
-								  ->nest('content', 'category/form', array('data' => $this->data));
-	}
-
 	public function list_category()
 	{
 		$this->data['css_assets'] 	= Assets::load('css', ['admin_bootstrap', 'admin_css', 'font-awesome', 'skins', 'dataTables_css']);
@@ -82,15 +73,15 @@ class AdminController extends Controller
 								  ->nest('content', 'admin/setting/list_category', array('data' => $this->data));
 	}
 
-	public function create_subcategory()
-	{
-		$this->data['css_assets'] 	= Assets::load('css', ['admin_bootstrap', 'admin_css', 'font-awesome', 'skins']);
-		$this->data['js_assets'] 	= Assets::load('js', ['jquery', 'admin_js', 'dashboard', 'admin_bootstrap-js', 'slimscroll', 'fastclick']);
-		$this->data['title']		= 'Subcategory | Create';
-		$this->data['category_list']= [' - Select - '] + Category::lists('name', 'id')->all();
-	    return view('admin_layout')->with('data', $this->data)
-								  ->nest('content', 'subcategory/form', array('data' => $this->data));
-	}
+	// public function create_subcategory()
+	// {
+	// 	$this->data['css_assets'] 	= Assets::load('css', ['admin_bootstrap', 'admin_css', 'font-awesome', 'skins']);
+	// 	$this->data['js_assets'] 	= Assets::load('js', ['jquery', 'admin_js', 'dashboard', 'admin_bootstrap-js', 'slimscroll', 'fastclick']);
+	// 	$this->data['title']		= 'Subcategory | Create';
+	// 	$this->data['category_list']= [' - Select - '] + Category::lists('name', 'id')->all();
+	//     return view('admin_layout')->with('data', $this->data)
+	// 							  ->nest('content', 'subcategory/form', array('data' => $this->data));
+	// }
 
 	public function list_subcategory()
 	{

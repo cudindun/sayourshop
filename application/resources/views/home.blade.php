@@ -53,37 +53,16 @@
             </div>
             <!-- End class="flexslider" -->  
             <?php // ================ TOP PRODUCT SLIDER ==================  ?>
-            <div class="col-lg-6">
-                <div class="free-shipping" id="parallax-top-product">
-                    <div class="col-lg-12" style="min-height:270px;margin-bottom:10px;">
-                        <div class="hgroup title" style="margin-bottom: 0px;background: none;">
-                            <h3>Top 3 Product</h3>
-                        </div>
-                        <div class="col-lg-12" id="port" style="margin-top: 0px;margin-bottom: 0px;">
-                            <ul class="thumbs_index index parallax-layer">
-                                <li><a class="img_thumb thumb" href="#" style="background: url('assets/image/top_products/1.jpg');">item</a></li>
-                                <li><a class="img_thumb thumb" href="#" style="background: url('assets/image/top_products/2.jpg');">item</a></li>
-                                <li><a class="img_thumb thumb" href="#" style="background: url('assets/image/top_products/3.jpg');">item</a></li>
-                                <li><a class="img_thumb thumb" href="#" style="background: url('assets/image/top_products/4.jpg');">item</a></li>
-                                <li><a class="img_thumb thumb" href="#" style="background: url('assets/image/top_products/5.jpg');">item</a></li>
-                                <li><a class="img_thumb thumb" href="#" style="background: url('assets/image/top_products/6.jpg');">item</a></li>
-                            </ul>
-                        </div>
+     
+                @foreach($banner['slider2'] as $slide2)
+                <div class="col-lg-3">
+                    <div class="free-shipping" id="parallax-top-product">
+                        <img src="{{url('application/storage/photo_banner/'.$slide2)}}" style="max-width: 100%;" height="266">
                     </div>
                 </div>
-            </div>
+                @endforeach
+          
             <?php // ================ PRODUCT MO READY 2 ==================  ?>
-            <div class="col-lg-3" >
-                <div class="world-shipping">
-                    <img src="{{url('application/storage/photo_banner/'.$banner['banner1'])}}" style="max-width: 100%;">
-                </div>
-            </div>
-            <?php // ================ READY STOCK ==================  ?>
-            <div class="col-lg-3" >
-                <div class="world-shipping">
-                        <img src="{{url('application/storage/photo_banner/'.$banner['banner2'])}}" style="max-width: 100%;">
-                </div>
-            </div>
         </div>
     </div>
 </section>
@@ -140,7 +119,7 @@
     <div class="container">
         <div class="row">
             <div class="col-lg-12" style="margin-bottom: 10px;" >
-                    <img src="{{url('application/storage/photo_banner/'.$banner['banner3'])}}" style="max-width: 100%;
+                    <img src="{{url('application/storage/photo_banner/'.$banner['banner1'])}}" style="max-width: 100%;
     height: auto;">
             </div>
         </div>
@@ -152,9 +131,9 @@
         <div class="row">
             <div class="col-lg-12">
                 <div class="box border-top" style="margin-bottom:10px;min-height: 210px;">
-                    <h4 class="widget-title widget-title ">Promosi</h3>
+                    <h4 class="widget-title widget-title ">Most Reviewed</h3>
                     <div class="product-list-small">
-                        @foreach($data['product'] as $product)
+                        @foreach($data['reviews'] as $product)
                             <?php
                                 $image = unserialize($product->image);
                             ?>
@@ -199,22 +178,15 @@
         <div class="row" style="text-align: center;">
         <!-- Slider -->
             <!-- End class="flexslider" --> 
-            <div class="col-lg-9" >
-                <div class="flexslider" style="margin:10px;">
-                    <ul class="slides">
-                        <?php $banner = unserialize($data['banner']->meta_value);?>
-                        @foreach($banner['slider1'] as $slide1)
-                        <li>
-                            <img src="{{url('application/storage/photo_banner/'.$slide1)}}">
-                        </li>
-                        @endforeach
-                    </ul>
+            <div class="col-lg-6" >
+                <div class="world-shipping">
+                    <img src="{{url('application/storage/photo_banner/'.$banner['banner2'])}}" style="max-width: 100%;">
                 </div>
             </div>
             <?php // ================ PRODUCT MO READY 2 ==================  ?>
-            <div class="col-lg-3" >
+            <div class="col-lg-6" >
                 <div class="world-shipping">
-                    <img src="{{url('application/storage/photo_banner/'.$banner['banner4'])}}" style="max-width: 100%;">
+                    <img src="{{url('application/storage/photo_banner/'.$banner['banner3'])}}" style="max-width: 100%;">
                 </div>
             </div>
             <?php // ================ READY STOCK ==================  ?>

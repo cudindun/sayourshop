@@ -101,6 +101,7 @@ class ProductController extends HomeController
 		$this->data['title']		= 'Produk';
 		$this->data['product']		= Product::where('id',$id)->first();
 		$this->data['count']		= Reviews::where('product_id',$id)->get();
+		$this->data['related']		= Product::where('subcategory_id', $this->data['product']->subcategory_id)->orderByRaw("RAND()")->limit(4)->get();
 	    return view('main_layout')->with('data', $this->data)
 								  ->nest('content', 'product/product_detail', array('data' => $this->data));
 
