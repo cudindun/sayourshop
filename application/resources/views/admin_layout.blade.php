@@ -1,8 +1,8 @@
 <?php 
   use App\Http\Models\Ask;
-
+  
   $data['mailCount'] = Ask::where('status', 0)->count();
-  $data['mail'] = Ask::All();
+  $data['mail'] = Ask::orderBy('id', 'DESC')->get();
   $now = Date("Y-m-d H:i:s");
   $now = new DateTime($now);
 
@@ -18,6 +18,7 @@
 
     <!-- Tell the browser to be responsive to screen width -->
     <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
+    <link rel="stylesheet" href="https://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css">
     
     <?php // ============ CSS ============ ?>
 
@@ -92,10 +93,10 @@
                                 $diff  = $date->diff($now); 
                                 if($diff->d == 0){
                                   if($diff->h == 0){
-                                    if($diff->m == 0){
+                                    if($diff->i == 0){
                                       echo 'Less than a minute ago';
                                     }else{
-                                      echo $diff->m . ' minutes ago';
+                                      echo $diff->i . ' minutes ago';
                                     }                                   
                                   }else{
                                     echo $diff->h . ' hours ago';

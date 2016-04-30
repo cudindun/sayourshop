@@ -53,7 +53,8 @@ class HomeController extends Controller
 			$validator = Validator::make($request->all(), $rules);
 			if (!$validator->fails()) {
 				$ask = New Ask;
-				$ask->name = $request->input('name') . "(" . $request->input('email') . ")";
+				$ask->name = $request->input('name');
+				$ask->email = $request->input('email');
 				$ask->type = $request->input('type');
 				$ask->ask = $request->input('message');
 				$ask->status = 0;

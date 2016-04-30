@@ -11,9 +11,9 @@ class getGuest
     {
 	    $guest = new Guest;
 		$ip = $request->ip();
-		$check_guest = Guest::where('ip_address', $ip)->first();
+		$check_guest = Guest::where('ip_address', $ip)->count();
 
-		if(!$check_guest->ip_address == $ip){
+		if($check_guest == 0){
 			$guest->ip_address = $ip;
 			$guest->save();
 		}

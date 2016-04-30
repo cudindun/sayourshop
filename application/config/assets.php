@@ -39,6 +39,7 @@ return [
 		'jvectormap'				=> 'assets/admin/plugins/jvectormap/jquery-jvectormap-1.2.2.css',
 		'dataTables_css'			=> 'assets/admin/plugins/datatables/dataTables.bootstrap.css',
 		'daterangepicker'			=> 'assets/admin/plugins/daterangepicker/daterangepicker-bs3.css',
+		'wysihtml'					=> 'assets/admin/plugins/bootstrap-wysihtml5/bootstrap3-wysihtml5.min.css',
 
 
 		//ADMIN CSS
@@ -110,6 +111,7 @@ return [
 		'dataTables_js'			=> 'assets/admin/plugins/datatables/jquery.dataTables.min.js',
 		'dataTables_bootsjs'	=> 'assets/admin/plugins/datatables/dataTables.bootstrap.min.js',
 		'daterangepicker'		=> 'assets/admin/plugins/daterangepicker/daterangepicker.js',
+		'wysihtml'				=> 'assets/admin/plugins/bootstrap-wysihtml5/bootstrap3-wysihtml5.all.min.js',
 
 		//ADMIN JS
 		'admin_js'				=> 'assets/admin/js/app.js',
