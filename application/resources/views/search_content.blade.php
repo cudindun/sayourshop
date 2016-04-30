@@ -43,24 +43,21 @@
                     <!-- End "Load More" Button -->
     <script type="text/javascript">
         $('.pagination a').click(function(e){
-        e.preventDefault();
-        var url = $(this).attr('href');
-        var search = $('#pencarian').val();
-        var category = $('#search_category').val();
-        if (category == undefined) {
+            e.preventDefault();
+            var url = $(this).attr('href');
+            var search = $('#pencarian').val();
+            var category = $('#search_category').val();
+            var sortby = $('#sort').val();
+            if (sortby == undefined) {
+                var sortby = 'name';
+            }
             $.ajax({
                 url: url,
-                data: {
+                data: (category == undefined) ? {
+                    sortby: sortby,
                     search: search
-                },
-                method:'POST',
-            }).done(function(data){
-                $('#search_content').html(data);
-            });
-        }else{
-            $.ajax({
-                url: url,
-                data: {
+                } : {
+                    sortby: sortby,
                     search: search,
                     category_id:category
                 },
@@ -68,6 +65,6 @@
             }).done(function(data){
                 $('#search_content').html(data);
             });
-        }
-    });
+            
+        });
     </script>

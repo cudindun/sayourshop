@@ -40,7 +40,7 @@ Route::get('checkout_order','OrderController@checkout_order');
 Route::get('tambah_alamat','UserController@add_address');
 Route::get('konten_kota','OrderController@city_content');
 Route::get('konten_kecamatan','OrderController@district_content');
-Route::get('hapus_alamat/{no_alamat}','UserController@delete_address');
+Route::match(['get', 'post'],'hapus_alamat/{no_alamat}','UserController@delete_address');
 Route::get('checkout','OrderController@checkout');
 Route::get('order_validate/[no_invoice]','OrderController@order_validate');
 Route::get('discount','OrderController@discount');
@@ -61,6 +61,8 @@ Route::post('subproduct_content','ProductController@subproduct_content');
 Route::post('review_content','ProductController@review_content');
 Route::post('wishlist', 'ProductController@wishlist');
 Route::post('del_wishlist', 'ProductController@del_wishlist');
+Route::post('sort_product','ProductController@sort_product');
+Route::post('sort_search','ProductController@sort_search');
 //END ADE
 
 //UDIN

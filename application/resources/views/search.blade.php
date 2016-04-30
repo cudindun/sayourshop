@@ -46,11 +46,11 @@
                                 Hasil Pencarian "<b>{{$data['name']}}</b>"
                                 <input type="hidden" id="pencarian" value="{{$data['name']}}"></input>
                                 <div class="pull-right">
-                                    <select class="form-control" >
+                                    <select class="form-control" id="sort">
                                         <option selected>Urut Berdasarkan</option>
-                                        <option >Name</option>
-                                        <option >Price</option>
-                                        <option >Category</option>
+                                        <option value="name">Nama</option>
+                                        <option value="price">Price</option>
+                                        <option value="rating">Rating</option>
                                     </select>
                                 </div>
                             </h6>
@@ -120,9 +120,27 @@
                 category_id: category
             },
             method:'POST',
-        }).done(function(data){
-            $('#search_content').html(data);
+            }).done(function(data){
+                $('#search_content').html(data);
+            });
         });
+
+        $('#sort').change(function(){
+            var sortby = this.value;
+            var category_id = $('#search_category').val();
+            var search = $('#pencarian').val();
+            console.log(category_id);
+             $.ajax({
+                url: "{!! url('sort_search') !!}",
+                data: {
+                    sortby: sortby,
+                    search: search,
+                    category_id: category_id
+                },
+                method:'POST',
+            }).done(function(data){
+                $('#search_content').html(data);
+            });
         });
     });
     </script>

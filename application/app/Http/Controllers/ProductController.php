@@ -119,7 +119,7 @@ class ProductController extends HomeController
 
 	public function subproduct_content(Request $request)
 	{
-		$this->data['product']		= Product::where('category_id', $request->category_id)->where('subcategory_id', $request->subcategory_id)->Paginate(4);
+		$this->data['product']		= Product::where('category_id', $request->category_id)->where('subcategory_id', $request->subcategory_id)->Paginate(20);
 		return view('product/product_content')->with('data', $this->data);
 	}
 
@@ -186,6 +186,48 @@ class ProductController extends HomeController
 	public function ajax_category_search(Request $request)
 	{
 		$this->data['query']	= Product::where('name','like', '%'.$request->search.'%')->where('category_id', $request->category_id)->orderBy('DESC')->Paginate(20);
+		return view('search_content')->with('data', $this->data);
+	}
+
+	public function sort_product(Request $request)
+	{
+		if ($request->sortby == 'price' || $request->sortby == 'name') {
+			$sort = 'ASC';
+		}else{
+			$sort = 'DESC';
+		}
+
+		if ($request->sortby == 'pricedesc') {
+			$request->sortby = 'price';
+		}
+		
+		if ($request->category_id != '' && $request->subcategory_id != '') {
+			$this->data['product']	= Product::where('category_id', $request->category_id)->where('subcategory_id', $request->subcategory_id)->orderBy($request->sortby, $sort)->Paginate(20);
+		}elseif ($request->category_id != '') {
+			$this->data['product']	= Product::where('category_id', $request->category_id)->orderBy($request->sortby, $sort)->Paginate(20);
+		}else{
+			$this->data['product']	= Product::orderBy($request->sortby, $sort)->Paginate(20);
+		};
+		return view('product/product_content')->with('data', $this->data);
+	}
+
+	public function sort_search(Request $request)
+	{
+		if ($request->sortby == 'price' || $request->sortby == 'name') {
+			$sort = 'ASC';
+		}else{
+			$sort = 'DESC';
+		}
+
+		if ($request->sortby == 'pricedesc') {
+			$request->sortby = 'price';
+		}
+		
+		if ($request->category_id != '') {
+			$this->data['query']	= Product::where('name','like', '%'.$request->search.'%')->where('category_id', $request->category_id)->orderBy($request->sortby, $sort)->Paginate(20);
+		}else{
+			$this->data['query']	= Product::where('name','like', '%'.$request->search.'%')->orderBy($request->sortby, $sort)->Paginate(20);
+		};
 		return view('search_content')->with('data', $this->data);
 	}	
 }

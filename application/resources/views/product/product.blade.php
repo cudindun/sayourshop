@@ -76,11 +76,12 @@
                                 </div>
                                 <div style="margin-top:8px">
                                     <h7>Sort By : </h7>
-                                    <select class="form-control" style="margin-top:8px">
+                                    <select class="form-control" id="sort" style="margin-top:8px">
                                         <option selected> - - - </option>
-                                        <option >Name</option>
-                                        <option >Price</option>
-                                        <option >Category</option>
+                                        <option value="name">Nama</option>
+                                        <option value="price">Termurah</option>
+                                        <option value="pricedesc">Termahal</option>
+                                        <option value="rating">Rating</option>
                                     </select>
                                 </div>
                             </div>
@@ -115,20 +116,31 @@
     jQuery(document).ready(function(){
         var category_id = $('#slug_category').val();
         var subcategory_id = $('#slug_subcategory').val();
-        if (subcategory_id == undefined) {
-            $.ajax({
-                url: "{!! url('product_content') !!}",
-                data: {
+        $.ajax({
+            url: (subcategory_id == undefined) ? "{!! url('product_content') !!}" : "{!! url('subproduct_content') !!}" ,
+            data: (subcategory_id == undefined) ? {
+                category_id: category_id
+            } : {
+                category_id: category_id,
+                subcategory_id: subcategory_id
+            },
+            method:'POST',
+        }).done(function(data){
+            $('#content').html(data);
+        });
+
+        $('#sort').change(function(){
+            var sortby = this.value;
+            var category_id = $('#slug_category').val();
+            var subcategory_id = $('#slug_subcategory').val();
+            console.log(subcategory_id);
+             $.ajax({
+                url: "{!! url('sort_product') !!}",
+                data: (subcategory_id == undefined) ? {
+                    sortby: sortby,
                     category_id: category_id
-                },
-                method:'POST',
-            }).done(function(data){
-                $('#content').html(data);
-            });
-        }else{
-            $.ajax({
-                url: "{!! url('subproduct_content') !!}",
-                data: {
+                } : {
+                    sortby: sortby,
                     category_id: category_id,
                     subcategory_id: subcategory_id
                 },
@@ -136,7 +148,9 @@
             }).done(function(data){
                 $('#content').html(data);
             });
-        }
+        });
+
+
 
         
     });  

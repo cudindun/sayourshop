@@ -135,16 +135,13 @@
 
                     <div class="list-chevron links">
                         <li>
-                            <a href="about-us.html" title="About us" class="title">About us</a>
-                        </li>
-                        <li>
                             <a href="{{url('contact')}}" title="Kontak Kami" class="title">Kontak Kami</a>
                         </li> 
                         <li>
-                            <a href="{{url('contact')}}" title="Contact us" class="title">Check Order</a>
+                            <a href="{{url('cek_order_form')}}" title="Cek Order" class="title">Cek Order</a>
                         </li>                                         
                         <li>
-                            <a href="typography.html" title="Typography" class="title">Confirm Payment</a>
+                            <a href="{{url('konfirmasi_pembayaran')}}" title="Konfirmasi Pembayaran" class="title">Konfirmasi Pembayaran</a>
                         </li>
                     </div>
                 </div>

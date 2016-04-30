@@ -52,28 +52,25 @@
         var url = $(this).attr('href');
         var category_id = $('#slug_category').val();
         var subcategory_id = $('#slug_subcategory').val();
-        if (subcategory_id == undefined) {
-            $.ajax({
-                url: url,
-                data: {
-                    category_id: category_id
-                },
-                method:'POST',
-            }).done(function(data){
-                $('#content').html(data);
-            });
-        }else{
-            $.ajax({
-                url: url,
-                data: {
-                    category_id: category_id,
-                    subcategory_id: subcategory_id
-                },
-                method:'POST',
-            }).done(function(data){
-                $('#content').html(data);
-            });
-        }
+        var sortby = $('#sort').val();
+        if (sortby == undefined) {
+            var sortby = 'name';
+        };
+        $.ajax({
+            url: url ,
+            data: (subcategory_id == undefined ) ? {
+                sortby: sortby,
+                category_id: category_id
+            } : {
+                sortby: sortby,
+                category_id: category_id,
+                subcategory_id: subcategory_id
+            },
+            method:'POST',
+        }).done(function(data){
+            $('#content').html(data);
+        });
+        
     });
 
 </script>

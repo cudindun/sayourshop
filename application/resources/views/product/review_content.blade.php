@@ -3,7 +3,11 @@
                                             <article class="rating-item">
                                                 <div class="row-fluid">
                                                     <div class="span1">
-                                                        <img src="{{url('application/storage/photo_profile/'.$reviews->user->image)}}" class="gravatar" width="60px" alt="" />
+                                                        @if($reviews->user->image != '')
+                                                        <img src="{{url('application/storage/photo_profile/'.$reviews->user->image)}}" class="gravatar" width="55px" alt="" />
+                                                        @else
+                                                        <img src="{{asset('assets/image/user-image.png')}}" class="user-image" width="55px">
+                                                        @endif
                                                     </div>
                                                     <div class="span11">
                                                         <h6>
