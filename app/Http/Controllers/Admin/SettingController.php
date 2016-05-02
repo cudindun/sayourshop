@@ -1,0 +1,279 @@
+<?php
+
+namespace App\Http\Controllers\Admin;
+
+use Illuminate\Http\Request;
+
+use App\Http\Requests;
+use App\Http\Controllers\Controller;
+use App\Http\Libraries\Assets;
+use App\Http\Models\User;
+use App\Http\Models\Category;
+use App\Http\Models\Subcategory;
+use App\Http\Models\Option;
+use DB, Validator, Input, Image, File, Response;
+
+class SettingController extends AdminController
+{
+	
+    public function bank_account_form()
+	{
+		$this->data['css_assets'] 	= Assets::load('css', ['admin_bootstrap', 'admin_css', 'font-awesome', 'skins', 'icheck', 'morris_chart', 'jvectormap', 'dataTables_css']);
+		$this->data['js_assets'] 	= Assets::load('js', ['jquery', 'admin_js', 'admin_bootstrap-js', 'slimscroll', 'fastclick', 'morris_chart_js', 'sparkline', 'jvectormap_js', 'jvectormap_world_js', 'knob', 'dataTables_js']);
+		$this->data['title']		= 'SayourShop | Rekening';
+		$this->data['bank_account'] = Option::where('meta_key','bank_account')->first();
+	    return view('admin_layout')->with('data', $this->data)
+								  ->nest('content', 'admin/setting/bank_account', array('data' => $this->data));
+	}
+
+	public function add_bank_account(Request $request)
+	{
+		$rules = array(
+			'bank_name' => 'required',
+			'bank_account' => 'required',
+			'account_name' => 'required' 
+			);
+		$validator = Validator::make($request->all(), $rules);
+		if (!$validator->fails()) {
+			$bank_account = [
+				'bank_name' => $request->bank_name,
+				'bank_account' => $request->bank_account,
+				'account_name' => $request->account_name,
+				];
+			if ($bank = Option::where('meta_key','bank_account')->first()) {
+				$unserialize = unserialize($bank->meta_value);
+				$sum_array = array_push($unserialize, $bank_account);
+				$serialize = serialize($unserialize);
+				$total = Option::where('meta_key','bank_account')->update(['meta_value' => $serialize]);
+				return redirect('master/setting/bank_account')->with('success','Nomor Rekening berhasil ditambahkan');
+			}else{
+				$bank = new Option;
+				$bank->meta_key = "bank_account";
+				$bank->meta_value = serialize(array($bank_account));
+				$bank->save();
+				return redirect('master/setting/bank_account')->with('success','Nomor Rekening berhasil ditambahkan');
+			}
+		}else{
+			return redirect('master/setting/bank_account')->with('failed','Silahkan isi sesuai form ang disediakan');
+		}
+	}
+
+	public function del_bank_account($id)
+	{
+		$bank_account = Option::where('meta_key','bank_account')->first();
+		$a = unserialize($bank_account->meta_value);
+		unset($a[$id]);
+		$reindex = array_values($a);
+		$serialize = serialize($reindex);
+		$update = Option::where('meta_key','bank_account')->update(['meta_value' => $serialize]);
+		return redirect('master/setting/bank_account')->with('success','Nomor rekening berhasil dihapus');
+	}
+
+	public function create_category(Request $request)
+	{
+		$rules = array('category' => 'required');
+		$validator = Validator::make($request->all(), $rules);
+		if (!$validator->fails()) {	
+			$value = strtolower($request->category);
+			$db_cat = Category::where('name', $value)->first();
+			if ($db_cat) {
+				return redirect('master/setting/category/list')->with('failed','Maaf kategori telah tersedia');
+			}else{
+				$category = new Category;
+				$category->name = $value;
+				$category->slug = str_replace(" ", "-", $value);
+				$category->save();
+			    return redirect('master/setting/category/list')->with('success','Kategori baru berhasil ditambahkan');
+			}
+		}else{
+			return redirect('master/setting/category/list')->with('failed','Silahkan isi Nama Kategori');
+		}
+	}
+
+	public function list_category()
+	{
+		$this->data['css_assets'] 	= Assets::load('css', ['admin_bootstrap', 'admin_css', 'font-awesome', 'skins', 'dataTables_css']);
+		$this->data['js_assets'] 	= Assets::load('js', ['jquery', 'admin_js', 'admin_bootstrap-js', 'slimscroll', 'fastclick', 'dataTables_js', 'dataTables_bootsjs']);
+		$this->data['title']		= 'Category | List';
+		$this->data['category']		= Category::all();
+	    return view('admin_layout')->with('data', $this->data)
+								  ->nest('content', 'admin/setting/list_category', array('data' => $this->data));
+	}
+
+	public function create_subcategory(Request $request)
+	{
+		$rules = array(
+			'subcategory' => 'required');
+		$validator = Validator::make($request->all(), $rules);
+		if (!$validator->fails()) {
+			$value = strtolower($request->subcategory);
+			$category = Category::where('id',$request->category)->first();
+			$subcategory = Subcategory::where('category_id',$category->id)->where('subname',$value)->first();
+			if($subcategory){
+				return redirect('master/setting/subcategory/list')->with('failed','Maaf subkategori telah tersedia');
+			}else{
+				$subcategory = new Subcategory;
+				$subcategory->subname = $value;
+				$subcategory->slug = str_replace(" ", "-", $value);
+				$subcategory->category_id = $category->id;
+				$subcategory->save();
+			    return redirect('master/setting/subcategory/list')->with('success','Subkategori baru berhasil ditambahkan');
+			}
+		}else{
+			return redirect('master/setting/subcategory/list')->with('failed','Silahkan isi nama subkategori');
+		}
+	}
+
+	public function list_subcategory()
+	{
+		$this->data['css_assets'] 	= Assets::load('css', ['admin_bootstrap', 'admin_css', 'font-awesome', 'skins', 'dataTables_css','ionicons']);
+		$this->data['js_assets'] 	= Assets::load('js', ['jquery-adm', 'admin_js', 'admin_bootstrap-js', 'slimscroll', 'fastclick', 'dataTables_js', 'dataTables_bootsjs','raphael','moment']);
+		$this->data['title']		= 'Subcategory | List';
+		$this->data['category']		= Category::get();
+		$this->data['subcategory']	= Subcategory::all();
+	    return view('admin_layout')->with('data', $this->data)
+								  ->nest('content', 'admin/setting/list_subcategory', array('data' => $this->data));
+	}
+
+	public function category_content(Request $request)
+	{
+		$this->data['subcategory'] = Subcategory::where('category_id', $request->id)->get();
+		return view('admin/setting/subcategory_content')->with('data', $this->data);
+	}
+
+	public function list_banner()
+	{
+		$this->data['css_assets'] 	= Assets::load('css', ['admin_bootstrap', 'admin_css', 'font-awesome', 'skins', 'dataTables_css']);
+		$this->data['js_assets'] 	= Assets::load('js', ['jquery', 'admin_js', 'admin_bootstrap-js', 'slimscroll', 'fastclick', 'dataTables_js', 'dataTables_bootsjs']);
+		$this->data['title']		= 'Banner | List';
+		$this->data['categories']	= Category::get();
+	    return view('admin_layout')->with('data', $this->data)
+								  ->nest('content', 'admin/setting/list_banner', array('data' => $this->data));
+	}
+
+	public function home_banner()
+	{
+		$this->data['title'] = "Homepage";
+		$this->data['banner'] = Option::where('meta_key','banner_home')->first();
+		return view('admin/setting/banner_content')->with('data', $this->data);
+	}
+
+	public function add_home_banner(Request $request)
+	{
+		$banner = Option::where('meta_key','banner_home')->first();
+		$unserialize = unserialize($banner->meta_value);
+		$key_banner = array();
+		$key = $request->key;
+		$files = Input::file('images');
+	    $file_count = count($files);
+	    $uploadcount = 0;
+	    foreach($files as $file) {
+		    $rules = array('file' => 'mimes:jpeg,jpg,png|required'); //'required|mimes:png,gif,jpeg,txt,pdf,doc'
+		    $validator = Validator::make(array('file'=> $file), $rules);
+		    if($validator->passes()){
+		      	$filename= $key.'_'.rand().'.jpg';
+		      	$img = Image::make($file);
+		      	if ($key == 'slider1') {
+		      		$img->resize(1165,null,function ($constraint) {$constraint->aspectRatio();});
+		      		if ($unserialize['slider1'] == '') {
+		      			array_push($key_banner, $filename);
+		      			$unserialize[$key] = $key_banner;
+		      		}else{
+		      			array_push($unserialize['slider1'], $filename);
+		      		};
+		      	}elseif($key == 'slider2'){
+		      		$img->resize(266,null,function ($constraint) {$constraint->aspectRatio();});
+		      		if ($unserialize['slider2'] == '') {
+		      			array_push($key_banner, $filename);
+		      			$unserialize[$key] = $key_banner;
+		      		}else{
+		      			array_push($unserialize['slider2'], $filename);
+		      		};
+		      	}elseif ($key == 'banner1') {
+		      		$filename= $key.'.jpg';
+		      		$img->resize(1155,null,function ($constraint) {$constraint->aspectRatio();});
+		      		$key_banner = $filename;
+		      		$unserialize[$key] = $key_banner;
+		      	}else{
+		      		$filename= $key.'.jpg';
+		      		$img->resize(562,null,function ($constraint) {$constraint->aspectRatio();});
+		      		$key_banner = $filename;
+		      		$unserialize[$key] = $key_banner;
+		      	}
+		      	$img->save(storage_path('photo_banner/'.$filename),50);
+		        $uploadcount ++;
+		    }else{
+		    	return redirect('banner_list')->with('fail','Banner gagal ditambahkan');
+		    }
+		}
+	    $serialize = serialize($unserialize);
+	    $banner->meta_value=$serialize;
+	    $banner->save();
+	    return redirect('banner_list')->with('success','Banner berhasil ditambahkan');
+	}
+
+	public function delete_home_banner(Request $request)
+	{
+		$banner = Option::where('meta_key','banner_home')->first();
+		$unserialize = unserialize($banner->meta_value);
+		$key_banner = substr($request->name,0,7);
+		if (is_array($unserialize[$key_banner])) {
+			foreach ($unserialize[$key_banner] as $key => $value) {
+				if ($value == $request->name) {
+					$val = $key;
+				}
+			}
+			unset($unserialize[$key_banner][$val]);
+			$slider = array_values($unserialize[$key_banner]);
+			$unserialize[$key_banner] = $slider;
+		}else{
+			$unserialize[$key_banner] = '';
+		};
+		File::delete(storage_path('photo_banner/'.$request->name));
+		$serialize = serialize($unserialize);
+		$banner->meta_value = $serialize;
+		$banner->save();
+	}
+
+	public function category_banner(Request $request)
+	{
+		$this->data['category'] = Category::where('slug', $request->name)->first();
+		$this->data['title'] = $this->data['category']->name;
+		$this->data['banner'] = Option::where('meta_key','banner_'.$request->name)->first();
+		return view('admin/setting/banner_category_content')->with('data', $this->data);
+	}
+
+	public function insert_category_banner(Request $request)
+	{
+		$banner = Option::where('meta_key', 'banner_'.$request->submit)->first();
+		$unserialize = unserialize($banner->meta_value);
+		$key = $request->key;
+		$file = Input::file('images');
+		$rules = array('file' => 'mimes:jpeg,jpg,png|required'); //'required|mimes:png,gif,jpeg,txt,pdf,doc'
+		    $validator = Validator::make(array('file'=> $file), $rules);
+		    if($validator->passes()){
+		      	$img = Image::make($file);
+		      	if ($key == 'banner1') {
+		      		$filename= $request->submit.'_'.$key.'.jpg';
+		      		$img->resize(1170,300);
+		      		$unserialize[$key] = $filename;
+		      	}else{
+		      		$filename= $request->submit.'_'.$key.'.jpg';
+		      		$img->resize(480,180);
+		      		$unserialize[$key] = $filename;
+		      	}
+		      	$img->save(storage_path('photo_banner/'.$filename),50);
+		    }else{
+		    	return redirect('banner_list')->with('fail','Banner gagal ditambahkan');
+		    }
+		$serialize = serialize($unserialize);
+	    $banner->meta_value=$serialize;
+	    $banner->save();
+	    return redirect('banner_list')->with('success','Banner berhasil ditambahkan');
+	}
+
+	public function image($image)
+	{
+	    return Image::make(storage_path() . '/photo_banner/' . $image)->response();
+	}
+}
