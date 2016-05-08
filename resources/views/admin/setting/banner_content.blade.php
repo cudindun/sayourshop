@@ -28,7 +28,7 @@
 			        <a href="#" id="{{$slide}}" name="{{$slide}}" method="post" class="delete"><font color="red"><i class="fa fa-remove" data-toggle="tooltip" title="Hapus Gambar" style="margin: 5px;"></i></font></a>
 			        @endforeach
 			    @elseif($value != '')
-			    	<img class="panel panel-primary" src="{{url('photo_banner/'.$slide)}}" width="20%">
+			    	<img class="panel panel-primary" src="{{url('photo_banner/'.$value)}}" width="20%">
 			        <a href="#" id="{{$value}}" name="{{$value}}" method="post" class="delete"><font color="red"><i class="fa fa-remove" data-toggle="tooltip" title="Hapus Gambar" style="margin: 5px;"></i></font></a>
 			    @else
 			    	Banner belum tersedia
