@@ -10,7 +10,7 @@
 		    	<td>
 		      		{!! Form::open(['url' => 'insert_banner', 'id' => 'form_banner', 'files' => true, 'class' => 'form-inline']) !!}
 		      		<h4>{{$key}}</h4>
-		      		<input type="hidden" name="key" value="{{$key}}">
+		      		<input type="hidden" class="key" name="key" value="{{$key}}">
 		      		<div class="form-group inline pull-left">
 		      			@if($key == "slider1" || $key == "slider2")
 			      			<input class="form-control" type="file" data-toggle="tooltip" title="Tambah Gambar" id="add_banner" name="images[]" accept="image/*" multiple="true"></input>
@@ -48,10 +48,10 @@
             name: name
           },
         method:'POST',
-
       }).done(function(data){
-      	alert('Banner telah dihapus');
-        location.reload();
+        $.get("{!! url('home_banner') !!}",function(result){
+				$('#banner_content').html(result);
+			});
       });
 	});
 </script>

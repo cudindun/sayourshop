@@ -76,6 +76,7 @@
                     <h4 >Produk Terlaris</h4>
                     <div class="product-list isotope">
                         @foreach($data['sold'] as $product)
+                            @if($product->status != '')
                             <?php
                                 $image = unserialize($product->image);
                             ?>
@@ -110,6 +111,7 @@
                                     </div>
                                 </a>
                             </li>
+                            @endif
                         @endforeach
                     </div>
              
@@ -124,8 +126,10 @@
     <div class="container">
         <div class="row">
             <div class="col-lg-12" style="margin-bottom: 10px;" >
+                @if($banner['banner1'] != '')
                     <img src="{{url('photo_banner/'.$banner['banner1'])}}" style="max-width: 100%;
     height: auto;">
+                @endif
             </div>
         </div>
     </div>
@@ -139,6 +143,7 @@
                     <h4 class="widget-title widget-title ">Produk Terbaru</h3>
                     <div class="product-list isotope">
                         @foreach($data['product'] as $product)
+                            @if($product->status == 'publish')
                             <?php
                                 $image = unserialize($product->image);
                             ?>
@@ -151,11 +156,10 @@
                                         <?php endif; ?>
                                     </div>
                                     <div class="title">
-                                    <div class="prices">
+                                        <div class="prices">
                                             <span class="price">Rp. {{ number_format($product->price, 0, ",", ".") }}</span>
                                         </div>
                                         <h3>{{ucwords($product->name)}}</h3>
-                                        
                                         <div class="rating">
                                         @if($product->rating > 0)
                                         <?php 
@@ -169,10 +173,10 @@
                                         {{count($product->reviews)}} review
                                         @endif
                                         </div>
-
                                     </div>
                                 </a>
                             </li>
+                            @endif
                         @endforeach
                     </div>
                 
@@ -189,13 +193,17 @@
             <!-- End class="flexslider" --> 
             <div class="col-lg-6" >
                 <div class="world-shipping">
+                    @if($banner['banner2'] != '')
                     <img src="{{url('photo_banner/'.$banner['banner2'])}}" style="max-width: 100%;">
+                    @endif
                 </div>
             </div>
             <?php // ================ PRODUCT MO READY 2 ==================  ?>
             <div class="col-lg-6" >
                 <div class="world-shipping">
+                    @if($banner['banner2'] != '')
                     <img src="{{url('photo_banner/'.$banner['banner3'])}}" style="max-width: 100%;">
+                    @endif
                 </div>
             </div>
             <?php // ================ READY STOCK ==================  ?>

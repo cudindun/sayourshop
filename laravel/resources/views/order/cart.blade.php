@@ -1,6 +1,7 @@
  <!-- Checkout / Billing Address -->
 <section class="checkout" style="margin-top:20px">
     <div class="container" style="padding: 0px;">
+
         <div class="row">
             @if(session('success'))
                 <div class="alert alert-success">
@@ -30,10 +31,11 @@
                                                 <tr>
                                                     <th class="col_product text-left">Produk</th>
                                                     <th class="col_properties text-left">Properti</th>
+                                                    <th class="col_remove text-right">&nbsp;</th>
                                                     <th class="col_qty text-right">Jumlah</th>
                                                     <th class="col_single text-right">Harga</th>
                                                     <th class="col_total text-right">Total</th>
-                                                    <th class="col_remove text-right">&nbsp;</th>
+                                                    
                                                 </tr>
                                             </thead>
                                             <tbody>
@@ -66,12 +68,6 @@
                                                         </td>
                                                         <td class="col_total text-right">
                                                             <span class="total-price">Rp. {{ number_format($product->subtotal, 0, ",", ".") }}</span>
-                                                        </td>
-                                                        <td class="col_remove text-right">
-                                                            <a href="{{ url('delete_order/'.$product->rowid) }}">
-                                                                <span rel="tooltip" title="Hapus"><i class="fa fa-trash icon-large"></i></span>
-                                                                <input type="hidden" name="row_id" value="{{$product->rowid}}" />
-                                                            </a>
                                                         </td>
                                                     </tr>
                                                 @endforeach
@@ -228,7 +224,6 @@
                     <div class="box">
                         <div class="hgroup title">
                             <h3>Total Pemesanan</h3>
-                            <h5>Biaya untuk ongkos kirim dihitung setelah checkout</h5>
                         </div>
                         <div class="price-list">
                             <li>Subtotal: <strong>Rp. {{ number_format(Cart::total(), 0, ",", ".") }}</strong></li>

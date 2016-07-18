@@ -65,6 +65,7 @@ th{
             <div class="col-sm-12">
             <input type="hidden" id="product_id" value="{{$data['product']->id}}"></input>
             <br>
+              @if($properties != "")
               @foreach($properties as $key => $value)
                 <table class="table-responsive col-sm-4">
                   <tr>
@@ -80,6 +81,7 @@ th{
                   </tr>
                 </table>
               @endforeach
+              @endif
             </div>
             <div id="attribute"></div>
           </div>

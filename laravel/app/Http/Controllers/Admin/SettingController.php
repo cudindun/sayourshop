@@ -187,7 +187,11 @@ class SettingController extends AdminController
 		      			array_push($key_banner, $filename);
 		      			$unserialize[$key] = $key_banner;
 		      		}else{
-		      			array_push($unserialize['slider2'], $filename);
+		      			if (count($unserialize['slider2']) <= 3) {
+		      				array_push($unserialize['slider2'], $filename);
+		      			}else{
+		      				return redirect('banner_list')->with('fail','Bagian banner ini maksimal 4 file');
+		      			}
 		      		};
 		      	}elseif ($key == 'banner1') {
 		      		$filename= $key.'.jpg';

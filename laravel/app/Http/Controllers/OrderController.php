@@ -29,12 +29,18 @@ class OrderController extends HomeController
 		$sum = 0;
 				foreach (Cart::content() as $key) {
 					$product = Product::where('id', $key->id)->first();
+					$unserialize = unserialize($product->properties);
+					if ($key->qty >= $unserialize[$key->options[1]][$key->options[0]]) {
+						$key->qty = $unserialize[$key->options[1]][$key->options[0]];
+						$key->subtotal = $key->price*$key->qty;
+					}
 					$result = $product->weight*$key->qty;
 					$sum += $result;
 				}
 		$this->data['weight']		= $sum;
 		$this->data['cart']			= Cart::content();
 		$this->data['title']		= 'Keranjang';
+
 	    return view('main_layout')->with('data', $this->data)
 								  ->nest('content', 'order/cart', array('data' => $this->data));
 	}
@@ -74,7 +80,7 @@ class OrderController extends HomeController
 			'price' => $request->price, 
 			'options' => $properti
 			);
-		Cart::add($order);
+		$rowid = Cart::add($order);
 		return redirect('detail/'.$request->id)->with('success', 'Barang telah ditambahkan ke dalam keranjang');
 	}
 
