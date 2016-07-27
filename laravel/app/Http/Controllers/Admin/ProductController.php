@@ -187,6 +187,7 @@ class ProductController extends AdminController
 	public function delete($id)
 	{
 		$product = Product::find($id);
+		$category = Category::where('id', $product->category_id)->first();
 		$inOrder = OrderDetail::where('product_id', $id)->count();
 
 		if(!$product){
@@ -203,6 +204,9 @@ class ProductController extends AdminController
 				}
 			}elseif($inOrder == 0){
 				if($product->delete()){
+					$total_product = $category->total_product - 1;
+					$category->total_product = $total_product;
+					$category->save();
 					if(!$image == NULL){
 						foreach($image as $image){
 							File::delete($path.$image);

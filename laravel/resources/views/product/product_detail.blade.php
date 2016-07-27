@@ -280,7 +280,7 @@
                     $('#size_product').html(data);
                 }
         });
-
+        console.log(product_id);
         $.ajax({
             url: "{!! url('review_content') !!}",
             data: {

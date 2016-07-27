@@ -80,7 +80,7 @@ class ProductController extends HomeController
 		$this->data['js_assets'] 	= Assets::load('js', ['jquery', 'jquery-ui', 'jquery-easing', 'bootstrap-min-lib', 'jquery-isotope', 'jquery-flexslider', 'jquery.elevatezoom', 'jquery-sharrre', 'jquery-gmap3', 'imagesloaded', 'la_boutique', 'jquery-cookie', 'jquery-parallax-lib']);
 		$this->data['count']		= Reviews::where('product_id',$id)->get();
 		$this->data['product']		= Product::where('id',$id)->first();
-		$this->data['related']		= Product::where('subcategory_id', $this->data['product']->subcategory_id)->orderByRaw("RAND()")->limit(4)->get();
+		$this->data['related']		= Product::where('subcategory_id', $this->data['product']->subcategory_id)->where('status', 'publish')->orderByRaw("RAND()")->limit(4)->get();
 		if($this->data['product'] == NULL){
 			$this->data['title']	= '404 - not found';
 			$this->data['message']	= 'Product that you looking for is not found or has been removed';
@@ -101,7 +101,7 @@ class ProductController extends HomeController
 		$this->data['title']		= 'Produk';
 		$this->data['product']		= Product::where('id',$id)->first();
 		$this->data['count']		= Reviews::where('product_id',$id)->get();
-		$this->data['related']		= Product::where('subcategory_id', $this->data['product']->subcategory_id)->orderByRaw("RAND()")->limit(4)->get();
+		$this->data['related']		= Product::where('subcategory_id', $this->data['product']->subcategory_id)->where('status', 'publish')->orderByRaw("RAND()")->limit(4)->get();
 	    return view('main_layout')->with('data', $this->data)
 								  ->nest('content', 'product/product_detail', array('data' => $this->data));
 
@@ -119,13 +119,13 @@ class ProductController extends HomeController
 
 	public function subproduct_content(Request $request)
 	{
-		$this->data['product']		= Product::where('category_id', $request->category_id)->where('subcategory_id', $request->subcategory_id)->Paginate(20);
+		$this->data['product']		= Product::where('category_id', $request->category_id)->where('subcategory_id', $request->subcategory_id)->where('status', 'publish')->Paginate(20);
 		return view('product/product_content')->with('data', $this->data);
 	}
 
 	public function product_content(Request $request)
 	{
-		$this->data['product']		= Product::where('category_id', $request->category_id)->orderBy('DESC')->Paginate(20);
+		$this->data['product']		= Product::where('category_id', $request->category_id)->where('status', 'publish')->orderBy('DESC')->Paginate(20);
 		return view('product/product_content')->with('data', $this->data);
 	}
 
@@ -156,7 +156,7 @@ class ProductController extends HomeController
 
 	public function del_wishlist(Request $request)
 	{
-		$product = Product::where('id', $request->product_id)->first();
+		$product = Product::where('id', $request->product_id)->where('status', 'publish')->first();
 
 		$user = Sentinel::getUser();
 		$wishlist = UserMeta::where('meta_key','wishlist')->where('user_id', $user->id)->first();
@@ -166,8 +166,6 @@ class ProductController extends HomeController
 				$wish = array_diff($wish, array($product->slug));
 			}
 		}
-		echo "<pre>";
-		print_r($wish);
 		$new = array_values($wish);
 		if (count($new) == 0) {
 			$delete = UserMeta::where('meta_key','wishlist')->where('user_id', $user->id)->delete();
@@ -179,13 +177,13 @@ class ProductController extends HomeController
 
 	public function ajax_search(Request $request)
 	{
-		$this->data['query']	= Product::where('name','like', '%'.$request->search.'%')->orderBy('DESC')->Paginate(20);
+		$this->data['query']	= Product::where('name','like', '%'.$request->search.'%')->where('status', 'publish')->orderBy('DESC')->Paginate(20);
 		return view('search_content')->with('data', $this->data);
 	}
 
 	public function ajax_category_search(Request $request)
 	{
-		$this->data['query']	= Product::where('name','like', '%'.$request->search.'%')->where('category_id', $request->category_id)->orderBy('DESC')->Paginate(20);
+		$this->data['query']	= Product::where('name','like', '%'.$request->search.'%')->where('category_id', $request->category_id)->where('status', 'publish')->orderBy('DESC')->Paginate(20);
 		return view('search_content')->with('data', $this->data);
 	}
 
@@ -202,11 +200,11 @@ class ProductController extends HomeController
 		}
 		
 		if ($request->category_id != '' && $request->subcategory_id != '') {
-			$this->data['product']	= Product::where('category_id', $request->category_id)->where('subcategory_id', $request->subcategory_id)->orderBy($request->sortby, $sort)->Paginate(20);
+			$this->data['product']	= Product::where('category_id', $request->category_id)->where('subcategory_id', $request->subcategory_id)->where('status', 'publish')->orderBy($request->sortby, $sort)->Paginate(20);
 		}elseif ($request->category_id != '') {
-			$this->data['product']	= Product::where('category_id', $request->category_id)->orderBy($request->sortby, $sort)->Paginate(20);
+			$this->data['product']	= Product::where('category_id', $request->category_id)->where('status', 'publish')->orderBy($request->sortby, $sort)->Paginate(20);
 		}else{
-			$this->data['product']	= Product::orderBy($request->sortby, $sort)->Paginate(20);
+			$this->data['product']	= Product::orderBy($request->sortby, $sort)->where('status', 'publish')->Paginate(20);
 		};
 		return view('product/product_content')->with('data', $this->data);
 	}
@@ -224,9 +222,9 @@ class ProductController extends HomeController
 		}
 		
 		if ($request->category_id != '') {
-			$this->data['query']	= Product::where('name','like', '%'.$request->search.'%')->where('category_id', $request->category_id)->orderBy($request->sortby, $sort)->Paginate(20);
+			$this->data['query']	= Product::where('name','like', '%'.$request->search.'%')->where('category_id', $request->category_id)->where('status', 'publish')->orderBy($request->sortby, $sort)->Paginate(20);
 		}else{
-			$this->data['query']	= Product::where('name','like', '%'.$request->search.'%')->orderBy($request->sortby, $sort)->Paginate(20);
+			$this->data['query']	= Product::where('name','like', '%'.$request->search.'%')->where('status', 'publish')->orderBy($request->sortby, $sort)->Paginate(20);
 		};
 		return view('search_content')->with('data', $this->data);
 	}

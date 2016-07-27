@@ -1,5 +1,5 @@
 <div class="ratings-items">
-    @if($data['review'] != '')
+    @if(count($data['review']) >= 1)
         @foreach($data['review'] as $reviews)
             <article class="rating-item">
                 <div class="row-fluid">
@@ -14,20 +14,20 @@
                         <h6>
                             {{ucwords($reviews->user->first_name)}} {{ucwords($reviews->user->last_name)}} <small><i>({{ date_format(date_create($reviews->created_at), "d M Y")}})</i></small>
                         </h6>
-                    <p>{{$reviews->review}}</p>
-                    <br>
-                    <div class="rating">
-                        <?php 
-                            for ($i=0; $i < $reviews->rating ; $i++) { 
-                        ?>
-                            <i class="fa fa-star" style="color: #1abc9c;"></i>
-                        <?php
-                            }
-                        ?>
+                        <p>{{$reviews->review}}</p>
+                        <br>
+                        <div class="rating">
+                            <?php 
+                                for ($i=0; $i < $reviews->rating ; $i++) { 
+                            ?>
+                                <i class="fa fa-star" style="color: #1abc9c;"></i>
+                            <?php
+                                }
+                            ?>
+                        </div>
                     </div>
                 </div>
-            </div>
-        </article>
+            </article>
         @endforeach
         <div align="center">
             {!! $data['review']->render(); !!}    
