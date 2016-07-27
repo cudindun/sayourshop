@@ -27,7 +27,7 @@
                 <div id="comment_{{$order->product->id}}">
                   <textarea rows="5" placeholder="Berikan testimoni Anda" id="review_{{$order->product->id}}"></textarea>
                   <div class="col-sm-12">
-                    <input id="input-id_{{$order->product->id}}" type="number" class="rating" min=1 data-step="1" max=5 data-size="xs">
+                    <input id="input-id_{{$order->product->id}}" name="input-1" type="number" class="rating rating-loading" data-min=0 data-step="1" data-max=5 data-size="xs">
                   </div>
                   <button type="button" id="{{$order->product->id}}" name="{{$order->id}}" class=" btn btn-mini btn-primary submit_rev">Kirim Review</button>
                 </div>
@@ -56,19 +56,21 @@ $(document).ready(function()
       var order_id = this.name;
       var rating = $('#input-id_' + product_id).val();
       var review = $('#review_' + product_id).val();
-      $.ajax({
-          url: "{!! url('add_review') !!}",
-          data: {
-            product_id: product_id,
-            rating: rating,
-            review: review,
-            order_id: order_id
-          },
-          method:'POST',
-      }).done(function(data){
-          $('#comment_' + product_id).hide();
-          $('#alert_' + product_id).show('slow');
-      });
+      if (rating >= 1) {
+        $.ajax({
+            url: "{!! url('add_review') !!}",
+            data: {
+              product_id: product_id,
+              rating: rating,
+              review: review,
+              order_id: order_id
+            },
+            method:'POST',
+        }).done(function(data){
+            $('#comment_' + product_id).hide();
+            $('#alert_' + product_id).show('slow');
+        });
+      }
     });
 });
 </script>

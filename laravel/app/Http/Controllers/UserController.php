@@ -416,6 +416,11 @@ class UserController extends HomeController
 	    		return redirect('error');
 	    	}
 	    }
+    }
 
+    public function update_order(Request $request)
+    {
+    	$this->data['order']		= Order::where('user_id', $request->user_id)->orderBy('created_at','desc')->get();
+    	return view('user/update_order')->with('data', $this->data);
     }
 }

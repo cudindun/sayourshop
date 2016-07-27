@@ -149,13 +149,13 @@ $(document).ready(function()
     });
 
     $('.qty')
-    .on('focus', function(){
+    .keydown(function(){
       qty_tmp = $(this).val();
     })
-    .change(function()
+    .keyup(function()
     {
       var id = this.id;
-      var qty = $("#"+id).val();
+      var qty = this.value;
       var color = this.name;
       var tes = qty_tmp;
       var product_id = $("#product_id").val();
@@ -170,7 +170,8 @@ $(document).ready(function()
         },
         method:'POST',
       }).done(function(data){
-        $("#alert-qty").html("<div class='alert alert-success'>Jumlah untuk ukuran <b style='text-transform:uppercase'>"+ id +"</b> berhasil diubah</div>"); 
+        $("#alert-qty").html("<div class='alert alert-success'>Jumlah untuk ukuran <b style='text-transform:uppercase'>"+ id +"</b> berhasil diubah</div>");
+        $('#update_qty_'+product_id).html(data); 
       });
     });
 });

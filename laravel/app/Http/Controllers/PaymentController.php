@@ -77,4 +77,25 @@ class PaymentController extends HomeController
 		}
 	}
 
+	public function check_invoice(Request $request)
+	{
+		$invoice = $request->invoice;
+		$order = Order::where('no_invoice', $request->invoice)->first();
+		if ($order != '') {
+			return 'true';
+		}else{
+			return 'false';
+		}
+	}
+
+	public function check_paid(Request $request)
+	{
+		$paid = $request->paid;
+		$invoice = $request->invoice;
+		$order = Order::where('no_invoice', $invoice)->first();
+		if ($paid < $order->total_price) {
+			return 'failed';
+		}
+	}
+
 }

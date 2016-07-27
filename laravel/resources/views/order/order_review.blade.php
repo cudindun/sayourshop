@@ -19,6 +19,7 @@
                     <div id="checkout-content">
                         <div class="box-header" style="background-color: #1abc9c;padding: 10px;">
                             <h3 style="color: white;">Nomor Invoice Anda : <u>{{$data['order']->no_invoice}}</u></h3>
+                            <h5 style="color: white">Gunakan nomor ini untuk mengecek pesanan Anda</h5>
                         </div>
                         <div class="box-content">
                             <table class="table table-responsive">
@@ -48,7 +49,6 @@
                             <form enctype="multipart/form-data" action="{{ url('update_order') }}" method="get" />
                                 <div class="box-header" style="background-color: #1abc9c;padding: 10px;">
                                     <h3 style="color: white">Produk</h3>
-                                    <h5 style="color: white">Gunakan nomor ini untuk mengecek pesanan Anda</h5>
                                 </div>
                                 <div class="box-content">
                                     <div class="cart-items table-responsive">

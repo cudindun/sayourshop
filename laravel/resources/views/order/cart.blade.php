@@ -301,7 +301,6 @@
     {
         $('a.delete').click(function(){
             var rowid = this.name;
-            console.log(rowid);
             $.ajax({
                 url: "{!! url('delete_order') !!}",
                 data: {rowid: rowid},
@@ -330,7 +329,6 @@
                 var discount = $('#discount').val();
                 var cart = $('#cart_total').val() - discount;
                 var reset = addCommas(cart);
-                console.log(discount);
             }else{
                 var cart = $('#cart_total').val();
                 var reset = addCommas(cart);

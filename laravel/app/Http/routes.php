@@ -63,6 +63,9 @@ Route::post('wishlist', 'ProductController@wishlist');
 Route::post('del_wishlist', 'ProductController@del_wishlist');
 Route::post('sort_product','ProductController@sort_product');
 Route::post('sort_search','ProductController@sort_search');
+Route::post('check_invoice', 'PaymentController@check_invoice');
+Route::post('check_paid', 'PaymentController@check_paid');
+Route::post('update_order', 'UserController@update_order');
 //END ADE
 
 //UDIN
@@ -149,6 +152,7 @@ Route::post('insert_shipping','Admin\TransactionController@insert_shipping');
 Route::post('send','Admin\TransactionController@send');
 Route::get('category_banner', 'Admin\SettingController@category_banner');
 Route::post('insert_category_banner', 'Admin\SettingController@insert_category_banner');
+Route::post('check_variant', 'Admin\ProductController@check_variant');
 
 //email
 Route::get('account-activation/{id}&key={code}', 'UserController@account_activation');

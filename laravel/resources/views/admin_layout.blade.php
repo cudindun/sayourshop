@@ -273,7 +273,11 @@
           <!-- Sidebar user panel -->
           <div class="user-panel">
             <div class="pull-left image">
-              {!! Html::image('assets/img/user2-160x160.jpg','user image', array('class' => 'img-circle')) !!}
+              @if(Sentinel::getUser()->image != '')
+                <img src="{{url('photo_profile/'.Sentinel::getUser()->image)}}" class="img-circle">
+              @else
+                {!! Html::image('assets/image/user-image.png','user image', array('class' => 'img-circle')) !!}
+              @endif
             </div>
             <div class="pull-left info">
               <p>{{ucwords(Sentinel::getUser()->first_name)}} {{ucwords(Sentinel::getUser()->last_name)}}</p>
@@ -410,9 +414,6 @@
     <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.10.2/moment.min.js"></script> -->
 
     <!-- Resolve conflict in jQuery UI tooltip with Bootstrap tooltip -->
-    <script>
-      $.widget.bridge('uibutton', $.ui.button);
-    </script>
     <script type="text/javascript">
       $.ajaxSetup({
     headers: {

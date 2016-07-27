@@ -93,21 +93,37 @@ class ProductController extends AdminController
 			return redirect('master/produk/create')->with('failed','Produk gagal ditambahkan');
 		};
 	}
+	public function check_variant(Request $request)
+	{
+		$product = Product::where('id', $request->id)->first();
+		$unserialize = unserialize($product->properties);
+		$this->data['variant_count'] = count($unserialize);
+		$variant_product = array();
+
+		if (!empty($unserialize)) {
+			foreach ($unserialize as $key => $value) {
+			array_push($variant_product, $key);
+			}
+			$this->data['variant'] = implode(",", $variant_product);
+			return $this->data;
+		}
+		
+	}
 
 	public function add_variant(Request $request)
 	{
 		$product = Product::where('id', $request->id)->first();
 		$size = explode(",", $request->size);
-		array_pop($size);
 		$arraysize = array();
 		foreach ($size as $key) {
-			$qty = $key."_qty";
-			$arraysize[$key] = $request->$qty;
+			if ($key != '') {
+				$qty = $key."_qty";
+				$arraysize[$key] = $request->$qty;
+			}
 		}
-
 		if ($product->properties) {
 			$unserialize = unserialize($product->properties);
-			$unserialize[$request->color] = $arraysize;
+			$unserialize[ucwords($request->color)] = $arraysize;
 			$color = serialize($unserialize);
 			$product->properties = $color;
 			$product->quantity += $request->total;
@@ -128,8 +144,13 @@ class ProductController extends AdminController
 	public function activated_product(Request $request)
 	{
 		$product = Product::where('id', $request->id)->first();
-		$product->status = "publish";
-		$product->save();
+		if ($product->properties != '') {
+			$product->status = "publish";
+			$product->save();
+			return 'success';
+		}else{
+			return 'failed';
+		}
 	}
 
 	public function unactivated_product(Request $request)
@@ -159,6 +180,8 @@ class ProductController extends AdminController
 		$product->quantity = $total;
 		$product->properties = $properties;
 		$product->save();
+
+		return $total;
 	}
 
 	public function delete($id)

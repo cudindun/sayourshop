@@ -43,7 +43,7 @@
                       <tr>
                         <th>No</th>
                         <th>Code</th>
-                        <th>Discount</th>
+                        <th>Discount (%)</th>
                         <th>Max Discount</th>
                         <th>Date Active</th>
                         <th>Date Expired</th>
@@ -102,9 +102,9 @@
                   </div>
 
                   <div class="form-group">
-                    <label class="col-sm-3 control-label">Discount<font color="red">*</font></label>                       
+                    <label class="col-sm-3 control-label">Discount (%)<font color="red">*</font></label>                       
                      <div class="col-sm-6">
-                     {!! Form::text('disc', null, ['placeholder' => '0.5', 'class' => 'form-control', 'id' => 'disc']) !!}
+                     {!! Form::text('disc', null, ['placeholder' => '10', 'class' => 'form-control', 'id' => 'disc']) !!}
                      </div>
                   </div>
 
@@ -223,7 +223,7 @@
                         <td></td>
                       </tr>
                       <tr>
-                        <th>Discount</th>
+                        <th>Discount (%)</th>
                         <td></td>
                       </tr>
                       <tr>
@@ -276,13 +276,13 @@
       var end_date = new Date();
 
       $('#begin-date').datepicker({
-          format: 'dd/mm/yyyy',
+          format: 'yyyy-mm-dd',
           startDate: new Date(),
           autoclose: true
       });
 
       $('#end-date').datepicker({
-            format: 'dd/mm/yyyy',
+            format: 'yyyy-mm-dd',
             startDate: new Date(begin_date),
             autoclose: true
       });
@@ -298,13 +298,13 @@
       });
 
       $('#edit-begin-date').datepicker({
-          format: 'dd/mm/yyyy',
+          format: 'yyyy-mm-dd',
           startDate: new Date(),
           autoclose: true
       });
 
       $('#edit-end-date').datepicker({
-            format: 'dd/mm/yyyy',
+            format: 'yyyy-mm-dd',
             startDate: new Date(begin_date),
             autoclose: true
       });

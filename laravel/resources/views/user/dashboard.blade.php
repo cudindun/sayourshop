@@ -70,6 +70,7 @@
 								</div>
 								@endif
 								<div role="tabpanel" class="tab-pane fade in active" id="profile">
+								<input type="hidden" id="user_id" value="{{$data['user']->id}}">
 								<form action="{{url('update')}}">
 					                <label class="col-sm-2 control-label" style="margin: 10px;">Nama Depan</label>
 					                <div class="col-sm-8" style="padding: 5px;">
@@ -269,7 +270,7 @@
 
 
 								<div role="tabpanel" class="tab-pane fade" id="order">
-									<table class="table table-responsive" id="order">
+									<table class="table table-responsive" id="order_tbl">
 										<thead>
 											<tr>
 												<th>Invoice</th>
@@ -295,9 +296,9 @@
 								            	<td>
 								            		<button type="submit" id="payment" name="payment" class="btn btn-mini btn-greensea" value="{{$value->no_invoice}}">Pembayaran</button>
 								            	</td>
-								            @elseif($value->order_status == 'Terkirim')
+								            @elseif($value->order_status == 'Dikirim')
 								            	<td>
-								            		<button type="button" class="btn btn-mini btn-greensea" id="review" name="{{$value->id}}" value="{{$value->no_resi}}">Review</button>
+								            		<button type="button" class="btn btn-mini btn-greensea receive" id="review" name="{{$value->id}}" value="{{$value->no_resi}}">Diterima</button>
 								            	</td>
 							            	@else
 								            	<td>
@@ -387,7 +388,6 @@
         $('#review').click(function(){
         	var resi = this.value;
         	var order_id = this.name;
-        	console.log(order_id);
         	$.ajax({
                 url: "{!! url('modal_review') !!}",
                 data: {
@@ -399,5 +399,16 @@
                 $('#modaldetail').html(data);
             });
         });
+
+        $('#modaldetail').on('hidden.bs.modal', function () {
+		  var user_id = $('#user_id').val();
+		  $.ajax({
+		  	url: "{!! url('update_order') !!}",
+		  	data: { user_id:user_id },
+		  	method:'POST',
+		  }).done(function(data){
+		  	$('#order').html(data);
+		  });
+		});
 	});
 </script>

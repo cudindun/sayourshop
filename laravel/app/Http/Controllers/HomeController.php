@@ -33,8 +33,8 @@ class HomeController extends Controller
 		$this->data['js_assets'] 	= Assets::load('js', ['jquery', 'jquery-ui', 'jquery-easing', 'bootstrap-min-lib', 'jquery-isotope', 'jquery-flexslider', 'jquery.elevatezoom', 'jquery-sharrre', 'jquery-gmap3', 'imagesloaded', 'la_boutique', 'jquery-cookie', 'jquery-parallax-lib']);
 		$this->data['title']		= 'Home';
 		$this->data['category']		= Category::get();
-		$this->data['product']		= Product::orderBy('created_at','DESC')->limit(5)->get();
-		$this->data['sold']			= Product::orderBy('sold','DESC')->limit(5)->get();
+		$this->data['product']		= Product::where('status', 'publish')->orderBy('created_at','DESC')->limit(5)->get();
+		$this->data['sold']			= Product::where('status', 'publish')->orderBy('sold','DESC')->limit(5)->get();
 		$this->data['banner']		= Option::where('meta_key','banner_home')->first();
 	    return view('main_layout')->with('data', $this->data)
 								  ->nest('content', 'home', array('data' => $this->data));
@@ -73,10 +73,5 @@ class HomeController extends Controller
 									  ->nest('content', 'contact_us', array('data' => $this->data));
 		}
 	}
-
-	// public function image($image)
-	// {
-	//     return Image::make(storage_path() . '/photo_banner/' . $image)->response();
-	// }
 	
 }

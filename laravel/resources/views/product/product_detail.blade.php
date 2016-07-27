@@ -77,7 +77,7 @@
                                                 <div class="meta">
                                                     <div class="sku">
                                                         <i class="icon-pencil"></i>
-                                                        <span rel="tooltip" title="SKU is 0092">Terjual</span>
+                                                        <span rel="tooltip" title="Terjual">Terjual</span>
                                                     </div>
                                                     <div class="categories">
                                                         <span><i class="icon-tags"></i><a href="#" title="Dresses">{{$data['product']->sold}}</a></span>
@@ -92,7 +92,8 @@
                                                 </div>
                                             </div>
                                             <div class="short-description">
-                                                <p>{{$data['product']->desc}}</p>
+                                                <textarea class="form-control" rows="15" readonly="true" style="border:none;background-color:white;">{{$data['product']->desc}}</textarea>
+                                            
                                             </div>
                                             <div class="options">
                                                 <div class="row-fluid">
@@ -208,13 +209,13 @@
                             $image = unserialize($related->image);
                         ?>
                         <li class="standard" data-price="160">
-                            <a href="product.html" title="1300 in Grey">
+                            <a href="{{url('produk/'.$related->category->slug.'/'.$related->subcategory->slug.'/'.$related->id)}}" title="{{$related->name}}">
                                 <div class="image">
-                                    <img class="primary" src="{{url('photo_product/'.$image[0])}}" alt="Lisette Dress" />
-                                    <img class="secondary" src="{{url('photo_product/'.$image[1])}}" alt="Lisette Dress" />
+                                    <img class="primary" src="{{url('photo_product/'.$image[0])}}" alt="{{$related->name}}" />
+                                    <img class="secondary" src="{{url('photo_product/'.$image[1])}}" alt="{{$related->name}}" />
                                 </div>
                                 <div class="title">
-                                    <div class="prices"><span class="price">{{$related->price}}</span></div>
+                                    <div class="prices"><span class="price">Rp. {{ number_format($related->price, 0, ",", ".") }}</span></div>
                                     <h3>{{$related->name}}</h3>
                                 </div>
                             </a>
@@ -287,7 +288,7 @@
             },
             method:'POST',
         }).done(function(data){
-            $('#ratings').html(data);
+                $('#ratings').html(data);  
         });
 
         $("#quantity").on("keydown", function(e){-1!==$.inArray(e.keyCode,[46,8,9,27,13,110,190])||/65|67|86|88/.test(e.keyCode)&&(!0===e.ctrlKey||!0===e.metaKey)||35<=e.keyCode&&40>=e.keyCode||(e.shiftKey||48>e.keyCode||57<e.keyCode)&&(96>e.keyCode||105<e.keyCode)&&e.preventDefault()});

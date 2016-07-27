@@ -21,7 +21,9 @@
                                 <input type="hidden" name="_token" value="{{ csrf_token() }}">
                             </div>
                             <div class="box-content">
+                                <div class="alert alert-danger" id="check_invoice" hidden="true"></div>
                                 <div class="row-fluid">
+
                                     <div class="span6">
                                         <label for="email">No Invoice</label>
                                         <div class="control-group">
@@ -72,12 +74,7 @@
                                     <div class="span6">
                                         <label for="email">Jumlah Transfer (<i>tanpa titik</i>)</label>
                                         <div class="control-group">
-                                            @if($data['total_price'])
-                                                <input class="span12" type="text" id="total_transfer" name="total_transfer" value="{{$data['total_price']}}" required>
-                                            @else
-                                                <input class="span12" type="text" id="total_transfer" name="total_transfer" required>
-                                            @endif
-                                            
+                                            <input class="span12" type="text" id="total_transfer" name="total_transfer" required>
                                         </div>
                                     </div>
                                 </div>
@@ -119,6 +116,44 @@
             format: 'yyyy-mm-dd',
             autoclose: true
         });
+    });
+
+    $('#no_invoice').change(function(){
+        var invoice = this.value;
+        $.ajax({
+            url: "{!! url('check_invoice') !!}",
+            data: { invoice:invoice },
+            method:'POST',
+        }).done(function(data){
+            if (data == 'false') {
+                $('#check_invoice').html("Invoice tidak terdaftar");
+                $('#check_invoice').show('slow');
+            }else{
+                $('#check_invoice').hide('slow');
+            };
+        });
+    });
+
+    $('#total_transfer').change(function(){
+        var paid = this.value;
+        var invoice = $('#no_invoice').val();
+        if (invoice != '') {
+            $.ajax({
+                url: "{!! url('check_paid') !!}",
+                data: { 
+                    paid:paid,
+                    invoice:invoice
+                },
+                method:'POST',
+            }).done(function(data){
+                if (data == 'failed') {
+                    $('#check_invoice').html("Transfer tidak mencukupi");
+                    $('#check_invoice').show('slow');
+                }else{
+                    $('#check_invoice').hide('slow');
+                };
+            });
+        };
     });
 </script>
 <!-- End class="main"

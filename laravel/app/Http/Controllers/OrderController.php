@@ -40,7 +40,6 @@ class OrderController extends HomeController
 		$this->data['weight']		= $sum;
 		$this->data['cart']			= Cart::content();
 		$this->data['title']		= 'Keranjang';
-
 	    return view('main_layout')->with('data', $this->data)
 								  ->nest('content', 'order/cart', array('data' => $this->data));
 	}
@@ -81,7 +80,7 @@ class OrderController extends HomeController
 			'options' => $properti
 			);
 		$rowid = Cart::add($order);
-		return redirect('detail/'.$request->id)->with('success', 'Barang telah ditambahkan ke dalam keranjang');
+		return redirect('detail/'.$request->id)->with('success', 'Barang telah ditambahkan ke dalam keranjang ');
 	}
 
 	public function delete_order(Request $request){
@@ -113,6 +112,17 @@ class OrderController extends HomeController
 		$order = new Order;
 		$order->user_id = $user->id;
 		$order->order_status = 'Menunggu Pembayaran';
+		foreach (Cart::content() as $key) {
+			$product = Product::where('id', $key->id)->first();
+			$unserialize = unserialize($product->properties);
+			$color = $key->options[1];
+			$size = $key->options[0];
+			$stock = $unserialize[$color][$size];
+			if ($key->qty > $stock) {
+				return redirect('keranjang')->with('fail', 'Stock Produk <b>'.$key->name.'</b> yang Anda pesan tersisa <b>'.$stock.'</b>');
+			}
+		}
+
 		if (is_numeric($request->address_check)) {
 			$meta = UserMeta::where('user_id', $user->id)->where('meta_key','address')->first();
 			$unserialize = unserialize($meta->meta_value);
@@ -137,10 +147,12 @@ class OrderController extends HomeController
 
 			$insert_id = $order->id;
 			$order = Order::find($insert_id);
+
 			foreach (Cart::content() as $key) {
 				$product = Product::where('id', $key->id)->first();
 				$result = $product->weight*$key->qty;
 				$rowid = 'properties_'.$key->rowid;
+
 				$orderdetail = new OrderDetail;
 				$orderdetail->order_id = $insert_id;
 				$orderdetail->properties = $request->$rowid;
@@ -150,12 +162,14 @@ class OrderController extends HomeController
 				$orderdetail->total_weight = $result;
 				$orderdetail->save();
 			}
+
 			$order->total_weight = $request->weight;
 			$order->no_invoice = date('Ymd').$user->id.$insert_id;
 			$order->save();
 
 			//update quantity product
 			$orderdetail = OrderDetail::where('order_id', $insert_id)->get();
+
 			foreach ($orderdetail as $detail) {
 				$unserialize = unserialize($detail->properties);
 				$product = Product::where('id', $detail->product_id)->first();
@@ -164,8 +178,10 @@ class OrderController extends HomeController
 				$product->properties = serialize($productqty);
 				$product->quantity -= $detail->quantity;
 				$product->save();
-			} 
+			}
+
 			return redirect('order_review/'.$insert_id);
+
 		}else{
 			$rules = array(
 			'name' => 'required',
@@ -176,6 +192,7 @@ class OrderController extends HomeController
 			'phone' => 'required'
 			);
 			$validator 	= Validator::make($request->all(), $rules);
+
 			if (!$validator->fails()) {
 				$order->order_address = $request->address;
 				$order->courier = $request->courier_check_new;
@@ -193,6 +210,7 @@ class OrderController extends HomeController
 					'kecamatan' => $request->district,
 					'alamat' => $request->address
 					];
+
 				if ($user_meta = UserMeta::where('user_id', Sentinel::getUser()->id)->where('meta_key','address')->first()) {
 					$unserialize = unserialize($user_meta->meta_value);
 					$sum_array = array_push($unserialize, $alamat);
@@ -213,10 +231,12 @@ class OrderController extends HomeController
 				}else{
 					$order->total_price = $request->cart_total_new + $request->shipping_price_new;	
 				}
+
 				$order->save();
 
 				$insert_id = $order->id;
 				$order = Order::find($insert_id);
+
 				foreach (Cart::content() as $key) {
 					$product = Product::where('id', $key->id)->first();
 					$result = $product->weight*$key->qty;
@@ -230,12 +250,14 @@ class OrderController extends HomeController
 					$orderdetail->total_weight = $result;
 					$orderdetail->save();
 				}
+
 				$order->total_weight = $request->weight_new;
 				$order->no_invoice = date('Ymd').$user->id.$insert_id;
 				$order->save();
 
 				//update quantity product
 				$orderdetail = OrderDetail::where('order_id', $insert_id)->get();
+
 				foreach ($orderdetail as $detail) {
 					$unserialize = unserialize($detail->properties);
 					$product = Product::where('id', $detail->product_id)->first();
@@ -245,9 +267,13 @@ class OrderController extends HomeController
 					$product->quantity -= $detail->quantity;
 					$product->save();
 				}
+
 				return redirect('order_review/'.$insert_id);
+
 			}else{
+
 				return redirect('keranjang')->with('fail', 'Silahkan isi alamat baru sesuai form yang disediakan');
+
 			}
 		}
 	}
@@ -257,16 +283,28 @@ class OrderController extends HomeController
 		$total = Cart::total();
 		$voucher = Option::where('meta_key','voucher')->first()->meta_value;
 		$coupon = unserialize($voucher);
+
 		foreach ($coupon as $value) {
 			if ($value['code'] == $request->coupon) {
 				$code = $value;
+			}else{
+				return redirect('keranjang')->with('fail', "Kode Voucher tidak terdaftar");
 			}
-		}	
-		$disc = (($total*$code['discount'])/100);
-		if ($disc > $code['maxDiscount']) {
-			$disc = $code['maxDiscount'];
 		}
-		return redirect('keranjang')->with('discount', $disc)->with('coupon', $request->coupon);
+
+		$begin_date = date_create($code['[beginDate]']);
+		$date= date_create($code['endDate']);
+		$day = date_create(date("Y-m-d"));
+
+		if($day <= $date && $day >= $begin_date) {
+			$disc = (($total*$code['discount'])/100);
+			if ($disc > $code['maxDiscount']) {
+				$disc = $code['maxDiscount'];
+			}
+			return redirect('keranjang')->with('discount', $disc)->with('coupon', $request->coupon);
+		}else{
+			return redirect('keranjang')->with('fail', "Kode Voucher tidak berlaku");
+		}
 	}
 
 	public function city_content(Request $request)
@@ -319,7 +357,6 @@ class OrderController extends HomeController
 		 	echo "cURL Error #:" . $err;
 		} else {
 			return $response;
-		  	
 		}
 	}
 
@@ -345,13 +382,19 @@ class OrderController extends HomeController
 
 	public function add_review(Request $request)
 	{
-		$product = Product::where('id', $request->product_id)->first();
+		$order = Order::where('id', $request->order_id)->first();
+		$order->order_status = 'Diterima';
+		$order->save();
 
 		$orderdetail = OrderDetail::where('order_id', $request->order_id)->where('product_id', $request->product_id)->get();
 		foreach ($orderdetail as $value) {
 			$value->review = 'reviewed';
 			$value->save();
 		}
+
+		$product = Product::where('id', $request->product_id)->first();
+		$product->rating += $request->rating;
+		$product->save();
 
 		$review = new Reviews;
 		$review->user_id = Sentinel::getUser()->id;
@@ -360,9 +403,5 @@ class OrderController extends HomeController
 		$review->review = $request->review;
 		$review->status = 'publish';
 		$review->save();
-
-		$product->rating += $request->rating;
-		$product->save();
-
 	}
 }

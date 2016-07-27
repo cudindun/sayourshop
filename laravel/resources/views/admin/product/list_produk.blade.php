@@ -52,20 +52,17 @@
                         <td><?= date_format(date_create($product->created_at), "d M Y") ?></td>
                         <td><?= $product->name ?></td>
                         <td>Rp. <?= number_format($product->price, 0, ",", ".") ?></td>
-                        <td><?= $product->quantity ?></td>
-                        @if($product->status != 'publish')
+                        <td><div id="update_qty_{{$product->id}}"><?= $product->quantity ?></div></td>
                           <td>
-                            <button class="btn btn-success btn-xs active" id="<?= $product->id ?>" name="<?= $product->name ?>" data-toggle="modal" data-target="#myModal">Aktifkan</button>
-                            <a href="#" id="detail_{{$product->id}}" name="detail_{{$product->id}}" class="detail"><i class="fa fa-eye"></i></a>
+                          @if($product->status != 'publish')
+                            <button class="btn btn-success btn-xs active_product" id="<?= $product->id ?>" name="<?= $product->name ?>">Aktifkan</button>
+                            @else
+                            <button class="btn btn-danger btn-xs active_product" id="<?= $product->id ?>">Non-Aktifkan</button>
+                             @endif
+                             <a href="#" id="detail_{{$product->id}}" name="detail_{{$product->id}}" class="detail"><i class="fa fa-eye"></i></a>
                             <a href="#" id="delete" value="<?=$product->id?>" method="post"><font color="red"><i class="fa fa-remove"></i></font></a>
+                            <input type="hidden" class="product_status" id="status_{{$product->id}}" value="{{$product->status}}">
                           </td>
-                        @else
-                          <td>
-                            <button class="btn btn-danger btn-xs unactivated" id="<?= $product->id ?>">Non-Aktifkan</button>
-                            <a href="#" id="detail_{{$product->id}}" name="detail_{{$product->id}}" class="detail"><i class="fa fa-eye"></i></a>
-                            <a href="#" id="delete" value="<?=$product->id?>" method="post"><font color="red"><i class="fa fa-remove"></i></font></a>
-                          </td>
-                        @endif
                       </tr>
                       <?php $i++; endforeach; ?>
                     </tbody>
@@ -86,6 +83,7 @@
                     <div id="varian_total"></div>
                   </div>
                   <div class="modal-body">
+                    <div class="alert alert-danger" id="alert_variant" hidden="true"></div>
                     <div class="form-group">
                       <input type="text" class="form-control" id="color" name="color" placeholder="Masukkan satu warna produk">
                       <div class="col-sm-12">
@@ -123,7 +121,7 @@
                   </div>
                   <div class="modal-footer">
                     <button type="button" class="btn btn-info btn-xs" id="varian" name="varian">Simpan Varian</button>
-                    <button type="button" class="btn btn-success btn-xs" id="done" name="done" data-dismiss="modal">Selesai</button>
+                    <button type="button" class="btn btn-success btn-xs" id="done" name="done" data-dismiss="modal" disabled="true">Aktifkan</button>
                   </div>
                 </div>
               </div>
@@ -137,17 +135,34 @@
         $("#productlist_table").DataTable();
       });
 
-      $('.unactivated').click(function(){
-        var id = this.id;
-        $.ajax({
-          url: "{!! url('unactivated_product') !!}",
-          data: {
-            id: id
-          },
-          method:'POST',
-        }).done(function(data){
-          location.reload();
-        });
+      $('.active_product').click(function(){
+          var id = this.id;
+          var status = $('#status_'+id).val();
+          $('#alert_variant').hide(); 
+          if (status == 'unactive') {
+            var name = this.name;
+            $('#id').val(id);
+            $('.modal-title').html('Varian produk ' + name);
+            $.ajax({
+              url: "{!! url('check_variant') !!}",
+              data: { id:id },
+              method:'POST',
+            }).done(function(data){
+              if (data != '') {
+                $('#varian_total').html("Varian produk saat ini terdapat <b>" + data['variant_count']+"("+ data['variant'] +")" + "</b> varian");
+                $('#done').attr('disabled', false);
+              }
+            });
+            $('#myModal').modal('show');
+          }else{
+            $.ajax({
+              url: "{!! url('unactivated_product') !!}",
+              data: { id:id },
+              method:'POST',
+            }).done(function(data){
+              location.reload();
+            });
+          }
       });
 
       $('#done').click(function(){
@@ -159,7 +174,7 @@
           },
           method:'POST',
         }).done(function(data){
-          location.reload();
+            location.reload();  
         });
       });
 
@@ -172,36 +187,34 @@
         var m_qty = $('#m_qty').val();
         var l_qty = $('#l_qty').val();
         var xl_qty = $('#xl_qty').val();
-        var allsize_qty = $('#allsize_qty').val(); 
-        $.ajax({
-          url: "{!! url('add_variant') !!}",
-          data: {
-            size: size,
-            total: total,
-            color: color,
-            s_qty: s_qty,
-            m_qty: m_qty,
-            l_qty: l_qty,
-            xl_qty: xl_qty,
-            allsize: allsize_qty,
-            id: id
-          },
-          method:'POST',
-        }).done(function(data){
-          $('#varian_total').html("Varian produk saat ini ada <b>" + data + "</b> varian");
-        });
-      });
-
-      $('.active').click(function(){
-        var name = this.name;
-        var id = this.id;
-        $('#id').val(id);
-        $('.modal-title').html('Varian produk ' + name);
+        var allsize_qty = $('#allsize_qty').val();
+        if (size != '' && color != '') { 
+          $.ajax({
+            url: "{!! url('add_variant') !!}",
+            data: {
+              size: size,
+              total: total,
+              color: color,
+              s_qty: s_qty,
+              m_qty: m_qty,
+              l_qty: l_qty,
+              xl_qty: xl_qty,
+              allsize_qty: allsize_qty,
+              id: id
+            },
+            method:'POST',
+          }).done(function(data){
+            $('#varian_total').html("Varian produk saat ini ada <b>" + data + "</b> varian");
+            $('#done').attr('disabled', false);
+          });
+        }else{
+          $('#alert_variant').html('Silahkan masukkan warna, size dan jumlah');
+          $('#alert_variant').show('slow'); 
+        }
       });
 
       $('a#delete').click(function(){
         r = confirm("Are You Sure Want to Remove This Item?");
-
         if (r == true) {
            window.location.href='{{url("/master/produk/delete")}}/'+$(this).attr("value");
         }

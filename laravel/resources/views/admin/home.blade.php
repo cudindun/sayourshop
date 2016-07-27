@@ -13,15 +13,16 @@
 
           <!-- Small boxes (Stat box) -->
           <div class="row">
+              <h3 align="center">Order By Status This Day</h3>
             <div class="col-lg-3 col-xs-6">
               <!-- small box -->
               <div class="small-box bg-aqua">
                 <div class="inner">
-                  <h3>150</h3>
-                  <p>New Orders</p>
+                  <h3>{{count($data['new_order_day'])}}<sup style="font-size: 12px">order(s)</sup></h3>
+                  <p>Menunggu Pembayaran</p>
                 </div>
                 <div class="icon">
-                  <i class="ion ion-bag"></i>
+                  <i class="ion-ios-cart"></i>
                 </div>
                 <a href="{{url('master/transaction/order')}}" class="small-box-footer">More info <i class="fa fa-arrow-circle-right"></i></a>
               </div>
@@ -30,11 +31,11 @@
               <!-- small box -->
               <div class="small-box bg-green">
                 <div class="inner">
-                  <h3>53<sup style="font-size: 20px">%</sup></h3>
-                  <p>Bounce Rate</p>
+                  <h3>{{count($data['has_paid'])}}<sup style="font-size: 12px">order(s)</sup></h3>
+                  <p>Telah Dibayar</p>
                 </div>
                 <div class="icon">
-                  <i class="ion ion-stats-bars"></i>
+                  <i class="ion ion-bag"></i>
                 </div>
                 <a href="#" class="small-box-footer">More info <i class="fa fa-arrow-circle-right"></i></a>
               </div>
@@ -43,11 +44,11 @@
               <!-- small box -->
               <div class="small-box bg-yellow">
                 <div class="inner">
-                  <h3>{!! $data['userCount'] !!}</h3>
-                  <p>User Registrations</p>
+                  <h3>{{count($data['paid'])}}<sup style="font-size: 12px">order(s)</sup></h3>
+                  <p>Lunas</p>
                 </div>
                 <div class="icon">
-                  <i class="ion ion-person-add"></i>
+                  <i class="ion-ios-paperplane"></i>
                 </div>
                 <a href="{{url('master/user/list')}}" class="small-box-footer">More info <i class="fa fa-arrow-circle-right"></i></a>
               </div>
@@ -56,11 +57,11 @@
               <!-- small box -->
               <div class="small-box bg-red">
                 <div class="inner">
-                  <h3>{{ $data['guest'] }}</h3>
-                  <p>Unique Visitors</p>
+                  <h3>{{count($data['send'])}}<sup style="font-size: 12px">order(s)</sup></h3>
+                  <p>Dikirim</p>
                 </div>
                 <div class="icon">
-                  <i class="ion ion-pie-graph"></i>
+                  <i class="ion-android-checkmark-circle"></i>
                 </div>
                 <a href="#" class="small-box-footer">More info <i class="fa fa-arrow-circle-right"></i></a>
               </div>
