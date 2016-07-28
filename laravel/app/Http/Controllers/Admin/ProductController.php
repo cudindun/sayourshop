@@ -12,6 +12,9 @@ use App\Http\Models\Subcategory;
 use App\Http\Models\Product;
 use App\Http\Models\OrderDetail;
 use App\Http\Models\Distributor;
+use App\Http\Models\Reviews;
+use App\Http\Models\PaymentConfirmation;
+use App\Http\Models\Order;
 use DB, Input, Validator, Storage, File, Image;
 
 class ProductController extends AdminController
@@ -188,25 +191,43 @@ class ProductController extends AdminController
 	{
 		$product = Product::find($id);
 		$category = Category::where('id', $product->category_id)->first();
-		$inOrder = OrderDetail::where('product_id', $id)->count();
+		$inOrder = OrderDetail::where('product_id', $id)->where('review', null)->get();
+		$reviews = Reviews::where('product_id', $id)->get();
+		$subcategory = Subcategory::where('id', $product->subcategory_id)->first();
 
 		if(!$product){
 			return redirect('master/produk/list')->with('error', 'Data tidak ada');
 		}else{
 			$image = unserialize($product->image);
 			$path = base_path().'/storage/photo_product/';
-			if($inOrder > 0){
+
+			if(count($inOrder) > 0){
 				$product->status = 'unactive';
 				if($product->save()){
 					return redirect('master/produk/list')->with('success', 'Produk tidak bisa di hapus karena masih dalam order, produk sementara di non aktifkan');
 				}else{
 					return redirect('master/produk/list')->with('error', '404');					
 				}
-			}elseif($inOrder == 0){
+			}elseif(count($inOrder) == 0){
 				if($product->delete()){
+					foreach ($reviews as $review) {
+						$revieww->delete();
+					}
+					foreach ($inOrder as $order_product) {
+							foreach ($order_product as $orders) {
+								$PaymentConfirmation = PaymentConfirmation::where('order_id', $orders->id)->first();
+								$PaymentConfirmation->delete();	
+							}
+						$orders = Order::where('id', $order_product->order_id)->get();
+						$orders->delete();
+					}
 					$total_product = $category->total_product - 1;
 					$category->total_product = $total_product;
 					$category->save();
+					$total_subcategory = $subcategory->total_product - 1;
+					$subcategory->total_product = $total_subcategory;
+					$subcategory->save();
+
 					if(!$image == NULL){
 						foreach($image as $image){
 							File::delete($path.$image);
@@ -217,6 +238,7 @@ class ProductController extends AdminController
 					return redirect('master/produk/list')->with('error', '404');	
 				}
 			}
+
 		}
 	}
 }

@@ -3,6 +3,7 @@
       	<h4>{{ucwords($data['title'])}}</h4>
     </div>
     <div class="panel-body">
+    	<input type="hidden" id="category_name" value="{{$data['banner']->meta_key}}">
       	<table class="table table-responsive table-bordered">
       		<?php $banner = unserialize($data['banner']->meta_value);?>
       		@foreach($banner as $key => $value)
@@ -33,16 +34,17 @@
 <script type="text/javascript">
 	$('.delete').click(function(){
 		var name = this.name;
+		var category = $('#category_name').val();
 		$.ajax({
         url: "{!! url('delete_banner') !!}",
         data: {
-            name: name
+            name: name,
+            category: category
           },
         method:'POST',
-
-      }).done(function(data){
-      	alert('Banner telah dihapus');
-        location.reload();
-      });
+	      }).done(function(data){
+	      	alert("banner berhasil dihapus");
+	        location.reload();
+	      });
 	});
 </script>

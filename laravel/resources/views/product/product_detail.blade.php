@@ -23,7 +23,7 @@
                                         <?php if($image == null): else: ?>
                                         @foreach($image as $images)
                                             <li>
-                                                <a class="active" href="#" data-image="{{url('photo_product/'.$images)}}" title="{{$data['product']->name}}" data-zoom-image="{{url('photo_product/'.$images)}}">
+                                                <a class="active" href="#" data-image="{{url('photo_product/'.$images)}}" title="{{$data['product']->name}}" data-zoom-image="{{url('photo_product/'.$images.'_lg')}}">
                                                     <img style="max-width: 100%;" src="{{url('photo_product/'.$images)}}" alt="{{$data['product']->name}}" />
                                                 </a>
                                             </li>

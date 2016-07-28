@@ -247,6 +247,18 @@ class SettingController extends AdminController
 		return view('admin/setting/banner_category_content')->with('data', $this->data);
 	}
 
+	public function delete_category_banner(Request $request)
+	{
+		$banner = Option::where('meta_key', $request->category)->first();
+		$unserialize = unserialize($banner->meta_value);
+		$key_banner = array_keys($unserialize, $request->name);
+		$unserialize[$key_banner[0]] = '';
+		File::delete(storage_path('photo_banner/'.$request->name));
+		$serialize = serialize($unserialize);
+		$banner->meta_value = $serialize;
+		$banner->save();
+	}
+
 	public function insert_category_banner(Request $request)
 	{
 		$banner = Option::where('meta_key', 'banner_'.$request->submit)->first();

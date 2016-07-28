@@ -145,6 +145,7 @@ Route::get('master/distributor/delete/{id}','Admin\DistributorController@delete'
 Route::post('delete_home_banner','Admin\SettingController@delete_home_banner');
 Route::get('master/message/delete/{id}','Admin\AdminController@delete_message');
 Route::get('master/produk/delete/{id}','Admin\ProductController@delete');
+Route::post('delete_banner', 'Admin\SettingController@delete_category_banner');
 
 //ADMIN AJAX
 Route::get('konten_kategori','Admin\SettingController@category_content');
