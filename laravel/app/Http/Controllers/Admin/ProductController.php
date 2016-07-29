@@ -126,15 +126,19 @@ class ProductController extends AdminController
 		}
 		if ($product->properties) {
 			$unserialize = unserialize($product->properties);
-			$unserialize[ucwords($request->color)] = $arraysize;
-			$color = serialize($unserialize);
-			$product->properties = $color;
-			$product->quantity += $request->total;
-			$product->save();
-			return count($unserialize);	
+			if (array_key_exists(ucwords(strtolower($request->color)),$unserialize)) {
+				return 'fail';
+			} else {
+				$unserialize[ucwords(strtolower($request->color))] = $arraysize;
+				$color = serialize($unserialize);
+				$product->properties = $color;
+				$product->quantity += $request->total;
+				$product->save();
+				return count($unserialize);	
+			}
 		}else{
 			$arraycolor = array(
-				$request->color => $arraysize
+				ucwords(strtolower($request->color)) => $arraysize
 			);
 			$color = serialize($arraycolor);
 			$product->properties = $color;
@@ -169,7 +173,6 @@ class ProductController extends AdminController
 		$unserialize = unserialize($product->properties);
 		echo "<pre>";
 		print_r($unserialize[$request->color]);
-		echo "<pre>";
 	}
 
 	public function edit_qty(Request $request)

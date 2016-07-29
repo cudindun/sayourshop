@@ -73,7 +73,7 @@
       });
 
       $('a#delete').click(function(){
-        r = confirm("Are You Sure Want to Remove This Item?");
+        r = confirm("Hapus Distributor ?");
 
         if (r == true) {
            window.location.href='{{url("/master/distributor/delete")}}/'+$(this).attr("value");

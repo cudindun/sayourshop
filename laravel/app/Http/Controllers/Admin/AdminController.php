@@ -323,7 +323,6 @@ class AdminController extends Controller
 
 		Mail::send('email.reply', ['message' => $message, 'email' => $email], function ($m) use ($email) {
             $m->from('sayour@shop.com', 'sayourshop.com');
-
             $m->to($email)->subject($subject);
         });
 

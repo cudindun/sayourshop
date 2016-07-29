@@ -133,6 +133,9 @@
 	<script>
       $(function () {
         $("#productlist_table").DataTable();
+        $("#color").focus(function(){
+          $('#alert_variant').hide('slow'); 
+        });
       });
 
       $('.active_product').click(function(){
@@ -204,8 +207,13 @@
             },
             method:'POST',
           }).done(function(data){
-            $('#varian_total').html("Varian produk saat ini ada <b>" + data + "</b> varian");
-            $('#done').attr('disabled', false);
+            if (data == 'fail') {
+              $('#alert_variant').html('Maaf varian telah tersedia');
+              $('#alert_variant').show('slow'); 
+            } else {
+              $('#varian_total').html("Varian produk saat ini ada <b>" + data + "</b> varian");
+              $('#done').attr('disabled', false);
+            }
           });
         }else{
           $('#alert_variant').html('Silahkan masukkan warna, size dan jumlah');

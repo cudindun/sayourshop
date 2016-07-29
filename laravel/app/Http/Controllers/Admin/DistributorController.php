@@ -8,6 +8,7 @@ use App\Http\Requests;
 use App\Http\Controllers\Controller;
 use App\Http\Libraries\Assets;
 use App\Http\Models\Distributor;
+use App\Http\Models\Product;
 
 use Input;
 use DB;
@@ -28,11 +29,12 @@ class DistributorController extends AdminController
 
 	public function view($id)
 	{
-		$this->data['css_assets'] 	= Assets::load('css', ['admin_bootstrap', 'admin_css', 'font-awesome', 'skins']);
-		$this->data['js_assets'] 	= Assets::load('js', ['jquery', 'admin_js', 'dashboard', 'admin_bootstrap-js', 'slimscroll', 'fastclick']);
+		$this->data['css_assets'] 	= Assets::load('css', ['admin_bootstrap', 'admin_css', 'font-awesome', 'skins', 'dataTables_css', 'ionicons']);
+		$this->data['js_assets'] 	= Assets::load('js', ['jquery', 'admin_js', 'admin_bootstrap-js', 'slimscroll', 'fastclick', 'dataTables_js', 'dataTables_bootsjs']);
 		$this->data['title']		= 'Distributor | View';
 		if(Distributor::find($id)){
 			$this->data['distributor']		= Distributor::find($id);
+			$this->data['product'] = Product::where('distributor_id', $id)->get();
 		}else{
 			return redirect('master/distributor/list');
 		}
@@ -110,5 +112,11 @@ class DistributorController extends AdminController
 	{
 		Distributor::find($id)->delete();
 		return redirect('master/distributor/list');
+	}
+
+	public function list_item(Request $request)
+	{
+		
+		return view('admin/distributor/list_item')->with('data', $this->data);
 	}
 }
