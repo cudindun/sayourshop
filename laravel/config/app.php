@@ -140,6 +140,7 @@ return [
         Cartalyst\Sentinel\Laravel\SentinelServiceProvider::class,
         Gloudemans\Shoppingcart\ShoppingcartServiceProvider::class,
         Intervention\Image\ImageServiceProvider::class,
+        Collective\Html\HtmlServiceProvider::class,
 
         /*
          * Application Service Providers...
@@ -204,6 +205,8 @@ return [
         'Sentinel'   => Cartalyst\Sentinel\Laravel\Facades\Sentinel::class,
         'Cart'       => Gloudemans\Shoppingcart\Facades\Cart::class,
         'Image'     => Intervention\Image\Facades\Image::class,
+        'Form'      => Collective\Html\FormFacade::class,
+        'Html'      => Collective\Html\HtmlFacade::class,
     ],
 
 ];

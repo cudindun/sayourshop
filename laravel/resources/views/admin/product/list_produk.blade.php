@@ -56,9 +56,9 @@
                           <td>
                           @if($product->status != 'publish')
                             <button class="btn btn-success btn-xs active_product" id="<?= $product->id ?>" name="<?= $product->name ?>">Aktifkan</button>
-                            @else
+                          @else
                             <button class="btn btn-danger btn-xs active_product" id="<?= $product->id ?>">Non-Aktifkan</button>
-                             @endif
+                          @endif
                              <a href="#" id="detail_{{$product->id}}" name="detail_{{$product->id}}" class="detail"><i class="fa fa-eye"></i></a>
                             <a href="#" id="delete" value="<?=$product->id?>" method="post"><font color="red"><i class="fa fa-remove"></i></font></a>
                             <input type="hidden" class="product_status" id="status_{{$product->id}}" value="{{$product->status}}">

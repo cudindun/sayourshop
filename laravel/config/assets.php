@@ -112,6 +112,8 @@ return [
 		'dataTables_bootsjs'	=> 'assets/admin/plugins/datatables/dataTables.bootstrap.min.js',
 		'daterangepicker'		=> 'assets/admin/plugins/daterangepicker/daterangepicker.js',
 		'wysihtml'				=> 'assets/admin/plugins/bootstrap-wysihtml5/bootstrap3-wysihtml5.all.min.js',
+		'highchart'				=> 'assets/admin/plugins/highcharts/highcharts.js',
+		'export-highchart'		=> 'assets/admin/plugins/highcharts/modules/exporting.js',
 
 		//ADMIN JS
 		'admin_js'				=> 'assets/admin/js/app.js',

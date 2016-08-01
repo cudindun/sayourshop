@@ -16,7 +16,7 @@ use App\Http\Models\Subcategory;
 use App\Http\Models\Distributor;
 use App\Http\Models\Order;
 
-use DB, Mail, Sentinel, Validator, Activation, Storage, Input, Session, Redirect, File;
+use DB, Mail, Sentinel, Validator, Activation, Storage, Input, Session, Redirect, File, Highchart;
 
 class AdminController extends Controller
 {
@@ -32,17 +32,12 @@ class AdminController extends Controller
     public function home()
 	{
 		$this->data['css_assets'] 	= Assets::load('css', ['admin_bootstrap', 'admin_css', 'font-awesome', 'skins', 'icheck', 'morris_chart', 'jvectormap', 'dataTables_css']);
-		$this->data['js_assets'] 	= Assets::load('js', ['jquery', 'admin_js', 'admin_bootstrap-js', 'slimscroll', 'fastclick', 'morris_chart_js', 'sparkline', 'jvectormap_js', 'jvectormap_world_js', 'knob', 'dataTables_js']);
+		$this->data['js_assets'] 	= Assets::load('js', ['jquery', 'admin_js', 'admin_bootstrap-js', 'slimscroll', 'fastclick', 'morris_chart_js', 'sparkline', 'jvectormap_js', 'jvectormap_world_js', 'knob', 'dataTables_js', 'highchart', 'export-highchart']);
 		$this->data['title']		= 'SayourShop | Master';
-		// $this->data['user']			= User::all();
-		// $this->data['userCount']	= User::all()->count();
 		$this->data['has_paid']		= Order::where('order_status', 'Telah Dibayar')->get();
 		$this->data['new_order_day']	= Order::where('order_status', 'Menunggu Pembayaran')->where('created_at', date('d'))->get();
 		$this->data['paid'] = Order::where('order_status', 'Lunas')->get();
 		$this->data['send']	= Order::where('order_status', 'Dikirim')->get();
-		// $this->data['order_day']	= Order::where('order_status')
-		// echo "<pre>";
-		// print_r($this->data['has_paid']);
 	    return view('admin_layout')->with('data', $this->data)
 								  ->nest('content', 'admin/home', array('data' => $this->data));
 	}

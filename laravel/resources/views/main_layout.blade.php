@@ -37,7 +37,7 @@
                         <a href="{{url('dashboard') }}" style="min-width:150px"><i class="fa fa-user"></i> {{ucwords(Sentinel::getUser()->first_name." ".Sentinel::getUser()->last_name)}}</a>
                         <a href="{{url('logout')}}" style="min-width:150px"><i class="glyphicon glyphicon-log-out"></i> Log Out</a>
                         @else
-                        <a href="{{url('login_form')}}" style="min-width:150px"><i class="fa fa-user"></i> Login | Register</a>
+                        <a href="{{url('login_form')}}" style="min-width:150px"><i class="fa fa-user"></i> Login</a> <a href="{{url('daftar')}}" style="min-width:150px">Register</a>
                         @endif
                     </h1>
                 </div>
