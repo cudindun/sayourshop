@@ -308,15 +308,16 @@ class AdminController extends Controller
 
 	//mail
 	public function mail_reply(){
-		$email = $_POST['email'];
-		$subject = $_POST['subject'];
-		$message = $_POST['message'];
+		$data['email'] = $_POST['email'];
+		$data['subject'] = $_POST['subject'];
+		$data['message'] = $_POST['message'];
+		//$message = $_POST['message'];
 		//$email = 'cudindun@gmail.com';
 
-		Mail::send('email.reply', ['message' => $message, 'email' => $email], function ($m) use ($email) {
+		Mail::send('email.reply', ['message' => $data['message'], 'email' => $data['email']], function ($m) use ($data) {
             $m->from('sayour@shop.com', 'sayourshop.com');
 
-            $m->to($email)->subject($subject);
+            $m->to($data['email'])->subject($data['subject']);
         });
 
         return redirect('master/message/list')->with('success', 'Pesan telah dikirim');
