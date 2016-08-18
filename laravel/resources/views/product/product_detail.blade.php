@@ -118,7 +118,7 @@
                                                     <i class="icon-plus"></i> Beli
                                                 </button>
                                                 <button class="btn btn-primary btn-small" type="button" id="wishlist">
-                                                    <i class="icon-plus"></i> Simpan Produk
+                                                    <i class="icon-plus"></i> Jadikan Favorit
                                                 </button>
                                             </div>
                                         </form>                     

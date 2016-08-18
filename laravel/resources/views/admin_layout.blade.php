@@ -5,6 +5,8 @@
   $data['mailCount'] = Ask::where('status', 0)->count();
   $data['mail'] = Ask::orderBy('id', 'DESC')->get();
   $data['paymentCount'] = Order::where('order_status', 'Telah Dibayar')->count();
+  $data['readyCount'] = Order::where('no_resi', '')->where('order_status', 'Lunas')->count();
+  $data['notifCount'] = $data['paymentCount'] + $data['readyCount'];
   $now = Date("Y-m-d H:i:s");
   $now = new DateTime($now);
 
@@ -49,10 +51,10 @@
         <!-- Logo -->
         <a href="{{ url('/master') }}" class="logo">
           <!-- mini logo for sidebar mini 50x50 pixels -->
-          <span class="logo-mini"><b>S</b>LTE</span>
+          <span class="logo-mini">ADM</span>
           <!-- logo for regular state and mobile devices -->
           <!-- <span class="logo-lg"><b>Sayour</b>SHOP</span> -->
-          <span class="logo-lg"><b>TEST</b></span>
+          <span class="logo-lg"><b>Admin Panel</b></span>
         </a>
         <!-- Header Navbar: style can be found in header.less -->
         <nav class="navbar navbar-static-top" role="navigation">
@@ -133,18 +135,23 @@
               <li class="dropdown notifications-menu">
                 <a href="#" class="dropdown-toggle" data-toggle="dropdown">
                   <i class="fa fa-bell-o"></i>
-                  @if($data['paymentCount'] >= 1)
-                  <span class="label label-danger">{{$data['paymentCount']}}</span>
+                  @if($data['notifCount'] >= 1)
+                  <span class="label label-danger">{{$data['notifCount']}}</span>
                   @endif
                 </a>
                 <ul class="dropdown-menu">
-                  <li class="header">You have {{$data['paymentCount']}} notification(s)</li>
+                  <li class="header">You have {{$data['notifCount']}} notification(s)</li>
                   <li>
                     <!-- inner menu: contains the actual data -->
                     <ul class="menu">
                       <li>
                         <a href="{{ url('/master/transaction/pembayaran') }}">
-                          <i class="fa fa-money text-green"></i> {{$data['paymentCount']}} new Payment Confirmation
+                          <i class="fa fa-money text-green"></i> {{$data['paymentCount']}} Konfirmasi Pembayaran Baru
+                        </a>
+                      </li>
+                      <li>
+                        <a href="{{ url('/master/transaction/order') }}">
+                          <i class="fa fa-truck text-aqua"></i> {{$data['readyCount']}} Pesanan Siap Kirim
                         </a>
                       </li>
                     </ul>
@@ -249,7 +256,6 @@
               <ul class="treeview-menu">
                 <li><a href="{{ url('/master/transaction/order') }}"><i class="fa fa-circle-o text-yellow"></i> Order </a></li>
                 <li><a href="{{ url('/master/transaction/pembayaran') }}"><i class="fa fa-circle-o text-yellow"></i> Konfirmasi Pembayaran </a></li>
-                <li><a href="{{ url('/master/user/create') }}"><i class="fa fa-circle-o text-aqua"></i> Create </a></li>
               </ul>
             </li>
             <li class="{{ Request::segment(2) === 'user' ? 'active' : null }} treeview">

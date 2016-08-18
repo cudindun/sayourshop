@@ -73,8 +73,8 @@
 				          	<div class="form-group">
 			                	<label class="col-sm-3 control-label">Status<font color="red">*</font></label>				                
 			                	<div class="col-sm-6">
-					            	{!! Form::radio('status', '1') !!} 1<br>
-									{!! Form::radio('status', '0') !!} 0
+					            	{!! Form::radio('status', '1') !!} Admin<br>
+									{!! Form::radio('status', '0') !!} User
 				           		</div>
 				          	</div>
 

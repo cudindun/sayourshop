@@ -161,7 +161,7 @@ class AdminController extends Controller
 			echo "Horeeeeee";
 		}else{
 			$this->data['css_assets'] 	= Assets::load('css', ['admin_bootstrap', 'admin_css', 'font-awesome', 'skins']);
-			$this->data['js_assets'] 	= Assets::load('js', ['jquery', 'admin_js', 'dashboard', 'admin_bootstrap-js', 'slimscroll', 'fastclick']);
+			$this->data['js_assets'] 	= Assets::load('js', ['jquery', 'admin_js', 'admin_bootstrap-js', 'slimscroll', 'fastclick']);
 			$this->data['title']		= 'User | Create';
 		    return view('admin_layout')->with('data', $this->data)
 									  ->nest('content', 'admin/user/form', array('data' => $this->data));
@@ -231,7 +231,7 @@ class AdminController extends Controller
 				}
 			}else{
 				$this->data['css_assets'] 	= Assets::load('css', ['admin_bootstrap', 'admin_css', 'font-awesome', 'skins']);
-				$this->data['js_assets'] 	= Assets::load('js', ['jquery', 'admin_js', 'dashboard', 'admin_bootstrap-js', 'slimscroll', 'fastclick']);
+				$this->data['js_assets'] 	= Assets::load('js', ['jquery', 'admin_js', 'admin_bootstrap-js', 'slimscroll', 'fastclick']);
 				$this->data['title']		= 'Category | Edit';
 				$this->data['category']		= Category::find($id);
 			    return view('admin_layout')->with('data', $this->data)
@@ -267,7 +267,7 @@ class AdminController extends Controller
 				}
 			}else{
 				$this->data['css_assets'] 	= Assets::load('css', ['admin_bootstrap', 'admin_css', 'font-awesome', 'skins']);
-				$this->data['js_assets'] 	= Assets::load('js', ['jquery', 'admin_js', 'dashboard', 'admin_bootstrap-js', 'slimscroll', 'fastclick']);
+				$this->data['js_assets'] 	= Assets::load('js', ['jquery', 'admin_js', 'admin_bootstrap-js', 'slimscroll', 'fastclick']);
 				$this->data['title']		= 'Subcategory | Edit';
 				$this->data['category']		= Subcategory::find($id);
 				$this->data['category_list']= [' - Select - '] + Category::lists('name', 'id')->all();
