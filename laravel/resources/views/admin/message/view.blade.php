@@ -101,12 +101,13 @@
                 return xhr.setRequestHeader('X-CSRF-TOKEN', token);
             }
           },
-          data: {'email':$('input[name=mailto]').val(), 'subject':$('input[name=subject]').val(), 'message':$('textarea[name=message]').text()},
+          data: {'email':$('input[name=mailto]').val(), 'subject':$('input[name=subject]').val(), 'message':$('textarea[name=message]').val()},
           error: function(data){
-              alert('gagal mengirim pesan');
+              console.log(data)
           }
       }).done(function(data){
           window.location.href='{{url('/master/message/list')}}';
+          console.log(data)
       })  
     });
   </script>
