@@ -423,4 +423,9 @@ class UserController extends HomeController
     	$this->data['order']		= Order::where('user_id', $request->user_id)->orderBy('created_at','desc')->get();
     	return view('user/update_order')->with('data', $this->data);
     }
+
+    public function send_message(Request $request)
+    {
+    	
+    }
 }

@@ -16,6 +16,8 @@ use App\Http\Models\Order;
 use App\Http\Models\OrderDetail;
 use App\Http\Models\Option;
 use App\Http\Models\Reviews;
+use App\Http\Models\Distributor;
+
 use DB, Cart, Sentinel, Validator;
 
 class OrderController extends HomeController
@@ -114,13 +116,24 @@ class OrderController extends HomeController
 		$order->order_status = 'Menunggu Pembayaran';
 		foreach (Cart::content() as $key) {
 			$product = Product::where('id', $key->id)->first();
+			$distributor = Distributor::where('id', $product->distributor_id)->first();
 			$unserialize = unserialize($product->properties);
 			$color = $key->options[1];
 			$size = $key->options[0];
 			$stock = $unserialize[$color][$size];
+			
 			if ($key->qty > $stock) {
 				return redirect('keranjang')->with('fail', 'Stock Produk <b>'.$key->name.'</b> yang Anda pesan tersisa <b>'.$stock.'</b>');
 			}
+
+			if ($distributor == '') {
+				return redirect('keranjang')->with('fail', 'Maaf produk <b>'.$key->name.'</b> telah habis');
+			}
+
+			if ($product->status != 'publish') {
+				return redirect('keranjang')->with('fail', 'Maaf produk <b>'.$key->name.'</b> telah habis');
+			}
+
 		}
 
 		if (is_numeric($request->address_check)) {

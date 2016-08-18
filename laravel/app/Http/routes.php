@@ -66,6 +66,7 @@ Route::post('sort_search','ProductController@sort_search');
 Route::post('check_invoice', 'PaymentController@check_invoice');
 Route::post('check_paid', 'PaymentController@check_paid');
 Route::post('update_order', 'UserController@update_order');
+Route::post('send_message', 'UserController@ask_product');
 //END ADE
 
 //UDIN
@@ -157,7 +158,7 @@ Route::post('check_variant', 'Admin\ProductController@check_variant');
 
 //email
 Route::get('account-activation/{id}&key={code}', 'UserController@account_activation');
-Route::post('master/message/reply', 'Admin\AdminController@mail_reply');
+Route::get('master/message/reply', 'Admin\AdminController@mail_reply');
 
 
 //image

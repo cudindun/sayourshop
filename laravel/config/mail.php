@@ -93,7 +93,7 @@ return [
     |
     */
 
-    'password' => 'lbrjhfsseswijsuz',
+    'password' => 'jttbezvljlkgxalv',
 
     /*
     |--------------------------------------------------------------------------

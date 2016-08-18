@@ -9,6 +9,7 @@ use App\Http\Controllers\Controller;
 use App\Http\Libraries\Assets;
 use App\Http\Models\Distributor;
 use App\Http\Models\Product;
+use App\Http\Models\OrderDetail;
 
 use Input;
 use DB;
@@ -110,8 +111,23 @@ class DistributorController extends AdminController
 
 	public function delete($id)
 	{
-		Distributor::find($id)->delete();
-		return redirect('master/distributor/list');
+		$products = Product::where('distributor_id', $id)->where('status', 'publish')->get();
+		if ($products != '') {
+			foreach ($products as $product) {
+				$order = OrderDetail::where('product_id', $product->id)->where('review', '')->first();
+				if ($order != '') {
+					return redirect('master/distributor/list')->with('error', 'Maaf masih terdapat order dari produk distributor yang belum selesai');
+				}
+			}
+		}
+
+
+		if ($item != '') {
+			return redirect('master/distributor/list')->with('error', 'Maaf masih terdapat produk distributor yang aktif. Silahkan non-aktifkan');
+		}else{
+			Distributor::find($id)->delete();
+			return redirect('master/distributor/list');
+		}
 	}
 
 	public function list_item(Request $request)

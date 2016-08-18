@@ -240,13 +240,21 @@
               <!-- User Account: style can be found in dropdown.less -->
               <li class="dropdown user user-menu">
                 <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-                  <img src="{{url('photo_profile/'.Sentinel::getUser()->image)}}" class="user-image">
+                  @if(Sentinel::getUser()->image != '')
+                    <img src="{{url('photo_profile/'.Sentinel::getUser()->image)}}" class="user-image">
+                  @else
+                    {!! Html::image('assets/image/user-image.png','user image', array('class' => 'user-image')) !!}
+                  @endif
                   <span class="hidden-xs">{{ucwords(Sentinel::getUser()->first_name)}} {{ucwords(Sentinel::getUser()->last_name)}}</span>
                 </a>
                 <ul class="dropdown-menu">
                   <!-- User image -->
                   <li class="user-header">
+                   @if(Sentinel::getUser()->image != '')
                     <img src="{{url('photo_profile/'.Sentinel::getUser()->image)}}" class="img-circle">
+                  @else
+                    {!! Html::image('assets/image/user-image.png','user image', array('class' => 'img-circle')) !!}
+                  @endif
                     <p>
                       {{ucwords(Sentinel::getUser()->first_name)}} {{ucwords(Sentinel::getUser()->last_name)}}
                       <small>Admin</small>

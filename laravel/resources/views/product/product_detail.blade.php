@@ -23,7 +23,7 @@
                                         <?php if($image == null): else: ?>
                                         @foreach($image as $images)
                                             <li>
-                                                <a class="active" href="#" data-image="{{url('photo_product/'.$images)}}" title="{{$data['product']->name}}" data-zoom-image="{{url('photo_product/'.$images.'_lg')}}">
+                                                <a class="active" href="#" data-image="{{url('photo_product/'.$images)}}" title="{{$data['product']->name}}" data-zoom-image="{{url('photo_product/'.$images)}}">
                                                     <img style="max-width: 100%;" src="{{url('photo_product/'.$images)}}" alt="{{$data['product']->name}}" />
                                                 </a>
                                             </li>
@@ -130,29 +130,30 @@
                                     <!-- End id="ratings" -->
                                     <!-- Ratings tab -->
                                     <div class="tab-pane" id="ask">
+                                        <div class="alert alert-success" id="alert_message" hidden="true"></div>
                                         <div class="details">
                                             <article class="rating-item">
                                                 <div class="row-fluid">
                                                     <div class="span6">
                                                         <label>Email</label>
-                                                        <input class="form-control" type="text"></input>
+                                                        <input class="form-control" type="text" id="email"></input>
                                                     </div>
                                                     <div class="span6">
                                                         <label>No Telepon</label>
-                                                        <input class="form-control" type="text"></input>
+                                                        <input class="form-control" type="text" id="phone"></input>
                                                     </div>
                                                 </div>
                                                 <div class="row-fluid">
                                                     <div class="span12">
                                                         <label>Pesan</label>
-                                                        <textarea rows="5"></textarea>
+                                                        <textarea rows="5" id="message"></textarea>
                                                     </div>
                                                 </div>
                                                 
                                             </article>
                                             <hr />
                                             <div class="add-to-cart">
-                                                <button class="btn btn-primary btn-large" type="submit">
+                                                <button class="btn btn-primary btn-large" type="submit" id="send_message">
                                                     <i class="icon-plus"></i> Kirim
                                                 </button>
                                             </div>
@@ -249,9 +250,28 @@
 @section('script')
 
 	<script type="text/javascript">
+
+    $('#send_message').click(function(){
+        var email = $('#email').val();
+        var phone = $('#phone').val();
+        var message = $('#message').val();
+        var product_id = $('input[name=id]').val();
+        $.ajax({
+            url: "{!! url('ask_product') !!}",
+            data: {
+                email: email,
+                phone: phone,
+                message: message,
+                product_id: product_id
+            },
+            method: 'POST'
+        }).done(function(result){
+
+        });
+    });
+
     $(document).ready(function()
     {
-
         var color = $('#warna option:selected').val();
         var product_id = $('input[name=id]').val();
 
@@ -280,7 +300,6 @@
                     $('#size_product').html(data);
                 }
         });
-        console.log(product_id);
         $.ajax({
             url: "{!! url('review_content') !!}",
             data: {

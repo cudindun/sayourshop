@@ -111,7 +111,7 @@ class AdminController extends Controller
 	public function view_category($id)
 	{
 		$this->data['css_assets'] 	= Assets::load('css', ['admin_bootstrap', 'admin_css', 'font-awesome', 'skins']);
-		$this->data['js_assets'] 	= Assets::load('js', ['jquery', 'admin_js', 'dashboard', 'admin_bootstrap-js', 'slimscroll', 'fastclick']);
+		$this->data['js_assets'] 	= Assets::load('js', ['jquery', 'admin_js', 'admin_bootstrap-js', 'slimscroll', 'fastclick']);
 		$this->data['title']		= 'Category | View';
 		if(Category::find($id)){
 			$this->data['category']		= Category::find($id);
@@ -125,7 +125,7 @@ class AdminController extends Controller
 	public function view_subcategory($id)
 	{
 		$this->data['css_assets'] 	= Assets::load('css', ['admin_bootstrap', 'admin_css', 'font-awesome', 'skins']);
-		$this->data['js_assets'] 	= Assets::load('js', ['jquery', 'admin_js', 'dashboard', 'admin_bootstrap-js', 'slimscroll', 'fastclick']);
+		$this->data['js_assets'] 	= Assets::load('js', ['jquery', 'admin_js', 'admin_bootstrap-js', 'slimscroll', 'fastclick']);
 		$this->data['title']		= 'Subcategory | View';
 		if(Subcategory::find($id)){
 			$this->data['category']		= Subcategory::find($id);
@@ -139,7 +139,7 @@ class AdminController extends Controller
 	public function view_message($id)
 	{
 		$this->data['css_assets'] 	= Assets::load('css', ['admin_bootstrap', 'admin_css', 'font-awesome', 'skins', 'wysihtml']);
-		$this->data['js_assets'] 	= Assets::load('js', ['jquery', 'admin_js', 'dashboard', 'admin_bootstrap-js','wysihtml', 'slimscroll', 'fastclick' ]);
+		$this->data['js_assets'] 	= Assets::load('js', ['jquery', 'admin_js', 'admin_bootstrap-js','wysihtml', 'slimscroll', 'fastclick' ]);
 		$this->data['title']		= 'Message | View';
 		if(Ask::find($id)){
 			$this->data['message']		= Ask::find($id);
