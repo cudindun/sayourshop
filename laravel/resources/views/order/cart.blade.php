@@ -140,7 +140,7 @@
                                                 <select class="span12" name="province" id="province" >
                                                     <option value="">-- Silahkan Pilih --</option>
                                                     @foreach($data['provinces'] as $province)
-                                                        <option value="{{$province->id}}">{{$province->name}}
+                                                        <option value="{{$province->id}}">{{$province->nama_province}}
                                                     @endforeach
                                                 </select>
                                             </div>
@@ -279,7 +279,7 @@
                                 <select class="form-control" name="province_check" id="province_check" >
                                     <option value="">-- Silahkan Pilih --</option>
                                     @foreach($data['provinces'] as $province)
-                                        <option value="{{$province->id}}">{{$province->name}}
+                                        <option value="{{$province->id}}">{{$province->nama_province}}
                                     @endforeach
                                 </select>
                             <label for="coupon_code">Kota/Kabupaten</label>

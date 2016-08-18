@@ -33,7 +33,7 @@
                                 </tr>
                                 <tr>
                                     <th>Alamat</th>
-                                    <td><span>{{$data['order']->order_address}}, Kecamatan {{$data['order']->district->name}}, {{$data['order']->city->nama}},  {{$data['order']->province->name}}</span></td>
+                                    <td><span>{{$data['order']->order_address}}, Kecamatan {{$data['order']->district->name}}, {{$data['order']->city->nama}},  {{$data['order']->province->nama_province}}</span></td>
                                 </tr>
                                 <tr>
                                     <th>Kurir</th>

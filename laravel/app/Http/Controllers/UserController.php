@@ -138,7 +138,7 @@ class UserController extends HomeController
 		
 		$this->data['wish']		= UserMeta::where('user_id', $this->data['user']->id)->where('meta_key','wishlist')->first();
 		$this->data['wishlist'] = array();
-		if ($this->data['wish'] != '') {
+		if (empty($this->data['wish'])) {
 			$unserialize = unserialize($this->data['wish']->meta_value);
 			foreach ($unserialize as $value) {
 				$product = Product::where('slug', $value)->first();

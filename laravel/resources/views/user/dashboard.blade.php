@@ -197,7 +197,7 @@
 										                <select name="province" id="province" class="form-control" >
 		                                                    <option value="">-- Silahkan Pilih --</option>
 		                                                    @foreach($data['province'] as $province)
-		                                                        <option value="{{$province->id}}">{{$province->name}}
+		                                                        <option value="{{$province->id}}">{{$province->nama_province}}
 		                                                    @endforeach
 		                                                </select>
 									              	</div>

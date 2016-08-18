@@ -213,7 +213,7 @@
                             <a href="{{url('produk/'.$related->category->slug.'/'.$related->subcategory->slug.'/'.$related->id)}}" title="{{$related->name}}">
                                 <div class="image">
                                     <img class="primary" src="{{url('photo_product/'.$image[0])}}" alt="{{$related->name}}" />
-                                    <img class="secondary" src="{{url('photo_product/'.$image[1])}}" alt="{{$related->name}}" />
+                                    <img class="secondary" src="{{url('photo_product/'.$image[0])}}" alt="{{$related->name}}" />
                                 </div>
                                 <div class="title">
                                     <div class="prices"><span class="price">Rp. {{ number_format($related->price, 0, ",", ".") }}</span></div>

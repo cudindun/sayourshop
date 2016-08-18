@@ -55,6 +55,8 @@ class OrderController extends HomeController
 		$this->data['orderdetail']  = OrderDetail::where('order_id', $this->data['order']->id)->get();
 		$this->data['bank']			= Option::where('meta_key','bank_account')->first();
 		$this->data['title']		= 'Checkout';
+		// echo "<pre>";
+		// print_r($this->data['order']);
 		Cart::destroy();
 	    return view('main_layout')->with('data', $this->data)
 								  ->nest('content', 'order/order_review', array('data' => $this->data));
@@ -148,6 +150,7 @@ class OrderController extends HomeController
 			$order->district_id = $address['kecamatan'];
 			$order->courier = $request->courier_check;
 			$order->shipping_price = $request->shipping_price;
+			$order->email = $user->email;
 			
 			if ($request->coupon_code) {
 				$order->discount_code = $request->coupon_code;
