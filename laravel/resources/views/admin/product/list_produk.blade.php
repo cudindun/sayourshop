@@ -55,7 +55,7 @@
                         <td><div id="update_qty_{{$product->id}}"><?= $product->quantity ?></div></td>
                           <td>
                           @if($product->status != 'publish')
-                            <button class="btn btn-success btn-xs active_product" id="<?= $product->id ?>" name="<?= $product->name ?>">Aktifkan</button>
+                            <button type="button" class="btn btn-success btn-xs active_product" id="<?= $product->id ?>" name="<?= $product->name ?>">Aktifkan</button>
                           @else
                             <button class="btn btn-danger btn-xs active_product" id="<?= $product->id ?>">Non-Aktifkan</button>
                           @endif

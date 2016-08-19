@@ -73,6 +73,23 @@
                                                 <h1>{{ucwords($data['product']->name)}}</h1>
                                                 <div class="prices">
                                                     <span class="price">Rp. {{ number_format($data['product']->price, 0, ",", ".") }}</span>
+                                                    <div class="rating" style="color: #1abc9c;">
+                                                        @if($data['product']->rating > 0)
+                                                        <?php 
+                                                            $stars = $data['product']->rating/count($data['product']->reviews);
+                                                            $half = $data['product']->rating % count($data['product']->reviews);
+                                                            for ($i=0; $i < floor($stars); $i++) { 
+                                                        ?>
+                                                            <i class="fa fa-star fa-lg"></i>
+                                                        <?php
+                                                            }
+                                                        ?>
+                                                        @if($half > 0)
+                                                            <i class="fa fa-star-half-o fa-lg"></i>
+                                                        @endif
+                                                        {{number_format($stars,1)}} / 5
+                                                        @endif
+                                                    </div>
                                                 </div>
                                                 <div class="meta">
                                                     <div class="sku">
@@ -82,6 +99,7 @@
                                                     <div class="categories">
                                                         <span><i class="icon-tags"></i><a href="#" title="Dresses">{{$data['product']->sold}}</a></span>
                                                     </div>
+                                                    
                                                     <div class="sku">
                                                         <i class="icon-pencil"></i>
                                                         <span rel="tooltip" title="Berat barang">Berat</span>
@@ -93,23 +111,22 @@
                                             </div>
                                             <div class="short-description">
                                                 <textarea class="form-control" rows="15" readonly="true" style="border:none;background-color:white;">{{$data['product']->desc}}</textarea>
-                                            
                                             </div>
                                             <div class="options">
                                                 <div class="row-fluid">
                                                     <div class="span6">
                                                         <?php  $properties = unserialize($data['product']->properties);?>
-                                                                <div class="control-group">
-                                                                    <label for="product_options" class="control-label">Warna</label>
-                                                                    <div class="controls">
-                                                                        <select id="warna" name="warna" class="form-control">
-                                                                            @foreach($properties as $key => $value)
-                                                                            <option name="{{$key}}" value="{{$key}}" />{{$key}}
-                                                                            @endforeach
-                                                                        </select>
-                                                                    </div>
-                                                                </div>
-                                                                <div id="size_product"></div>
+                                                        <div class="control-group">
+                                                            <label for="product_options" class="control-label">Warna</label>
+                                                            <div class="controls">
+                                                                <select id="warna" name="warna" class="form-control">
+                                                                    @foreach($properties as $key => $value)
+                                                                    <option name="{{$key}}" value="{{$key}}" />{{$key}}
+                                                                    @endforeach
+                                                                </select>
+                                                            </div>
+                                                        </div>
+                                                        <div id="size_product"></div>
                                                     </div>
                                                 </div>
                                             </div>
@@ -136,11 +153,11 @@
                                                 <div class="row-fluid">
                                                     <div class="span6">
                                                         <label>Email</label>
+                                                        @if(Sentinel::check())
+                                                        <input class="form-control" type="text" id="email" value="{{Sentinel::getUser()->email}}"></input>
+                                                        @else
                                                         <input class="form-control" type="text" id="email"></input>
-                                                    </div>
-                                                    <div class="span6">
-                                                        <label>No Telepon</label>
-                                                        <input class="form-control" type="text" id="phone"></input>
+                                                        @endif
                                                     </div>
                                                 </div>
                                                 <div class="row-fluid">
@@ -149,7 +166,6 @@
                                                         <textarea rows="5" id="message"></textarea>
                                                     </div>
                                                 </div>
-                                                
                                             </article>
                                             <hr />
                                             <div class="add-to-cart">
@@ -212,8 +228,7 @@
                         <li class="standard" data-price="160">
                             <a href="{{url('produk/'.$related->category->slug.'/'.$related->subcategory->slug.'/'.$related->id)}}" title="{{$related->name}}">
                                 <div class="image">
-                                    <img class="primary" src="{{url('photo_product/'.$image[0])}}" alt="{{$related->name}}" />
-                                    <img class="secondary" src="{{url('photo_product/'.$image[0])}}" alt="{{$related->name}}" />
+                                    <img class="primary" src="{{url('photo_product/2_'.$image[0])}}" alt="{{$related->name}}" />
                                 </div>
                                 <div class="title">
                                     <div class="prices"><span class="price">Rp. {{ number_format($related->price, 0, ",", ".") }}</span></div>
@@ -253,20 +268,19 @@
 
     $('#send_message').click(function(){
         var email = $('#email').val();
-        var phone = $('#phone').val();
         var message = $('#message').val();
         var product_id = $('input[name=id]').val();
         $.ajax({
-            url: "{!! url('ask_product') !!}",
+            url: "{!! url('send_message') !!}",
             data: {
                 email: email,
-                phone: phone,
                 message: message,
                 product_id: product_id
             },
             method: 'POST'
         }).done(function(result){
-
+            $('#alert_message').html("Pesan berhasil dikirim");
+            $('#alert_message').show('slow');
         });
     });
 

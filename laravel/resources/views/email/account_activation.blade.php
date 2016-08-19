@@ -13,18 +13,13 @@
 					    <tr>
 					    	<th style="width:10%;text-align:left">Email</th>
 					    	<td style="width:40%">{{ $data['email'] }}</td>
-					    </tr>
-					    <tr>
-					    	<th style="width:10%;text-align:left">Password</th>
-					    	<td style="width:40%">{{ $data['password'] }}</td>
 					    </tr><tr>
 					    	<th style="width:10%;text-align:left">First Name</th>
 					    	<td style="width:40%">{{ $data['first_name'] }}</td>
 					    </tr><tr>
 					    	<th style="width:10%;text-align:left">Last Name</th>
 					    	<td style="width:40%">{{ $data['last_name'] }}</td>
-					    </tr>
-					    <tr>
+					    </tr><tr>
 					    	<th style="width:10%;text-align:left">phone</th>
 					    	<td style="width:40%">{{ $data['phone'] }}</td>
 					    </tr>

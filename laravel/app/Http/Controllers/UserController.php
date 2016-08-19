@@ -16,6 +16,7 @@ use App\Http\Models\District;
 use App\Http\Models\City;
 use App\Http\Models\OrderDetail;
 use App\Http\Models\Product;
+use App\Http\Models\Ask;
 use DB, Mail, Sentinel, Validator, Activation, Storage, Input, Session, Redirect, File;
 
 class UserController extends HomeController
@@ -424,8 +425,20 @@ class UserController extends HomeController
     	return view('user/update_order')->with('data', $this->data);
     }
 
-    public function send_message(Request $request)
+    public function ask_product(Request $request)
     {
-    	
+    	$user = Sentinel::getUser();
+    	$product = Product::where('id', $request->product_id)->first();
+    	$ask = New Ask;
+    	if ($user->first_name != '') {
+    		$ask->name = ucwords($user->first_name)." ".ucwords($user->last_name);
+    	} else {
+    		$ask->name = "guest";
+    	}
+		$ask->email = $request->email;
+		$ask->type = "pertanyaan";
+		$ask->ask = "Produk ".ucwords($product->name)." - ".$request->message;
+		$ask->status = 0;
+		$ask->save();
     }
 }

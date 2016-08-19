@@ -64,7 +64,7 @@
 @section('script')
   <script>
     $('#back').click(function(){
-      window.location.href='{{url('/master/category/list')}}';
+      window.location.href='{{url('/master/setting/category/list')}}';
     })
   </script>
 @stop

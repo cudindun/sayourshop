@@ -3,7 +3,7 @@
   use App\Http\Models\Order;
   
   $data['mailCount'] = Ask::where('status', 0)->count();
-  $data['mail'] = Ask::orderBy('id', 'DESC')->get();
+  $data['mail'] = Ask::where('status',0)->orderBy('id', 'DESC')->get();
   $data['paymentCount'] = Order::where('order_status', 'Telah Dibayar')->count();
   $data['readyCount'] = Order::where('no_resi', '')->where('order_status', 'Lunas')->count();
   $data['notifCount'] = $data['paymentCount'] + $data['readyCount'];

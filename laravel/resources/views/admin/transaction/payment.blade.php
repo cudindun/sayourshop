@@ -26,6 +26,7 @@
                     <thead>
                       <tr>
                         <th>No Invoice</th>
+                        <th>Detail</th>
                         <th>Nama</th>
                         <th>Tujuan</th>
                         <th>Total Transfer</th>
@@ -38,14 +39,15 @@
                         @foreach($data['payment'] as $payment)
                           <tr>
                               <td>{{$payment->no_invoice}}</td>
+                              <td><button type="button" class="btn btn-xs btn-success detail" value="{{$payment->order_id}}" id="payment" name="payment">Detail</button></td>
                               <td>{{$payment->account_name}}</td>
                               <td>{{$payment->admin_account}}</td>
                               <td>Rp. {{ number_format($payment->total_transfer, 0, ",", ".") }}</td>
                               <td>{{$payment->transfer_date}}</td>
-                              <td>{{$payment->order->order_status}}</td>
-                              @if($payment->order->order_status == 'Lunas')
+                              <td>{{$payment->order['order_status']}}</td>
+                              @if($payment->order['order_status'] == 'Lunas')
                                 <td><button type="button" class="btn btn-xs btn-primary disabled">Lunas</button></td>
-                              @elseif($payment->order->order_status == 'Telah Dibayar')
+                              @elseif($payment->order['order_status'] == 'Telah Dibayar')
                                 <td><button type="submit" class="btn btn-xs btn-primary" value="{{$payment->order_id}}" id="payment" name="payment">Konfirmasi</button></td>
                               @else
                                 <td><button type="submit" class="btn btn-xs btn-primary" value="{{$payment->order_id}}" id="payment" name="payment" disabled="true">Selesai</button></td>
@@ -70,7 +72,7 @@
       });
 
       $('.detail').click(function(){
-      var id = this.id;
+      var id = this.value;
       $.ajax({
         url: "{!! url('order_detail') !!}",
         data: {orderid: id},

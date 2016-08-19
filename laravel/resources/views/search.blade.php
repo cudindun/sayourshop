@@ -105,7 +105,7 @@
             data: {
                 search: search
             },
-            method:'POST',
+            method:'GET',
         }).done(function(data){
             $('#search_content').html(data);
         });
@@ -120,7 +120,7 @@
                 search: search,
                 category_id: category
             },
-            method:'POST',
+            method:'GET',
             }).done(function(data){
                 $('#search_content').html(data);
             });
@@ -138,7 +138,7 @@
                     search: search,
                     category_id: category_id
                 },
-                method:'POST',
+                method:'GET',
             }).done(function(data){
                 $('#search_content').html(data);
             });

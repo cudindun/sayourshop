@@ -90,27 +90,12 @@
                                         <span class="price">Rp. {{ number_format($product->price, 0, ",", ".") }}</span>
                                     </div>
                                         <?php if (strlen($product->name) > 30) { ?>
-                                            <h3>{{ucwords(substr($product->name, 0, 30))}}...</h3>
-                                        <?php }else if(strlen($product->name) < 10) { ?>
-                                            <h3>{{ucwords($product->name)}}<br>&nbsp;</h3> 
-                                        <?php }else{ ?>
-                                            <h3>{{ucwords($product->name)}}</h3>
-                                        <?php } ?> 
-                                        
-                                        <div class="rating">
-                                        @if($product->rating > 0)
-                                        <?php 
-                                            $stars = $product->rating/count($product->reviews);
-                                            for ($i=0; $i < $stars; $i++) { 
-                                        ?>
-                                            <i class="fa fa-star"></i>
-                                        <?php
-                                            }
-                                        ?>
-                                        {{count($product->reviews)}} review
-                                        @endif
-                                        </div>
-
+                                                <h3>{{ucwords(substr($product->name, 0, 30))}}...</h3>
+                                            <?php }else if(strlen($product->name) < 16) { ?>
+                                                <h3>{{ucwords($product->name)}}<br>&nbsp;</h3> 
+                                            <?php }else{ ?>
+                                                <h3>{{ucwords($product->name)}}</h3>
+                                            <?php } ?>
                                     </div>
                                 </a>
                             </li>
@@ -160,12 +145,12 @@
                                             <span class="price">Rp. {{ number_format($product->price, 0, ",", ".") }}</span>
                                         </div>
                                         <?php if (strlen($product->name) > 30) { ?>
-                                            <h3>{{ucwords(substr($product->name, 0, 30))}}...</h3>
-                                        <?php }else if(strlen($product->name) < 10) { ?>
-                                            <h3>{{ucwords($product->name)}}<br>&nbsp;</h3> 
-                                        <?php }else{ ?>
-                                            <h3>{{ucwords($product->name)}}<br>&nbsp;</h3>
-                                        <?php } ?>
+                                                <h3>{{ucwords(substr($product->name, 0, 30))}}...</h3>
+                                            <?php }else if(strlen($product->name) < 16) { ?>
+                                                <h3>{{ucwords($product->name)}}<br>&nbsp;</h3> 
+                                            <?php }else{ ?>
+                                                <h3>{{ucwords($product->name)}}</h3>
+                                            <?php } ?>
                                     </div>
                                 </a>
                             </li>

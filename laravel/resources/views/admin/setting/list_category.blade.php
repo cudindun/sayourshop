@@ -41,7 +41,6 @@
                         <th>Nama Kategori</th>
                         <th>Total Product</th>
                         <th>Slug</th>
-                        <th>Total Subkategori</th>
                         <th></th>
                       </tr>
                     </thead>
@@ -52,7 +51,6 @@
                         <td><?= $category->name ?></td>
                         <td><?= $category->total_product ?></td>
                         <td><?= $category->slug ?></td>
-                        <td><?= $category->subcategories ?></td>
                         <td>
                           <a href="{{url('/master/category/view')}}/<?=$category->id?>"><i class="fa fa-eye"></i></a>
                           <a href="{{url('/master/category/edit')}}/<?=$category->id?>"><font color="orange"><i class="fa fa-pencil"></i></font></a>

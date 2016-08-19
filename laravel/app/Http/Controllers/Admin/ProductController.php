@@ -74,6 +74,7 @@ class ProductController extends AdminController
 			$product->subcategory_id = $request->subcategory;
 			$product->weight = $request->weight;
 			$product->distributor_id = $request->distributor;
+			$product->status = "unactive";
 			$product->save();
 
 			$insert_id = $product->id;

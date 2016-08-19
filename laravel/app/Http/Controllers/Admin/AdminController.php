@@ -221,10 +221,10 @@ class AdminController extends Controller
 				if (!$validator->fails()) {
 					$category = Category::find($id);
 					$category->name = $request->input('name');
-					$category->slug = $request->input('slug');
+					$category->slug = str_replace(" ", "-", $request->input('name'));
 
 					if($category->save()){
-						return redirect('master/category/list');
+						return redirect('master/setting/category/list');
 					}
 				}else{
 					return redirect('master/category/edit/'.$id)->with('error', 'Terdapat form kosong');
@@ -317,12 +317,12 @@ class AdminController extends Controller
 		//$message = $_POST['message'];
 		//$email = 'cudindun@gmail.com';
 
-		Mail::send('email.reply', ['message' => $data['message'], 'email' => $data['email']], function ($m) use ($data) {
+		Mail::send('email.reply', ['message' => $data['message'], 'email' => $data['email'], 'data' => $data['message']], function ($m) use ($data) {
             $m->from('sayour@shop.com', 'sayourshop.com');
 
             $m->to($data['email'])->subject($data['subject']);
 
-            $m->to($email)->subject($subject);
+            // $m->to($email)->subject($subject);
         });
 
         return redirect('master/message/list')->with('success', 'Pesan telah dikirim');

@@ -7,27 +7,19 @@
                                 <li class="standard" style="width: 220px;">
                                     <a href="{{url('produk/'.$product->category->slug.'/'.$product->subcategory->slug.'/'.$product->id)}}" title="{{$product->name}}">
                                         <div class="image img-responsive">
-                                            <img height="220px" src="{{url('photo_product/'.$image[0])}}" class="primary">
-                                            <img height="220px" src="{{url('photo_product/'.$image[1])}}" class="secondary">
+                                            <img src="{{url('photo_product/2_'.$image[0])}}" class="primary">
                                         </div>
                                         <div class="title">
                                             <div class="prices">
                                                 <span class="price">Rp. {{ number_format($product->price, 0, ",", ".") }}</span>
                                             </div>
-                                            <h3>{{ucwords($product->name)}}</h3>
-                                            <div class="rating">
-                                                @if($product->rating > 0)
-                                                <?php 
-                                                    $stars = $product->rating/count($product->reviews);
-                                                    for ($i=0; $i < $stars; $i++) { 
-                                                ?>
-                                                    <i class="fa fa-star"></i>
-                                                <?php
-                                                    }
-                                                ?>
-                                                {{count($product->reviews)}} review
-                                                @endif
-                                            </div>
+                                            <?php if (strlen($product->name) > 30) { ?>
+                                                <h3>{{ucwords(substr($product->name, 0, 30))}}...</h3>
+                                            <?php }else if(strlen($product->name) < 16) { ?>
+                                                <h3>{{ucwords($product->name)}}<br>&nbsp;</h3> 
+                                            <?php }else{ ?>
+                                                <h3>{{ucwords($product->name)}}</h3>
+                                            <?php } ?>
                                         </div>
                                     </a>
                                 </li>
@@ -61,7 +53,7 @@
                     search: search,
                     category_id:category
                 },
-                method:'POST',
+                method:'GET',
             }).done(function(data){
                 $('#search_content').html(data);
             });

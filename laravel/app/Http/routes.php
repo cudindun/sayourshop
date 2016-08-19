@@ -13,8 +13,8 @@
 //ADE
 Route::get('/', 'HomeController@index');
 Route::get('cari','ProductController@search');
-Route::post('ajax_cari','ProductController@ajax_search');
-Route::post('ajax_category_search', 'ProductController@ajax_category_search');
+Route::get('ajax_cari','ProductController@ajax_search');
+Route::get('ajax_category_search', 'ProductController@ajax_category_search');
 Route::get('produk/{slug}','ProductController@product');
 Route::get('produk/{slug}/{subcategory}','ProductController@subproduct');
 Route::get('produk/{slug}/{subcategory}/{id}','ProductController@detail');
@@ -99,7 +99,6 @@ Route::get('ajax_modal_attr','Admin\ProductController@ajax_attr');
 Route::get('master/setting/coupon','Admin\CouponController@list_coupon');
 Route::get('master/distributor/list','Admin\DistributorController@list_distributor');
 Route::get('master/setting/bank_account','Admin\SettingController@bank_account_form');
-Route::get('master/setting/bank_account','Admin\SettingController@bank_account_form');
 Route::get('master/setting/category/list','Admin\SettingController@list_category');
 Route::get('master/setting/subcategory/list','Admin\SettingController@list_subcategory');
 Route::get('master/transaction/order','Admin\TransactionController@order');
@@ -158,7 +157,7 @@ Route::post('check_variant', 'Admin\ProductController@check_variant');
 
 //email
 Route::get('account-activation/{id}&key={code}', 'UserController@account_activation');
-Route::get('master/message/reply', 'Admin\AdminController@mail_reply');
+Route::post('master/message/reply', 'Admin\AdminController@mail_reply');
 
 
 //image
