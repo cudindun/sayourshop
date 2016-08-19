@@ -84,8 +84,12 @@ class ProductController extends AdminController
 					$file = Input::file($form);
 				  	$img = Image::make($file);
 				  	$filename = rand().'.jpg';
-		      		$img->resize(370,474);
+		      		$img->widen(370);
 	     			$img->save(storage_path('photo_product/'.$filename),50);
+	     			if ($i == 0) {
+	     				$img->fit(220);
+	     				$img->save(storage_path('photo_product/2_'.$filename),50);
+	     			}
 			    	array_push($photos, $filename);
 				}
 			}
@@ -214,7 +218,7 @@ class ProductController extends AdminController
 			}elseif(count($inOrder) == 0){
 				if($product->delete()){
 					foreach ($reviews as $review) {
-						$revieww->delete();
+						$reviews->delete();
 					}
 					foreach ($inOrder as $order_product) {
 							foreach ($order_product as $orders) {

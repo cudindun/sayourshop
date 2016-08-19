@@ -1,6 +1,6 @@
 <div class="span10 posts" style="padding-top: 10px;">
     <!-- Products list -->
-    <div class="product-list isotope">
+    <div class="product-list">
         @foreach($data['product'] as $product)
             <?php
                 $image = unserialize($product->image);
@@ -8,29 +8,19 @@
             <li class="standard" data-price="28" style="width: 220px;">
                 <a href="{{url('produk/'.$product->category->slug.'/'.$product->subcategory->slug.'/'.$product->id)}}" title="{{ucwords($product->name)}}">
                     <div class="image img-responsive">
-                        <img src="{{url('photo_product/'.$image[0])}}" class="primary">
-                        <?php if(count($image) == 1): else: ?>
-                            <img src="{{url('photo_product/'.$image[1])}}" class="secondary">
-                        <?php endif; ?>
+                        <img src="{{url('photo_product/2_'.$image[0])}}" class="primary">
                     </div>
                     <div class="title">
                         <div class="prices">
                             <span class="price">Rp. {{ number_format($product->price, 0, ",", ".") }}</span>
                         </div>
-                        <h3>{{ucwords($product->name)}}</h3>
-                        <div class="rating">
-                            @if($product->rating > 0)
-                                <?php 
-                                    $stars = $product->rating/count($product->reviews);
-                                    for ($i=0; $i < $stars; $i++) { 
-                                ?>
-                                    <i class="fa fa-star"></i>
-                                <?php
-                                    }
-                                ?>
-                                {{count($product->reviews)}} review
-                            @endif
-                        </div>
+                        <?php if (strlen($product->name) > 30) { ?>
+                            <h3>{{ucwords(substr($product->name, 0, 30))}}...</h3>
+                        <?php }else if(strlen($product->name) < 16) { ?>
+                            <h3>{{ucwords($product->name)}}<br>&nbsp;</h3> 
+                        <?php }else{ ?>
+                            <h3>{{ucwords($product->name)}}</h3>
+                        <?php } ?>
                     </div>
                 </a>
             </li>
