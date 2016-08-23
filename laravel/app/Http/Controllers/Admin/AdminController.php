@@ -15,6 +15,7 @@ use App\Http\Models\Product;
 use App\Http\Models\Subcategory;
 use App\Http\Models\Distributor;
 use App\Http\Models\Order;
+use Yajra\Datatables\Datatables;
 
 use DB, Mail, Sentinel, Validator, Activation, Storage, Input, Session, Redirect, File, Highchart;
 
@@ -31,13 +32,16 @@ class AdminController extends Controller
 
     public function home()
 	{
-		$this->data['css_assets'] 	= Assets::load('css', ['admin_bootstrap', 'admin_css', 'font-awesome', 'skins', 'icheck', 'morris_chart', 'jvectormap', 'dataTables_css']);
+		$this->data['css_assets'] 	= Assets::load('css', ['admin_bootstrap', 'admin_css', 'font-awesome', 'skins', 'icheck', 'morris_chart', 'jvectormap', 'dataTables_min']);
 		$this->data['js_assets'] 	= Assets::load('js', ['jquery', 'admin_js', 'admin_bootstrap-js', 'slimscroll', 'fastclick', 'morris_chart_js', 'sparkline', 'jvectormap_js', 'jvectormap_world_js', 'knob', 'dataTables_js', 'highchart', 'export-highchart']);
 		$this->data['title']		= 'SayourShop | Master';
+		$this->data['new']	= Order::where('order_status', 'Menunggu Pembayaran')->get();
 		$this->data['has_paid']		= Order::where('order_status', 'Telah Dibayar')->get();
-		$this->data['new_order_day']	= Order::where('order_status', 'Menunggu Pembayaran')->where('created_at', date('d'))->get();
 		$this->data['paid'] = Order::where('order_status', 'Lunas')->get();
 		$this->data['send']	= Order::where('order_status', 'Dikirim')->get();
+		// $this->data['order_month'] = Order::where('order_date','LIKE', '%-'.str_pad(8, 2, "0", STR_PAD_LEFT).'-%')->count();
+		// echo "<pre>";
+		// print_r($this->data['order_month']);
 	    return view('admin_layout')->with('data', $this->data)
 								  ->nest('content', 'admin/home', array('data' => $this->data));
 	}
@@ -327,5 +331,10 @@ class AdminController extends Controller
 
         return redirect('master/message/list')->with('success', 'Pesan telah dikirim');
 	}
-	
+
+	public function order_month(Request $request)
+	{
+		$this->data['orders'] = Datatables::of(Order::where('order_date','LIKE', '%-'.str_pad($request->month, 2, "0", STR_PAD_LEFT).'-%'))->make(true);
+		return $this->data['orders'];
+	}
 }

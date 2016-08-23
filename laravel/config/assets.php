@@ -38,6 +38,7 @@ return [
 		'morris_chart'				=> 'assets/admin/plugins/morris/morris.css',
 		'jvectormap'				=> 'assets/admin/plugins/jvectormap/jquery-jvectormap-1.2.2.css',
 		'dataTables_css'			=> 'assets/admin/plugins/datatables/dataTables.bootstrap.css',
+		'dataTables_min'			=> 'assets/admin/plugins/datatables/jquery.dataTables.min.css',
 		'daterangepicker'			=> 'assets/admin/plugins/daterangepicker/daterangepicker-bs3.css',
 		'wysihtml'					=> 'assets/admin/plugins/bootstrap-wysihtml5/bootstrap3-wysihtml5.min.css',
 

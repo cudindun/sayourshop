@@ -86,6 +86,7 @@ Route::post('master/login','UserController@admin_login');
 Route::get('master/message/list', 'Admin\AdminController@list_message');
 Route::get('modal_variant', 'Admin\ProductController@modal_variant');
 Route::post('add_variant', 'Admin\ProductController@modal_variant');
+Route::get('month_order', 'Admin\AdminController@order_month');
 
 //ADMIN VIEW (Detail)
 Route::get('master/category/view/{id}','Admin\AdminController@view_category');
@@ -173,3 +174,10 @@ Route::get('photo_profile/{imagefile}', function ($imagefile)
 {
     return Image::make(storage_path() . '/photo_profile/' . $imagefile)->response();
 });
+
+
+//Datatables Server-Side
+Route::controller('datatables', 'Admin\AdminController', [
+    'order_month'  => 'datatables.data',
+    'home' => 'datatables',
+]);
