@@ -108,6 +108,11 @@ Route::get('master/user/list','Admin\AdminController@list_user');
 Route::get('master/produk_detail','Admin\ProductController@modal_product');
 Route::get('banner_list', 'Admin\SettingController@list_banner');
 Route::get('home_banner', 'Admin\SettingController@home_banner');
+Route::get('list_order', 'Admin\TransactionController@list_order');
+Route::get('category_product', 'Admin\ProductController@category_product');
+Route::get('get_list_subcategory', 'Admin\ProductController@get_list_subcategory');
+Route::get('get_product_subcategory', 'Admin\ProductController@get_product_subcategory');
+Route::get('get_product_by_status', 'Admin\ProductController@get_product_by_status');
 
 //ADMIN ADD
 Route::post('master/transaction/payment','Admin\TransactionController@payment');
@@ -180,4 +185,7 @@ Route::get('photo_profile/{imagefile}', function ($imagefile)
 Route::controller('datatables', 'Admin\AdminController', [
     'order_month'  => 'datatables.data',
     'home' => 'datatables',
+]);
+Route::controller('datatables', 'Admin\TransactionController', [
+    'list_order'  => 'datatables.data',
 ]);

@@ -32,6 +32,14 @@ class ProductController extends AdminController
 								  ->nest('content', 'admin/product_insert', array('data' => $this->data));
 	}
 
+	public function category_product(Request $request)
+	{
+		$this->data['product'] = Product::where('category_id', $request->category_id)->get();
+		// echo "<pre>";
+		// print_r(count($this->data['product']));
+		return view('admin/product/category_product')->with('data', $this->data);
+	}
+
 	public function modal_product(Request $request)
 	{
 		$this->data['product'] = Product::where('id', $request->product_id)->first();
@@ -101,6 +109,7 @@ class ProductController extends AdminController
 			return redirect('master/produk/create')->with('failed','Produk gagal ditambahkan');
 		};
 	}
+	
 	public function check_variant(Request $request)
 	{
 		$product = Product::where('id', $request->id)->first();
@@ -249,4 +258,33 @@ class ProductController extends AdminController
 
 		}
 	}
+
+	public function get_list_subcategory(Request $request)
+	{
+		$subcategory = Subcategory::where('category_id', $request->category_id)->get();
+		return $subcategory;
+	}
+
+	public function get_product_subcategory(Request $request)
+	{
+		$this->data['product'] = Product::where('subcategory_id', $request->subcategory_id)->get();
+		return view('admin/product/category_product')->with('data', $this->data);
+	}
+
+	public function get_product_by_status(Request $request)
+	{
+		$this->data['product'] = Product::where('status', $request->status);
+
+		if($request->category_id){
+		    $this->data['product']->where('category_id', $request->category_id);
+		};
+
+		if($request->subcategory_id){
+		    $this->data['product']->where('subcategory_id', $request->subcategory_id);
+		}
+
+		$this->data['product'] = $this->data['product']->get();
+		return view('admin/product/category_product')->with('data', $this->data);
+	}
+
 }

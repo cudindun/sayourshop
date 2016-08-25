@@ -13,6 +13,7 @@ use App\Http\Models\Subcategory;
 use App\Http\Models\Option;
 use App\Http\Models\Order;
 use App\Http\Models\PaymentConfirmation;
+use Yajra\Datatables\Datatables;
 use DB, Validator;
 
 class TransactionController extends AdminController
@@ -104,5 +105,11 @@ class TransactionController extends AdminController
 
 		$order->order_status = "Dikirim";
 		$order->save();
+	}
+
+	public function list_order()
+	{
+		$orders = Datatables::of(Order::orderBy('order_date', 'DESC'))->make(true);
+		return $orders;
 	}
 }

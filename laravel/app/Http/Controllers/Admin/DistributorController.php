@@ -66,7 +66,7 @@ class DistributorController extends AdminController
 			}
 		}else{
 			$this->data['css_assets'] 	= Assets::load('css', ['admin_bootstrap', 'admin_css', 'font-awesome', 'skins']);
-			$this->data['js_assets'] 	= Assets::load('js', ['jquery', 'admin_js', 'dashboard', 'admin_bootstrap-js', 'slimscroll', 'fastclick']);
+			$this->data['js_assets'] 	= Assets::load('js', ['jquery', 'admin_js', 'admin_bootstrap-js', 'slimscroll', 'fastclick']);
 			$this->data['title']		= 'Distributor | Create';
 			//$this->data['distributor']		= Distributor::find($id);
 		    return view('admin_layout')->with('data', $this->data)
@@ -98,7 +98,7 @@ class DistributorController extends AdminController
 				}
 			}else{
 				$this->data['css_assets'] 	= Assets::load('css', ['admin_bootstrap', 'admin_css', 'font-awesome', 'skins']);
-				$this->data['js_assets'] 	= Assets::load('js', ['jquery', 'admin_js', 'dashboard', 'admin_bootstrap-js', 'slimscroll', 'fastclick']);
+				$this->data['js_assets'] 	= Assets::load('js', ['jquery', 'admin_js', 'admin_bootstrap-js', 'slimscroll', 'fastclick']);
 				$this->data['title']		= 'Distributor | Edit';
 				$this->data['distributor']	= Distributor::find($id);
 			    return view('admin_layout')->with('data', $this->data)

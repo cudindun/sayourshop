@@ -35,13 +35,10 @@ class AdminController extends Controller
 		$this->data['css_assets'] 	= Assets::load('css', ['admin_bootstrap', 'admin_css', 'font-awesome', 'skins', 'icheck', 'morris_chart', 'jvectormap', 'dataTables_min']);
 		$this->data['js_assets'] 	= Assets::load('js', ['jquery', 'admin_js', 'admin_bootstrap-js', 'slimscroll', 'fastclick', 'morris_chart_js', 'sparkline', 'jvectormap_js', 'jvectormap_world_js', 'knob', 'dataTables_js', 'highchart', 'export-highchart']);
 		$this->data['title']		= 'SayourShop | Master';
-		$this->data['new']	= Order::where('order_status', 'Menunggu Pembayaran')->get();
+		$this->data['new']			= Order::where('order_status', 'Menunggu Pembayaran')->get();
 		$this->data['has_paid']		= Order::where('order_status', 'Telah Dibayar')->get();
-		$this->data['paid'] = Order::where('order_status', 'Lunas')->get();
-		$this->data['send']	= Order::where('order_status', 'Dikirim')->get();
-		// $this->data['order_month'] = Order::where('order_date','LIKE', '%-'.str_pad(8, 2, "0", STR_PAD_LEFT).'-%')->count();
-		// echo "<pre>";
-		// print_r($this->data['order_month']);
+		$this->data['paid'] 		= Order::where('order_status', 'Lunas')->get();
+		$this->data['send']			= Order::where('order_status', 'Dikirim')->get();
 	    return view('admin_layout')->with('data', $this->data)
 								  ->nest('content', 'admin/home', array('data' => $this->data));
 	}
@@ -62,7 +59,8 @@ class AdminController extends Controller
 		$this->data['css_assets'] 	= Assets::load('css', ['admin_bootstrap', 'admin_css', 'font-awesome', 'skins', 'dataTables_css']);
 		$this->data['js_assets'] 	= Assets::load('js', ['jquery', 'admin_js', 'admin_bootstrap-js', 'slimscroll', 'fastclick', 'dataTables_js', 'dataTables_bootsjs']);
 		$this->data['title']		= 'Product | List';
-		$this->data['product']		= Product::orderBy('created_at','DESC')->get();
+		$this->data['product']		= Product::where('category_id', 1)->orderBy('created_at','DESC')->get();
+		$this->data['category']		= Category::get();
 		$this->data['distributor']	= Distributor::get();
 	    return view('admin_layout')->with('data', $this->data)
 								  ->nest('content', 'admin/product/list_produk', array('data' => $this->data));
@@ -81,7 +79,7 @@ class AdminController extends Controller
 	// public function create_subcategory()
 	// {
 	// 	$this->data['css_assets'] 	= Assets::load('css', ['admin_bootstrap', 'admin_css', 'font-awesome', 'skins']);
-	// 	$this->data['js_assets'] 	= Assets::load('js', ['jquery', 'admin_js', 'dashboard', 'admin_bootstrap-js', 'slimscroll', 'fastclick']);
+	// 	$this->data['js_assets'] 	= Assets::load('js', ['jquery', 'admin_js', 'admin_bootstrap-js', 'slimscroll', 'fastclick']);
 	// 	$this->data['title']		= 'Subcategory | Create';
 	// 	$this->data['category_list']= [' - Select - '] + Category::lists('name', 'id')->all();
 	//     return view('admin_layout')->with('data', $this->data)

@@ -103,6 +103,7 @@ use App\Http\Models\Order;
                     </thead>
                   </table>
               </div>
+              <div id="modaldetail"></div>
             </div>
           </div><!-- /.row -->
 
@@ -111,17 +112,6 @@ use App\Http\Models\Order;
 @section('script')
 	<script>
       $(function () {
-
-        $('.detail').click(function(){
-          var id = this.id;
-          $.ajax({
-            url: "{!! url('order_detail') !!}",
-            data: {orderid: id},
-                    method:'GET',
-          }).done(function(data){
-            $('#modaldetail').html(data);
-          });
-        });
 
         $('.count_month').click(function(){
           month = this.id.substr(6);
@@ -134,15 +124,28 @@ use App\Http\Models\Order;
             responsive: true,
             ajax: { url:'{!! url("month_order") !!}', data:{month:month} },
             columns: [
-                { data: 'no_invoice', name: 'no_invoice' },
-                { data: 'order_name', name: 'order_name' },
-                { data: 'order_status', name: 'order_status' },
-                { data: 'total_price', name: 'total_price' },
-                { data: 'order_date', name: 'order_date' },
+                { data: 'no_invoice', name: 'no_invoice'},
+                { data: 'order_name', name: 'order_name'},
+                { data: 'order_status', name: 'order_status'},
+                { data: 'total_price', name: 'total_price'},
+                { data: 'order_date', name: 'order_date'},
                 {
-                  data: null,
+                  data: 'id',
                   className: "center",
-                  defaultContent: '<button type="button" class="btn btn-primary btn-xs detail">Detail</button>'
+                  mRender: function (data) {
+                    $('#orderid').click(function(e){
+                      e.preventDefault();
+                      val = this.name;
+                      $.ajax({
+                        url: "{!! url('order_detail') !!}",
+                        data: {orderid: val},
+                        method:'GET',
+                      }).done(function(data){
+                        $('#modaldetail').html(data);
+                      });
+                    });
+                    return '<a href="#" name="'+data+'" id="orderid"><button type="button" class="btn btn-primary btn-xs detail">Detail</button></a>';
+                  },
                 }
             ]
           });
